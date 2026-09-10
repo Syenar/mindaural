@@ -2981,6 +2981,10 @@ Waveform=${v.waveform}
     const historyRef = React.useRef(null);
     if (!historyRef.current) historyRef.current = new History(project, 120);
     const setProject = (value) => setProjectRaw((prev) => historyRef.current.push(typeof value === "function" ? value(prev) : value));
+    const replaceProject = (next) => {
+      historyRef.current.replace(next);
+      setProjectRaw(structuredClone(next));
+    };
     const undo = () => {
       const x = historyRef.current.undo();
       if (x) setProjectRaw(x);
@@ -3175,12 +3179,12 @@ Waveform=${v.waveform}
           if (f.name.toLowerCase().endsWith(".bbeat")) {
             const x = await importProjectPackageDetailed(bytes);
             for (const a of x.project.assets) if (x.assets[a.id]) await saveAssetBytes(a.id, x.assets[a.id], a.mime, a.name);
-            setProject(x.project);
+            replaceProject(x.project);
             setSurface("Studio");
             setMessage(`Project imported and ${Object.keys(x.assets).length} embedded assets verified.`);
           } else if (f.name.toLowerCase().endsWith(".bwg")) {
             const x = importBwg(bytes);
-            setProject(x.project);
+            replaceProject(x.project);
             setSurface("Studio");
             setMessage(x.report.unsupported.length ? `Imported with compatibility warnings: ${x.report.unsupported.join("; ")}` : "BWG preset imported.");
           } else if (allowedAudioName(f.name)) {
