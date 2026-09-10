@@ -12,6 +12,7 @@
     "gauntlet": "node scripts/gauntlet.mjs"
   },
   "devDependencies": {
+    "esbuild": "^0.28.2",
     "typescript": "^7.0.2"
   },
   "dependencies": {

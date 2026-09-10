@@ -13,6 +13,8 @@
   <div id="root"></div>
   <script src="./vendor/react.production.min.js"></script>
   <script src="./vendor/react-dom.production.min.js"></script>
-  <script type="module" src="./src/main.js"></script>
+  <!-- The build emits a self-contained bundle so this file also works when
+       opened directly from dist/ (file://), where ES module imports are blocked. -->
+  <script src="./app.bundle.js"></script>
 </body>
 </html>

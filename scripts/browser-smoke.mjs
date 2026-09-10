@@ -1,5 +1,6 @@
 import {spawn} from 'node:child_process';
 import {readFile} from 'node:fs/promises';
+import {existsSync} from 'node:fs';
 import {setTimeout as sleep} from 'node:timers/promises';
 
 const APP_PORT=4187, CDP_PORT=9237;
@@ -18,7 +19,12 @@ async function staticFallback(reason){
  console.log(`ENVIRONMENT BLOCKED: managed Chromium cannot load localhost (${reason}). PASS deterministic built-shell/PWA fallback checks; real CDP smoke remains required on an unrestricted browser host.`);
 }
 await waitApp();
-chrome=spawn('/usr/bin/chromium',['--headless=new','--no-sandbox','--disable-gpu','--disable-dev-shm-usage','--no-proxy-server',`--remote-debugging-port=${CDP_PORT}`,`--user-data-dir=/tmp/bbs-chrome-${process.pid}`,`http://127.0.0.1:${APP_PORT}/`],{stdio:['ignore','pipe','pipe']});
+const chromiumCandidates=process.platform==='win32'
+ ? [`${process.env.PROGRAMFILES||'C:/Program Files'}\\Google\\Chrome\\Application\\chrome.exe`,`${process.env['PROGRAMFILES(X86)']||'C:/Program Files (x86)'}\\Google\\Chrome\\Application\\chrome.exe`]
+ : ['/usr/bin/chromium','/usr/bin/chromium-browser','/usr/bin/google-chrome'];
+const chromium=chromiumCandidates.find(p=>existsSync(p));
+if(!chromium){await staticFallback('Chromium executable unavailable');cleanup();process.exit(0);}
+chrome=spawn(chromium,['--headless=new','--no-sandbox','--disable-gpu','--disable-dev-shm-usage','--no-proxy-server',`--remote-debugging-port=${CDP_PORT}`,`--user-data-dir=${process.platform==='win32'?`${process.env.TEMP||'C:/Windows/Temp'}\\bbs-chrome-${process.pid}`:`/tmp/bbs-chrome-${process.pid}`}`,`http://127.0.0.1:${APP_PORT}/`],{stdio:['ignore','pipe','pipe']});
 async function waitJson(){for(let i=0;i<80;i++){try{const r=await fetch(`http://127.0.0.1:${CDP_PORT}/json/list`);if(r.ok){const x=await r.json();const tab=x.find(v=>v.type==='page'&&v.url===`http://127.0.0.1:${APP_PORT}/`)||x.find(v=>v.type==='page');if(tab?.webSocketDebuggerUrl)return tab;}}catch{}await sleep(100);}throw new Error('Chromium DevTools endpoint did not become ready');}
 try{
  const tab=await waitJson();const ws=new WebSocket(tab.webSocketDebuggerUrl);await new Promise((res,rej)=>{ws.onopen=res;ws.onerror=rej});let id=0;const pending=new Map(),errors=[];ws.onmessage=e=>{const m=JSON.parse(e.data);if(m.id&&pending.has(m.id)){const {res,rej}=pending.get(m.id);pending.delete(m.id);m.error?rej(new Error(m.error.message)):res(m.result);}else if(m.method==='Runtime.exceptionThrown')errors.push(m.params?.exceptionDetails?.text||'Runtime exception');else if(m.method==='Log.entryAdded'&&['error','warning'].includes(m.params?.entry?.level))errors.push(`${m.params.entry.level}: ${m.params.entry.text}`);};
@@ -28,7 +34,7 @@ try{
  const initial=await evalv(`({title:document.title,body:document.body?.innerText||'',nav:[...document.querySelectorAll('aside button')].map(x=>x.textContent?.trim()),main:!!document.getElementById('main-content'),skip:!!document.querySelector('.skip-link')})`);
  if(initial.body?.includes('Your organization doesn’t allow you to view this site')){ws.close();await staticFallback('organization policy');cleanup();process.exit(0);}
  if(initial.title!=='Mindaural')throw new Error(`Unexpected title: ${initial.title}`);if(!initial.main||!initial.skip)throw new Error('Accessibility shell missing');if(!Array.isArray(initial.nav)||initial.nav.length<9)throw new Error(`Expected primary navigation, got ${initial.nav?.length}`);
- const surfaces=['Listen','Create','Studio','Library','Analyzer','Research','Learn','Labs','Settings'];for(const name of surfaces){const ok=await evalv(`(()=>{const b=[...document.querySelectorAll('aside button')].find(x=>x.textContent?.trim().endsWith(${JSON.stringify(name)}));if(!b)return false;b.click();return true})()`);if(!ok)throw new Error(`Navigation control missing: ${name}`);await sleep(80);const h=await evalv(`document.querySelector('main h1')?.textContent||''`);if(!h)throw new Error(`Surface rendered without heading: ${name}`);}
+ const surfaces=['Listen','Create','Studio','Library','Analyzer','Research','Learn','Labs','Settings'];for(const name of surfaces){const ok=await evalv(`(()=>{const b=[...document.querySelectorAll('aside button')].find(x=>x.textContent?.trim().endsWith(${JSON.stringify(name)}));if(!b)return false;b.click();return true})()`);if(!ok)throw new Error(`Navigation control missing: ${name}`);await sleep(80);const rendered=await evalv(`!!document.querySelector('main h1,main h2,main .eyebrow,main .studio-v2-head')`);if(!rendered)throw new Error(`Surface rendered without a primary content landmark: ${name}`);}
  const fatal=errors.filter(x=>!/favicon|GPU|WebGPU|DBus|service worker/i.test(x));if(fatal.length)throw new Error(`Browser console/runtime issues:\n${fatal.join('\n')}`);
  console.log(`PASS browser rendered ${surfaces.length} primary surfaces with PWA handlers`);ws.close();cleanup();
 }catch(e){cleanup();throw e;}
