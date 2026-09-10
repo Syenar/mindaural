@@ -35,6 +35,9 @@ try{
  if(initial.body?.includes('Your organization doesn’t allow you to view this site')){ws.close();await staticFallback('organization policy');cleanup();process.exit(0);}
  if(initial.title!=='Mindaural')throw new Error(`Unexpected title: ${initial.title}`);if(!initial.main||!initial.skip)throw new Error('Accessibility shell missing');if(!Array.isArray(initial.nav)||initial.nav.length<9)throw new Error(`Expected primary navigation, got ${initial.nav?.length}`);
  const surfaces=['Listen','Create','Studio','Library','Analyzer','Research','Learn','Labs','Settings'];for(const name of surfaces){const ok=await evalv(`(()=>{const b=[...document.querySelectorAll('aside button')].find(x=>x.textContent?.trim().endsWith(${JSON.stringify(name)}));if(!b)return false;b.click();return true})()`);if(!ok)throw new Error(`Navigation control missing: ${name}`);await sleep(80);const rendered=await evalv(`!!document.querySelector('main h1,main h2,main .eyebrow,main .studio-v2-head')`);if(!rendered)throw new Error(`Surface rendered without a primary content landmark: ${name}`);}
- const fatal=errors.filter(x=>!/favicon|GPU|WebGPU|DBus|service worker/i.test(x));if(fatal.length)throw new Error(`Browser console/runtime issues:\n${fatal.join('\n')}`);
+ // Headless Chromium commonly reports that no WebGPU adapter exists; the app
+ // is required to fall back to CPU analysis, so this is an expected capability
+ // state rather than a browser-smoke failure.
+ const fatal=errors.filter(x=>!/favicon|GPU|WebGPU|No available adapters|DBus|service worker/i.test(x));if(fatal.length)throw new Error(`Browser console/runtime issues:\n${fatal.join('\n')}`);
  console.log(`PASS browser rendered ${surfaces.length} primary surfaces with PWA handlers`);ws.close();cleanup();
 }catch(e){cleanup();throw e;}
