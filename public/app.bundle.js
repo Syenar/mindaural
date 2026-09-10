@@ -126,7 +126,7 @@
     async init() {
       if (this.ctx) return;
       this.ctx = new AudioContext();
-      await this.ctx.audioWorklet.addModule("./src/audio/worklet.js");
+      await this.ctx.audioWorklet.addModule("./public/worklet.js");
       this.node = new AudioWorkletNode(this.ctx, "binaural-studio", { numberOfInputs: 0, numberOfOutputs: 1, outputChannelCount: [2] });
       this.node.channelCount = 2;
       this.node.channelCountMode = "explicit";

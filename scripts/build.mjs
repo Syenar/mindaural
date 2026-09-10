@@ -16,6 +16,8 @@ const esbuild = process.platform === 'win32'
   : resolve(here, '..', 'node_modules', 'esbuild', 'bin', 'esbuild');
 const bundle = spawnSync(esbuild,['./src/main.tsx','--bundle','--format=iife','--outfile=./public/app.bundle.js','--target=es2022','--log-level=warning'],{stdio:'inherit',cwd:resolve(here,'..')});
 if(bundle.error || bundle.status!==0) console.warn('Bundler unavailable; reusing the checked-in public/app.bundle.js.');
+const worklet = spawnSync(esbuild,['./src/audio/worklet.ts','--bundle','--format=esm','--outfile=./public/worklet.js','--target=es2022','--log-level=warning'],{stdio:'inherit',cwd:resolve(here,'..')});
+if(worklet.error || worklet.status!==0) console.warn('Worklet bundler unavailable; reusing the checked-in public/worklet.js.');
 await mkdir('dist/vendor',{recursive:true}); await mkdir('dist/public',{recursive:true});
 for (const f of ['index.html','styles.css','app.webmanifest']) await copyFile(f,`dist/${f}`);
 await cp('vendor','dist/vendor',{recursive:true}); await cp('public','dist/public',{recursive:true});
