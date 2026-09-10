@@ -117,98 +117,6 @@
     PRESETS.push(pr);
   }
 
-  // src/audio/liveEngine.ts
-  var LiveEngine = class {
-    ctx = null;
-    node = null;
-    fallback = false;
-    leftOsc = null;
-    rightOsc = null;
-    leftGain = null;
-    rightGain = null;
-    merger = null;
-    ended = () => {
-    };
-    async init() {
-      if (this.ctx) return;
-      this.ctx = new AudioContext();
-      try {
-        await this.ctx.audioWorklet.addModule("./public/worklet.js");
-        this.node = new AudioWorkletNode(this.ctx, "binaural-studio", { numberOfInputs: 0, numberOfOutputs: 1, outputChannelCount: [2] });
-        this.node.channelCount = 2;
-        this.node.channelCountMode = "explicit";
-        this.node.channelInterpretation = "discrete";
-        this.node.port.onmessage = (e) => {
-          if (e.data?.type === "ended") this.ended();
-        };
-        this.node.connect(this.ctx.destination);
-      } catch {
-        this.fallback = true;
-      }
-    }
-    setupFallback(project) {
-      const v = project.voices[0];
-      if (!v || !this.ctx) return;
-      this.leftOsc = this.ctx.createOscillator();
-      this.rightOsc = this.ctx.createOscillator();
-      this.leftGain = this.ctx.createGain();
-      this.rightGain = this.ctx.createGain();
-      this.merger = this.ctx.createChannelMerger(2);
-      this.leftOsc.frequency.value = v.leftHz;
-      this.rightOsc.frequency.value = v.rightHz;
-      this.leftGain.gain.value = project.masterGain * v.amplitude * v.leftLevel;
-      this.rightGain.gain.value = project.masterGain * v.amplitude * v.rightLevel;
-      this.leftOsc.connect(this.leftGain).connect(this.merger, 0, 0);
-      this.rightOsc.connect(this.rightGain).connect(this.merger, 0, 1);
-      this.merger.connect(this.ctx.destination);
-      this.leftOsc.start();
-      this.rightOsc.start();
-    }
-    async start(project, position = 0, onEnded, assets = {}) {
-      if (position !== 0) throw new Error("Non-zero live seek is not enabled until exact phase/noise state transfer is available.");
-      await this.init();
-      if (onEnded) this.ended = onEnded;
-      await this.ctx.resume();
-      if (this.fallback) {
-        this.setupFallback(project);
-        return;
-      }
-      this.node.port.postMessage({ type: "project", project: structuredClone(project), assets });
-      this.node.port.postMessage({ type: "start", position: 0 });
-    }
-    update(project, assets = {}) {
-      if (this.fallback) {
-        const v = project.voices[0];
-        if (v && this.leftOsc && this.rightOsc && this.leftGain && this.rightGain) {
-          this.leftOsc.frequency.value = v.leftHz;
-          this.rightOsc.frequency.value = v.rightHz;
-          this.leftGain.gain.value = project.masterGain * v.amplitude * v.leftLevel;
-          this.rightGain.gain.value = project.masterGain * v.amplitude * v.rightLevel;
-        }
-        return;
-      }
-      this.node?.port.postMessage({ type: "project", project: structuredClone(project), assets });
-    }
-    stop() {
-      if (this.fallback) {
-        try {
-          this.leftOsc?.stop();
-          this.rightOsc?.stop();
-        } catch {
-        }
-        this.leftOsc?.disconnect();
-        this.rightOsc?.disconnect();
-        this.merger?.disconnect();
-        this.leftOsc = this.rightOsc = null;
-        return;
-      }
-      this.node?.port.postMessage({ type: "stop" });
-    }
-    get sampleRate() {
-      return this.ctx?.sampleRate ?? 0;
-    }
-  };
-
   // src/audio/signalMath.ts
   var TAU = Math.PI * 2;
   var clamp = (v, min, max) => Math.max(min, Math.min(max, v));
@@ -704,6 +612,99 @@
       options.onProgress?.(done / total);
     }
   }
+
+  // src/audio/liveEngine.ts
+  var LiveEngine = class {
+    ctx = null;
+    node = null;
+    fallback = false;
+    fallbackSource = null;
+    fallbackProject = null;
+    fallbackAssets = {};
+    fallbackOffset = 0;
+    ended = () => {
+    };
+    async init() {
+      if (this.ctx) return;
+      this.ctx = new AudioContext();
+      try {
+        await this.ctx.audioWorklet.addModule("./public/worklet.js");
+        this.node = new AudioWorkletNode(this.ctx, "binaural-studio", { numberOfInputs: 0, numberOfOutputs: 1, outputChannelCount: [2] });
+        this.node.channelCount = 2;
+        this.node.channelCountMode = "explicit";
+        this.node.channelInterpretation = "discrete";
+        this.node.port.onmessage = (e) => {
+          if (e.data?.type === "ended") this.ended();
+        };
+        this.node.connect(this.ctx.destination);
+      } catch {
+        this.fallback = true;
+      }
+    }
+    async playFallbackChunk() {
+      if (!this.ctx || !this.fallbackProject) return;
+      const p = this.fallbackProject, remaining = Math.max(0, p.duration - this.fallbackOffset);
+      if (remaining <= 0) {
+        this.ended();
+        return;
+      }
+      const duration = Math.min(30, remaining), rendered = renderProject(p, { start: this.fallbackOffset, duration, assets: this.fallbackAssets });
+      const buffer = this.ctx.createBuffer(2, rendered.left.length, rendered.sampleRate);
+      buffer.copyToChannel(rendered.left, 0);
+      buffer.copyToChannel(rendered.right, 1);
+      const source = this.ctx.createBufferSource();
+      source.buffer = buffer;
+      source.connect(this.ctx.destination);
+      this.fallbackSource = source;
+      this.fallbackOffset += duration;
+      source.onended = () => {
+        if (this.fallbackSource === source) {
+          this.fallbackSource = null;
+          void this.playFallbackChunk();
+        }
+      };
+      source.start();
+    }
+    async start(project, position = 0, onEnded, assets = {}) {
+      if (position !== 0) throw new Error("Non-zero live seek is not enabled until exact phase/noise state transfer is available.");
+      await this.init();
+      if (onEnded) this.ended = onEnded;
+      await this.ctx.resume();
+      if (this.fallback) {
+        this.fallbackProject = structuredClone(project);
+        this.fallbackAssets = assets;
+        this.fallbackOffset = 0;
+        await this.playFallbackChunk();
+        return;
+      }
+      this.node.port.postMessage({ type: "project", project: structuredClone(project), assets });
+      this.node.port.postMessage({ type: "start", position: 0 });
+    }
+    update(project, assets = {}) {
+      if (this.fallback) {
+        this.fallbackProject = structuredClone(project);
+        this.fallbackAssets = assets;
+        return;
+      }
+      this.node?.port.postMessage({ type: "project", project: structuredClone(project), assets });
+    }
+    stop() {
+      if (this.fallback) {
+        try {
+          this.fallbackSource?.stop();
+        } catch {
+        }
+        this.fallbackSource?.disconnect();
+        this.fallbackSource = null;
+        this.fallbackProject = null;
+        return;
+      }
+      this.node?.port.postMessage({ type: "stop" });
+    }
+    get sampleRate() {
+      return this.ctx?.sampleRate ?? 0;
+    }
+  };
 
   // src/audio/analyze.ts
   var clamp2 = (v, a, b) => Math.max(a, Math.min(b, v));
