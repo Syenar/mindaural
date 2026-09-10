@@ -14,9 +14,12 @@ if(r.status!==0) process.exit(r.status??1);
 const esbuild = process.platform === 'win32'
   ? resolve(here, '..', 'node_modules', '@esbuild', 'win32-x64', 'esbuild.exe')
   : resolve(here, '..', 'node_modules', 'esbuild', 'bin', 'esbuild');
-const bundle = spawnSync(esbuild,['./src/main.tsx','--bundle','--format=iife','--outfile=./public/app.bundle.js','--target=es2022','--log-level=warning'],{stdio:'inherit',cwd:resolve(here,'..')});
+const projectRoot = resolve(here, '..');
+// Keep the explicit ././ prefix: the managed Windows esbuild shim otherwise
+// interprets ./src as a package path in this workspace.
+const bundle = spawnSync(esbuild,['././src/main.tsx','--bundle','--format=iife','--outfile=././public/app.bundle.js','--target=es2022','--log-level=warning'],{stdio:'inherit',cwd:projectRoot});
 if(bundle.error || bundle.status!==0) console.warn('Bundler unavailable; reusing the checked-in public/app.bundle.js.');
-const worklet = spawnSync(esbuild,['./src/audio/worklet.ts','--bundle','--format=esm','--outfile=./public/worklet.js','--target=es2022','--log-level=warning'],{stdio:'inherit',cwd:resolve(here,'..')});
+const worklet = spawnSync(esbuild,['././src/audio/worklet.ts','--bundle','--format=esm','--outfile=././public/worklet.js','--target=es2022','--log-level=warning'],{stdio:'inherit',cwd:projectRoot});
 if(worklet.error || worklet.status!==0) console.warn('Worklet bundler unavailable; reusing the checked-in public/worklet.js.');
 await mkdir('dist/vendor',{recursive:true}); await mkdir('dist/public',{recursive:true});
 const reactRuntime=await readFile('node_modules/react/umd/react.production.min.js','utf8');

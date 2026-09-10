@@ -149,7 +149,7 @@ manifest=json_docs.get('PROJECT_MANIFEST.json',{})
 listed={x.get('path'):(x.get('bytes'),x.get('sha256')) for x in manifest.get('files',[]) if isinstance(x,dict)}
 actual={}
 for p in ROOT.rglob('*'):
-    if p.is_file() and p.name!='PROJECT_MANIFEST.json' and '__pycache__' not in p.parts and 'dist' not in p.parts:
+    if p.is_file() and p.name!='PROJECT_MANIFEST.json' and '__pycache__' not in p.parts and 'dist' not in p.parts and '.git' not in p.parts and 'node_modules' not in p.parts:
         b=p.read_bytes(); actual[p.relative_to(ROOT).as_posix()]=(len(b),hashlib.sha256(b).hexdigest())
 if set(listed)!=set(actual):
     errors.append(f'manifest file-set mismatch: missing={sorted(set(actual)-set(listed))}, extra={sorted(set(listed)-set(actual))}')
