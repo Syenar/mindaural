@@ -3301,4 +3301,5 @@ Waveform=${v.waveform}
   } else {
     ReactDOM.render(element, document.getElementById("root"));
   }
+  document.documentElement.dataset.appReady = "true";
 })();

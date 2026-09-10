@@ -8,6 +8,15 @@
   <link rel="manifest" href="./app.webmanifest" />
   <link rel="stylesheet" href="./styles.css" />
   <title>Mindaural</title>
+  <style>.boot-screen{font:16px system-ui,sans-serif;max-width:720px;margin:12vh auto;padding:24px;color:#202124}.boot-screen h1{font-size:24px}.boot-screen code{background:#f1f3f4;border-radius:6px;padding:2px 5px}.boot-error{color:#b3261e}</style>
+  <script>
+    (function(){
+      function show(message,detail){var root=document.getElementById('root');if(!root)return;root.innerHTML='<div class="boot-screen"><h1>Mindaural could not start</h1><p class="boot-error">'+message+'</p><p>Open <code>index.html</code> from the project folder. The standalone build needs the checked-in <code>public/app.bundle.js</code> and <code>vendor/react.production.min.js</code> files beside it.</p>'+(detail?'<p><code>'+detail+'</code></p>':'')+'</div>';}
+      window.addEventListener('error',function(e){var target=e.target;if(target&&target.tagName==='SCRIPT')show('A required runtime file could not be loaded.',target.src||target.getAttribute('src'));else if(e.error)show('The application runtime reported an error.',e.error.message||String(e.error));},true);
+      window.addEventListener('unhandledrejection',function(e){show('The application runtime rejected a startup operation.',e.reason&&e.reason.message?e.reason.message:String(e.reason||''));});
+      window.setTimeout(function(){if(!document.documentElement.dataset.appReady)show('The application bundle did not finish loading.','Check the Firefox console with Ctrl+Shift+K.');},5000);
+    }());
+  </script>
 </head>
 <body>
   <div id="root"></div>

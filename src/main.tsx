@@ -7,3 +7,4 @@ if (typeof ReactDOM.createRoot === 'function') {
 } else {
   (ReactDOM as any).render(element, document.getElementById('root'));
 }
+document.documentElement.dataset.appReady='true';
