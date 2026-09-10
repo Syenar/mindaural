@@ -7,7 +7,7 @@ This matrix is maintained against `docs/00_MASTER_PLAN.md`. `PASS` means a repro
 | 1 Signal math and deterministic renderer | `scripts/test.mjs`: oscillator, phase, automation, noise, segments, analyzer, light-control tests | PASS |
 | 2 Protected stereo and AudioWorklet | `src/audio/render.ts`, `src/audio/worklet.ts`, `public/worklet.js`; numerical stereo tests | PARTIAL |
 | 3 Licensing and provenance | `docs/legal/LICENSING_STRATEGY.md`, `assets/licenses/README.md` | PARTIAL |
-| 4 Schema, hashes, signing, local storage | `src/core/sessionSchema.ts`, `src/security/signing.ts`, package integrity tests | PARTIAL |
+| 4 Schema, hashes, signing, local storage | `src/core/sessionSchema.ts`, `src/core/migrations.ts`, `src/formats/projectPackage.ts`, `scripts/migration-test.mjs`, signing/package integrity tests | PARTIAL: 0.9 package migration is production-wired and tested; browser-storage recovery evidence remains |
 | 5 Studio editing and routing | `src/ui/StudioSurface.tsx`, history/segment tests | PARTIAL |
 | 6 24+ soundscapes | `src/data/soundscapes.ts` (24 procedural definitions) | PARTIAL: runtime asset hash/provenance audit pending |
 | 7 Guaranteed format import | WAV/AIFF/FLAC readers exist; MP3/Vorbis/Opus guaranteed decoders absent | FAIL |

@@ -953,6 +953,16 @@
     return { schemaVersion: "1.0.0", id: s.id, title: s.metadata?.title || "Imported session", description: s.metadata?.description || "", duration, sampleRate: sr, masterGain: db2g(Number(s.master?.monitorGainDb) || 0), voices, noiseTracks, audioTracks, assets: (s.assets || []).map((a) => ({ id: a.id, name: a.extensions?.name || a.id, mime: a.mediaType, size: a.sizeBytes || 0, hash: a.sha256 || void 0, license: a.license || "unknown", source: a.source })), segments: segs, markers: [], evidence: { state: evidenceIn[ev.level] || "Experimental", claim: ev.claim || "", citation: ev.citations?.[0], notes: ev.protocolNotes }, provenance: { author: s.metadata?.author || "Unknown", createdAt: created, updatedAt: updated, appVersion: s.provenance?.extensions?.appVersion || "1.0.0", engineVersion: s.provenance?.engineVersion || "unknown", source: s.provenance?.legacySource?.source, lineage: s.provenance?.extensions?.lineage || [] }, tags: s.metadata?.tags || [], revision: Number(s.extensions?.revision) || 1 };
   }
 
+  // src/core/migrations.ts
+  function migrateSessionDocument(input) {
+    if (!input || typeof input !== "object") throw new Error("Session must be an object");
+    if (input.schemaVersion === "1.0.0") return structuredClone(input);
+    if (input.schemaVersion !== "0.9.0") throw new Error(`Unsupported session schema ${String(input.schemaVersion || "missing")}`);
+    const p = input.project || input, sr = Number(p.sampleRate) || 48e3, db = (x) => 20 * Math.log10(Math.max(1e-12, Number(x ?? 1)));
+    const tracks = (p.voices || []).map((v, i) => ({ id: `track-${v.id || i}`, type: "stimulus", name: v.name || `Voice ${i + 1}`, muted: !!v.mute, solo: !!v.solo, gainDb: 0, routingBus: "protected-stereo", extensions: {}, voices: [{ id: v.id || `voice-${i}`, generator: v.type || "binaural", startFrame: Math.round(Number(v.start || 0) * sr), durationFrames: Math.max(1, Math.round(Number(v.duration || p.duration || 1) * sr)), leftHz: Number(v.leftHz), rightHz: Number(v.rightHz), gainDb: db(v.amplitude), leftGainDb: db(v.leftLevel), rightGainDb: db(v.rightLevel), phaseLeftRad: Number(v.phaseLeft || 0), phaseRightRad: Number(v.phaseRight || 0), waveform: v.waveform || "sine", loop: !!v.loop, automation: v.automation || [], extensions: { name: v.name, duty: v.duty, fadeInFrames: Math.round(Number(v.fadeIn || 0) * sr), fadeOutFrames: Math.round(Number(v.fadeOut || 0) * sr), repetitions: v.repetitions, links: v.links, routingBus: v.routingBus } }] }));
+    return { schemaVersion: "1.0.0", id: p.id, metadata: { title: p.title, author: p.provenance?.author, description: p.description, createdAt: p.provenance?.createdAt, updatedAt: p.provenance?.updatedAt, tags: p.tags || [] }, sampleRatePolicy: { live: "device", offlineHz: sr }, tracks, assets: p.assets || [], segments: p.segments || [], master: { monitorGainDb: db(p.masterGain), hardMonitorSafety: true, extensions: {} }, evidence: [{ level: "experimental", claim: p.evidence?.claim || "Migrated session", citations: p.evidence?.citation ? [p.evidence.citation] : [] }], provenance: p.provenance || {}, exportDefaults: { sampleRate: sr }, extensions: { durationSeconds: Number(p.duration) || 1, revision: Number(p.revision) || 1 }, migration: { from: "0.9.0" } };
+  }
+
   // src/security/signing.ts
   var te = new TextEncoder();
   function b64(b) {
@@ -1096,6 +1106,8 @@
   // src/formats/projectPackage.ts
   var te3 = new TextEncoder();
   var td = new TextDecoder();
+  var MAX_PACKAGE_BYTES = 256 * 1024 * 1024;
+  var MAX_SESSION_BYTES = 4 * 1024 * 1024;
   async function sha256(b) {
     const copy = new Uint8Array(b);
     const h = await crypto.subtle.digest("SHA-256", copy.buffer);
@@ -1127,11 +1139,20 @@
     return createZip(entries);
   }
   async function importProjectPackageDetailed(bytes) {
+    if (bytes.length > MAX_PACKAGE_BYTES) throw new Error("Package exceeds the 256 MiB import limit");
     const e = readStoredZip(bytes);
     if (!e["manifest.json"] || !e["session.json"]) throw new Error("Invalid .bbeat package");
-    const manifestBytes = e["manifest.json"], manifest = JSON.parse(td.decode(manifestBytes));
+    if (e["session.json"].length > MAX_SESSION_BYTES) throw new Error("Session metadata exceeds the 4 MiB import limit");
+    let manifest;
+    try {
+      manifest = JSON.parse(td.decode(e["manifest.json"]));
+    } catch {
+      throw new Error("Invalid package manifest JSON");
+    }
     if (manifest.format !== "bbeat" || manifest.version !== 1) throw new Error("Unsupported .bbeat version");
-    for (const item of manifest.entries || []) {
+    if (!Array.isArray(manifest.entries) || manifest.entries.length > 256) throw new Error("Invalid package manifest entries");
+    for (const item of manifest.entries) {
+      if (!item || typeof item.path !== "string" || !Number.isSafeInteger(item.size) || item.size < 0 || typeof item.sha256 !== "string") throw new Error("Invalid package manifest entry");
       const data = e[item.path];
       if (!data) throw new Error(`Missing package entry: ${item.path}`);
       if (data.length !== item.size || await sha256(data) !== item.sha256) throw new Error(`Project integrity check failed: ${item.path}`);
@@ -1141,13 +1162,19 @@
       try {
         const sig = JSON.parse(td.decode(e["signature.json"]));
         if (sig.version !== 1 || sig.algorithm !== "Ed25519" || sig.signedPath !== "manifest.json" || !sig.publicKey || !sig.signature) throw new Error("Unsupported signature metadata");
-        const ok = await verifyBytes(manifestBytes, sig.signature, sig.publicKey);
+        const ok = await verifyBytes(e["manifest.json"], sig.signature, sig.publicKey);
         signature = ok ? { state: "valid", publicKey: sig.publicKey } : { state: "invalid", publicKey: sig.publicKey, reason: "Signature verification failed" };
       } catch (err) {
         signature = { state: "invalid", reason: err instanceof Error ? err.message : String(err) };
       }
     }
-    const project = deserializeSession(JSON.parse(td.decode(e["session.json"]))), assets = {};
+    let raw;
+    try {
+      raw = JSON.parse(td.decode(e["session.json"]));
+    } catch {
+      throw new Error("Invalid session JSON");
+    }
+    const project = deserializeSession(migrateSessionDocument(raw)), assets = {};
     for (const a of project.assets) {
       const path = `assets/${a.id}`;
       if (e[path]) assets[a.id] = e[path];
@@ -2514,6 +2541,16 @@ Waveform=${v.waveform}
   }
 
   // src/ui/SettingsSurface.tsx
+  function ImportScopeControl({ setMessage }) {
+    const [scope, setScope] = React.useState(sessionStorage.getItem("mindaural.importScope") || "all-tabs");
+    return /* @__PURE__ */ React.createElement("div", { className: "settings-card" }, /* @__PURE__ */ React.createElement("h3", null, "Audio import scope"), /* @__PURE__ */ React.createElement("label", null, "When audio is dropped", /* @__PURE__ */ React.createElement("select", { value: scope, onChange: (e) => {
+      const v = e.target.value;
+      setScope(v);
+      sessionStorage.setItem("mindaural.importScope", v);
+      window.dispatchEvent(new Event("mindaural-import-scope"));
+      setMessage?.(v === "all-tabs" ? "Dropped audio will populate all open Mindaural tabs." : "Dropped audio will stay in this browser tab.");
+    } }, /* @__PURE__ */ React.createElement("option", { value: "all-tabs" }, "Populate all open tabs (default)"), /* @__PURE__ */ React.createElement("option", { value: "this-tab" }, "Populate this tab only"))), /* @__PURE__ */ React.createElement("p", null, "Analyzer drops remain analysis-only."));
+  }
   function saveText(name, text) {
     const u = URL.createObjectURL(new Blob([text], { type: "application/json" })), a = document.createElement("a");
     a.href = u;
@@ -3020,7 +3057,10 @@ Waveform=${v.waveform}
     const [saved, setSaved] = React.useState([]);
     const [message, setMessage] = React.useState("");
     const [dragging, setDragging] = React.useState(false);
+    const [importScope, setImportScope] = React.useState(sessionStorage.getItem("mindaural.importScope") || "all-tabs");
     const dragDepth = React.useRef(0);
+    const syncChannel = React.useRef(null);
+    const tabId = React.useRef(crypto.randomUUID());
     const fileRef = React.useRef(null);
     const playlistRunRef = React.useRef(0);
     React.useEffect(() => {
@@ -3029,8 +3069,18 @@ Waveform=${v.waveform}
       gpu.init().then(setGpuStatus);
       const theme = localStorage.getItem("bbs.theme") || "system";
       document.documentElement.dataset.theme = theme;
+      if ("BroadcastChannel" in window) syncChannel.current = new BroadcastChannel("mindaural-project-sync");
+      const receive = (e) => {
+        const data = e.data;
+        if (data?.type === "project-import" && data.sender !== tabId.current && sessionStorage.getItem("mindaural.importScope") !== "this-tab") replaceProject(data.project);
+      };
+      syncChannel.current?.addEventListener("message", receive);
       if ("serviceWorker" in navigator) navigator.serviceWorker.register("./public/service-worker.js").then(() => consumeShareTarget(handleFiles).catch((e) => setMessage(`Shared-file import: ${e instanceof Error ? e.message : e}`))).catch(() => {
       });
+      return () => {
+        syncChannel.current?.removeEventListener("message", receive);
+        syncChannel.current?.close();
+      };
     }, []);
     React.useEffect(() => {
       const key = (e) => {
@@ -3044,6 +3094,11 @@ Waveform=${v.waveform}
       };
       addEventListener("keydown", key);
       return () => removeEventListener("keydown", key);
+    }, []);
+    React.useEffect(() => {
+      const refreshScope = () => setImportScope(sessionStorage.getItem("mindaural.importScope") || "all-tabs");
+      addEventListener("mindaural-import-scope", refreshScope);
+      return () => removeEventListener("mindaural-import-scope", refreshScope);
     }, []);
     const voice = project.voices[0];
     const updateVoice = (patch) => setProject((p) => touchProject({ ...p, voices: [{ ...p.voices[0], ...patch }, ...p.voices.slice(1)] }));
@@ -3187,13 +3242,11 @@ Waveform=${v.waveform}
       if (!allowedAudioName(f.name)) throw new Error("Unsupported audio type");
       const decoded = await decodeAudioBytes(bytes, f.name, f.type), hash2 = await sha256(bytes), id2 = `asset-${hash2.slice(0, 20)}`;
       await saveAssetBytes(id2, bytes, f.type || "application/octet-stream", f.name);
-      setProject((p) => {
-        const asset = p.assets.some((a) => a.id === id2) ? p.assets : [...p.assets, { id: id2, name: f.name, mime: f.type || "application/octet-stream", size: bytes.length, hash: hash2, license: "user-owned", source: "local import" }];
-        const track = { id: uid("audio"), name: f.name, assetId: id2, start: 0, duration: decoded.duration, offset: 0, amplitude: 0.65, pan: 0, loop: false, fadeIn: 0.05, fadeOut: 0.05, mute: false, solo: false };
-        return touchProject({ ...p, assets: asset, audioTracks: [...p.audioTracks, track] });
-      });
+      const next = touchProject({ ...project, assets: project.assets.some((a) => a.id === id2) ? project.assets : [...project.assets, { id: id2, name: f.name, mime: f.type || "application/octet-stream", size: bytes.length, hash: hash2, license: "user-owned", source: "local import" }], audioTracks: [...project.audioTracks, { id: uid("audio"), name: f.name, assetId: id2, start: 0, duration: decoded.duration, offset: 0, amplitude: 0.65, pan: 0, loop: false, fadeIn: 0.05, fadeOut: 0.05, mute: false, solo: false }] });
+      setProject(next);
+      if (importScope === "all-tabs") syncChannel.current?.postMessage({ type: "project-import", sender: tabId.current, project: next });
       setSurface("Studio");
-      setMessage(`Imported ${f.name} as a timeline audio track.`);
+      setMessage(`Imported ${f.name} as a timeline audio track${importScope === "all-tabs" ? " across open tabs" : ""}.`);
     }
     async function handleFiles(files) {
       for (const f of Array.from(files)) {
@@ -3254,7 +3307,7 @@ Waveform=${v.waveform}
       dragDepth.current = 0;
       setDragging(false);
       handleFiles(e.dataTransfer.files);
-    } }, /* @__PURE__ */ React.createElement("a", { className: "skip-link", href: "#main-content" }, "Skip to editor"), dragging && /* @__PURE__ */ React.createElement("div", { className: "drop-overlay", role: "status", "aria-live": "polite" }, /* @__PURE__ */ React.createElement("div", { className: "drop-overlay-card" }, /* @__PURE__ */ React.createElement("span", { className: "drop-icon", "aria-hidden": "true" }, "\u2193"), /* @__PURE__ */ React.createElement("strong", null, "Drop to import"), /* @__PURE__ */ React.createElement("span", null, "Audio files, .bbeat projects, and .bwg presets"))), /* @__PURE__ */ React.createElement("header", null, /* @__PURE__ */ React.createElement("div", { className: "brand" }, /* @__PURE__ */ React.createElement("div", { className: "mark" }, "\u223F"), /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("strong", null, "Mindaural"), /* @__PURE__ */ React.createElement("span", null, "Scientific audio workstation"))), /* @__PURE__ */ React.createElement("button", { className: "import", onClick: () => fileRef.current?.click() }, "Import"), /* @__PURE__ */ React.createElement("input", { ref: fileRef, hidden: true, type: "file", multiple: true, accept: ".bbeat,.bwg,.wav,.flac,.mp3,.aiff,.ogg,.opus,.webm", onChange: (e) => e.target.files && handleFiles(e.target.files) })), /* @__PURE__ */ React.createElement("aside", null, nav.map((n) => /* @__PURE__ */ React.createElement("button", { key: n, className: surface === n ? "active" : "", onClick: () => setSurface(n) }, /* @__PURE__ */ React.createElement("span", null, icon(n)), n)), /* @__PURE__ */ React.createElement("div", { className: "status" }, /* @__PURE__ */ React.createElement("i", { className: gpuStatus.active ? "ok" : "" }), /* @__PURE__ */ React.createElement("span", null, gpuStatus.active ? "WebGPU active" : "CPU fallback"))), /* @__PURE__ */ React.createElement("main", { id: "main-content", tabIndex: -1 }, surface === "Create" && /* @__PURE__ */ React.createElement(Create, { project, voice, setProject, changeCenter, changeBeat, updateVoice, onPlay: toggle, playing, onSave: save, onStudio: () => setSurface("Studio"), onSoundscape: addSoundscape }), " ", surface === "Studio" && /* @__PURE__ */ React.createElement(Studio, { project, setProject, updateVoice, onPlay: toggle, playing, onSave: save, onExport: exportAudio, onUndo: undo, onRedo: redo, canUndo: historyRef.current.canUndo(), canRedo: historyRef.current.canRedo() }), " ", surface === "Listen" && /* @__PURE__ */ React.createElement(Listen, { setProject, setSurface }), " ", surface === "Library" && /* @__PURE__ */ React.createElement(LibrarySurface, { saved, project, setProject, setSurface, setMessage, onPlayPlaylist: playPlaylist }), " ", surface === "Analyzer" && /* @__PURE__ */ React.createElement(AnalyzerSurface, { analysis, onAnalyze: analyze, gpuStatus }), " ", surface === "Research" && /* @__PURE__ */ React.createElement(Research, { project, setMessage }), " ", surface === "Learn" && /* @__PURE__ */ React.createElement(Learn, null), " ", surface === "Labs" && /* @__PURE__ */ React.createElement(LabsSurface, { setMessage }), " ", surface === "Settings" && /* @__PURE__ */ React.createElement(SettingsSurface, { setMessage })), /* @__PURE__ */ React.createElement("footer", null, /* @__PURE__ */ React.createElement("span", null, message || "Drop .bbeat, .bwg, or audio files anywhere to import."), /* @__PURE__ */ React.createElement("span", null, fmt3(voice.leftHz), " / ", fmt3(voice.rightHz), " Hz \xB7 \u0394 ", fmt3(beatOf(voice)), " Hz")));
+    } }, /* @__PURE__ */ React.createElement("a", { className: "skip-link", href: "#main-content" }, "Skip to editor"), dragging && /* @__PURE__ */ React.createElement("div", { className: "drop-overlay", role: "status", "aria-live": "polite" }, /* @__PURE__ */ React.createElement("div", { className: "drop-overlay-card" }, /* @__PURE__ */ React.createElement("span", { className: "drop-icon", "aria-hidden": "true" }, "\u2193"), /* @__PURE__ */ React.createElement("strong", null, "Drop to import"), /* @__PURE__ */ React.createElement("span", null, "Audio files, .bbeat projects, and .bwg presets"))), /* @__PURE__ */ React.createElement("header", null, /* @__PURE__ */ React.createElement("div", { className: "brand" }, /* @__PURE__ */ React.createElement("div", { className: "mark" }, "\u223F"), /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("strong", null, "Mindaural"), /* @__PURE__ */ React.createElement("span", null, "Scientific audio workstation"))), /* @__PURE__ */ React.createElement("button", { className: "import", onClick: () => fileRef.current?.click() }, "Import"), /* @__PURE__ */ React.createElement("input", { ref: fileRef, hidden: true, type: "file", multiple: true, accept: ".bbeat,.bwg,.wav,.flac,.mp3,.aiff,.ogg,.opus,.webm", onChange: (e) => e.target.files && handleFiles(e.target.files) })), /* @__PURE__ */ React.createElement("aside", null, nav.map((n) => /* @__PURE__ */ React.createElement("button", { key: n, className: surface === n ? "active" : "", onClick: () => setSurface(n) }, /* @__PURE__ */ React.createElement("span", null, icon(n)), n)), /* @__PURE__ */ React.createElement("div", { className: "status" }, /* @__PURE__ */ React.createElement("i", { className: gpuStatus.active ? "ok" : "" }), /* @__PURE__ */ React.createElement("span", null, gpuStatus.active ? "WebGPU active" : "CPU fallback"))), /* @__PURE__ */ React.createElement("main", { id: "main-content", tabIndex: -1 }, surface === "Create" && /* @__PURE__ */ React.createElement(Create, { project, voice, setProject, changeCenter, changeBeat, updateVoice, onPlay: toggle, playing, onSave: save, onStudio: () => setSurface("Studio"), onSoundscape: addSoundscape }), " ", surface === "Studio" && /* @__PURE__ */ React.createElement(Studio, { project, setProject, updateVoice, onPlay: toggle, playing, onSave: save, onExport: exportAudio, onUndo: undo, onRedo: redo, canUndo: historyRef.current.canUndo(), canRedo: historyRef.current.canRedo() }), " ", surface === "Listen" && /* @__PURE__ */ React.createElement(Listen, { setProject, setSurface }), " ", surface === "Library" && /* @__PURE__ */ React.createElement(LibrarySurface, { saved, project, setProject, setSurface, setMessage, onPlayPlaylist: playPlaylist }), " ", surface === "Analyzer" && /* @__PURE__ */ React.createElement(AnalyzerSurface, { analysis, onAnalyze: analyze, gpuStatus }), " ", surface === "Research" && /* @__PURE__ */ React.createElement(Research, { project, setMessage }), " ", surface === "Learn" && /* @__PURE__ */ React.createElement(Learn, null), " ", surface === "Labs" && /* @__PURE__ */ React.createElement(LabsSurface, { setMessage }), " ", surface === "Settings" && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(SettingsSurface, { setMessage }), /* @__PURE__ */ React.createElement(ImportScopeControl, { setMessage }))), /* @__PURE__ */ React.createElement("footer", null, /* @__PURE__ */ React.createElement("span", null, message || "Drop .bbeat, .bwg, or audio files anywhere to import."), /* @__PURE__ */ React.createElement("span", null, fmt3(voice.leftHz), " / ", fmt3(voice.rightHz), " Hz \xB7 \u0394 ", fmt3(beatOf(voice)), " Hz")));
   }
   function icon(n) {
     return { Listen: "\u25B6", Create: "\uFF0B", Studio: "\u224B", Library: "\u25A6", Analyzer: "\u2301", Research: "\u2299", Learn: "?", Labs: "\u25C7", Settings: "\u2699" }[n];

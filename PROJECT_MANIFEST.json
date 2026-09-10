@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "generatedAt": "2026-09-10T08:36:49.476Z",
+  "generatedAt": "2026-09-10T08:54:13.427Z",
   "files": [
     {
       "path": ".gitignore",
@@ -68,6 +68,11 @@
       "sha256": "f35bd36e2dcdae08387222b388b586d158dcb294b75351d4acdcc9002613e12a"
     },
     {
+      "path": "docs/audits/REQUIREMENT_MATRIX.md",
+      "bytes": 2928,
+      "sha256": "c28d23de14cbcf486cace8c3696e9855ec7f08494c681ee1602d7a2c6af6c2c6"
+    },
+    {
       "path": "docs/legal/LICENSING_STRATEGY.md",
       "bytes": 9947,
       "sha256": "1d6ad5e52189479c5677154df09221968d61e11d5a87d846ccc41947a0371b38"
@@ -129,8 +134,8 @@
     },
     {
       "path": "public/app.bundle.js",
-      "bytes": 253851,
-      "sha256": "b32520770e881f76cb8224c359a4c149858dcc4232b2211ade3ff0b46f4bd678"
+      "bytes": 260322,
+      "sha256": "f2dc875713b300ca35b135cda9118a1cc403536d89119529d22ec52df9a96925"
     },
     {
       "path": "public/offline.html",
@@ -144,8 +149,8 @@
     },
     {
       "path": "public/standalone.js",
-      "bytes": 396440,
-      "sha256": "56439dfa9353f6ebb0fd0fb6803688600489f0ced084bfaa38b65beaf1b5663d"
+      "bytes": 402911,
+      "sha256": "12f6cb324e6b4a8b0552acecd59671db8bc8f12da3086e6f513b846b7631d71a"
     },
     {
       "path": "public/worklet.js",
@@ -184,8 +189,13 @@
     },
     {
       "path": "scripts/gauntlet.mjs",
-      "bytes": 1362,
-      "sha256": "67bdb736c8e67bccac9482d6a1b948165b1998ff565454e883061dd99178c70c"
+      "bytes": 1425,
+      "sha256": "f37b4519af822e53eb9863bf2854d6c9d2d2acc07e18ca53a1ecce94a56b32ea"
+    },
+    {
+      "path": "scripts/migration-test.mjs",
+      "bytes": 1473,
+      "sha256": "b9f7c26337b905a8e4183bec018a18a192a8af4b764d8e6ab45e1dffbd90c1e0"
     },
     {
       "path": "scripts/serve.mjs",
@@ -194,8 +204,8 @@
     },
     {
       "path": "scripts/test.mjs",
-      "bytes": 16466,
-      "sha256": "0ba796485ecea9bf518f9c6aa7aeb16e1a4cb917c56379eb177f87ef86c930c5"
+      "bytes": 16537,
+      "sha256": "4b6131459c42dda2776797088937adc301c50431cf39354aed22c7159503ba12"
     },
     {
       "path": "scripts/update-manifest.mjs",
@@ -263,6 +273,11 @@
       "sha256": "5ac17c735b620835b4b8f2a37cb71fccd546cc6ffdf172b8eeda9118f743c5bf"
     },
     {
+      "path": "src/core/migrations.ts",
+      "bytes": 2162,
+      "sha256": "e5c357a7505b794ffe1936b6f3fdc77f7c0aed79d831c0a055226b0b35a3c600"
+    },
+    {
       "path": "src/core/project.ts",
       "bytes": 1599,
       "sha256": "3f53c9b18a466c6c98c3e47e461dd4499ebe5c80f67719be5f5ccd72a8642079"
@@ -309,8 +324,8 @@
     },
     {
       "path": "src/formats/projectPackage.ts",
-      "bytes": 3844,
-      "sha256": "0b55115f7f2a26c5cce89dd13666d6e12abf94759cf6e178a7ccfeaf744188c1"
+      "bytes": 4662,
+      "sha256": "84a3165baedf17c27e727e665340081795c33a06e14445afdfd56dad9bf39aa4"
     },
     {
       "path": "src/formats/streamPcm.ts",
@@ -384,8 +399,8 @@
     },
     {
       "path": "src/ui/App.tsx",
-      "bytes": 28878,
-      "sha256": "60197768706f3be8a2dd945ec2b28c5f60d8a7a482af94bc98102d0dab39c345"
+      "bytes": 30660,
+      "sha256": "877504915a05dec5d0d58f6143b3da07f7953d32d4540cdc32a5aae74df8faa8"
     },
     {
       "path": "src/ui/LabsSurface.tsx",
@@ -404,8 +419,8 @@
     },
     {
       "path": "src/ui/SettingsSurface.tsx",
-      "bytes": 7828,
-      "sha256": "cb52e96c86d0b26c99a6670a10b89c628d81834c4ddb52a03b7877ad3cfe61bf"
+      "bytes": 8571,
+      "sha256": "9ff8a5ff60d89263912350a6d0c8a3550816bbb7e02585cd868b7f4f0e2b04cf"
     },
     {
       "path": "src/ui/StudioSurface.tsx",
@@ -414,8 +429,8 @@
     },
     {
       "path": "styles.css",
-      "bytes": 26263,
-      "sha256": "15133a61599ecb0d1a361f59f9d1d3e22861669d92a2d3cbe154716ffb8d8bc0"
+      "bytes": 27114,
+      "sha256": "c7a56b52df0f367877813cda8e42cd701ff1b5bf13ad7d3af1f463a7b240773d"
     },
     {
       "path": "supabase/schema.sql",

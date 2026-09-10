@@ -12,6 +12,7 @@ import {serializeSession,deserializeSession} from '../dist/src/core/sessionSchem
 import {createZip,readStoredZip} from '../dist/src/formats/zip.js';
 import {createSigningKey,encryptSigningKey,decryptSigningKey} from '../dist/src/security/signing.js';
 import {makeOpusHead,makeOpusTags,muxOggOpus,muxWebmOpus} from '../dist/src/formats/opus.js';
+import {migrateSessionDocument} from '../dist/src/core/migrations.js';
 
 const tests=[];const test=(name,fn)=>tests.push([name,fn]);
 const close=(a,b,t,msg)=>assert.ok(Math.abs(a-b)<=t,`${msg||''} expected ${b}±${t}, got ${a}`);
