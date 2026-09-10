@@ -1,0 +1,29 @@
+export type StimulusType='binaural'|'monaural'|'isochronic'|'am'|'stereo'|'noise-modulated'|'sham';
+export type Waveform='sine'|'sine2'|'triangle'|'square'|'smooth-square'|'saw'|'reverse-saw'|'pulse'|'bandlimited-square'|'bandlimited-saw'|'custom-harmonic'|'imported-cycle';
+export type Curve='hold'|'linear'|'smooth'|'exponential'|'logarithmic'|'bezier';
+export type EvidenceState='Established Percept'|'Neural Response Observed'|'Promising Outcome Evidence'|'Mixed Evidence'|'Limited Evidence'|'Experimental'|'Community Claim';
+export interface AutomationPoint { id:string; time:number; value:number; curve:Curve; c1?:number; c2?:number; }
+export interface AutomationLane { parameter:'leftHz'|'rightHz'|'amplitude'|'beatHz'|'carrierHz'|'pan'|'duty'; points:AutomationPoint[]; }
+export interface NoiseAutomationLane { parameter:'amplitude'|'slopeDbOct'|'lowpass'|'highpass'|'stereoCorrelation'; points:AutomationPoint[]; }
+export interface AudioAutomationLane { parameter:'amplitude'|'pan'|'stereoWidth'|'lowpass'|'highpass'|'leftDelayMs'|'rightDelayMs'; points:AutomationPoint[]; }
+export interface TrackModulation { target:'amplitude'|'pan'|'stereoWidth'|'slopeDbOct'|'lowpass'|'highpass'; rateHz:number; depth:number; phase?:number; offset?:number; }
+export interface ModLink { id:string; source:'beatHz'|'carrierHz'|'amplitude'|'time'; target:string; scale:number; offset:number; min?:number; max?:number; invert?:boolean; quantize?:number; smoothingMs?:number; delayMs?:number; sourceMin?:number; sourceMax?:number; targetMin?:number; targetMax?:number; }
+export interface WaveformPoint { id:string; time:number; waveform:Waveform; }
+export interface Voice { id:string; name:string; type:StimulusType; leftHz:number; rightHz:number; amplitude:number; leftLevel:number; rightLevel:number; phaseLeft:number; phaseRight:number; waveform:Waveform; waveformAutomation?:WaveformPoint[]; duty:number; harmonics?:number[]; cycleAssetId?:string; routingBus?:'protected-stereo'|'background'|'experimental'; fadeIn:number; fadeOut:number; start:number; duration:number; loop:boolean; repetitions:number; mute:boolean; solo:boolean; automation:AutomationLane[]; links:ModLink[]; }
+export interface NoiseTrack { id:string; name:string; kind:'white'|'pink'|'brown'|'blue'|'violet'|'grey'|'slope'; amplitude:number; slopeDbOct:number; lowpass?:number; highpass?:number; stereoCorrelation:number; start:number; duration:number; loop:boolean; mute:boolean; solo:boolean; automation?:NoiseAutomationLane[]; modulation?:TrackModulation[]; }
+export interface AudioAsset { id:string; name:string; mime:string; size:number; hash?:string; license:'user-owned'|'CC0'|'project-owned'|'unknown'; source?:string; }
+export interface AudioTrack { id:string; name:string; assetId:string; start:number; duration:number; offset:number; amplitude:number; pan:number; stereoWidth?:number; leftDelayMs?:number; rightDelayMs?:number; lowpass?:number; highpass?:number; intervalSeconds?:number; intervalOnSeconds?:number; loop:boolean; fadeIn:number; fadeOut:number; mute:boolean; solo:boolean; automation?:AudioAutomationLane[]; modulation?:TrackModulation[]; }
+export interface Segment { id:string; name:string; start:number; duration:number; repeat:number; crossfade:number; trackIds?:string[]; overrides?:Partial<Record<'beatHz'|'carrierHz'|'amplitude'|'pan'|'duty',number>>; phaseContinuous?:boolean; }
+export interface Marker { id:string; time:number; label:string; }
+export interface EvidenceInfo { state:EvidenceState; claim:string; citation?:string; doi?:string; pmid?:string; notes?:string; }
+export interface Provenance { author:string; createdAt:string; updatedAt:string; appVersion:string; engineVersion:string; source?:string; lineage?:string[]; }
+export interface Project { schemaVersion:'1.0.0'; id:string; title:string; description:string; duration:number; sampleRate:number; masterGain:number; voices:Voice[]; noiseTracks:NoiseTrack[]; audioTracks:AudioTrack[]; assets:AudioAsset[]; segments:Segment[]; markers:Marker[]; evidence:EvidenceInfo; provenance:Provenance; tags:string[]; revision:number; }
+export interface Preset { id:string; title:string; collection:'research'|'curated'|'community'|'personal'; description:string; duration:number; purpose:string; evidence:EvidenceInfo; tags:string[]; project:Project; rating?:number; reviews?:number; }
+export interface SoundscapeDefinition { id:string; title:string; description:string; layers:Array<{kind:NoiseTrack['kind']; amplitude:number; slopeDbOct:number; lowpass?:number; highpass?:number; stereoCorrelation:number}>; license:'project-owned'; provenance:string; }
+export interface StereoBuffer { sampleRate:number; left:Float32Array; right:Float32Array; duration:number; }
+export interface SpectrumResult { frequencies:Float32Array; magnitudes:Float32Array; backend:'webgpu'|'cpu'; }
+export interface AnalysisResult { duration:number; sampleRate:number; peakLeft:number; peakRight:number; rmsLeft:number; rmsRight:number; correlation:number; clipping:boolean; dcLeft?:number; dcRight?:number; mono?:boolean; channelUnique?:boolean; leakageDb?:number; dominantLeftHz:number; dominantRightHz:number; differenceHz:number; confidence:number; classification:string; candidates?:Array<{leftHz:number;rightHz:number;differenceHz:number;score:number}>; integrityIssues?:string[]; backend:'webgpu'|'cpu'; spectrum?:SpectrumResult; }
+export interface LightControlSpec {frequencyHz:number;leftAmplitude:number;rightAmplitude:number;leftPhase:number;rightPhase:number;duty:number;waveform:'sine'|'square';}
+export interface BwgReport { supported:boolean; imported:number; warnings:string[]; unsupported:string[]; sourceFormat:string; }
+export const APP_VERSION='1.0.0'; export const ENGINE_VERSION='1.0.0-webgpu';
+export const uid=(prefix='id')=>`${prefix}-${crypto.randomUUID?.()||Math.random().toString(36).slice(2)}`;

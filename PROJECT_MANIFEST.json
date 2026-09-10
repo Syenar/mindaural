@@ -1,0 +1,436 @@
+{
+  "schema": 1,
+  "generatedAt": "2026-09-10T07:17:19.170Z",
+  "files": [
+    {
+      "path": "PROJECT_STATE.md",
+      "bytes": 6075,
+      "sha256": "efc4c33f9e3934fb85e8baed15c75afa0448fc2ff20b9e100f87159a6bf16be4"
+    },
+    {
+      "path": "README.md",
+      "bytes": 3787,
+      "sha256": "848f3c85108955c05591fb43ad0da60457b5a657ad128e676b40531ea4ce7414"
+    },
+    {
+      "path": "app.webmanifest",
+      "bytes": 901,
+      "sha256": "2b88a1d35d1833174d3b3dea3b3a233a4e064818cd11064e8c9aafa690907786"
+    },
+    {
+      "path": "assets/licenses/README.md",
+      "bytes": 367,
+      "sha256": "7f708d3bee7df06c849742760fc2f3708091b6b0afeacf579c7565be6adbbe3d"
+    },
+    {
+      "path": "assets/reference/README.md",
+      "bytes": 646,
+      "sha256": "64db3bf63fd902a808ac8143918d37c0054d0044cf547cf7bf840246a3e9c3fb"
+    },
+    {
+      "path": "docs/00_MASTER_PLAN.md",
+      "bytes": 28358,
+      "sha256": "4fbacd6754bb665547e132492028fa665d1df56cae5abed447a1bca8cc6d4905"
+    },
+    {
+      "path": "docs/architecture/AUDIO_ENGINE_SPEC.md",
+      "bytes": 5605,
+      "sha256": "683d47d4afb69668e51671bc2da0700ca3f5cbe447544d12dfd63ddcc16b08b1"
+    },
+    {
+      "path": "docs/architecture/CLOUD_BACKEND_AND_SECURITY.md",
+      "bytes": 6914,
+      "sha256": "6ac334d011225cf303d6fc18822f43a1272014bf6468af7a7b01d1f19bc8385c"
+    },
+    {
+      "path": "docs/architecture/FILE_FORMATS_AND_PROJECT_PACKAGE.md",
+      "bytes": 5173,
+      "sha256": "ab9e241a2719e45ab35cc68027f872fd32cc5cdb302d0a0553ba276543721863"
+    },
+    {
+      "path": "docs/architecture/WEB_PLATFORM_ARCHITECTURE.md",
+      "bytes": 5503,
+      "sha256": "067744229def431ad6bea2f9a9c479daaef83c317f3e0825e727266de1c3edf9"
+    },
+    {
+      "path": "docs/audits/AUDIT_LOG.md",
+      "bytes": 14274,
+      "sha256": "05b77a0247ace2eaf67ecaf1bcba8a6ae3347c3bc2141beeee24deb00fd9ea41"
+    },
+    {
+      "path": "docs/audits/CLEAN_PASS_CHECKLIST.md",
+      "bytes": 3993,
+      "sha256": "f35bd36e2dcdae08387222b388b586d158dcb294b75351d4acdcc9002613e12a"
+    },
+    {
+      "path": "docs/legal/LICENSING_STRATEGY.md",
+      "bytes": 9947,
+      "sha256": "1d6ad5e52189479c5677154df09221968d61e11d5a87d846ccc41947a0371b38"
+    },
+    {
+      "path": "docs/reference/BWGEN_FEATURE_AUDIT.md",
+      "bytes": 6559,
+      "sha256": "91625d8c533a3ec4b95939f8040eb92b347ee89192e6ddaa130a1b90f8c09ce9"
+    },
+    {
+      "path": "docs/reference/BWGEN_PRESET_LIBRARY_AUDIT.md",
+      "bytes": 2293,
+      "sha256": "c316704a303796e77543ee609898708d5470246e93d2bf225410568b5e229faa"
+    },
+    {
+      "path": "docs/safety/SAFETY_CLAIMS_AND_EVIDENCE_POLICY.md",
+      "bytes": 2382,
+      "sha256": "b3b2447ba695d6921821e1c6abdf68f30754a3d40c1645af85d3a8e300f940f2"
+    },
+    {
+      "path": "docs/science/EVIDENCE_MATRIX.md",
+      "bytes": 3521,
+      "sha256": "45e25ae5f39ded6d80e099e318d977f299ba9958e8955c25576d23a0ef2d3186"
+    },
+    {
+      "path": "docs/science/RESEARCH_BIBLIOGRAPHY.md",
+      "bytes": 5222,
+      "sha256": "ca81f070096da330584d604a0c5160f66b48e44a3d86c4581623c2a664afc93c"
+    },
+    {
+      "path": "docs/science/SCIENCE_FOUNDATION.md",
+      "bytes": 9835,
+      "sha256": "0a94137cd82eae0a511b39499e8edae0040dd676ae279642402fa92a0ac64fb4"
+    },
+    {
+      "path": "docs/science/SYNTHESIS_PROTOCOL.md",
+      "bytes": 6333,
+      "sha256": "00de499c6fa8c0ef079ede80e1233b5de964d4084a66b61a6d8ce9fda26bdba4"
+    },
+    {
+      "path": "docs/ux/UX_AND_INFORMATION_ARCHITECTURE.md",
+      "bytes": 2701,
+      "sha256": "a184a4149f217736b8b1f3aa104979dec08cc720f912135aa0bb62c288097c0d"
+    },
+    {
+      "path": "index.html",
+      "bytes": 677,
+      "sha256": "cd5ee439ea76a08183fb9863357803184bea1a5646bcba9a1effbb56b194b39a"
+    },
+    {
+      "path": "package.json",
+      "bytes": 462,
+      "sha256": "3271b44183ac0c2d8d304fd77c216bb1f683a828eed863b70c66d951620efd79"
+    },
+    {
+      "path": "public/offline.html",
+      "bytes": 137,
+      "sha256": "1deed31685d176141f215fd4efcef2ecff3a706f58d15e4329c43b5b1a511a3d"
+    },
+    {
+      "path": "public/service-worker.js",
+      "bytes": 1692,
+      "sha256": "6396bb84263c6e708712eefe825edfe29aa811efc3073adb07a97d8b716bf548"
+    },
+    {
+      "path": "research/README.md",
+      "bytes": 304,
+      "sha256": "1eb71a9b42a024446f665ce7cb4fc8f3f904f9f937fea9afad8ee72a68c604d1"
+    },
+    {
+      "path": "research/source_index.json",
+      "bytes": 4641,
+      "sha256": "e46b27dc5da73de1217776c6a36d1133cb51e45438ccec34b4f185d8f8620971"
+    },
+    {
+      "path": "schemas/session.schema.json",
+      "bytes": 10058,
+      "sha256": "a77dd628de2ed359837e938ef728d6c5597f69ff4637e5b945dbcf630921eed7"
+    },
+    {
+      "path": "scripts/browser-smoke.mjs",
+      "bytes": 5217,
+      "sha256": "29a4ad1bd634a1fb3de01228657dc42eeccb41596b7401987ab1a650658b1d88"
+    },
+    {
+      "path": "scripts/build.mjs",
+      "bytes": 595,
+      "sha256": "df9d05b1842e10272c767713c3c6251e43810fe95332f81fd8857e664e422bc9"
+    },
+    {
+      "path": "scripts/gauntlet.mjs",
+      "bytes": 1122,
+      "sha256": "2aa5bdf2a8c742afe0d9da0d3187b6c194e4fb8a32bed85ae3fa3c3ca52bd3e1"
+    },
+    {
+      "path": "scripts/serve.mjs",
+      "bytes": 1060,
+      "sha256": "5231f11aa480c0449a999cfc23bb547322ca834bf830f6bd9b7bed1e94a56265"
+    },
+    {
+      "path": "scripts/test.mjs",
+      "bytes": 16466,
+      "sha256": "0ba796485ecea9bf518f9c6aa7aeb16e1a4cb917c56379eb177f87ef86c930c5"
+    },
+    {
+      "path": "scripts/update-manifest.mjs",
+      "bytes": 838,
+      "sha256": "a9ba0d7f242bfdee4882b0b0a8847f5ab93a7e55ab94bd47c09c2922cd5c7838"
+    },
+    {
+      "path": "src/README.md",
+      "bytes": 678,
+      "sha256": "ad4a2ff680532a4c244427886fbcaa383551f38ea418d46772a0deca7d352e4e"
+    },
+    {
+      "path": "src/audio/analyze.ts",
+      "bytes": 5934,
+      "sha256": "926366ba667983eb98a9b20ed25be0f9a54e9ccb29739f12e8c26a7c47f1d2c4"
+    },
+    {
+      "path": "src/audio/audioTrackMath.ts",
+      "bytes": 3081,
+      "sha256": "44c2fc62049f4afc8ba1816446c3e73fb248810b4bd76cbc28be56e9647a6c55"
+    },
+    {
+      "path": "src/audio/calibration.ts",
+      "bytes": 2073,
+      "sha256": "98b2917192074b3db3ae1e609e9308361718fbaaf620d09945bdca5536acc66b"
+    },
+    {
+      "path": "src/audio/import.ts",
+      "bytes": 1365,
+      "sha256": "d3ab72b5ae0eaf208abd93f0aeaabfb4dfd65892698e1ce65744ba673b29a139"
+    },
+    {
+      "path": "src/audio/liveEngine.ts",
+      "bytes": 1341,
+      "sha256": "2e1de6c4b1d6c6421cf64696ed5a517c218d0073bf699825d88e06c509ca7bb1"
+    },
+    {
+      "path": "src/audio/noise.ts",
+      "bytes": 3093,
+      "sha256": "e8c287d2bbec0f0a9d4cc6e083172599a5ac34673fab9d641715bbede49cf0de"
+    },
+    {
+      "path": "src/audio/render.ts",
+      "bytes": 6766,
+      "sha256": "81c39c029ae66aba075b44bb671fbd28dcfefce082afb56ca3df69c6cfd5967d"
+    },
+    {
+      "path": "src/audio/signalMath.ts",
+      "bytes": 8956,
+      "sha256": "4e25bf5f14ca3b1c4b4f6076f6cf6d6c80694f44ff0cce27bea4286b59130175"
+    },
+    {
+      "path": "src/audio/worklet.ts",
+      "bytes": 5791,
+      "sha256": "c590a5662e0d6feedc26785870e048f4ec66fad7778d189ba297b79b12c0f6a8"
+    },
+    {
+      "path": "src/cloud/supabase.ts",
+      "bytes": 7951,
+      "sha256": "234a8aafd99efd8e5616efef6c6bfaadb188e1e5caba0fc38d2386c2548b5139"
+    },
+    {
+      "path": "src/core/history.ts",
+      "bytes": 853,
+      "sha256": "5ac17c735b620835b4b8f2a37cb71fccd546cc6ffdf172b8eeda9118f743c5bf"
+    },
+    {
+      "path": "src/core/project.ts",
+      "bytes": 1599,
+      "sha256": "3f53c9b18a466c6c98c3e47e461dd4499ebe5c80f67719be5f5ccd72a8642079"
+    },
+    {
+      "path": "src/core/sessionSchema.ts",
+      "bytes": 8578,
+      "sha256": "ca50ab5cef44120b31b5aff541c966daa7bbe12b0d660301fb8455fce115e5dd"
+    },
+    {
+      "path": "src/core/types.ts",
+      "bytes": 5853,
+      "sha256": "dd9e4ac3511fd1f11c13395793e858a135aead1c6a728becbd006da443e1628f"
+    },
+    {
+      "path": "src/data/presets.ts",
+      "bytes": 5630,
+      "sha256": "82f807d3f64b1686dad02b594ee6feb5ecbc281123978430d8f9bcfcecc259ac"
+    },
+    {
+      "path": "src/data/soundscapes.ts",
+      "bytes": 4567,
+      "sha256": "a4355659a39c531b7ffb9743ce63211877ee1012c4210b607f1254351960e451"
+    },
+    {
+      "path": "src/formats/aiff.ts",
+      "bytes": 3079,
+      "sha256": "df2fec7d2479827b74e5df3c09432fef0eaca95d6041f90b075b63c77edbb07a"
+    },
+    {
+      "path": "src/formats/exportBundle.ts",
+      "bytes": 3333,
+      "sha256": "253a6e1bd60cdf3ed356c60aceea2b7adf9d3ba477793a48fddc8ed88a47aadc"
+    },
+    {
+      "path": "src/formats/flac.ts",
+      "bytes": 6240,
+      "sha256": "ccd839f68c4bef0de73c09ed357204203586ca7cd70ce8276fcb5d2f1044c73b"
+    },
+    {
+      "path": "src/formats/opus.ts",
+      "bytes": 7351,
+      "sha256": "2e9837ff408012afd25d273f3b987c149b1720276425b3c16328f408337c67c2"
+    },
+    {
+      "path": "src/formats/projectPackage.ts",
+      "bytes": 3844,
+      "sha256": "0b55115f7f2a26c5cce89dd13666d6e12abf94759cf6e178a7ccfeaf744188c1"
+    },
+    {
+      "path": "src/formats/streamPcm.ts",
+      "bytes": 3913,
+      "sha256": "82da33dbadd022eb5d13951c9eb43fb74d9b9bf8e54801a7af7087a7bb47da50"
+    },
+    {
+      "path": "src/formats/wav.ts",
+      "bytes": 3417,
+      "sha256": "4d28b2d76fe5c3307b44e3d38089e2855a25df4cc014a20395b73068dcb801c2"
+    },
+    {
+      "path": "src/formats/zip.ts",
+      "bytes": 2367,
+      "sha256": "cc4fe84d8cc6f0ae1bad22d3ca7252f6d9da402338fcb3b7c088bd591559d74d"
+    },
+    {
+      "path": "src/gpu/webgpu.ts",
+      "bytes": 5218,
+      "sha256": "76ffd1538948e913b971f3ff87d14ee8ae6dc71ad7c31dc900aa55aa2d63cdd8"
+    },
+    {
+      "path": "src/labs/lightControl.ts",
+      "bytes": 1410,
+      "sha256": "bdd50d3ed135f65646d0fbb71021756591f6b56cd14fcf5c82ec457deb5d2ecc"
+    },
+    {
+      "path": "src/legacy/bwg.ts",
+      "bytes": 2575,
+      "sha256": "9a92edeb8184f3be480aaf07219afeef0096ec9e33976c782118c259ebf9a191"
+    },
+    {
+      "path": "src/main.tsx",
+      "bytes": 155,
+      "sha256": "3149f5d65d2f5eadaa4c042c22baeada89a720d885e3a79d24f90431eaabd84a"
+    },
+    {
+      "path": "src/research/session.ts",
+      "bytes": 2528,
+      "sha256": "2761434ff5355382f4c5e8f878143830a345ecf49a2f174ab63d0540347d4f75"
+    },
+    {
+      "path": "src/security/keyStore.ts",
+      "bytes": 1754,
+      "sha256": "31345e02654125038770bcee5c7c35ae9411c3fd1a5bdd1b0772db9d0882a7e4"
+    },
+    {
+      "path": "src/security/signing.ts",
+      "bytes": 3371,
+      "sha256": "99e6d93c004152b286ff6fb294b80df9b265979e630137ac4135b3d20bacc202"
+    },
+    {
+      "path": "src/storage/assets.ts",
+      "bytes": 1555,
+      "sha256": "89d55b8712d613d1742fcb5a6411b07013f3e9a860b98496b5142a4682c1ddd2"
+    },
+    {
+      "path": "src/storage/playlists.ts",
+      "bytes": 2109,
+      "sha256": "22d3d90c8203f75e9def18a0f3e237f5c7883d9f0445a936a4ceddaebd4eb15b"
+    },
+    {
+      "path": "src/storage/projects.ts",
+      "bytes": 1486,
+      "sha256": "1dcf7f78c181afa837c2bf783a6e89886f921531b28731e134547701d9ae6994"
+    },
+    {
+      "path": "src/ui/AnalyzerSurface.tsx",
+      "bytes": 5771,
+      "sha256": "eb94340c891a4cb924be066370e0302f9ed778b6a34553378129ec310ee3f80b"
+    },
+    {
+      "path": "src/ui/App.tsx",
+      "bytes": 28759,
+      "sha256": "cdcd5bb11ee0531c9203f79b2326f45b7d1144b5847165bcedbb32579f60e9c2"
+    },
+    {
+      "path": "src/ui/LabsSurface.tsx",
+      "bytes": 7761,
+      "sha256": "0dd429fd3915172a56026cfe60fe69f8725e6cc865e88e20ed7e0b149b055374"
+    },
+    {
+      "path": "src/ui/LibrarySurface.tsx",
+      "bytes": 9216,
+      "sha256": "d1c6c300e97e3ad0ae624645744ca1d6bf665cfb438d945dcca967da8598756a"
+    },
+    {
+      "path": "src/ui/PlaylistPanel.tsx",
+      "bytes": 2440,
+      "sha256": "2696fb7788055bb2aa8113d4d0e834f782db71e02e8b1a7721d50c825195d8ba"
+    },
+    {
+      "path": "src/ui/SettingsSurface.tsx",
+      "bytes": 7828,
+      "sha256": "cb52e96c86d0b26c99a6670a10b89c628d81834c4ddb52a03b7877ad3cfe61bf"
+    },
+    {
+      "path": "src/ui/StudioSurface.tsx",
+      "bytes": 30311,
+      "sha256": "09e80bd6be99e51fa254eb568e94613382a9ea4515e85b5568484309a03c8c2a"
+    },
+    {
+      "path": "styles.css",
+      "bytes": 19999,
+      "sha256": "d705801f978f5dba36f5f4fd661f1652ad2f6cbb7cfa803d3d0d8c2922ec631c"
+    },
+    {
+      "path": "supabase/schema.sql",
+      "bytes": 14050,
+      "sha256": "82690a5458e50f0b20b1c68b456c6477a66b719555f46107de60963ec40e6432"
+    },
+    {
+      "path": "tests/FEATURE_PARITY_CHECKLIST.md",
+      "bytes": 1674,
+      "sha256": "6ed02bc1b52eeae00bc6b39d913933d6b16c20d0a0eb40cfb9eda61f88d242c7"
+    },
+    {
+      "path": "tests/SIGNAL_VALIDATION_PLAN.md",
+      "bytes": 2329,
+      "sha256": "2bccc4de3cfc77762bd8751bbd65a364874456eb9b30661b9b9963a6b216ac3f"
+    },
+    {
+      "path": "tests/validate_planning_baseline.py",
+      "bytes": 11067,
+      "sha256": "c624da98a65856ffb87c3f6d4a4e6acf7e605fe573d511ebb7723c8efc71e7fc"
+    },
+    {
+      "path": "tsconfig.json",
+      "bytes": 575,
+      "sha256": "f0829f64c6b14716ef25baf60eaa300f648efe77d29b6c4b369bbf63eb4ef1bc"
+    },
+    {
+      "path": "types/globals.d.ts",
+      "bytes": 687,
+      "sha256": "0c0667f72c1188684f60625a5fccac0dc1f23326e58058800019419565a5bebd"
+    },
+    {
+      "path": "vendor/REACT_NOTICE.txt",
+      "bytes": 224,
+      "sha256": "4bd9ca457e7169136e532d4d704b54136e85d878afa7caf9804027eb01ce6aac"
+    },
+    {
+      "path": "vendor/react-dom.production.min.js",
+      "bytes": 102890,
+      "sha256": "c7a65157caebd9af7e108f1f1eb8b6e2c8fafb141d0f4c2a4d4dfd851c52ec9e"
+    },
+    {
+      "path": "vendor/react.production.min.js",
+      "bytes": 6588,
+      "sha256": "de59b0d4504aa0350c13775fec9b78859f3eda83dea21d60dded98bb7866d54a"
+    }
+  ]
+}

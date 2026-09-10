@@ -1,0 +1,136 @@
+{
+  "as_of": "2026-09-10",
+  "science_sources": [
+    {
+      "id": "ingendoh-2023",
+      "type": "systematic-review",
+      "title": "Binaural beats to entrain the brain?",
+      "doi": "10.1371/journal.pone.0286023",
+      "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0286023",
+      "key_facts": [
+        "14 qualifying studies",
+        "5 supportive, 8 contradictory, 1 mixed",
+        "substantial methodological heterogeneity",
+        "approximate 1-30 Hz conventional beat percept and <1000 Hz carrier guidance summarized"
+      ]
+    },
+    {
+      "id": "orozco-perez-2020",
+      "type": "mechanism-experiment",
+      "title": "Binaural beats through the auditory pathway: From brainstem to connectivity patterns",
+      "pmid": "32066611",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7082494/",
+      "key_facts": [
+        "dichotic pure-tone construction",
+        "subcortical carrier and cortical beat-related responses",
+        "monaural comparison",
+        "no simple mood effect"
+      ]
+    },
+    {
+      "id": "garcia-argibay-2019",
+      "type": "meta-analysis",
+      "title": "Efficacy of binaural auditory beats in cognition, anxiety, and pain perception",
+      "doi": "10.1007/s00426-018-1066-8",
+      "pmid": "30073406",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/30073406/",
+      "key_facts": [
+        "22 studies",
+        "35 effect sizes",
+        "overall Hedges g=0.45"
+      ]
+    },
+    {
+      "id": "melnichuk-2025",
+      "type": "parametric-experiment",
+      "title": "A parametric investigation of binaural beats for brain entrainment and enhancing sustained attention",
+      "doi": "10.1038/s41598-025-88517-z",
+      "url": "https://www.nature.com/articles/s41598-025-88517-z",
+      "key_facts": [
+        "N=80",
+        "beta/gamma x 340/400 Hz carrier x timing x white-noise factorial",
+        "parameter-dependent EEG/behavior effects"
+      ]
+    },
+    {
+      "id": "klichowski-2023",
+      "type": "large-home-experiment",
+      "title": "Reverse effect of home-use binaural beats brain stimulation",
+      "doi": "10.1038/s41598-023-38313-4",
+      "url": "https://www.nature.com/articles/s41598-023-38313-4",
+      "key_facts": [
+        "~1000 home participants across studies",
+        "reported worse fluid-intelligence performance under binaural-beat conditions"
+      ]
+    },
+    {
+      "id": "ross-lopez-2020",
+      "type": "experiment",
+      "title": "40-Hz Binaural beats enhance training to mitigate the attentional blink",
+      "doi": "10.1038/s41598-020-63980-y",
+      "url": "https://www.nature.com/articles/s41598-020-63980-y",
+      "key_facts": [
+        "MEG entrainment stronger at 40 Hz than 16 Hz",
+        "no within-session improvement",
+        "between-session training pattern"
+      ]
+    },
+    {
+      "id": "xiong-2025",
+      "type": "meta-analysis",
+      "title": "Binaural beats for perioperative anxiety and pain",
+      "doi": "10.1016/j.ctim.2025.103299",
+      "pmid": "41176178",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41176178/",
+      "key_facts": [
+        "15 randomized trials",
+        "anxiety/pain benefits reported",
+        "very high heterogeneity in anxiety comparisons"
+      ]
+    },
+    {
+      "id": "fatima-2026",
+      "type": "systematic-review-meta-analysis",
+      "title": "Efficacy of theta binaural beat therapy on pain, cognition and anxiety in adults: A systematic review and meta-analysis of randomized controlled trials",
+      "doi": "10.1016/j.explore.2026.103471",
+      "pmid": "42349368",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42349368/",
+      "key_facts": [
+        "13 randomized controlled trials of theta binaural beats",
+        "4 pain trials / 173 participants poolable",
+        "low-certainty pooled pain evidence",
+        "anxiety and cognition not pooled because of heterogeneity"
+      ]
+    }
+  ],
+  "reference_app_sources": [
+    {
+      "title": "BWGen Features",
+      "url": "https://www.bwgen.com/features.html"
+    },
+    {
+      "title": "BWGen 3.1 New Features",
+      "url": "https://www.bwgen.com/ver31new.html"
+    },
+    {
+      "title": "BWGen FAQ",
+      "url": "https://www.bwgen.com/faq.html"
+    },
+    {
+      "title": "BWGen Preset Library",
+      "url": "https://www.bwgen.com/presets.html"
+    },
+    {
+      "title": "BWGen All Presets",
+      "url": "https://www.bwgen.com/inx_all_dat.html"
+    },
+    {
+      "title": "BWGen .bwg usage",
+      "url": "https://www.bwgen.com/preset_using.html"
+    },
+    {
+      "title": "BWGen Download",
+      "url": "https://www.bwgen.com/download.html"
+    }
+  ]
+}

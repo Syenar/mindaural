@@ -1,0 +1,497 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:mindaural:schema:session:1",
+  "title": "Mindaural Session v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "id",
+    "metadata",
+    "sampleRatePolicy",
+    "tracks",
+    "assets",
+    "segments",
+    "master",
+    "provenance"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "1.0.0"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "title",
+        "createdAt",
+        "updatedAt"
+      ],
+      "properties": {
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 240
+        },
+        "author": {
+          "type": "string",
+          "maxLength": 160
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 10000
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 80
+          },
+          "uniqueItems": true
+        }
+      }
+    },
+    "sampleRatePolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "live",
+        "offlineHz"
+      ],
+      "properties": {
+        "live": {
+          "const": "device"
+        },
+        "offlineHz": {
+          "type": "integer",
+          "minimum": 8000,
+          "maximum": 384000
+        }
+      }
+    },
+    "assets": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/asset"
+      }
+    },
+    "tracks": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/track"
+      }
+    },
+    "segments": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/segment"
+      }
+    },
+    "master": {
+      "$ref": "#/$defs/master"
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/evidence"
+      }
+    },
+    "provenance": {
+      "$ref": "#/$defs/provenance"
+    },
+    "exportDefaults": {
+      "type": "object"
+    },
+    "extensions": {
+      "type": "object"
+    }
+  },
+  "$defs": {
+    "automationPoint": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "frame",
+        "value",
+        "curve"
+      ],
+      "properties": {
+        "frame": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "value": {
+          "type": "number"
+        },
+        "curve": {
+          "enum": [
+            "hold",
+            "linear",
+            "smooth",
+            "exponential",
+            "logarithmic",
+            "bezier"
+          ]
+        },
+        "curveData": {
+          "type": "object"
+        }
+      }
+    },
+    "automation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "parameter",
+        "points"
+      ],
+      "properties": {
+        "parameter": {
+          "type": "string",
+          "minLength": 1
+        },
+        "points": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/automationPoint"
+          }
+        },
+        "unit": {
+          "type": "string"
+        }
+      }
+    },
+    "voice": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "generator",
+        "startFrame",
+        "durationFrames",
+        "gainDb"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "generator": {
+          "enum": [
+            "binaural",
+            "monaural",
+            "isochronic",
+            "am",
+            "stereo-carrier",
+            "noise-modulated",
+            "sham-control"
+          ]
+        },
+        "startFrame": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "durationFrames": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "leftHz": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "rightHz": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "centerHz": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "beatHz": {
+          "type": "number",
+          "minimum": 0
+        },
+        "waveform": {
+          "enum": [
+            "sine",
+            "sine-squared",
+            "triangle",
+            "square",
+            "smoothed-square",
+            "saw",
+            "reverse-saw",
+            "pulse",
+            "custom-harmonic",
+            "imported-cycle",
+            "bandlimited-square",
+            "bandlimited-saw"
+          ]
+        },
+        "gainDb": {
+          "type": "number",
+          "maximum": 6
+        },
+        "leftGainDb": {
+          "type": "number",
+          "maximum": 6
+        },
+        "rightGainDb": {
+          "type": "number",
+          "maximum": 6
+        },
+        "phaseLeftRad": {
+          "type": "number"
+        },
+        "phaseRightRad": {
+          "type": "number"
+        },
+        "loop": {
+          "type": "boolean"
+        },
+        "automation": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/automation"
+          }
+        },
+        "extensions": {
+          "type": "object"
+        }
+      }
+    },
+    "track": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "type",
+        "name",
+        "muted",
+        "solo"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "type": {
+          "enum": [
+            "stimulus",
+            "noise",
+            "audio",
+            "spoken",
+            "control"
+          ]
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "muted": {
+          "type": "boolean"
+        },
+        "solo": {
+          "type": "boolean"
+        },
+        "gainDb": {
+          "type": "number",
+          "maximum": 6
+        },
+        "voices": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/voice"
+          }
+        },
+        "clips": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "automation": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/automation"
+          }
+        },
+        "routingBus": {
+          "type": "string"
+        },
+        "extensions": {
+          "type": "object"
+        }
+      }
+    },
+    "segment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "startFrame",
+        "durationFrames"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "name": {
+          "type": "string"
+        },
+        "startFrame": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "durationFrames": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "repeatCount": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "crossfadeFrames": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "extensions": {
+          "type": "object"
+        }
+      }
+    },
+    "asset": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "mediaType",
+        "source",
+        "license"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[A-Fa-f0-9]{64}$"
+        },
+        "mediaType": {
+          "type": "string"
+        },
+        "sizeBytes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "source": {
+          "type": "string"
+        },
+        "license": {
+          "type": "string"
+        },
+        "embeddedPath": {
+          "type": "string"
+        },
+        "extensions": {
+          "type": "object"
+        }
+      }
+    },
+    "master": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "monitorGainDb"
+      ],
+      "properties": {
+        "monitorGainDb": {
+          "type": "number",
+          "maximum": 6
+        },
+        "hardMonitorSafety": {
+          "type": "boolean"
+        },
+        "extensions": {
+          "type": "object"
+        }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "level",
+        "claim"
+      ],
+      "properties": {
+        "level": {
+          "enum": [
+            "established-percept",
+            "neural-response-observed",
+            "promising-outcome",
+            "mixed",
+            "limited",
+            "experimental",
+            "community-claim"
+          ]
+        },
+        "claim": {
+          "type": "string"
+        },
+        "citations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "protocolNotes": {
+          "type": "string"
+        }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "engineVersion"
+      ],
+      "properties": {
+        "engineVersion": {
+          "type": "string"
+        },
+        "legacySource": {
+          "type": "object"
+        },
+        "parentProjectId": {
+          "type": "string"
+        },
+        "parentVersionHash": {
+          "type": "string"
+        },
+        "citations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "extensions": {
+          "type": "object"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,4 @@
+import {readdir,readFile,writeFile,stat} from 'node:fs/promises';import {join,relative} from 'node:path';import {createHash} from 'node:crypto';
+const root=process.cwd(),skip=new Set(['dist','.git','node_modules']);const files=[];
+async function walk(dir){for(const name of (await readdir(dir)).sort()){if(skip.has(name))continue;const p=join(dir,name),st=await stat(p);if(st.isDirectory())await walk(p);else if(relative(root,p).replaceAll('\\','/')!=='PROJECT_MANIFEST.json'){const b=await readFile(p);files.push({path:relative(root,p).replaceAll('\\','/'),bytes:b.length,sha256:createHash('sha256').update(b).digest('hex')});}}}
+await walk(root);await writeFile(join(root,'PROJECT_MANIFEST.json'),JSON.stringify({schema:1,generatedAt:new Date().toISOString(),files},null,2)+'\n');console.log(`Manifest updated: ${files.length} files`);

@@ -1,0 +1,4 @@
+React v16.0.0 and ReactDOM v16.0.0
+Copyright (c) Facebook, Inc. and its affiliates.
+Licensed under the MIT License. The vendored files retain their upstream license headers.
+Source project: https://github.com/facebook/react
