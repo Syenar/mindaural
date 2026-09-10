@@ -1,4 +1,4 @@
-import { rm, mkdir, cp, copyFile, stat } from 'node:fs/promises';
+import { rm, mkdir, cp, copyFile, readFile, writeFile } from 'node:fs/promises';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
@@ -19,6 +19,10 @@ if(bundle.error || bundle.status!==0) console.warn('Bundler unavailable; reusing
 const worklet = spawnSync(esbuild,['./src/audio/worklet.ts','--bundle','--format=esm','--outfile=./public/worklet.js','--target=es2022','--log-level=warning'],{stdio:'inherit',cwd:resolve(here,'..')});
 if(worklet.error || worklet.status!==0) console.warn('Worklet bundler unavailable; reusing the checked-in public/worklet.js.');
 await mkdir('dist/vendor',{recursive:true}); await mkdir('dist/public',{recursive:true});
+const reactRuntime=await readFile('node_modules/react/umd/react.production.min.js','utf8');
+const reactDomRuntime=await readFile('node_modules/react-dom/umd/react-dom.production.min.js','utf8');
+const appRuntime=await readFile('public/app.bundle.js','utf8');
+await writeFile('public/standalone.js',`${reactRuntime}\n${reactDomRuntime}\n${appRuntime}\n`);
 for (const f of ['index.html','styles.css','app.webmanifest']) await copyFile(f,`dist/${f}`);
 await cp('vendor','dist/vendor',{recursive:true}); await cp('public','dist/public',{recursive:true});
 await copyFile('public/app.bundle.js','dist/app.bundle.js');
