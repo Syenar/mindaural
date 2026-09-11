@@ -61,6 +61,16 @@ drop policy if exists profiles_read on public.profiles; create policy profiles_r
 drop policy if exists profiles_self_write on public.profiles; create policy profiles_self_write on public.profiles for all using(id=auth.uid()) with check(id=auth.uid());
 drop policy if exists versions_owner_read on public.project_versions; create policy versions_owner_read on public.project_versions for select using(owner_id=auth.uid());
 drop policy if exists versions_owner_insert on public.project_versions; create policy versions_owner_insert on public.project_versions for insert with check(owner_id=auth.uid());
+-- Project versions are append-only: there are deliberately no UPDATE/DELETE policies.
+create or replace function public.enforce_next_project_version() returns trigger language plpgsql security definer set search_path=public as $$
+declare latest integer;
+begin
+ select coalesce(max(version),0) into latest from public.project_versions where owner_id=auth.uid() and project_id=new.project_id;
+ if new.version<>latest+1 then raise exception 'project versions must append at %',latest+1; end if;
+ return new;
+end $$;
+drop trigger if exists project_version_append_only on public.project_versions;
+create trigger project_version_append_only before insert on public.project_versions for each row execute function public.enforce_next_project_version();
 drop policy if exists presets_read on public.presets; create policy presets_read on public.presets for select using(visibility='public' or owner_id=auth.uid());
 drop policy if exists presets_owner_insert on public.presets; create policy presets_owner_insert on public.presets for insert with check(owner_id=auth.uid() and (visibility='private' or rights_declared));
 drop policy if exists presets_owner_update on public.presets; create policy presets_owner_update on public.presets for update using(owner_id=auth.uid()) with check(owner_id=auth.uid() and (visibility='private' or rights_declared));

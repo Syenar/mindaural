@@ -1,0 +1,32 @@
+Mindaural third-party notices
+=============================
+
+This file inventories third-party runtime/build components present in the locked npm install. Versions are pinned by package-lock.json. No FFmpeg binary, source tree, or FFmpeg-dependent runtime is distributed by Mindaural.
+
+Runtime components
+------------------
+@audio/decode-mp3 1.3.1 — MIT
+@audio/encode-mp3 1.2.2 — MIT package wrapper; its isolated LAME-based encoder module is replaceable and must retain the upstream LAME LGPL notice and corresponding-source obligations when redistributed.
+@wasm-audio-decoders/flac 0.2.11 — MIT package wrapper; bundled decoder uses the upstream FLAC permissive license.
+@wasm-audio-decoders/ogg-vorbis 0.1.20 — MIT package wrapper; bundled decoder uses the upstream Vorbis/Ogg permissive licenses.
+ogg-opus-decoder 1.7.5 — MIT package wrapper; bundled decoder uses the upstream Opus BSD license and patent grant.
+opusscript 0.1.1 — MIT package wrapper; bundled libopus binding uses the upstream Opus BSD license and patent grant.
+react 18.3.1 — MIT
+react-dom 18.3.1 — MIT
+
+Build-only components
+---------------------
+esbuild 0.28.2 — MIT
+typescript 7.0.2 — Apache-2.0
+
+Project-owned implementation
+----------------------------
+Mindaural DSP, AudioWorklet, WebGPU shaders, WAV/AIFF containers, Ogg/WebM mux/demux code, BWGen interoperability code, PWA shell, and procedural soundscape definitions are project-owned unless otherwise stated in this file.
+
+License policy
+--------------
+AAC/M4A is intentionally excluded. FFmpeg is prohibited throughout the project. Bundled default soundscapes are procedural/project-owned; user-imported media retains its declared rights and is not silently republished.
+
+Release evidence
+----------------
+Run `node scripts/license-audit.mjs` after install. The audit checks package metadata, this notice inventory, prohibited FFmpeg terms in controlled project files, and the declared source/notice boundary for codec modules.

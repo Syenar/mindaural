@@ -1,0 +1,21 @@
+import assert from 'node:assert/strict';
+import { createDefaultProject } from '../dist/src/core/project.js';
+import { exportProjectPackage, importProjectPackageDetailed, recoverModifiedProjectPackage, sha256 } from '../dist/src/formats/projectPackage.js';
+import { createZip, readStoredZip } from '../dist/src/formats/zip.js';
+
+const p=createDefaultProject('Recovery fixture');
+const asset=Uint8Array.from({length:32},(_,i)=>i);
+p.assets=[{id:'a',name:'fixture.wav',mime:'audio/wav',size:asset.length,license:'project-owned'}];
+const clean=await exportProjectPackage(p,{a:asset});
+const entries=readStoredZip(clean);
+const manifest=JSON.parse(new TextDecoder().decode(entries['manifest.json']));
+const assetEntry=manifest.entries.find(x=>x.path==='assets/a');
+const damaged=Uint8Array.from(entries['assets/a']); damaged[0]^=0xff;
+const modified=createZip({...entries,'assets/a':damaged});
+await assert.rejects(()=>importProjectPackageDetailed(modified),/Modified package entry: assets\/a/);
+const recovered=await recoverModifiedProjectPackage(modified);
+assert.equal(recovered.project.title,'Recovery fixture');
+assert.deepEqual(recovered.assets,{});
+assert.deepEqual(recovered.rejected,['assets/a']);
+assert.equal(await sha256(asset),assetEntry.sha256);
+console.log('PASS modified-package recovery preserves session and rejects unverified asset bytes');

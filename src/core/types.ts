@@ -25,5 +25,6 @@ export interface SpectrumResult { frequencies:Float32Array; magnitudes:Float32Ar
 export interface AnalysisResult { duration:number; sampleRate:number; peakLeft:number; peakRight:number; rmsLeft:number; rmsRight:number; correlation:number; clipping:boolean; dcLeft?:number; dcRight?:number; mono?:boolean; channelUnique?:boolean; leakageDb?:number; dominantLeftHz:number; dominantRightHz:number; differenceHz:number; confidence:number; classification:string; candidates?:Array<{leftHz:number;rightHz:number;differenceHz:number;score:number}>; integrityIssues?:string[]; backend:'webgpu'|'cpu'; spectrum?:SpectrumResult; }
 export interface LightControlSpec {frequencyHz:number;leftAmplitude:number;rightAmplitude:number;leftPhase:number;rightPhase:number;duty:number;waveform:'sine'|'square';}
 export interface BwgReport { supported:boolean; imported:number; warnings:string[]; unsupported:string[]; sourceFormat:string; }
-export const APP_VERSION='1.0.0'; export const ENGINE_VERSION='1.0.0-webgpu';
+// App/engine versions advance independently from the stable session schema.
+export const APP_VERSION='1.0.2'; export const ENGINE_VERSION='1.0.2-webgpu';
 export const uid=(prefix='id')=>`${prefix}-${crypto.randomUUID?.()||Math.random().toString(36).slice(2)}`;

@@ -1,0 +1,31 @@
+import assert from 'node:assert/strict';
+import { createDefaultProject } from '../dist/src/core/project.js';
+import { importBwg, exportBwg, exportBwgPackage } from '../dist/src/legacy/bwg.js';
+import { readStoredZip } from '../dist/src/formats/zip.js';
+
+const fixture = new TextEncoder().encode('; representative clean-room text fixture\nBaseFreq=440\nBeatFreq=7.5\nLength=12\nVolume=0.25\nWaveform=triangle\n');
+const imported = importBwg(fixture);
+assert.equal(imported.report.supported, true);
+assert.equal(imported.project.voices[0].leftHz, 436.25);
+assert.equal(imported.project.voices[0].rightHz, 443.75);
+assert.equal(imported.project.duration, 12);
+assert.equal(imported.project.voices[0].waveform, 'triangle');
+
+const p = createDefaultProject('BWGen regression');
+const plain = exportBwg(p);
+assert.ok(plain.bytes && plain.report.supported);
+const external = structuredClone(p);
+external.audioTracks=[{id:'bg',name:'Legacy Rain',assetId:'asset-bg',start:0,duration:2,offset:0,amplitude:.4,pan:0,stereoWidth:1,loop:false,fadeIn:0,fadeOut:0,mute:false,solo:false}];
+external.assets=[{id:'asset-bg',name:'Legacy Rain',mime:'audio/wav',size:0,license:'project-owned'}];
+const pcm={sampleRate:8000,left:Float32Array.from({length:16000},(_,i)=>Math.sin(i*.02)*.1),right:Float32Array.from({length:16000},(_,i)=>Math.cos(i*.02)*.1),duration:2};
+const packaged=exportBwgPackage(external,{'asset-bg':pcm});
+assert.ok(packaged.bytes && packaged.report.supported);
+const entries=readStoredZip(packaged.bytes);
+assert.ok(entries['preset.bwg']);
+assert.ok(entries['backgrounds/Legacy_Rain.wav']);
+assert.ok(entries['manifest.json']);
+assert.throws(()=>importBwg(Uint8Array.from([0,0,0,0,0])),'binary-like hostile BWG must be refused');
+const hostile=new Uint8Array(17*1024*1024); assert.throws(()=>importBwg(hostile),'oversized BWG must be refused');
+const unsupported=structuredClone(p); unsupported.voices.push({...structuredClone(p.voices[0]),id:'second'});
+const refused=exportBwg(unsupported); assert.equal(refused.bytes,null); assert.ok(refused.report.unsupported.includes('multiple voices'));
+console.log(`PASS BWGen regression: import mapping, refusal reports, package entries ${Object.keys(entries).length}`);

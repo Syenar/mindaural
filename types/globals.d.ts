@@ -10,3 +10,5 @@ declare const sampleRate: number;
 declare function registerProcessor(name: string, processorCtor: any): void;
 declare namespace JSX { interface IntrinsicElements { [elemName: string]: any; } }
 interface Navigator { gpu?: any; serial?: any; bluetooth?: any; requestMIDIAccess?: any; }
+declare module 'wasm-media-encoders' { export const createOggEncoder: () => Promise<any>; }
+declare module 'opusscript' { const OpusScript: any; export default OpusScript; }
