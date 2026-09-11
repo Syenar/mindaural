@@ -1,11 +1,21 @@
 {
   "schema": 1,
-  "generatedAt": "2026-09-11T08:58:59.346Z",
+  "generatedAt": "2026-09-11T21:18:25.363Z",
   "files": [
     {
       "path": ".gitignore",
       "bytes": 36,
       "sha256": "d15f232be465c9c8646f8af762131180e79f266aaac444919a5493efcaa4cb38"
+    },
+    {
+      "path": ".mcp.json",
+      "bytes": 191,
+      "sha256": "60f0f1c282452b5050f91e6c63a89442942d3af74852e3d99861fbab55546d51"
+    },
+    {
+      "path": "AGENTS.md",
+      "bytes": 745,
+      "sha256": "f7cfbfbde8305e605b2b9ed3c138f38ec983b0e2589c231916059e903b8c9560"
     },
     {
       "path": "PROJECT_STATE.md",
@@ -71,6 +81,11 @@
       "path": "docs/audits/CLEAN_PASS_CHECKLIST.md",
       "bytes": 3993,
       "sha256": "f35bd36e2dcdae08387222b388b586d158dcb294b75351d4acdcc9002613e12a"
+    },
+    {
+      "path": "docs/audits/PROGRESS_LOG.md",
+      "bytes": 3161,
+      "sha256": "d23c33f833e158287916d8a3a652b3c59b380079ebeb438e4cc81fda483fec5d"
     },
     {
       "path": "docs/audits/REQUIREMENT_MATRIX.md",
@@ -139,8 +154,8 @@
     },
     {
       "path": "public/app.bundle.js",
-      "bytes": 8001468,
-      "sha256": "57f995c97dba148720aab0ced30e6f6c2c421e2be0f39824094047a5b5954f9c"
+      "bytes": 8084380,
+      "sha256": "fe30f7399e6c5da86a7762d6cfacd51ce161ad5b7f052c268bdfe7d41f0b7870"
     },
     {
       "path": "public/offline.html",
@@ -154,8 +169,8 @@
     },
     {
       "path": "public/standalone.js",
-      "bytes": 8144057,
-      "sha256": "5bc30a2002c0ec703928e9a804647ec8112071a977bbacc10f91c899c7ffd830"
+      "bytes": 8226969,
+      "sha256": "32094d24a6709c630482eb2de42ba857747363c56030310288f120fc7b21d99d"
     },
     {
       "path": "public/worklet.js",
@@ -189,8 +204,8 @@
     },
     {
       "path": "scripts/build.mjs",
-      "bytes": 2844,
-      "sha256": "444a4e61d2bd1aed78804c5b1d7a4a62a44e64c8b3c71cdc81b73931104ad711"
+      "bytes": 2694,
+      "sha256": "022be4d0c9ab649f5e30b0d6e7f545ba0248b30433bf2ad1b1ab0b3d8ea94819"
     },
     {
       "path": "scripts/bwg-regression.mjs",
@@ -204,8 +219,8 @@
     },
     {
       "path": "scripts/gauntlet.mjs",
-      "bytes": 2005,
-      "sha256": "1c7a204ba632612d6d5e309fd82902b562b599b50001d4c169a89a11392e1d9f"
+      "bytes": 2082,
+      "sha256": "e2aabfef7426bc70808bcaae0072fc896adc4c04ea63aa2c8ef3e9f68961050b"
     },
     {
       "path": "scripts/license-audit.mjs",
@@ -236,6 +251,11 @@
       "path": "scripts/soundscape-audit.mjs",
       "bytes": 1597,
       "sha256": "b3d75e63eb397f350122841b8811b51b0f53327f68f0e5f25181e54a768c4fec"
+    },
+    {
+      "path": "scripts/soundscape-quality-audit.mjs",
+      "bytes": 1646,
+      "sha256": "97ef56f9fb2bc92b84f4aaef5806eeb264c84fda3a7b7020a100428c5d787c25"
     },
     {
       "path": "scripts/supabase-policy-audit.mjs",
@@ -443,6 +463,11 @@
       "sha256": "89d55b8712d613d1742fcb5a6411b07013f3e9a860b98496b5142a4682c1ddd2"
     },
     {
+      "path": "src/storage/errors.ts",
+      "bytes": 621,
+      "sha256": "e86325a9e34166fed00152b054a4cc20e75b3acdaaea395009babb43695a068d"
+    },
+    {
       "path": "src/storage/playlists.ts",
       "bytes": 2109,
       "sha256": "22d3d90c8203f75e9def18a0f3e237f5c7883d9f0445a936a4ceddaebd4eb15b"
@@ -459,8 +484,13 @@
     },
     {
       "path": "src/ui/App.tsx",
-      "bytes": 32945,
-      "sha256": "fc98b7bf15f42126d3efc5446348cfe3a69d186c9fe5db9a18cbce3183fa442d"
+      "bytes": 31762,
+      "sha256": "82bb18a95fb9f4e283e57e00639da149cf73f4e50396eb9344c90a917931feb3"
+    },
+    {
+      "path": "src/ui/AppPrimitives.tsx",
+      "bytes": 1096,
+      "sha256": "d2852e53e8142aabca022fd5ffb30537fd44eb468d511dad227d71cb8962224e"
     },
     {
       "path": "src/ui/LabsSurface.tsx",
@@ -484,13 +514,18 @@
     },
     {
       "path": "src/ui/StorageRecoveryControl.tsx",
-      "bytes": 1849,
-      "sha256": "e4582ef3c35175b90292efbae1b158b069631f532fa02891f3e4db1fcb5bdb9f"
+      "bytes": 1966,
+      "sha256": "b7da6326134fd4b9f5d50f040e5304787aaaa69d6dc022843f2c2ab7705d9fc4"
     },
     {
       "path": "src/ui/StudioSurface.tsx",
       "bytes": 30504,
       "sha256": "882fd9d1d65634942bed1cc3e7c10088e31c95aa9ce697e2b72e3b6d6bbd6c57"
+    },
+    {
+      "path": "src/ui/appUtils.ts",
+      "bytes": 610,
+      "sha256": "682d4ee501eddcdbd5c687c77a378d159bab5966d8acd85b89dc378e54efb41e"
     },
     {
       "path": "styles.css",
