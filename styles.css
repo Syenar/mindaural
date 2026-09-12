@@ -40,3 +40,4 @@ html[data-theme="dark"] button{background:#1b1e24;color:#f1f3f4;border-color:#3b
 /* Explicit SVG paint keeps the curve legible in every theme and browser. */
 .visual-curve path{fill:none!important;stroke:var(--accent)!important;stroke-width:3px!important;stroke-linecap:round!important}
 .visual-curve svg path{fill:transparent!important;stroke:#8ab4f8!important;stroke-width:3px!important;vector-effect:non-scaling-stroke}
+.visual-curve svg{background:linear-gradient(180deg,transparent 49%,color-mix(in srgb,var(--border) 80%,transparent) 50%,transparent 51%),linear-gradient(90deg,transparent 24%,color-mix(in srgb,var(--border) 55%,transparent) 25%,transparent 26%,transparent 49%,color-mix(in srgb,var(--border) 55%,transparent) 50%,transparent 51%,transparent 74%,color-mix(in srgb,var(--border) 55%,transparent) 75%,transparent 76%);border-radius:12px}.visual-curve svg path{display:none!important}
