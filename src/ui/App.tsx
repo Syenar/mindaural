@@ -5,7 +5,7 @@ import {PRESETS} from '../data/presets.js';import {SOUNDSCAPES} from '../data/so
 import {LiveEngine} from '../audio/liveEngine.js';import {renderProject} from '../audio/render.js';import {analyzeStereo,compareAgainstProject} from '../audio/analyze.js';import {WebGpuAnalyzer} from '../gpu/webgpu.js';
 import {exportProjectPackage,importProjectPackageDetailed,recoverModifiedProjectPackage,ModifiedPackageError,sha256} from '../formats/projectPackage.js';import {renderWavBlob,renderAiffBlob} from '../formats/streamPcm.js';import {encodeFlac} from '../formats/flac.js';import {createDiagnosticChannels,createStemBundle,recipeJson,renderScope,researchManifestJson} from '../formats/exportBundle.js';import {encodeWav} from '../formats/wav.js';import {encodeOggOpus,encodeWebmOpus} from '../formats/opus.js';import {encodeMp3Bundled,encodeOggVorbisBundled} from '../formats/codecAdapters.js';
 import {saveProject,loadProjects} from '../storage/projects.js';import {saveAssetBytes,loadAssetBytes} from '../storage/assets.js';import {decodeAudioBytes,allowedAudioName} from '../audio/import.js';import {importBwg,exportBwg,exportBwgPackage} from '../legacy/bwg.js';import {uid} from '../core/types.js';import {History} from '../core/history.js';import {createResearchRun,makeCondition,randomize,logEvent,exportResearchJson,exportResearchCsv} from '../research/session.js';
-import {StudioSurface} from './StudioSurface.js';
+import {StudioTimelineShell as StudioSurface} from './StudioTimelineShell.js';
 import {SettingsSurface,ImportScopeControl} from './SettingsSurface.js';import {StorageRecoveryControl} from './StorageRecoveryControl.js';
 import {LabsSurface} from './LabsSurface.js';
 import {LibrarySurface} from './LibrarySurface.js';

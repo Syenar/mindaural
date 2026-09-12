@@ -501,7 +501,7 @@
               l = true;
               break;
             }
-            var n = "void" !== a[0].name, m = "", q = "";
+            var n2 = "void" !== a[0].name, m = "", q = "";
             for (c = 0; c < k - 2; ++c) m += (0 !== c ? ", " : "") + "arg" + c, q += (0 !== c ? ", " : "") + "arg" + c + "Wired";
             b = "return function " + Ja(b) + "(" + m + ") {\nif (arguments.length !== " + (k - 2) + ") {\nthrowBindingError('function " + b + " called with ' + arguments.length + ' arguments, expected " + (k - 2) + " args!');\n}\n";
             l && (b += "var destructors = [];\n");
@@ -511,10 +511,10 @@
             f && (b += "var thisWired = classParam.toWireType(" + r + ", this);\n");
             for (c = 0; c < k - 2; ++c) b += "var arg" + c + "Wired = argType" + c + ".toWireType(" + r + ", arg" + c + "); // " + a[c + 2].name + "\n", m.push("argType" + c), d.push(a[c + 2]);
             f && (q = "thisWired" + (0 < q.length ? ", " : "") + q);
-            b += (n || g3 ? "var rv = " : "") + "invoker(fn" + (0 < q.length ? ", " : "") + q + ");\n";
+            b += (n2 || g3 ? "var rv = " : "") + "invoker(fn" + (0 < q.length ? ", " : "") + q + ");\n";
             if (l) b += "runDestructors(destructors);\n";
             else for (c = f ? 1 : 2; c < a.length; ++c) g3 = 1 === c ? "thisWired" : "arg" + (c - 2) + "Wired", null !== a[c].M && (b += g3 + "_dtor(" + g3 + "); // " + a[c].name + "\n", m.push(g3 + "_dtor"), d.push(a[c].M));
-            n && (b += "var ret = retType.fromWireType(rv);\nreturn ret;\n");
+            n2 && (b += "var ret = retType.fromWireType(rv);\nreturn ret;\n");
             m.push(b + "}\n");
             return qb(m).apply(null, d);
           }
@@ -778,11 +778,11 @@
                 return this.fromWireType(f[k >> g3]);
               }, M: null });
             },
-            t: function(b, a, c, d, e3, g3, k, f, l, n, m, q, r) {
+            t: function(b, a, c, d, e3, g3, k, f, l, n2, m, q, r) {
               m = I3(m);
               g3 = W(e3, g3);
               f && (f = W(k, f));
-              n && (n = W(l, n));
+              n2 && (n2 = W(l, n2));
               r = W(q, r);
               var t3 = Ja(m);
               $a(
@@ -806,7 +806,7 @@
                 });
                 var Ia = Object.create(Z, { constructor: { value: v } });
                 v.prototype = Ia;
-                var R = new ab(m, v, Ia, r, C3, g3, f, n);
+                var R = new ab(m, v, Ia, r, C3, g3, f, n2);
                 C3 = new V(m, R, true, false);
                 Z = new V(m + "*", R, false, false);
                 var ib = new V(m + " const*", R, false, true);
@@ -819,14 +819,14 @@
               var l = sb(c, d);
               a = I3(a);
               g3 = W(e3, g3);
-              N2([], [b], function(n) {
+              N2([], [b], function(n2) {
                 function m() {
                   ob("Cannot call " + q + " due to unbound types", l);
                 }
-                n = n[0];
-                var q = n.name + "." + a;
+                n2 = n2[0];
+                var q = n2.name + "." + a;
                 a.startsWith("@@") && (a = Symbol[a.substring(2)]);
-                var r = n.D.constructor;
+                var r = n2.D.constructor;
                 void 0 === r[a] ? (m.P = c - 1, r[a] = m) : (Za(r, a, q), r[a].H[c - 1] = m);
                 N2([], l, function(t3) {
                   t3 = [t3[0], null].concat(t3.slice(1));
@@ -849,21 +849,21 @@
                 f.D.N[a - 1] = () => {
                   ob("Cannot construct " + f.name + " due to unbound types", k);
                 };
-                N2([], k, function(n) {
-                  n.splice(1, 0, null);
-                  f.D.N[a - 1] = rb(l, n, null, e3, g3);
+                N2([], k, function(n2) {
+                  n2.splice(1, 0, null);
+                  f.D.N[a - 1] = rb(l, n2, null, e3, g3);
                   return [];
                 });
                 return [];
               });
             },
             c: function(b, a, c, d, e3, g3, k, f, l) {
-              var n = sb(c, d);
+              var n2 = sb(c, d);
               a = I3(a);
               g3 = W(e3, g3);
               N2([], [b], function(m) {
                 function q() {
-                  ob("Cannot call " + r + " due to unbound types", n);
+                  ob("Cannot call " + r + " due to unbound types", n2);
                 }
                 m = m[0];
                 var r = m.name + "." + a;
@@ -871,7 +871,7 @@
                 f && m.D.ka.push(a);
                 var t3 = m.D.S, v = t3[a];
                 void 0 === v || void 0 === v.H && v.className !== m.name && v.P === c - 2 ? (q.P = c - 2, q.className = m.name, t3[a] = q) : (Za(t3, a, r), t3[a].H[c - 2] = q);
-                N2([], n, function(C3) {
+                N2([], n2, function(C3) {
                   C3 = rb(r, C3, m, g3, k, l);
                   void 0 === t3[a].H ? (C3.P = c - 2, t3[a] = C3) : t3[a].H[c - 2] = C3;
                   return [];
@@ -952,18 +952,18 @@
                   var l = g3 + f;
                   if (f == e3 || 0 == y[l]) {
                     k = k ? vb(y, k, l - k) : "";
-                    if (void 0 === n) var n = k;
-                    else n += String.fromCharCode(0), n += k;
+                    if (void 0 === n2) var n2 = k;
+                    else n2 += String.fromCharCode(0), n2 += k;
                     k = l + 1;
                   }
                 }
                 else {
-                  n = Array(e3);
-                  for (f = 0; f < e3; ++f) n[f] = String.fromCharCode(y[g3 + f]);
-                  n = n.join("");
+                  n2 = Array(e3);
+                  for (f = 0; f < e3; ++f) n2[f] = String.fromCharCode(y[g3 + f]);
+                  n2 = n2.join("");
                 }
                 X(d);
-                return n;
+                return n2;
               }, toWireType: function(d, e3) {
                 e3 instanceof ArrayBuffer && (e3 = new Uint8Array(e3));
                 var g3, k = "string" == typeof e3;
@@ -981,10 +981,10 @@
                 if (c && k) {
                   if (k = l, l = g3 + 1, g3 = y, 0 < l) {
                     l = k + l - 1;
-                    for (var n = 0; n < e3.length; ++n) {
-                      var m = e3.charCodeAt(n);
+                    for (var n2 = 0; n2 < e3.length; ++n2) {
+                      var m = e3.charCodeAt(n2);
                       if (55296 <= m && 57343 >= m) {
-                        var q = e3.charCodeAt(++n);
+                        var q = e3.charCodeAt(++n2);
                         m = 65536 + ((m & 1023) << 10) | q & 1023;
                       }
                       if (127 >= m) {
@@ -1010,7 +1010,7 @@
                     }
                     g3[k] = 0;
                   }
-                } else if (k) for (k = 0; k < g3; ++k) n = e3.charCodeAt(k), 255 < n && (X(l), M3("String has UTF-16 code units that do not fit in 8 bits")), y[l + k] = n;
+                } else if (k) for (k = 0; k < g3; ++k) n2 = e3.charCodeAt(k), 255 < n2 && (X(l), M3("String has UTF-16 code units that do not fit in 8 bits")), y[l + k] = n2;
                 else for (k = 0; k < g3; ++k) y[l + k] = e3[k];
                 null !== d && d.push(X, f);
                 return f;
@@ -1030,18 +1030,18 @@
               O(b, {
                 name: c,
                 fromWireType: function(l) {
-                  for (var n = B3[l >> 2], m = k(), q, r = l + 4, t3 = 0; t3 <= n; ++t3) {
+                  for (var n2 = B3[l >> 2], m = k(), q, r = l + 4, t3 = 0; t3 <= n2; ++t3) {
                     var v = l + 4 + t3 * a;
-                    if (t3 == n || 0 == m[v >> f]) r = d(r, v - r), void 0 === q ? q = r : (q += String.fromCharCode(0), q += r), r = v + a;
+                    if (t3 == n2 || 0 == m[v >> f]) r = d(r, v - r), void 0 === q ? q = r : (q += String.fromCharCode(0), q += r), r = v + a;
                   }
                   X(l);
                   return q;
                 },
-                toWireType: function(l, n) {
-                  "string" != typeof n && M3("Cannot pass non-string to C++ string type " + c);
-                  var m = g3(n), q = Gb(4 + m + a);
+                toWireType: function(l, n2) {
+                  "string" != typeof n2 && M3("Cannot pass non-string to C++ string type " + c);
+                  var m = g3(n2), q = Gb(4 + m + a);
                   B3[q >> 2] = m >> f;
-                  e3(n, q + 4, m + a);
+                  e3(n2, q + 4, m + a);
                   null !== l && l.push(X, q);
                   return q;
                 },
@@ -1100,8 +1100,8 @@
                 var k = B3[a >> 2], f = B3[a + 4 >> 2];
                 a += 8;
                 for (var l = 0; l < f; l++) {
-                  var n = y[k + l], m = Db[b];
-                  0 === n || 10 === n ? ((1 === b ? ja : u)(vb(m, 0)), m.length = 0) : m.push(n);
+                  var n2 = y[k + l], m = Db[b];
+                  0 === n2 || 10 === n2 ? ((1 === b ? ja : u)(vb(m, 0)), m.length = 0) : m.push(n2);
                 }
                 e3 += f;
               }
@@ -1335,8 +1335,8 @@
               }
               f[43] = 62;
               f[47] = 63;
-              function l(m, n, o2) {
-                var g4, h, a3 = 0, i = n, j = o2.length, k = n + (j * 3 >> 2) - (o2[j - 2] == "=") - (o2[j - 1] == "=");
+              function l(m, n2, o2) {
+                var g4, h, a3 = 0, i = n2, j = o2.length, k = n2 + (j * 3 >> 2) - (o2[j - 2] == "=") - (o2[j - 1] == "=");
                 for (; a3 < j; a3 += 4) {
                   g4 = f[o2.charCodeAt(a3 + 1)];
                   h = f[o2.charCodeAt(a3 + 2)];
@@ -1486,7 +1486,7 @@
                 var pa2 = 126e3;
                 var qa2 = 0;
                 function qd(a3, b, c2, d, e4, f2) {
-                  var g4 = 0, h = 0, i = 0, j = 0, k = 0, l2 = 0, m = O2(0), n = 0, o2 = 0, p3 = 0, q2 = 0, r2 = 0, s3 = 0, t4 = 0, u3 = 0, v3 = 0, w4 = 0, x3 = O2(0), y2 = 0, z3 = 0, A3 = O2(0), C5 = 0, D5 = 0, E5 = 0, K3 = 0, R3 = 0, S2 = 0, T3 = 0, U3 = 0, V3 = 0, X3 = 0, Y3 = 0, Z3 = O2(0), _2 = 0, $2 = 0, aa2 = 0, ba3 = 0, ca3 = 0, da3 = 0, ea3 = 0, fa3 = O2(0), ga2 = O2(0), ha3 = 0, ia3 = 0, ja3 = 0, ka3 = 0, la3 = 0, ma3 = 0, na3 = 0, oa3 = 0, ra3 = 0, sa3 = O2(0), ta2 = 0, ua2 = O2(0), va2 = 0, wa2 = O2(0), xa3 = 0, ya2 = 0, za3 = 0, Aa3 = 0, Ea3 = 0, Fa3 = 0, Ga3 = 0, Ja3 = O2(0), Ka3 = 0, La2 = 0, Ma3 = 0, Na3 = O2(0), Pa3 = 0, Qa3 = 0, Ra3 = 0, Sa3 = 0, Ta3 = 0, Ua3 = 0, Va3 = 0, Ya3 = 0, Za3 = 0, _a2 = 0, ab3 = 0, bb3 = O2(0), cb3 = 0;
+                  var g4 = 0, h = 0, i = 0, j = 0, k = 0, l2 = 0, m = O2(0), n2 = 0, o2 = 0, p3 = 0, q2 = 0, r2 = 0, s3 = 0, t4 = 0, u3 = 0, v3 = 0, w4 = 0, x3 = O2(0), y2 = 0, z3 = 0, A3 = O2(0), C5 = 0, D5 = 0, E5 = 0, K3 = 0, R3 = 0, S2 = 0, T3 = 0, U3 = 0, V3 = 0, X3 = 0, Y3 = 0, Z3 = O2(0), _2 = 0, $2 = 0, aa2 = 0, ba3 = 0, ca3 = 0, da3 = 0, ea3 = 0, fa3 = O2(0), ga2 = O2(0), ha3 = 0, ia3 = 0, ja3 = 0, ka3 = 0, la3 = 0, ma3 = 0, na3 = 0, oa3 = 0, ra3 = 0, sa3 = O2(0), ta2 = 0, ua2 = O2(0), va2 = 0, wa2 = O2(0), xa3 = 0, ya2 = 0, za3 = 0, Aa3 = 0, Ea3 = 0, Fa3 = 0, Ga3 = 0, Ja3 = O2(0), Ka3 = 0, La2 = 0, Ma3 = 0, Na3 = O2(0), Pa3 = 0, Qa3 = 0, Ra3 = 0, Sa3 = 0, Ta3 = 0, Ua3 = 0, Va3 = 0, Ya3 = 0, Za3 = 0, _a2 = 0, ab3 = 0, bb3 = O2(0), cb3 = 0;
                   z3 = pa2 - 13584 | 0;
                   pa2 = z3;
                   H2[z3 + 40 >> 2] = 0;
@@ -1509,8 +1509,8 @@
                         l2 = h >> 16;
                         h = h & 64512;
                         if (h) {
-                          n = l2 + 1 | 0;
-                          i = N3(n, 12) + 16496 | 0;
+                          n2 = l2 + 1 | 0;
+                          i = N3(n2, 12) + 16496 | 0;
                           k = H2[i >> 2];
                           if (h >>> 0 >= 32768) {
                             h = h << 16 >> 16;
@@ -1523,11 +1523,11 @@
                             H2[g4 + 20 >> 2] = (N3(h, v3 >> 16) + i | 0) + (N3(h, v3 & 65535) >> 16);
                             i = k - H2[q2 >> 2] | 0;
                             H2[g4 + 16 >> 2] = (k + N3(h, i >> 16) | 0) + (N3(h, i & 65535) >> 16);
-                            i = (n << 3) + 16560 | 0;
+                            i = (n2 << 3) + 16560 | 0;
                             k = H2[i + 4 >> 2];
                             l2 = (l2 << 3) + 16560 | 0;
-                            n = k - H2[l2 + 4 >> 2] | 0;
-                            H2[g4 + 12 >> 2] = (N3(h, n >> 16) + k | 0) + (N3(h, n & 65535) >> 16);
+                            n2 = k - H2[l2 + 4 >> 2] | 0;
+                            H2[g4 + 12 >> 2] = (N3(h, n2 >> 16) + k | 0) + (N3(h, n2 & 65535) >> 16);
                             i = H2[i >> 2];
                             l2 = i - H2[l2 >> 2] | 0;
                             H2[g4 + 8 >> 2] = (N3(h, l2 >> 16) + i | 0) + (N3(h, l2 & 65535) >> 16);
@@ -1544,11 +1544,11 @@
                           i = H2[q2 >> 2];
                           k = k - i | 0;
                           H2[g4 + 16 >> 2] = N3(h, k >> 16) + i + (N3(h, k & 65535) >>> 16);
-                          i = (n << 3) + 16560 | 0;
+                          i = (n2 << 3) + 16560 | 0;
                           l2 = (l2 << 3) + 16560 | 0;
                           k = H2[l2 + 4 >> 2];
-                          n = H2[i + 4 >> 2] - k | 0;
-                          H2[g4 + 12 >> 2] = N3(h, n >> 16) + k + (N3(h, n & 65535) >>> 16);
+                          n2 = H2[i + 4 >> 2] - k | 0;
+                          H2[g4 + 12 >> 2] = N3(h, n2 >> 16) + k + (N3(h, n2 & 65535) >>> 16);
                           l2 = H2[l2 >> 2];
                           i = H2[i >> 2] - l2 | 0;
                           H2[g4 + 8 >> 2] = N3(h, i >> 16) + l2 + (N3(h, i & 65535) >>> 16);
@@ -1594,16 +1594,16 @@
                         i = H2[g4 + 16 >> 2];
                         i = (N3(h, i >> 16) + o2 | 0) + (N3(h, i & 65535) >> 16) << 2;
                         k = i >> 16;
-                        n = i & 65532;
-                        r2 = ((S2 + N3(k, R3) | 0) + (N3(n, R3) >> 16) | 0) + ((N3(k, v3) + (N3(n, v3) >>> 16 | 0) >> 13) + 1 >> 1) | 0;
+                        n2 = i & 65532;
+                        r2 = ((S2 + N3(k, R3) | 0) + (N3(n2, R3) >> 16) | 0) + ((N3(k, v3) + (N3(n2, v3) >>> 16 | 0) >> 13) + 1 >> 1) | 0;
                         H2[a3 + 16 >> 2] = r2;
                         o2 = H2[g4 + 20 >> 2];
-                        k = (N3(k, s3) + (N3(n, s3) >> 16) | 0) + ((N3(k, u3) + (N3(n, u3) >>> 16 | 0) >> 13) + 1 >> 1) | 0;
+                        k = (N3(k, s3) + (N3(n2, s3) >> 16) | 0) + ((N3(k, u3) + (N3(n2, u3) >>> 16 | 0) >> 13) + 1 >> 1) | 0;
                         H2[a3 + 20 >> 2] = k;
                         o2 = r2 + (N3(h, o2 >> 16) + (N3(h, o2 & 65535) >> 16) | 0) | 0;
                         H2[a3 + 16 >> 2] = o2;
-                        n = H2[g4 + 24 >> 2];
-                        k = k + ((N3(h, n & 65535) >> 16) + N3(h, n >> 16) | 0) | 0;
+                        n2 = H2[g4 + 24 >> 2];
+                        k = k + ((N3(h, n2 & 65535) >> 16) + N3(h, n2 >> 16) | 0) | 0;
                         H2[a3 + 20 >> 2] = k;
                         h = i + 16383 >> 14;
                         G2[q2 + E5 >> 1] = (i | 0) > 536854528 ? 32767 : (h | 0) <= -32768 ? -32768 : h;
@@ -1619,8 +1619,8 @@
                   Pa3 = a3 + 7180 | 0;
                   xa3 = t4 << 2;
                   p3 = Pa3 + xa3 | 0;
-                  n = H2[a3 + 4576 >> 2];
-                  k = N3(n, 5);
+                  n2 = H2[a3 + 4576 >> 2];
+                  k = N3(n2, 5);
                   l2 = p3 + (k << 2) | 0;
                   h = H2[a3 + 4584 >> 2];
                   b: {
@@ -1671,7 +1671,7 @@
                   L2[h >> 2] = L2[h >> 2] + O2(-9999999974752427e-22);
                   h = p3 + (k + (g4 << 2) << 2) | 0;
                   L2[h >> 2] = L2[h >> 2] + O2(9999999974752427e-22);
-                  h = p3 + N3(g4 + n | 0, 20) | 0;
+                  h = p3 + N3(g4 + n2 | 0, 20) | 0;
                   L2[h >> 2] = L2[h >> 2] + O2(9999999974752427e-22);
                   h = p3 + (k + N3(g4, 6) << 2) | 0;
                   L2[h >> 2] = L2[h >> 2] + O2(-9999999974752427e-22);
@@ -1697,9 +1697,9 @@
                         g4 = H2[a3 + 4596 >> 2];
                         j = g4 << 2;
                         h = j + h | 0;
-                        n = H2[a3 + 4548 >> 2];
-                        l2 = n - (g4 << 1) << 2;
-                        rb2(Ca2(j + E5 | 0, h, (n << 2) - (g4 << 3) | 0) + l2 | 0, h + l2 | 0, 2, g4);
+                        n2 = H2[a3 + 4548 >> 2];
+                        l2 = n2 - (g4 << 1) << 2;
+                        rb2(Ca2(j + E5 | 0, h, (n2 << 2) - (g4 << 3) | 0) + l2 | 0, h + l2 | 0, 2, g4);
                         g4 = E5 + 1664 | 0;
                         bc(g4, E5, H2[a3 + 4548 >> 2], H2[a3 + 4648 >> 2] + 1 | 0);
                         m = L2[E5 + 1664 >> 2];
@@ -1749,9 +1749,9 @@
                                                     if ((h | 0) > 0) {
                                                       g4 = h;
                                                       while (1) {
-                                                        n = o2 + 2720 | 0;
+                                                        n2 = o2 + 2720 | 0;
                                                         j = g4 - 1 | 0;
-                                                        q2 = n + (j << 1) | 0;
+                                                        q2 = n2 + (j << 1) | 0;
                                                         m = de(L2[S2 + (j << 2) >> 2]);
                                                         p: {
                                                           if (O2(P2(m)) < O2(2147483648)) {
@@ -1763,7 +1763,7 @@
                                                         i = (i | 0) <= -32768 ? -32768 : i;
                                                         G2[q2 >> 1] = (i | 0) >= 32767 ? 32767 : i;
                                                         g4 = g4 - 2 | 0;
-                                                        n = n + (g4 << 1) | 0;
+                                                        n2 = n2 + (g4 << 1) | 0;
                                                         m = de(L2[S2 + (g4 << 2) >> 2]);
                                                         q: {
                                                           if (O2(P2(m)) < O2(2147483648)) {
@@ -1773,7 +1773,7 @@
                                                           i = -2147483648;
                                                         }
                                                         i = (i | 0) <= -32768 ? -32768 : i;
-                                                        G2[n >> 1] = (i | 0) >= 32767 ? 32767 : i;
+                                                        G2[n2 >> 1] = (i | 0) >= 32767 ? 32767 : i;
                                                         if (j >>> 0 > 1) {
                                                           continue;
                                                         }
@@ -1803,9 +1803,9 @@
                                                     if ((h | 0) > 0) {
                                                       g4 = h;
                                                       while (1) {
-                                                        n = o2 + 2720 | 0;
+                                                        n2 = o2 + 2720 | 0;
                                                         j = g4 - 1 | 0;
-                                                        q2 = n + (j << 1) | 0;
+                                                        q2 = n2 + (j << 1) | 0;
                                                         m = de(L2[S2 + (j << 2) >> 2]);
                                                         r: {
                                                           if (O2(P2(m)) < O2(2147483648)) {
@@ -1817,7 +1817,7 @@
                                                         i = (i | 0) <= -32768 ? -32768 : i;
                                                         G2[q2 >> 1] = (i | 0) >= 32767 ? 32767 : i;
                                                         g4 = g4 - 2 | 0;
-                                                        n = n + (g4 << 1) | 0;
+                                                        n2 = n2 + (g4 << 1) | 0;
                                                         m = de(L2[S2 + (g4 << 2) >> 2]);
                                                         s: {
                                                           if (O2(P2(m)) < O2(2147483648)) {
@@ -1827,7 +1827,7 @@
                                                           i = -2147483648;
                                                         }
                                                         i = (i | 0) <= -32768 ? -32768 : i;
-                                                        G2[n >> 1] = (i | 0) >= 32767 ? 32767 : i;
+                                                        G2[n2 >> 1] = (i | 0) >= 32767 ? 32767 : i;
                                                         if (j >>> 0 > 1) {
                                                           continue;
                                                         }
@@ -1841,7 +1841,7 @@
                                                     H2[o2 + 8556 >> 2] = 0;
                                                     H2[o2 + 8544 >> 2] = 0;
                                                     H2[o2 + 8548 >> 2] = 0;
-                                                    n = o2 + 8896 | 0;
+                                                    n2 = o2 + 8896 | 0;
                                                     y2 = o2 + 2720 | 0;
                                                     j = pa2 - 1936 | 0;
                                                     pa2 = j;
@@ -1884,7 +1884,7 @@
                                                           } else {
                                                             na3 = 32767;
                                                           }
-                                                          G2[n >> 1] = na3;
+                                                          G2[n2 >> 1] = na3;
                                                           ca3 = H2[i + 16 >> 2];
                                                           ca3 = (((ra3 + ((N3(K3, ma3) + (N3(K3, va2) >> 16) | 0) + N3(aa2, ka3) | 0) | 0) + (N3(aa2, oa3) >> 16) | 0) + N3(Y3, ca3 >> 16) | 0) + (N3(Y3, ca3 & 65535) >> 16) | 0;
                                                           if ((ca3 | 0) <= 2097119) {
@@ -1892,8 +1892,8 @@
                                                             t4 = (t4 | 0) <= -32768 ? -32768 : t4;
                                                           }
                                                           i = i + 12 | 0;
-                                                          G2[n + 2 >> 1] = t4;
-                                                          n = n + 4 | 0;
+                                                          G2[n2 + 2 >> 1] = t4;
+                                                          n2 = n2 + 4 | 0;
                                                           t4 = (g4 | 0) > 5;
                                                           g4 = g4 - 3 | 0;
                                                           if (t4) {
@@ -2032,7 +2032,7 @@
                                                 if ((s3 | 0) < 2) {
                                                   break f;
                                                 }
-                                                n = s3 >>> 1 | 0;
+                                                n2 = s3 >>> 1 | 0;
                                                 j = (o2 + 9536 | 0) + (h << 2) | 0;
                                                 g4 = o2 + 9856 | 0;
                                                 while (1) {
@@ -2074,7 +2074,7 @@
                                                   }
                                                   g4 = h;
                                                   w4 = w4 + 1 | 0;
-                                                  if ((n | 0) != (w4 | 0)) {
+                                                  if ((n2 | 0) != (w4 | 0)) {
                                                     continue;
                                                   }
                                                   break;
@@ -2129,7 +2129,7 @@
                               break;
                             }
                             w4 = o2 + 6192 | 0;
-                            n = o2 + 5744 | 0;
+                            n2 = o2 + 5744 | 0;
                             g4 = 0;
                             l2 = 0;
                             i = 0;
@@ -2143,21 +2143,21 @@
                                   if (h >>> 0 >= 8) {
                                     j = h & -8;
                                     while (1) {
-                                      H2[n + (g4 << 2) >> 2] = g4;
+                                      H2[n2 + (g4 << 2) >> 2] = g4;
                                       y2 = g4 | 1;
-                                      H2[n + (y2 << 2) >> 2] = y2;
+                                      H2[n2 + (y2 << 2) >> 2] = y2;
                                       y2 = g4 | 2;
-                                      H2[n + (y2 << 2) >> 2] = y2;
+                                      H2[n2 + (y2 << 2) >> 2] = y2;
                                       y2 = g4 | 3;
-                                      H2[n + (y2 << 2) >> 2] = y2;
+                                      H2[n2 + (y2 << 2) >> 2] = y2;
                                       y2 = g4 | 4;
-                                      H2[n + (y2 << 2) >> 2] = y2;
+                                      H2[n2 + (y2 << 2) >> 2] = y2;
                                       y2 = g4 | 5;
-                                      H2[n + (y2 << 2) >> 2] = y2;
+                                      H2[n2 + (y2 << 2) >> 2] = y2;
                                       y2 = g4 | 6;
-                                      H2[n + (y2 << 2) >> 2] = y2;
+                                      H2[n2 + (y2 << 2) >> 2] = y2;
                                       y2 = g4 | 7;
-                                      H2[n + (y2 << 2) >> 2] = y2;
+                                      H2[n2 + (y2 << 2) >> 2] = y2;
                                       g4 = g4 + 8 | 0;
                                       l2 = l2 + 8 | 0;
                                       if ((j | 0) != (l2 | 0)) {
@@ -2169,7 +2169,7 @@
                                   l2 = h & 7;
                                   if (l2) {
                                     while (1) {
-                                      H2[n + (g4 << 2) >> 2] = g4;
+                                      H2[n2 + (g4 << 2) >> 2] = g4;
                                       g4 = g4 + 1 | 0;
                                       i = i + 1 | 0;
                                       if ((l2 | 0) != (i | 0)) {
@@ -2193,7 +2193,7 @@
                                           }
                                           y2 = g4 << 2;
                                           L2[y2 + w4 >> 2] = x3;
-                                          H2[n + y2 >> 2] = H2[j + n >> 2];
+                                          H2[n2 + y2 >> 2] = H2[j + n2 >> 2];
                                           j = (g4 | 0) > 1;
                                           g4 = i;
                                           if (j) {
@@ -2205,7 +2205,7 @@
                                       }
                                       g4 = g4 << 2;
                                       L2[g4 + w4 >> 2] = m;
-                                      H2[g4 + n >> 2] = l2;
+                                      H2[g4 + n2 >> 2] = l2;
                                       l2 = l2 + 1 | 0;
                                       if ((l2 | 0) != (h | 0)) {
                                         continue;
@@ -2235,7 +2235,7 @@
                                             }
                                             Y3 = l2 + 4 | 0;
                                             L2[Y3 + w4 >> 2] = x3;
-                                            H2[n + Y3 >> 2] = H2[l2 + n >> 2];
+                                            H2[n2 + Y3 >> 2] = H2[l2 + n2 >> 2];
                                             l2 = -1;
                                             Y3 = (g4 | 0) > 0;
                                             g4 = g4 - 1 | 0;
@@ -2247,7 +2247,7 @@
                                         }
                                         g4 = (l2 << 2) + 4 | 0;
                                         L2[g4 + w4 >> 2] = m;
-                                        H2[g4 + n >> 2] = i;
+                                        H2[g4 + n2 >> 2] = i;
                                       }
                                       i = i + 1 | 0;
                                       if ((i | 0) != 65) {
@@ -2297,7 +2297,7 @@
                                 if ((h | 0) > 0) {
                                   Da2(o2 + 5462 | 0, 0, 274);
                                   if (h >>> 0 >= 4) {
-                                    n = h & -4;
+                                    n2 = h & -4;
                                     while (1) {
                                       j = o2 + 5440 | 0;
                                       l2 = g4 << 2;
@@ -2308,7 +2308,7 @@
                                       G2[j + (H2[i + (l2 | 12) >> 2] << 1) >> 1] = 1;
                                       g4 = g4 + 4 | 0;
                                       U3 = U3 + 4 | 0;
-                                      if ((n | 0) != (U3 | 0)) {
+                                      if ((n2 | 0) != (U3 | 0)) {
                                         continue;
                                       }
                                       break;
@@ -2393,10 +2393,10 @@
                                                 while (1) {
                                                   m = O2(0);
                                                   j = G2[(o2 + 5440 | 0) + (g4 << 1) >> 1] << 2;
-                                                  n = i - j | 0;
-                                                  D5 = gb2(n, i, 40);
+                                                  n2 = i - j | 0;
+                                                  D5 = gb2(n2, i, 40);
                                                   if (D5 > 0) {
-                                                    m = O2((D5 + D5) / (ta2 + Oa2(n, 40)));
+                                                    m = O2((D5 + D5) / (ta2 + Oa2(n2, 40)));
                                                   }
                                                   L2[j + ((o2 + 6160 | 0) + N3(w4, 596) | 0) >> 2] = m;
                                                   g4 = g4 + 1 | 0;
@@ -2423,7 +2423,7 @@
                                           E: {
                                             if ((V3 | 0) > 0) {
                                               g4 = (s3 | 0) == 4;
-                                              n = g4 ? 18432 : 18394;
+                                              n2 = g4 ? 18432 : 18394;
                                               w4 = g4 ? 11 : 3;
                                               ia3 = g4 & ((R3 | 0) == 8 & (r2 | 0) > 0);
                                               ca3 = ia3 ? 11 : 3;
@@ -2454,7 +2454,7 @@
                                                       while (1) {
                                                         y2 = o2 + 6160 | 0;
                                                         t4 = g4 | 1;
-                                                        m = O2(L2[(y2 + N3(t4, 596) | 0) + (j + F2[n + (N3(t4, w4) + i | 0) | 0] << 2) >> 2] + O2(L2[(y2 + N3(g4, 596) | 0) + (j + F2[n + (N3(g4, w4) + i | 0) | 0] << 2) >> 2] + m));
+                                                        m = O2(L2[(y2 + N3(t4, 596) | 0) + (j + F2[n2 + (N3(t4, w4) + i | 0) | 0] << 2) >> 2] + O2(L2[(y2 + N3(g4, 596) | 0) + (j + F2[n2 + (N3(g4, w4) + i | 0) | 0] << 2) >> 2] + m));
                                                         g4 = g4 + 2 | 0;
                                                         U3 = U3 + 2 | 0;
                                                         if ((ja3 | 0) != (U3 | 0)) {
@@ -2464,7 +2464,7 @@
                                                       }
                                                     }
                                                     if (ka3) {
-                                                      m = O2(L2[((o2 + 6160 | 0) + N3(g4, 596) | 0) + (j + F2[n + (N3(g4, w4) + i | 0) | 0] << 2) >> 2] + m);
+                                                      m = O2(L2[((o2 + 6160 | 0) + N3(g4, 596) | 0) + (j + F2[n2 + (N3(g4, w4) + i | 0) | 0] << 2) >> 2] + m);
                                                     }
                                                     L2[h >> 2] = m;
                                                   }
@@ -2603,8 +2603,8 @@
                                                   g4 = j - 2 | 0;
                                                   l2 = (g4 | 0) > (q2 | 0) ? g4 : q2;
                                                   oa3 = 0 - l2 << 2;
-                                                  n = S2 + N3(R3, 80) | 0;
-                                                  R3 = n;
+                                                  n2 = S2 + N3(R3, 80) | 0;
+                                                  R3 = n2;
                                                   while (1) {
                                                     g4 = (V3 << 1) + t4 | 0;
                                                     K3 = F2[g4 + 1 | 0];
@@ -2735,7 +2735,7 @@
                                                   $2 = V3 & -2;
                                                   ia3 = V3 & 1;
                                                   t4 = 0;
-                                                  i = n;
+                                                  i = n2;
                                                   while (1) {
                                                     g4 = (t4 << 1) + R3 | 0;
                                                     h = F2[g4 | 0];
@@ -2831,7 +2831,7 @@
                                                     V3 = 18480;
                                                     i = 34;
                                                   }
-                                                  D5 = Oa2(n, N3(s3, X3));
+                                                  D5 = Oa2(n2, N3(s3, X3));
                                                   k = 0;
                                                   if ((l2 | 0) <= (ha3 | 0)) {
                                                     ta2 = D5 + 1;
@@ -2857,14 +2857,14 @@
                                                             if (Y3) {
                                                               while (1) {
                                                                 R3 = U3 << 2;
-                                                                n = N3(h, 20);
+                                                                n2 = N3(h, 20);
                                                                 K3 = N3(g4, 680);
                                                                 ba3 = o2 + 2720 | 0;
-                                                                D5 = D5 + +L2[R3 + (n + (K3 + ba3 | 0) | 0) >> 2];
+                                                                D5 = D5 + +L2[R3 + (n2 + (K3 + ba3 | 0) | 0) >> 2];
                                                                 ja3 = ba3;
                                                                 ba3 = N3(g4 | 1, 680);
-                                                                D5 = D5 + +L2[R3 + (n + (ja3 + ba3 | 0) | 0) >> 2];
-                                                                da3 = da3 + +L2[R3 + (n + (o2 + K3 | 0) | 0) >> 2] + +L2[R3 + (n + (o2 + ba3 | 0) | 0) >> 2];
+                                                                D5 = D5 + +L2[R3 + (n2 + (ja3 + ba3 | 0) | 0) >> 2];
+                                                                da3 = da3 + +L2[R3 + (n2 + (o2 + K3 | 0) | 0) >> 2] + +L2[R3 + (n2 + (o2 + ba3 | 0) | 0) >> 2];
                                                                 g4 = g4 + 2 | 0;
                                                                 w4 = w4 + 2 | 0;
                                                                 if ((r2 | 0) != (w4 | 0)) {
@@ -2875,10 +2875,10 @@
                                                             }
                                                             if (y2) {
                                                               R3 = U3 << 2;
-                                                              n = N3(h, 20);
+                                                              n2 = N3(h, 20);
                                                               g4 = N3(g4, 680);
-                                                              D5 = D5 + +L2[R3 + (n + (g4 + (o2 + 2720 | 0) | 0) | 0) >> 2];
-                                                              da3 = da3 + +L2[R3 + (n + (g4 + o2 | 0) | 0) >> 2];
+                                                              D5 = D5 + +L2[R3 + (n2 + (g4 + (o2 + 2720 | 0) | 0) | 0) >> 2];
+                                                              da3 = da3 + +L2[R3 + (n2 + (g4 + o2 | 0) | 0) >> 2];
                                                             }
                                                             if (!(da3 > 0)) {
                                                               break Q;
@@ -2910,8 +2910,8 @@
                                                     l2 = (q2 | 0) > (aa2 | 0) ? q2 : aa2;
                                                     g4 = 0;
                                                     while (1) {
-                                                      n = F2[(N3(g4, i) + k | 0) + V3 | 0] + j | 0;
-                                                      H2[C5 + (g4 << 2) >> 2] = (l2 | 0) < (n | 0) ? l2 : (h | 0) < (n | 0) ? n : h;
+                                                      n2 = F2[(N3(g4, i) + k | 0) + V3 | 0] + j | 0;
+                                                      H2[C5 + (g4 << 2) >> 2] = (l2 | 0) < (n2 | 0) ? l2 : (h | 0) < (n2 | 0) ? n2 : h;
                                                       g4 = g4 + 1 | 0;
                                                       if ((s3 | 0) != (g4 | 0)) {
                                                         continue;
@@ -2926,11 +2926,11 @@
                                                 g4 = 0;
                                                 i = 0;
                                                 while (1) {
-                                                  h = F2[n + (N3(g4, w4) + k | 0) | 0] + l2 | 0;
+                                                  h = F2[n2 + (N3(g4, w4) + k | 0) | 0] + l2 | 0;
                                                   h = (h | 0) <= 16 ? 16 : h;
                                                   H2[C5 + (g4 << 2) >> 2] = (h | 0) >= 144 ? 144 : h;
                                                   s3 = g4 | 1;
-                                                  h = F2[n + (N3(s3, w4) + k | 0) | 0] + l2 | 0;
+                                                  h = F2[n2 + (N3(s3, w4) + k | 0) | 0] + l2 | 0;
                                                   h = (h | 0) <= 16 ? 16 : h;
                                                   H2[C5 + (s3 << 2) >> 2] = (h | 0) >= 144 ? 144 : h;
                                                   g4 = g4 + 2 | 0;
@@ -2945,7 +2945,7 @@
                                                 break G;
                                               }
                                               h = C5 + (g4 << 2) | 0;
-                                              g4 = F2[n + (N3(g4, w4) + k | 0) | 0] + l2 | 0;
+                                              g4 = F2[n2 + (N3(g4, w4) + k | 0) | 0] + l2 | 0;
                                               g4 = (g4 | 0) <= 16 ? 16 : g4;
                                               H2[h >> 2] = (g4 | 0) >= 144 ? 144 : g4;
                                             }
@@ -3009,8 +3009,8 @@
                       Ba2(2195, 4103, 59);
                       B3();
                     }
-                    n = S2 + xa3 | 0;
-                    i = n;
+                    n2 = S2 + xa3 | 0;
+                    i = n2;
                     U3 = 0;
                     u3 = pa2 - 1184 | 0;
                     pa2 = u3;
@@ -3774,7 +3774,7 @@
                     }
                     U3 = a3 + 4736 | 0;
                     pa2 = u3 + 1184 | 0;
-                    g4 = n;
+                    g4 = n2;
                     R3 = l2;
                     V3 = d;
                     j = 0;
@@ -3802,10 +3802,10 @@
                               i = h & -2;
                               while (1) {
                                 d = j << 2;
-                                n = q2 + 1568 | 0;
-                                L2[d + n >> 2] = O2(1) / L2[d + v3 >> 2];
+                                n2 = q2 + 1568 | 0;
+                                L2[d + n2 >> 2] = O2(1) / L2[d + v3 >> 2];
                                 d = d | 4;
-                                L2[d + n >> 2] = O2(1) / L2[d + v3 >> 2];
+                                L2[d + n2 >> 2] = O2(1) / L2[d + v3 >> 2];
                                 j = j + 2 | 0;
                                 k = k + 2 | 0;
                                 if ((i | 0) != (k | 0)) {
@@ -3831,12 +3831,12 @@
                             g4 = q2;
                             while (1) {
                               m = L2[(q2 + 1568 | 0) + (k << 2) >> 2];
-                              n = 0;
+                              n2 = 0;
                               d = l2 + p3 | 0;
                               l2 = d & 65532;
                               if (l2) {
                                 while (1) {
-                                  h = n << 2;
+                                  h = n2 << 2;
                                   L2[h + g4 >> 2] = L2[h + j >> 2] * m;
                                   i = h | 4;
                                   L2[i + g4 >> 2] = L2[i + j >> 2] * m;
@@ -3844,25 +3844,25 @@
                                   L2[i + g4 >> 2] = L2[i + j >> 2] * m;
                                   h = h | 12;
                                   L2[h + g4 >> 2] = L2[h + j >> 2] * m;
-                                  n = n + 4 | 0;
-                                  if (l2 >>> 0 > n >>> 0) {
+                                  n2 = n2 + 4 | 0;
+                                  if (l2 >>> 0 > n2 >>> 0) {
                                     continue;
                                   }
                                   break;
                                 }
                               }
                               ea: {
-                                if ((d | 0) <= (n | 0)) {
+                                if ((d | 0) <= (n2 | 0)) {
                                   break ea;
                                 }
-                                h = d + (n ^ -1) | 0;
-                                l2 = d - n & 3;
+                                h = d + (n2 ^ -1) | 0;
+                                l2 = d - n2 & 3;
                                 if (l2) {
                                   p3 = 0;
                                   while (1) {
-                                    i = n << 2;
+                                    i = n2 << 2;
                                     L2[i + g4 >> 2] = L2[i + j >> 2] * m;
-                                    n = n + 1 | 0;
+                                    n2 = n2 + 1 | 0;
                                     p3 = p3 + 1 | 0;
                                     if ((l2 | 0) != (p3 | 0)) {
                                       continue;
@@ -3874,7 +3874,7 @@
                                   break ea;
                                 }
                                 while (1) {
-                                  h = n << 2;
+                                  h = n2 << 2;
                                   L2[h + g4 >> 2] = L2[h + j >> 2] * m;
                                   l2 = h + 4 | 0;
                                   L2[l2 + g4 >> 2] = L2[j + l2 >> 2] * m;
@@ -3882,8 +3882,8 @@
                                   L2[l2 + g4 >> 2] = L2[j + l2 >> 2] * m;
                                   h = h + 12 | 0;
                                   L2[h + g4 >> 2] = L2[h + j >> 2] * m;
-                                  n = n + 4 | 0;
-                                  if ((d | 0) != (n | 0)) {
+                                  n2 = n2 + 4 | 0;
+                                  if ((d | 0) != (n2 | 0)) {
                                     continue;
                                   }
                                   break;
@@ -3923,15 +3923,15 @@
                               p3 = k + 16 | 0;
                               D5 = Oa2(p3, d);
                               L2[u3 >> 2] = D5;
-                              n = 1;
+                              n2 = 1;
                               while (1) {
-                                m = L2[p3 - (n << 2) >> 2];
+                                m = L2[p3 - (n2 << 2) >> 2];
                                 x3 = O2(m * m);
-                                m = L2[p3 + (d - n << 2) >> 2];
+                                m = L2[p3 + (d - n2 << 2) >> 2];
                                 D5 = D5 + +O2(x3 - O2(m * m));
-                                L2[N3(n, 24) + u3 >> 2] = D5;
-                                n = n + 1 | 0;
-                                if ((n | 0) != 5) {
+                                L2[N3(n2, 24) + u3 >> 2] = D5;
+                                n2 = n2 + 1 | 0;
+                                if ((n2 | 0) != 5) {
                                   continue;
                                 }
                                 break;
@@ -3943,19 +3943,19 @@
                                 m = O2(D5);
                                 L2[N3(k, 20) + u3 >> 2] = m;
                                 L2[(k << 2) + u3 >> 2] = m;
-                                n = 1;
+                                n2 = 1;
                                 if ((5 - k | 0) >= 2) {
                                   while (1) {
-                                    C5 = k + n | 0;
-                                    y2 = n << 2;
+                                    C5 = k + n2 | 0;
+                                    y2 = n2 << 2;
                                     m = O2(L2[p3 - y2 >> 2] * L2[t4 - y2 >> 2]);
-                                    y2 = d - n << 2;
+                                    y2 = d - n2 << 2;
                                     D5 = D5 + +O2(m - O2(L2[y2 + t4 >> 2] * L2[p3 + y2 >> 2]));
                                     m = O2(D5);
-                                    L2[(N3(C5, 5) + n << 2) + u3 >> 2] = m;
-                                    L2[(C5 + N3(n, 5) << 2) + u3 >> 2] = m;
-                                    n = n + 1 | 0;
-                                    if ((w4 | 0) != (n | 0)) {
+                                    L2[(N3(C5, 5) + n2 << 2) + u3 >> 2] = m;
+                                    L2[(C5 + N3(n2, 5) << 2) + u3 >> 2] = m;
+                                    n2 = n2 + 1 | 0;
+                                    if ((w4 | 0) != (n2 | 0)) {
                                       continue;
                                     }
                                     break;
@@ -3969,13 +3969,13 @@
                                 }
                                 break;
                               }
-                              n = 0;
+                              n2 = 0;
                               k = S2 + 16 | 0;
                               while (1) {
-                                ab3 = (n << 2) + s3 | 0, bb3 = O2(gb2(k, g4, d)), L2[ab3 >> 2] = bb3;
+                                ab3 = (n2 << 2) + s3 | 0, bb3 = O2(gb2(k, g4, d)), L2[ab3 >> 2] = bb3;
                                 k = k - 4 | 0;
-                                n = n + 1 | 0;
-                                if ((n | 0) != 5) {
+                                n2 = n2 + 1 | 0;
+                                if ((n2 | 0) != 5) {
                                   continue;
                                 }
                                 break;
@@ -4003,11 +4003,11 @@
                           g4 = N3(o2, 25);
                           g4 = (g4 | 0) <= 1 ? 1 : g4;
                           p3 = g4 & 3;
-                          n = 0;
+                          n2 = 0;
                           if (g4 - 1 >>> 0 >= 3) {
                             s3 = g4 & 2147483644;
                             while (1) {
-                              g4 = n << 2;
+                              g4 = n2 << 2;
                               h = d + 80 | 0;
                               E5 = g4 + h | 0;
                               m = de(O2(L2[g4 + i >> 2] * O2(131072)));
@@ -4052,7 +4052,7 @@
                                 g4 = -2147483648;
                               }
                               H2[h >> 2] = g4;
-                              n = n + 4 | 0;
+                              n2 = n2 + 4 | 0;
                               l2 = l2 + 4 | 0;
                               if ((s3 | 0) != (l2 | 0)) {
                                 continue;
@@ -4062,7 +4062,7 @@
                           }
                           if (p3) {
                             while (1) {
-                              g4 = n << 2;
+                              g4 = n2 << 2;
                               h = g4 + (d + 80 | 0) | 0;
                               m = de(O2(L2[g4 + i >> 2] * O2(131072)));
                               ja: {
@@ -4073,7 +4073,7 @@
                                 g4 = -2147483648;
                               }
                               H2[h >> 2] = g4;
-                              n = n + 1 | 0;
+                              n2 = n2 + 1 | 0;
                               k = k + 1 | 0;
                               if ((p3 | 0) != (k | 0)) {
                                 continue;
@@ -4085,13 +4085,13 @@
                           r2 = (g4 | 0) <= 1 ? 1 : g4;
                           h = r2 & 3;
                           l2 = 0;
-                          n = 0;
+                          n2 = 0;
                           ia3 = r2 - 1 | 0;
                           if (ia3 >>> 0 >= 3) {
                             p3 = r2 & 2147483644;
                             k = 0;
                             while (1) {
-                              g4 = n << 2;
+                              g4 = n2 << 2;
                               s3 = g4 + d | 0;
                               m = de(O2(L2[g4 + j >> 2] * O2(131072)));
                               ka: {
@@ -4135,7 +4135,7 @@
                                 g4 = -2147483648;
                               }
                               H2[i >> 2] = g4;
-                              n = n + 4 | 0;
+                              n2 = n2 + 4 | 0;
                               k = k + 4 | 0;
                               if ((p3 | 0) != (k | 0)) {
                                 continue;
@@ -4145,7 +4145,7 @@
                           }
                           if (h) {
                             while (1) {
-                              g4 = n << 2;
+                              g4 = n2 << 2;
                               i = g4 + d | 0;
                               m = de(O2(L2[g4 + j >> 2] * O2(131072)));
                               oa: {
@@ -4156,7 +4156,7 @@
                                 g4 = -2147483648;
                               }
                               H2[i >> 2] = g4;
-                              n = n + 1 | 0;
+                              n2 = n2 + 1 | 0;
                               l2 = l2 + 1 | 0;
                               if ((h | 0) != (l2 | 0)) {
                                 continue;
@@ -4191,16 +4191,16 @@
                               y2 = 0;
                               k = 0;
                               S2 = 0;
-                              n = d;
+                              n2 = d;
                               j = l2;
                               while (1) {
                                 g4 = p3;
                                 ja3 = Xa2(6229 - h | 0) - 51 | 0;
-                                t4 = H2[n + 16 >> 2];
-                                E5 = H2[n + 12 >> 2];
-                                C5 = H2[n + 8 >> 2];
-                                X3 = H2[n + 4 >> 2];
-                                K3 = H2[n >> 2];
+                                t4 = H2[n2 + 16 >> 2];
+                                E5 = H2[n2 + 12 >> 2];
+                                C5 = H2[n2 + 8 >> 2];
+                                X3 = H2[n2 + 4 >> 2];
+                                K3 = H2[n2 >> 2];
                                 H2[u3 + 4 >> 2] = 2147483647;
                                 H2[u3 + 8 >> 2] = 2147483647;
                                 ka3 = (u3 + 12 | 0) + y2 | 0;
@@ -4258,7 +4258,7 @@
                                 k = (k | 0) < 0 ? 2147483647 : k;
                                 t4 = H2[u3 + 8 >> 2] + S2 | 0;
                                 S2 = (t4 | 0) < 0 ? 2147483647 : t4;
-                                n = n + 20 | 0;
+                                n2 = n2 + 20 | 0;
                                 j = j + 100 | 0;
                                 if ((Ha2(H2[u3 >> 2] + 51 | 0) + h | 0) >= 896) {
                                   g4 = (Ha2(H2[u3 >> 2] + 51 | 0) + h | 0) - 896 | 0;
@@ -4311,20 +4311,20 @@
                               break ra;
                             }
                             j = 0;
-                            n = 0;
+                            n2 = 0;
                             if (ia3 >>> 0 >= 3) {
                               h = r2 & 2147483644;
                               k = 0;
                               while (1) {
                                 g4 = d + 480 | 0;
-                                L2[p3 + (n << 2) >> 2] = O2(G2[g4 + (n << 1) >> 1]) * O2(6103515625e-14);
-                                l2 = n | 1;
+                                L2[p3 + (n2 << 2) >> 2] = O2(G2[g4 + (n2 << 1) >> 1]) * O2(6103515625e-14);
+                                l2 = n2 | 1;
                                 L2[p3 + (l2 << 2) >> 2] = O2(G2[g4 + (l2 << 1) >> 1]) * O2(6103515625e-14);
-                                l2 = n | 2;
+                                l2 = n2 | 2;
                                 L2[p3 + (l2 << 2) >> 2] = O2(G2[g4 + (l2 << 1) >> 1]) * O2(6103515625e-14);
-                                l2 = n | 3;
+                                l2 = n2 | 3;
                                 L2[p3 + (l2 << 2) >> 2] = O2(G2[g4 + (l2 << 1) >> 1]) * O2(6103515625e-14);
-                                n = n + 4 | 0;
+                                n2 = n2 + 4 | 0;
                                 k = k + 4 | 0;
                                 if ((h | 0) != (k | 0)) {
                                   continue;
@@ -4337,8 +4337,8 @@
                               break ra;
                             }
                             while (1) {
-                              L2[p3 + (n << 2) >> 2] = O2(G2[(d + 480 | 0) + (n << 1) >> 1]) * O2(6103515625e-14);
-                              n = n + 1 | 0;
+                              L2[p3 + (n2 << 2) >> 2] = O2(G2[(d + 480 | 0) + (n2 << 1) >> 1]) * O2(6103515625e-14);
+                              n2 = n2 + 1 | 0;
                               j = j + 1 | 0;
                               if ((g4 | 0) != (j | 0)) {
                                 continue;
@@ -4388,7 +4388,7 @@
                           d = H2[a3 + 4640 >> 2];
                           j = R3 - (d << 2) | 0;
                           i = H2[a3 + 4588 >> 2];
-                          n = 0;
+                          n2 = 0;
                           u3 = H2[a3 + 4580 >> 2];
                           if ((u3 | 0) > 0) {
                             o2 = q2 + 1568 | 0;
@@ -4396,10 +4396,10 @@
                             s3 = (k | 0) <= 0;
                             while (1) {
                               if (!s3) {
-                                d = n << 2;
+                                d = n2 << 2;
                                 m = L2[d + o2 >> 2];
                                 l2 = j - (H2[d + ea3 >> 2] << 2) | 0;
-                                d = p3 + N3(n, 20) | 0;
+                                d = p3 + N3(n2, 20) | 0;
                                 x3 = O2(-L2[d + 16 >> 2]);
                                 A3 = O2(-L2[d + 12 >> 2]);
                                 Z3 = O2(-L2[d + 8 >> 2]);
@@ -4430,8 +4430,8 @@
                               }
                               j = (i << 2) + j | 0;
                               g4 = (k << 2) + g4 | 0;
-                              n = n + 1 | 0;
-                              if ((u3 | 0) != (n | 0)) {
+                              n2 = n2 + 1 | 0;
+                              if ((u3 | 0) != (n2 | 0)) {
                                 continue;
                               }
                               break;
@@ -4476,7 +4476,7 @@
                         d = g4;
                         i = h + 1600 | 0;
                         _b(i, u3, C5, g4, H2[a3 + 4640 >> 2]);
-                        n = h + 1536 | 0;
+                        n2 = h + 1536 | 0;
                         l2 = pa2 - 32 | 0;
                         pa2 = l2;
                         p3 = H2[a3 + 4640 >> 2];
@@ -4491,13 +4491,13 @@
                             w4 = p3 & -4;
                             i = 0;
                             while (1) {
-                              L2[n + (g4 << 2) >> 2] = O2(G2[l2 + (g4 << 1) >> 1]) * O2(244140625e-12);
+                              L2[n2 + (g4 << 2) >> 2] = O2(G2[l2 + (g4 << 1) >> 1]) * O2(244140625e-12);
                               t4 = g4 | 1;
-                              L2[n + (t4 << 2) >> 2] = O2(G2[l2 + (t4 << 1) >> 1]) * O2(244140625e-12);
+                              L2[n2 + (t4 << 2) >> 2] = O2(G2[l2 + (t4 << 1) >> 1]) * O2(244140625e-12);
                               t4 = g4 | 2;
-                              L2[n + (t4 << 2) >> 2] = O2(G2[l2 + (t4 << 1) >> 1]) * O2(244140625e-12);
+                              L2[n2 + (t4 << 2) >> 2] = O2(G2[l2 + (t4 << 1) >> 1]) * O2(244140625e-12);
                               t4 = g4 | 3;
-                              L2[n + (t4 << 2) >> 2] = O2(G2[l2 + (t4 << 1) >> 1]) * O2(244140625e-12);
+                              L2[n2 + (t4 << 2) >> 2] = O2(G2[l2 + (t4 << 1) >> 1]) * O2(244140625e-12);
                               g4 = g4 + 4 | 0;
                               i = i + 4 | 0;
                               if ((w4 | 0) != (i | 0)) {
@@ -4511,7 +4511,7 @@
                             break wa;
                           }
                           while (1) {
-                            L2[n + (g4 << 2) >> 2] = O2(G2[l2 + (g4 << 1) >> 1]) * O2(244140625e-12);
+                            L2[n2 + (g4 << 2) >> 2] = O2(G2[l2 + (g4 << 1) >> 1]) * O2(244140625e-12);
                             g4 = g4 + 1 | 0;
                             k = k + 1 | 0;
                             if ((i | 0) != (k | 0)) {
@@ -4521,7 +4521,7 @@
                           }
                         }
                         pa2 = l2 + 32 | 0;
-                        pb2(h, n, q2, o2, H2[a3 + 4640 >> 2]);
+                        pb2(h, n2, q2, o2, H2[a3 + 4640 >> 2]);
                         g4 = H2[a3 + 4640 >> 2];
                         D5 = Oa2(h + (g4 << 2) | 0, j - g4 | 0);
                         g4 = H2[a3 + 4640 >> 2];
@@ -4560,7 +4560,7 @@
                     pa2 = h + 1696 | 0;
                     ba3 = v3 + 16 | 0;
                     ca3 = a3 + 4500 | 0;
-                    n = 0;
+                    n2 = 0;
                     K3 = 0;
                     xa3 = 0;
                     y2 = pa2 + -64 | 0;
@@ -4608,8 +4608,8 @@
                                   k = l2 + k | 0;
                                   G2[k >> 1] = (G2[k >> 1] >>> 1) + (N3(h, G2[l2 + X3 >> 1]) >>> 16);
                                   d = d + 2 | 0;
-                                  n = n + 2 | 0;
-                                  if ((i | 0) != (n | 0)) {
+                                  n2 = n2 + 2 | 0;
+                                  if ((i | 0) != (n2 | 0)) {
                                     continue;
                                   }
                                   break;
@@ -4626,7 +4626,7 @@
                             S2 = H2[a3 + 4692 >> 2];
                             ra3 = X3 + 32 | 0;
                             T3 = H2[a3 + 4660 >> 2];
-                            n = 0;
+                            n2 = 0;
                             aa2 = pa2 - 128 | 0;
                             pa2 = aa2;
                             Da: {
@@ -4668,11 +4668,11 @@
                                             break;
                                           }
                                         }
-                                        H2[i + (n << 2) >> 2] = p3;
+                                        H2[i + (n2 << 2) >> 2] = p3;
                                         h = g4 + h | 0;
                                         j = (g4 << 1) + j | 0;
-                                        n = n + 1 | 0;
-                                        if ((u3 | 0) != (n | 0)) {
+                                        n2 = n2 + 1 | 0;
+                                        if ((u3 | 0) != (n2 | 0)) {
                                           continue;
                                         }
                                         break;
@@ -4702,13 +4702,13 @@
                                     i = G2[S2 + 2 >> 1];
                                     if ((i | 0) > 0) {
                                       d = N3(i, $2);
-                                      n = d + H2[S2 + 8 >> 2] | 0;
+                                      n2 = d + H2[S2 + 8 >> 2] | 0;
                                       p3 = H2[S2 + 12 >> 2] + (d << 1) | 0;
                                       l2 = 0;
                                       while (1) {
                                         d = l2 << 1;
                                         g4 = G2[d + p3 >> 1];
-                                        G2[d + (aa2 + 80 | 0) >> 1] = N3(g4, J2[d + C5 >> 1] - (I4[l2 + n | 0] << 7) << 16 >> 16) >>> 14;
+                                        G2[d + (aa2 + 80 | 0) >> 1] = N3(g4, J2[d + C5 >> 1] - (I4[l2 + n2 | 0] << 7) << 16 >> 16) >>> 14;
                                         h = G2[d + ra3 >> 1];
                                         k = h >> 31;
                                         u3 = Q2((h ^ k) - k | 0);
@@ -4804,8 +4804,8 @@
                                             Ka: {
                                               La: {
                                                 Ma: {
-                                                  n = (l2 | 0) <= 0;
-                                                  if (n) {
+                                                  n2 = (l2 | 0) <= 0;
+                                                  if (n2) {
                                                     break Ma;
                                                   }
                                                   d = p3 << 1;
@@ -4874,16 +4874,16 @@
                                                     Pa: {
                                                       if ((l2 | 0) >= 3) {
                                                         g4 = 0;
-                                                        n = H2[r2 + 208 >> 2];
+                                                        n2 = H2[r2 + 208 >> 2];
                                                         d = H2[r2 + 192 >> 2];
-                                                        if ((n | 0) < (d | 0)) {
+                                                        if ((n2 | 0) < (d | 0)) {
                                                           break Pa;
                                                         }
-                                                        k = n;
-                                                        n = d;
+                                                        k = n2;
+                                                        n2 = d;
                                                         break Oa;
                                                       }
-                                                      if (n) {
+                                                      if (n2) {
                                                         break Ma;
                                                       }
                                                       d = (r2 + 240 | 0) + p3 | 0;
@@ -4901,14 +4901,14 @@
                                                       break Ja;
                                                     }
                                                     H2[r2 + 208 >> 2] = d;
-                                                    H2[r2 + 192 >> 2] = n;
+                                                    H2[r2 + 192 >> 2] = n2;
                                                     g4 = J2[r2 + 224 >> 1];
                                                     G2[r2 + 224 >> 1] = J2[r2 + 232 >> 1];
                                                     G2[r2 + 232 >> 1] = g4;
                                                     g4 = 4;
                                                     k = d;
                                                   }
-                                                  H2[r2 + 176 >> 2] = n;
+                                                  H2[r2 + 176 >> 2] = n2;
                                                   H2[r2 + 160 >> 2] = k;
                                                   H2[r2 + 304 >> 2] = g4;
                                                   d = 1;
@@ -4973,8 +4973,8 @@
                                                   H2[r2 + 172 >> 2] = i;
                                                   Y3 = (j | 0) > (k | 0) ? k : j;
                                                   s3 = (u3 | 0) > (Y3 | 0) ? Y3 : u3;
-                                                  n = (n | 0) > 0 ? n : 0;
-                                                  ea3 = (g4 | 0) < (n | 0) ? n : g4;
+                                                  n2 = (n2 | 0) > 0 ? n2 : 0;
+                                                  ea3 = (g4 | 0) < (n2 | 0) ? n2 : g4;
                                                   o2 = (d | 0) < (ea3 | 0) ? ea3 : d;
                                                   if ((((i | 0) > (s3 | 0) ? s3 : i) | 0) < (((h | 0) < (o2 | 0) ? o2 : h) | 0)) {
                                                     break La;
@@ -4985,14 +4985,14 @@
                                                 break Ja;
                                               }
                                               while (1) {
-                                                d = (h | 0) > (o2 | 0) ? 3 : (d | 0) > (ea3 | 0) ? 2 : (g4 | 0) > (n | 0);
+                                                d = (h | 0) > (o2 | 0) ? 3 : (d | 0) > (ea3 | 0) ? 2 : (g4 | 0) > (n2 | 0);
                                                 g4 = d << 2;
                                                 h = r2 + 304 | 0;
                                                 o2 = g4 | h;
-                                                n = h;
+                                                n2 = h;
                                                 h = (i | 0) < (s3 | 0) ? 3 : (u3 | 0) < (Y3 | 0) ? 2 : (j | 0) < (k | 0);
                                                 i = h << 2;
-                                                H2[o2 >> 2] = H2[(n | i) >> 2] ^ 4;
+                                                H2[o2 >> 2] = H2[(n2 | i) >> 2] ^ 4;
                                                 k = r2 + 192 | 0;
                                                 j = h | 4;
                                                 H2[(k | g4) >> 2] = H2[k + (j << 2) >> 2];
@@ -5016,9 +5016,9 @@
                                                 s3 = (u3 | 0) > (Y3 | 0) ? Y3 : u3;
                                                 i = H2[r2 + 172 >> 2];
                                                 d = H2[r2 + 176 >> 2];
-                                                n = (d | 0) > 0 ? d : 0;
+                                                n2 = (d | 0) > 0 ? d : 0;
                                                 g4 = H2[r2 + 180 >> 2];
-                                                ea3 = (g4 | 0) < (n | 0) ? n : g4;
+                                                ea3 = (g4 | 0) < (n2 | 0) ? n2 : g4;
                                                 d = H2[r2 + 184 >> 2];
                                                 o2 = (d | 0) < (ea3 | 0) ? ea3 : d;
                                                 h = H2[r2 + 188 >> 2];
@@ -5092,8 +5092,8 @@
                                     s3 = (k | 0) > (o2 | 0) ? o2 : k;
                                     E5 = (h | 0) > (s3 | 0) ? s3 : h;
                                     Y3 = (d | 0) > (E5 | 0) ? E5 : d;
-                                    n = (g4 | 0) > (Y3 | 0) ? Y3 : g4;
-                                    d = (n | 0) > (p3 | 0) ? 7 : (g4 | 0) < (Y3 | 0) ? 6 : (d | 0) < (E5 | 0) ? 5 : (h | 0) < (s3 | 0) ? 4 : (k | 0) < (o2 | 0) ? 3 : (l2 | 0) < (u3 | 0) ? 2 : (i | 0) > (j | 0);
+                                    n2 = (g4 | 0) > (Y3 | 0) ? Y3 : g4;
+                                    d = (n2 | 0) > (p3 | 0) ? 7 : (g4 | 0) < (Y3 | 0) ? 6 : (d | 0) < (E5 | 0) ? 5 : (h | 0) < (s3 | 0) ? 4 : (k | 0) < (o2 | 0) ? 3 : (l2 | 0) < (u3 | 0) ? 2 : (i | 0) > (j | 0);
                                     if ((w4 | 0) > 0) {
                                       Ca2(ia3, (r2 + 240 | 0) + (d << 4 & 48) | 0, w4);
                                     }
@@ -5107,7 +5107,7 @@
                                     } else {
                                       d = 256;
                                     }
-                                    ab3 = g4, cb3 = N3(va2, 67108864 - (Ha2(d - I4[l2 | 0] | 0) << 16) >> 16) + ((n | 0) < (p3 | 0) ? n : p3) | 0, H2[ab3 >> 2] = cb3;
+                                    ab3 = g4, cb3 = N3(va2, 67108864 - (Ha2(d - I4[l2 | 0] | 0) << 16) >> 16) + ((n2 | 0) < (p3 | 0) ? n2 : p3) | 0, H2[ab3 >> 2] = cb3;
                                     K3 = K3 + 1 | 0;
                                     if ((T3 | 0) != (K3 | 0)) {
                                       continue;
@@ -5203,12 +5203,12 @@
                         l2 = 0;
                         while (1) {
                           L2[i + (g4 << 2) >> 2] = O2(G2[k + (g4 << 1) >> 1]) * O2(244140625e-12);
-                          n = g4 | 1;
-                          L2[i + (n << 2) >> 2] = O2(G2[k + (n << 1) >> 1]) * O2(244140625e-12);
-                          n = g4 | 2;
-                          L2[i + (n << 2) >> 2] = O2(G2[k + (n << 1) >> 1]) * O2(244140625e-12);
-                          n = g4 | 3;
-                          L2[i + (n << 2) >> 2] = O2(G2[k + (n << 1) >> 1]) * O2(244140625e-12);
+                          n2 = g4 | 1;
+                          L2[i + (n2 << 2) >> 2] = O2(G2[k + (n2 << 1) >> 1]) * O2(244140625e-12);
+                          n2 = g4 | 2;
+                          L2[i + (n2 << 2) >> 2] = O2(G2[k + (n2 << 1) >> 1]) * O2(244140625e-12);
+                          n2 = g4 | 3;
+                          L2[i + (n2 << 2) >> 2] = O2(G2[k + (n2 << 1) >> 1]) * O2(244140625e-12);
                           g4 = g4 + 4 | 0;
                           l2 = l2 + 4 | 0;
                           if ((j | 0) != (l2 | 0)) {
@@ -5338,15 +5338,15 @@
                         j = 0;
                         while (1) {
                           h = _2 << 2;
-                          n = h + v3 | 0;
-                          x3 = L2[n >> 2];
+                          n2 = h + v3 | 0;
+                          x3 = L2[n2 >> 2];
                           x3 = O2(W2(O2(O2(x3 * x3) + O2(L2[g4 + h >> 2] * m))));
-                          L2[n >> 2] = x3 < O2(32767) ? x3 : O2(32767);
+                          L2[n2 >> 2] = x3 < O2(32767) ? x3 : O2(32767);
                           h = h | 4;
-                          n = h + v3 | 0;
-                          x3 = L2[n >> 2];
+                          n2 = h + v3 | 0;
+                          x3 = L2[n2 >> 2];
                           x3 = O2(W2(O2(O2(x3 * x3) + O2(L2[g4 + h >> 2] * m))));
-                          L2[n >> 2] = x3 < O2(32767) ? x3 : O2(32767);
+                          L2[n2 >> 2] = x3 < O2(32767) ? x3 : O2(32767);
                           _2 = _2 + 2 | 0;
                           j = j + 2 | 0;
                           if ((k | 0) != (j | 0)) {
@@ -5367,7 +5367,7 @@
                       k = 0;
                       _2 = 0;
                       if (o2 >>> 0 >= 4) {
-                        n = o2 & -4;
+                        n2 = o2 & -4;
                         j = 0;
                         while (1) {
                           g4 = _2 << 2;
@@ -5416,7 +5416,7 @@
                           H2[h >> 2] = g4;
                           _2 = _2 + 4 | 0;
                           j = j + 4 | 0;
-                          if ((n | 0) != (j | 0)) {
+                          if ((n2 | 0) != (j | 0)) {
                             continue;
                           }
                           break;
@@ -5557,14 +5557,14 @@
                           while (1) {
                             d = g4 << 2;
                             k = z3 + 8484 | 0;
-                            n = z3 + 1344 | 0;
-                            L2[d + k >> 2] = O2(H2[n + d >> 2]) * O2(152587890625e-16);
+                            n2 = z3 + 1344 | 0;
+                            L2[d + k >> 2] = O2(H2[n2 + d >> 2]) * O2(152587890625e-16);
                             _2 = d | 4;
-                            L2[_2 + k >> 2] = O2(H2[n + _2 >> 2]) * O2(152587890625e-16);
+                            L2[_2 + k >> 2] = O2(H2[n2 + _2 >> 2]) * O2(152587890625e-16);
                             _2 = d | 8;
-                            L2[_2 + k >> 2] = O2(H2[n + _2 >> 2]) * O2(152587890625e-16);
+                            L2[_2 + k >> 2] = O2(H2[n2 + _2 >> 2]) * O2(152587890625e-16);
                             d = d | 12;
-                            L2[d + k >> 2] = O2(H2[d + n >> 2]) * O2(152587890625e-16);
+                            L2[d + k >> 2] = O2(H2[d + n2 >> 2]) * O2(152587890625e-16);
                             g4 = g4 + 4 | 0;
                             j = j + 4 | 0;
                             if ((p3 | 0) != (j | 0)) {
@@ -5673,22 +5673,22 @@
                         td3(a3, z3 + 8484 | 0, U3, p3, q2, R3);
                         j = !Ea3 & (ya2 | 0) == 6;
                         if (j) {
-                          n = H2[c2 + 20 >> 2];
+                          n2 = H2[c2 + 20 >> 2];
                           g4 = z3 + 5736 | 0;
                           H2[g4 >> 2] = H2[c2 + 16 >> 2];
-                          H2[g4 + 4 >> 2] = n;
-                          n = H2[c2 + 12 >> 2];
+                          H2[g4 + 4 >> 2] = n2;
+                          n2 = H2[c2 + 12 >> 2];
                           g4 = z3 + 5728 | 0;
                           H2[g4 >> 2] = H2[c2 + 8 >> 2];
-                          H2[g4 + 4 >> 2] = n;
+                          H2[g4 + 4 >> 2] = n2;
                           g4 = H2[c2 + 4 >> 2];
                           H2[z3 + 5720 >> 2] = H2[c2 >> 2];
                           H2[z3 + 5724 >> 2] = g4;
                           za3 = H2[c2 + 24 >> 2];
-                          n = H2[c2 + 40 >> 2];
+                          n2 = H2[c2 + 40 >> 2];
                           g4 = z3 + 5704 | 0;
                           H2[g4 >> 2] = H2[c2 + 36 >> 2];
-                          H2[g4 + 4 >> 2] = n;
+                          H2[g4 + 4 >> 2] = n2;
                           H2[z3 + 5712 >> 2] = H2[c2 + 44 >> 2];
                           g4 = H2[c2 + 32 >> 2];
                           H2[z3 + 5696 >> 2] = H2[c2 + 28 >> 2];
@@ -5852,7 +5852,7 @@
                                     $2 = u3 & 1;
                                     j = 0;
                                     while (1) {
-                                      n = 0;
+                                      n2 = 0;
                                       g4 = N3(j, u3);
                                       k = j + 1 | 0;
                                       nb: {
@@ -5867,7 +5867,7 @@
                                             s3 = ea3 >> 31;
                                             ha3 = F2[w4 + 4773 | 0];
                                             w4 = ha3 >> 31;
-                                            n = ((s3 ^ ea3) - s3 | 0) + n + ((w4 ^ ha3) - w4) | 0;
+                                            n2 = ((s3 ^ ea3) - s3 | 0) + n2 + ((w4 ^ ha3) - w4) | 0;
                                             g4 = g4 + 2 | 0;
                                             i = i + 2 | 0;
                                             if ((T3 | 0) != (i | 0)) {
@@ -5881,18 +5881,18 @@
                                         }
                                         i = F2[(a3 + g4 | 0) + 4772 | 0];
                                         g4 = i >> 31;
-                                        n = ((g4 ^ i) - g4 | 0) + n | 0;
+                                        n2 = ((g4 ^ i) - g4 | 0) + n2 | 0;
                                       }
                                       ob: {
                                         pb: {
                                           if (ya2) {
                                             g4 = j << 2;
-                                            if (H2[g4 + z3 >> 2] <= (n | 0) | H2[g4 + (z3 + 32 | 0) >> 2]) {
+                                            if (H2[g4 + z3 >> 2] <= (n2 | 0) | H2[g4 + (z3 + 32 | 0) >> 2]) {
                                               break pb;
                                             }
                                           }
                                           G2[(z3 + 24 | 0) + (j << 1) >> 1] = o2;
-                                          H2[(j << 2) + z3 >> 2] = n;
+                                          H2[(j << 2) + z3 >> 2] = n2;
                                           break ob;
                                         }
                                         H2[g4 + (z3 + 32 | 0) >> 2] = 1;
@@ -5945,12 +5945,12 @@
                           i = o2;
                           j = g4 << 2;
                           i = H2[j + (z3 + 32 | 0) >> 2] ? J2[(z3 + 24 | 0) + (g4 << 1) >> 1] : i;
-                          n = j + (z3 + 1328 | 0) | 0;
+                          n2 = j + (z3 + 1328 | 0) | 0;
                           i = i << 16 >> 16;
                           j = H2[(j + z3 | 0) + 9212 >> 2];
                           i = (N3(i, j & 65535) >> 16) + N3(i, j >> 16) | 0;
                           i = (i | 0) <= -8388608 ? -8388608 : i;
-                          H2[n >> 2] = ((i | 0) >= 8388607 ? 8388607 : i) << 8;
+                          H2[n2 >> 2] = ((i | 0) >= 8388607 ? 8388607 : i) << 8;
                           g4 = g4 + 1 | 0;
                           if ((l2 | 0) != (g4 | 0)) {
                             continue;
@@ -5972,16 +5972,16 @@
                           Y3 = u3 & -4;
                           j = 0;
                           while (1) {
-                            n = g4 << 2;
+                            n2 = g4 << 2;
                             s3 = z3 + 8484 | 0;
                             w4 = z3 + 1328 | 0;
-                            L2[n + s3 >> 2] = O2(H2[w4 + n >> 2]) * O2(152587890625e-16);
-                            T3 = n | 4;
+                            L2[n2 + s3 >> 2] = O2(H2[w4 + n2 >> 2]) * O2(152587890625e-16);
+                            T3 = n2 | 4;
                             L2[T3 + s3 >> 2] = O2(H2[w4 + T3 >> 2]) * O2(152587890625e-16);
-                            T3 = n | 8;
+                            T3 = n2 | 8;
                             L2[T3 + s3 >> 2] = O2(H2[w4 + T3 >> 2]) * O2(152587890625e-16);
-                            n = n | 12;
-                            L2[n + s3 >> 2] = O2(H2[n + w4 >> 2]) * O2(152587890625e-16);
+                            n2 = n2 | 12;
+                            L2[n2 + s3 >> 2] = O2(H2[n2 + w4 >> 2]) * O2(152587890625e-16);
                             g4 = g4 + 4 | 0;
                             j = j + 4 | 0;
                             if ((Y3 | 0) != (j | 0)) {
@@ -5995,8 +5995,8 @@
                           break qb;
                         }
                         while (1) {
-                          n = g4 << 2;
-                          L2[n + (z3 + 8484 | 0) >> 2] = O2(H2[n + (z3 + 1328 | 0) >> 2]) * O2(152587890625e-16);
+                          n2 = g4 << 2;
+                          L2[n2 + (z3 + 8484 | 0) >> 2] = O2(H2[n2 + (z3 + 1328 | 0) >> 2]) * O2(152587890625e-16);
                           g4 = g4 + 1 | 0;
                           i = i + 1 | 0;
                           if ((j | 0) != (i | 0)) {
@@ -6024,7 +6024,7 @@
                   return 0;
                 }
                 function nd(a3, b, c2, d, e4, f2, g4, h, i, j, k, l2) {
-                  var m = O2(0), n = O2(0), o2 = O2(0), p3 = 0, q2 = 0, r2 = 0, s3 = O2(0), t4 = 0, u3 = O2(0), v3 = 0, w4 = 0, x3 = 0, y2 = 0, z3 = 0, A3 = O2(0), C5 = O2(0), D5 = 0, E5 = 0, J3 = O2(0), K3 = 0, M5 = 0, R3 = O2(0), S2 = O2(0), U3 = 0, V3 = 0, X3 = 0, Y3 = 0, Z3 = O2(0), _2 = 0, $2 = 0, aa2 = O2(0), ba3 = O2(0), ca3 = 0, da3 = 0, ea3 = 0, fa3 = O2(0), ga2 = O2(0), ha3 = O2(0), ia3 = O2(0), ja3 = O2(0), ka3 = 0, la3 = 0, ma3 = 0, na3 = 0, oa3 = O2(0), qa3 = 0, ra3 = 0, sa3 = 0, ta2 = 0, ua2 = 0, va2 = 0, wa2 = O2(0), xa3 = O2(0), ya2 = 0, za3 = 0, Aa3 = 0, Ea3 = 0, Fa3 = O2(0), Ja3 = 0, Ka3 = 0, La2 = O2(0), Ma3 = O2(0), Oa3 = O2(0), Pa3 = O2(0), Qa3 = O2(0), Ra3 = O2(0), Sa3 = O2(0), Ta3 = 0, Ua3 = 0, Va3 = 0, Ya3 = 0, _a2 = O2(0), $a3 = O2(0), ab3 = O2(0), bb3 = 0, cb3 = O2(0), db3 = O2(0), eb3 = O2(0), fb3 = O2(0), gb3 = O2(0), hb3 = O2(0), ib3 = O2(0), mb3 = O2(0), nb3 = O2(0), pb3 = O2(0), qb3 = O2(0), rb3 = O2(0), sb3 = 0, tb3 = 0, ub3 = O2(0), vb3 = 0, wb3 = O2(0), xb3 = O2(0), yb3 = O2(0), zb3 = O2(0), Ab3 = O2(0), Bb3 = O2(0), Db3 = O2(0), Eb3 = 0, Fb3 = O2(0), Gb3 = 0;
+                  var m = O2(0), n2 = O2(0), o2 = O2(0), p3 = 0, q2 = 0, r2 = 0, s3 = O2(0), t4 = 0, u3 = O2(0), v3 = 0, w4 = 0, x3 = 0, y2 = 0, z3 = 0, A3 = O2(0), C5 = O2(0), D5 = 0, E5 = 0, J3 = O2(0), K3 = 0, M5 = 0, R3 = O2(0), S2 = O2(0), U3 = 0, V3 = 0, X3 = 0, Y3 = 0, Z3 = O2(0), _2 = 0, $2 = 0, aa2 = O2(0), ba3 = O2(0), ca3 = 0, da3 = 0, ea3 = 0, fa3 = O2(0), ga2 = O2(0), ha3 = O2(0), ia3 = O2(0), ja3 = O2(0), ka3 = 0, la3 = 0, ma3 = 0, na3 = 0, oa3 = O2(0), qa3 = 0, ra3 = 0, sa3 = 0, ta2 = 0, ua2 = 0, va2 = 0, wa2 = O2(0), xa3 = O2(0), ya2 = 0, za3 = 0, Aa3 = 0, Ea3 = 0, Fa3 = O2(0), Ja3 = 0, Ka3 = 0, La2 = O2(0), Ma3 = O2(0), Oa3 = O2(0), Pa3 = O2(0), Qa3 = O2(0), Ra3 = O2(0), Sa3 = O2(0), Ta3 = 0, Ua3 = 0, Va3 = 0, Ya3 = 0, _a2 = O2(0), $a3 = O2(0), ab3 = O2(0), bb3 = 0, cb3 = O2(0), db3 = O2(0), eb3 = O2(0), fb3 = O2(0), gb3 = O2(0), hb3 = O2(0), ib3 = O2(0), mb3 = O2(0), nb3 = O2(0), pb3 = O2(0), qb3 = O2(0), rb3 = O2(0), sb3 = 0, tb3 = 0, ub3 = O2(0), vb3 = 0, wb3 = O2(0), xb3 = O2(0), yb3 = O2(0), zb3 = O2(0), Ab3 = O2(0), Bb3 = O2(0), Db3 = O2(0), Eb3 = 0, Fb3 = O2(0), Gb3 = 0;
                   w4 = pa2 - 608 | 0;
                   pa2 = w4;
                   H2[w4 + 600 >> 2] = 0;
@@ -6086,12 +6086,12 @@
                                       m = m < s3 ? m : s3;
                                       o2 = L2[(y2 | 8) + b >> 2];
                                       m = m < o2 ? m : o2;
-                                      n = L2[(y2 | 12) + b >> 2];
-                                      ga2 = m < n ? m : n;
+                                      n2 = L2[(y2 | 12) + b >> 2];
+                                      ga2 = m < n2 ? m : n2;
                                       m = u3 < A3 ? A3 : u3;
                                       m = m > s3 ? m : s3;
                                       m = m > o2 ? m : o2;
-                                      A3 = m > n ? m : n;
+                                      A3 = m > n2 ? m : n2;
                                       p3 = p3 + 4 | 0;
                                       x3 = x3 + 4 | 0;
                                       if ((f2 | 0) != (x3 | 0)) {
@@ -6179,20 +6179,20 @@
                                         $a3 = O2(O2(1) / O2(((na3 | 0) >= 25 ? 25 : $2) | 0));
                                         E5 = H2[q2 + 7444 >> 2];
                                         H2[q2 + 7444 >> 2] = ((E5 | 0) > 98 ? -99 : 1) + E5;
-                                        n = O2(0);
+                                        n2 = O2(0);
                                         m = O2(0);
                                         h = 0;
                                         j = 0;
                                         while (1) {
                                           r2 = h << 2;
                                           C5 = L2[r2 + Ea3 >> 2];
-                                          n = n < C5 ? n : C5;
+                                          n2 = n2 < C5 ? n2 : C5;
                                           u3 = L2[Ea3 + (r2 | 4) >> 2];
-                                          n = n < u3 ? n : u3;
+                                          n2 = n2 < u3 ? n2 : u3;
                                           s3 = L2[Ea3 + (r2 | 8) >> 2];
-                                          n = n < s3 ? n : s3;
+                                          n2 = n2 < s3 ? n2 : s3;
                                           o2 = L2[Ea3 + (r2 | 12) >> 2];
-                                          n = n < o2 ? n : o2;
+                                          n2 = n2 < o2 ? n2 : o2;
                                           m = m > C5 ? m : C5;
                                           m = m > u3 ? m : u3;
                                           m = m > s3 ? m : s3;
@@ -6204,8 +6204,8 @@
                                           }
                                           break;
                                         }
-                                        n = O2(-n);
-                                        z3 = O2(O2(1) / O2(1 << Va3)) >= (m > n ? m : n);
+                                        n2 = O2(-n2);
+                                        z3 = O2(O2(1) / O2(1 << Va3)) >= (m > n2 ? m : n2);
                                         h = 0;
                                         while (1) {
                                           t4 = v3 + 5760 | 0;
@@ -6281,7 +6281,7 @@
                                               if ((z3 | 0) <= 0) {
                                                 break m;
                                               }
-                                              n = L2[i + 4 >> 2];
+                                              n2 = L2[i + 4 >> 2];
                                               t4 = H2[i + 44 >> 2];
                                               if ((z3 | 0) != 1) {
                                                 j = z3 & -2;
@@ -6289,14 +6289,14 @@
                                                   h = E5 + (g4 << 3) | 0;
                                                   m = L2[h >> 2];
                                                   f2 = U3 + (G2[t4 + (g4 << 1) >> 1] << 3) | 0;
-                                                  L2[f2 + 4 >> 2] = n * L2[h + 4 >> 2];
-                                                  L2[f2 >> 2] = n * m;
+                                                  L2[f2 + 4 >> 2] = n2 * L2[h + 4 >> 2];
+                                                  L2[f2 >> 2] = n2 * m;
                                                   f2 = g4 | 1;
                                                   h = E5 + (f2 << 3) | 0;
                                                   m = L2[h >> 2];
                                                   f2 = U3 + (G2[t4 + (f2 << 1) >> 1] << 3) | 0;
-                                                  L2[f2 + 4 >> 2] = n * L2[h + 4 >> 2];
-                                                  L2[f2 >> 2] = n * m;
+                                                  L2[f2 + 4 >> 2] = n2 * L2[h + 4 >> 2];
+                                                  L2[f2 >> 2] = n2 * m;
                                                   g4 = g4 + 2 | 0;
                                                   r2 = r2 + 2 | 0;
                                                   if ((j | 0) != (r2 | 0)) {
@@ -6311,8 +6311,8 @@
                                               h = E5 + (g4 << 3) | 0;
                                               m = L2[h >> 2];
                                               f2 = U3 + (G2[t4 + (g4 << 1) >> 1] << 3) | 0;
-                                              L2[f2 + 4 >> 2] = n * L2[h + 4 >> 2];
-                                              L2[f2 >> 2] = n * m;
+                                              L2[f2 + 4 >> 2] = n2 * L2[h + 4 >> 2];
+                                              L2[f2 >> 2] = n2 * m;
                                             }
                                             jb(i, U3);
                                             break l;
@@ -6332,26 +6332,26 @@
                                           g4 = (v3 + 1920 | 0) + (f2 << 3) | 0;
                                           s3 = L2[g4 >> 2];
                                           R3 = O2(u3 - s3);
-                                          n = L2[g4 + 4 >> 2];
+                                          n2 = L2[g4 + 4 >> 2];
                                           m = L2[h + 4 >> 2];
-                                          J3 = O2(n + m);
+                                          J3 = O2(n2 + m);
                                           o2 = O2(0);
                                           s3 = O2(s3 + u3);
                                           u3 = O2(s3 * s3);
-                                          m = O2(n - m);
-                                          n = O2(m * m);
+                                          m = O2(n2 - m);
+                                          n2 = O2(m * m);
                                           C5 = O2(0);
                                           n: {
-                                            if (O2(u3 + n) < O2(1000000045813705e-33)) {
+                                            if (O2(u3 + n2) < O2(1000000045813705e-33)) {
                                               break n;
                                             }
-                                            C5 = O2((m < O2(0) ? O2(-1.5707963705062866) : O2(1.5707963705062866)) - O2(O2(O2(m * s3) * O2(O2(u3 * O2(0.43157973885536194)) + n)) / O2(O2(O2(u3 * O2(0.6784840226173401)) + n) * O2(O2(u3 * O2(0.0859554186463356)) + n))));
-                                            if (n > u3) {
+                                            C5 = O2((m < O2(0) ? O2(-1.5707963705062866) : O2(1.5707963705062866)) - O2(O2(O2(m * s3) * O2(O2(u3 * O2(0.43157973885536194)) + n2)) / O2(O2(O2(u3 * O2(0.6784840226173401)) + n2) * O2(O2(u3 * O2(0.0859554186463356)) + n2))));
+                                            if (n2 > u3) {
                                               break n;
                                             }
                                             C5 = m < O2(0) ? O2(-1.5707963705062866) : O2(1.5707963705062866);
                                             m = O2(s3 * m);
-                                            C5 = O2(O2(C5 + O2(O2(m * O2(O2(n * O2(0.43157973885536194)) + u3)) / O2(O2(O2(n * O2(0.6784840226173401)) + u3) * O2(O2(n * O2(0.0859554186463356)) + u3)))) - (m < O2(0) ? O2(-1.5707963705062866) : O2(1.5707963705062866)));
+                                            C5 = O2(O2(C5 + O2(O2(m * O2(O2(n2 * O2(0.43157973885536194)) + u3)) / O2(O2(O2(n2 * O2(0.6784840226173401)) + u3) * O2(O2(n2 * O2(0.0859554186463356)) + u3)))) - (m < O2(0) ? O2(-1.5707963705062866) : O2(1.5707963705062866)));
                                           }
                                           s3 = O2(C5 * O2(0.15915493667125702));
                                           t4 = f2 << 2;
@@ -6369,25 +6369,25 @@
                                               o2 = O2((R3 < O2(0) ? O2(-1.5707963705062866) : O2(1.5707963705062866)) - O2(O2(O2(R3 * J3) * O2(O2(u3 * O2(0.43157973885536194)) + Z3)) / O2(O2(O2(u3 * O2(0.6784840226173401)) + Z3) * O2(O2(u3 * O2(0.0859554186463356)) + Z3))));
                                               break o;
                                             }
-                                            n = O2(R3 * J3);
-                                            o2 = O2(O2((R3 < O2(0) ? O2(-1.5707963705062866) : O2(1.5707963705062866)) + O2(O2(n * O2(O2(Z3 * O2(0.43157973885536194)) + u3)) / O2(O2(O2(Z3 * O2(0.6784840226173401)) + u3) * O2(O2(Z3 * O2(0.0859554186463356)) + u3)))) - (n < O2(0) ? O2(-1.5707963705062866) : O2(1.5707963705062866)));
+                                            n2 = O2(R3 * J3);
+                                            o2 = O2(O2((R3 < O2(0) ? O2(-1.5707963705062866) : O2(1.5707963705062866)) + O2(O2(n2 * O2(O2(Z3 * O2(0.43157973885536194)) + u3)) / O2(O2(O2(Z3 * O2(0.6784840226173401)) + u3) * O2(O2(Z3 * O2(0.0859554186463356)) + u3)))) - (n2 < O2(0) ? O2(-1.5707963705062866) : O2(1.5707963705062866)));
                                           }
                                           u3 = O2(o2 * O2(0.15915493667125702));
                                           s3 = O2(u3 - s3);
                                           o2 = O2(s3 - C5);
-                                          n = de(o2);
+                                          n2 = de(o2);
                                           p: {
-                                            if (O2(P2(n)) < O2(2147483648)) {
-                                              g4 = ~~n;
+                                            if (O2(P2(n2)) < O2(2147483648)) {
+                                              g4 = ~~n2;
                                               break p;
                                             }
                                             g4 = -2147483648;
                                           }
                                           r2 = t4 + v3 | 0;
-                                          n = de(m);
+                                          n2 = de(m);
                                           q: {
-                                            if (O2(P2(n)) < O2(2147483648)) {
-                                              h = ~~n;
+                                            if (O2(P2(n2)) < O2(2147483648)) {
+                                              h = ~~n2;
                                               break q;
                                             }
                                             h = -2147483648;
@@ -6396,12 +6396,12 @@
                                           m = O2(o2 - O2(g4 | 0));
                                           L2[r2 >> 2] = O2(P2(C5)) + O2(P2(m));
                                           g4 = t4 + Ka3 | 0;
-                                          n = L2[g4 >> 2];
+                                          n2 = L2[g4 >> 2];
                                           m = O2(m * m);
                                           o2 = O2(m * m);
                                           L2[t4 + (v3 + 1e4 | 0) >> 2] = O2(O2(1) / O2(O2(o2 * O2(62341.81640625)) + O2(1))) + O2(-0.014999999664723873);
                                           m = O2(C5 * C5);
-                                          L2[t4 + (v3 + 960 | 0) >> 2] = O2(O2(1) / O2(O2(O2(O2(O2(o2 + o2) + O2(n + O2(m * m))) * O2(0.25)) * O2(62341.81640625)) + O2(1))) + O2(-0.014999999664723873);
+                                          L2[t4 + (v3 + 960 | 0) >> 2] = O2(O2(1) / O2(O2(O2(O2(O2(o2 + o2) + O2(n2 + O2(m * m))) * O2(0.25)) * O2(62341.81640625)) + O2(1))) + O2(-0.014999999664723873);
                                           L2[j >> 2] = u3;
                                           L2[i >> 2] = s3;
                                           L2[g4 >> 2] = o2;
@@ -6419,11 +6419,11 @@
                                           s3 = L2[f2 >> 2];
                                           o2 = L2[(g4 + v3 | 0) + 9996 >> 2];
                                           h = h + 1 | 0;
-                                          n = L2[(v3 + 1e4 | 0) + (h << 2) >> 2];
-                                          o2 = n < o2 ? o2 : n;
+                                          n2 = L2[(v3 + 1e4 | 0) + (h << 2) >> 2];
+                                          o2 = n2 < o2 ? o2 : n2;
                                           m = O2((m < o2 ? m : o2) + O2(-0.10000000149011612));
                                           L2[f2 >> 2] = (m < s3 ? s3 : m) * O2(0.8999999761581421);
-                                          m = n;
+                                          m = n2;
                                           if ((h | 0) != 239) {
                                             continue;
                                           }
@@ -6473,10 +6473,10 @@
                                         fa3 = O2(O2(1) / O2(((na3 | 0) >= 10 ? 10 : $2) | 0));
                                         ab3 = O2(O2(1) - O2(O2(1) / O2(((na3 | 0) >= 100 ? 100 : $2) | 0)));
                                         m = O2(S2 + S2);
-                                        n = O2(m * m);
+                                        n2 = O2(m * m);
                                         m = L2[v3 + 1924 >> 2];
                                         m = O2(m + m);
-                                        n = O2(n + O2(m * m));
+                                        n2 = O2(n2 + O2(m * m));
                                         m = L2[v3 + 5756 >> 2];
                                         o2 = O2(m * m);
                                         m = L2[v3 + 1932 >> 2];
@@ -6484,7 +6484,7 @@
                                         m = L2[v3 + 1928 >> 2];
                                         u3 = O2(m * m);
                                         m = L2[v3 + 5752 >> 2];
-                                        n = O2(n + O2(o2 + O2(s3 + O2(u3 + O2(m * m)))));
+                                        n2 = O2(n2 + O2(o2 + O2(s3 + O2(u3 + O2(m * m)))));
                                         m = L2[v3 + 5748 >> 2];
                                         o2 = O2(m * m);
                                         m = L2[v3 + 1940 >> 2];
@@ -6492,7 +6492,7 @@
                                         m = L2[v3 + 1936 >> 2];
                                         u3 = O2(m * m);
                                         m = L2[v3 + 5744 >> 2];
-                                        n = O2(n + O2(o2 + O2(s3 + O2(u3 + O2(m * m)))));
+                                        n2 = O2(n2 + O2(o2 + O2(s3 + O2(u3 + O2(m * m)))));
                                         m = L2[v3 + 5740 >> 2];
                                         o2 = O2(m * m);
                                         m = L2[v3 + 1948 >> 2];
@@ -6500,7 +6500,7 @@
                                         m = L2[v3 + 1944 >> 2];
                                         u3 = O2(m * m);
                                         m = L2[v3 + 5736 >> 2];
-                                        Eb3 = v3, Fb3 = O2(O2(Za2(+O2(O2(n + O2(o2 + O2(s3 + O2(u3 + O2(m * m))))) + O2(1000000013351432e-25)))) * O2(0.7213475108146667)), L2[Eb3 + 9888 >> 2] = Fb3;
+                                        Eb3 = v3, Fb3 = O2(O2(Za2(+O2(O2(n2 + O2(o2 + O2(s3 + O2(u3 + O2(m * m))))) + O2(1000000013351432e-25)))) * O2(0.7213475108146667)), L2[Eb3 + 9888 >> 2] = Fb3;
                                         ha3 = O2(0);
                                         f2 = 0;
                                         h = 4;
@@ -6521,19 +6521,19 @@
                                             while (1) {
                                               r2 = (v3 + (0 - h << 3) | 0) + 5760 | 0;
                                               m = L2[r2 + 4 >> 2];
-                                              n = O2(m * m);
+                                              n2 = O2(m * m);
                                               j = (v3 + 1920 | 0) + (h << 3) | 0;
                                               m = L2[j + 4 >> 2];
                                               o2 = O2(m * m);
                                               m = L2[j >> 2];
                                               u3 = O2(m * m);
                                               m = L2[r2 >> 2];
-                                              n = O2(n + O2(o2 + O2(u3 + O2(m * m))));
+                                              n2 = O2(n2 + O2(o2 + O2(u3 + O2(m * m))));
                                               j = h << 2;
                                               m = L2[j + (v3 + 960 | 0) >> 2];
-                                              R3 = O2(O2(n * (m < O2(0) ? O2(0) : m)) + R3);
-                                              s3 = O2(s3 + n);
-                                              ba3 = O2(O2(O2(n + n) * O2(O2(0.5) - L2[j + v3 >> 2])) + ba3);
+                                              R3 = O2(O2(n2 * (m < O2(0) ? O2(0) : m)) + R3);
+                                              s3 = O2(s3 + n2);
+                                              ba3 = O2(O2(O2(n2 + n2) * O2(O2(0.5) - L2[j + v3 >> 2])) + ba3);
                                               h = h + 1 | 0;
                                               if ((i | 0) != (h | 0)) {
                                                 continue;
@@ -6559,46 +6559,46 @@
                                           r: {
                                             if (z3) {
                                               h = q2 + E5 | 0;
-                                              n = L2[h + 7008 >> 2];
+                                              n2 = L2[h + 7008 >> 2];
                                               o2 = L2[h + 7080 >> 2];
                                               break r;
                                             }
                                             h = q2 + E5 | 0;
                                             L2[h + 7080 >> 2] = m;
                                             L2[h + 7008 >> 2] = m;
-                                            n = m;
+                                            n2 = m;
                                             o2 = m;
                                           }
                                           s: {
-                                            if (!(+o2 > +n + 7.5)) {
+                                            if (!(+o2 > +n2 + 7.5)) {
                                               break s;
                                             }
-                                            if (O2(o2 - m) > O2(m - n)) {
+                                            if (O2(o2 - m) > O2(m - n2)) {
                                               o2 = O2(o2 + O2(-0.009999999776482582));
                                               L2[j >> 2] = o2;
                                               break s;
                                             }
-                                            n = O2(n + O2(0.009999999776482582));
-                                            L2[r2 >> 2] = n;
+                                            n2 = O2(n2 + O2(0.009999999776482582));
+                                            L2[r2 >> 2] = n2;
                                           }
                                           xa3 = O2(s3 + O2(10000000036274937e-31));
                                           t: {
                                             if (m > o2) {
                                               L2[j >> 2] = m;
                                               o2 = O2(m + O2(-15));
-                                              n = n < o2 ? o2 : n;
-                                              L2[r2 >> 2] = n;
+                                              n2 = n2 < o2 ? o2 : n2;
+                                              L2[r2 >> 2] = n2;
                                               o2 = m;
                                               break t;
                                             }
-                                            if (!(m < n)) {
+                                            if (!(m < n2)) {
                                               break t;
                                             }
                                             L2[r2 >> 2] = m;
-                                            n = O2(m + O2(15));
-                                            o2 = n < o2 ? n : o2;
+                                            n2 = O2(m + O2(15));
+                                            o2 = n2 < o2 ? n2 : o2;
                                             L2[j >> 2] = o2;
-                                            n = m;
+                                            n2 = m;
                                           }
                                           ia3 = O2(R3 / xa3);
                                           h = t4 + 5776 | 0;
@@ -6622,7 +6622,7 @@
                                           oa3 = O2(oa3 + O2(W2(wa2)));
                                           La2 = O2(La2 + O2(ba3 / xa3));
                                           Oa3 = O2(Oa3 + u3);
-                                          Fa3 = O2(Fa3 + O2(O2(m - n) / O2(O2(o2 - n) + O2(9999999747378752e-21))));
+                                          Fa3 = O2(Fa3 + O2(O2(m - n2) / O2(O2(o2 - n2) + O2(9999999747378752e-21))));
                                           L2[h >> 2] = s3;
                                           m = O2(O2(O2(O2(f2 - 18 | 0) * O2(0.029999999329447746)) + O2(1)) * ha3);
                                           aa2 = m < aa2 ? aa2 : m;
@@ -6645,13 +6645,13 @@
                                           h = H2[i + 41632 >> 2];
                                           m = O2(h - g4 | 0);
                                           m = O2(O2(m + m) * O2(0.25));
-                                          n = O2(s3 + m);
+                                          n2 = O2(s3 + m);
                                           o2 = L2[i + (v3 + 9888 | 0) >> 2];
-                                          s3 = n < o2 ? n : o2;
+                                          s3 = n2 < o2 ? n2 : o2;
                                           L2[i + (v3 + 9808 | 0) >> 2] = s3;
-                                          n = O2(ba3 - m);
+                                          n2 = O2(ba3 - m);
                                           m = O2(o2 + O2(-2.5));
-                                          ba3 = m < n ? n : m;
+                                          ba3 = m < n2 ? n2 : m;
                                           L2[i + (v3 + 9728 | 0) >> 2] = ba3;
                                           g4 = h;
                                           f2 = f2 + 1 | 0;
@@ -6669,16 +6669,16 @@
                                           h = i + (v3 + 9808 | 0) | 0;
                                           j = g4;
                                           g4 = H2[i + 41632 >> 2];
-                                          n = O2(j - g4 | 0);
-                                          u3 = O2(O2(n + n) * O2(0.25));
+                                          n2 = O2(j - g4 | 0);
+                                          u3 = O2(O2(n2 + n2) * O2(0.25));
                                           o2 = O2(s3 + u3);
-                                          n = L2[h >> 2];
-                                          s3 = n > o2 ? o2 : n;
+                                          n2 = L2[h >> 2];
+                                          s3 = n2 > o2 ? o2 : n2;
                                           L2[h >> 2] = s3;
-                                          n = O2(m - u3);
+                                          n2 = O2(m - u3);
                                           h = i + (v3 + 9728 | 0) | 0;
                                           m = L2[h >> 2];
-                                          m = m < n ? n : m;
+                                          m = m < n2 ? n2 : m;
                                           L2[h >> 2] = m;
                                           h = f2;
                                           f2 = f2 - 1 | 0;
@@ -6689,7 +6689,7 @@
                                         }
                                         h = 0;
                                         while (1) {
-                                          n = O2(0);
+                                          n2 = O2(0);
                                           f2 = (h + sa3 | 0) + 7648 | 0;
                                           g4 = h << 2;
                                           o2 = L2[g4 + (v3 + 9888 | 0) >> 2];
@@ -6779,7 +6779,7 @@
                                             }
                                             break;
                                           }
-                                          n = O2(n + m);
+                                          n2 = O2(n2 + m);
                                           g4 = g4 + 1 | 0;
                                           if ((g4 | 0) != 8) {
                                             continue;
@@ -6788,14 +6788,14 @@
                                         }
                                         ba3 = O2(0);
                                         S2 = (na3 | 0) < 2 ? O2(0) : ab3;
-                                        C5 = O2(n * O2(0.125));
+                                        C5 = O2(n2 * O2(0.125));
                                         E5 = H2[q2 + 5852 >> 2];
                                         f2 = 0;
                                         g4 = 4;
                                         t4 = 0;
                                         R3 = O2(0);
                                         o2 = O2(0);
-                                        n = O2(0);
+                                        n2 = O2(0);
                                         while (1) {
                                           m = O2(0);
                                           h = g4;
@@ -6834,7 +6834,7 @@
                                             t4 = O2(wb3 * s3) < (m > J3 ? m : J3) ? j : O2(rb3 * s3) < m ? j : t4;
                                           }
                                           o2 = O2(o2 + u3);
-                                          n = O2(n + (h ? O2(-0) : m));
+                                          n2 = O2(n2 + (h ? O2(-0) : m));
                                           H2[r2 + (v3 + 10960 | 0) >> 2] = O2(ba3 * ((f2 | 0) < (E5 | 0) ? O2(0.009999999776482582) : O2(0.05000000074505806))) > m;
                                           s3 = O2(ba3 * O2(0.05000000074505806));
                                           ba3 = m < s3 ? s3 : m;
@@ -6857,12 +6857,12 @@
                                           f2 = (E5 | 0) == 20;
                                           m = f2 ? O2(10) : O2(30);
                                           t4 = O2(O2(rb3 * O2(m * O2(3))) * O2(160)) < (s3 < u3 ? u3 : s3) | u3 > O2(O2(rb3 * m) * O2(160)) ? 20 : t4;
-                                          n = O2(u3 + n);
+                                          n2 = O2(u3 + n2);
                                           h = u3 < O2((f2 ? O2(0.009999999776482582) : O2(0.05000000074505806)) * ba3);
                                           H2[v3 + 11032 >> 2] = h;
                                         }
                                         m = O2(C5 / O2(18));
-                                        L2[sa3 + 7644 >> 2] = n > o2 ? O2(o2 / n) : O2(1);
+                                        L2[sa3 + 7644 >> 2] = n2 > o2 ? O2(o2 / n2) : O2(1);
                                         w: {
                                           if ((t4 | 0) == 20) {
                                             f2 = 18;
@@ -6880,10 +6880,10 @@
                                         g4 = f2;
                                         ub3 = O2(W2(m));
                                         m = O2(L2[q2 + 7424 >> 2] + O2(-0.003000000026077032));
-                                        n = O2(O2(Cb2(+oa3)) * O2(20));
-                                        m = m > n ? m : n;
+                                        n2 = O2(O2(Cb2(+oa3)) * O2(20));
+                                        m = m > n2 ? m : n2;
                                         L2[q2 + 7424 >> 2] = m;
-                                        L2[q2 + 7428 >> 2] = O2(O2(O2(1) - $a3) * L2[q2 + 7428 >> 2]) + (n < O2(m + O2(-30)) ? $a3 : O2(-0));
+                                        L2[q2 + 7428 >> 2] = O2(O2(O2(1) - $a3) * L2[q2 + 7428 >> 2]) + (n2 < O2(m + O2(-30)) ? $a3 : O2(-0));
                                         t4 = H2[q2 + 7436 >> 2];
                                         j = 0;
                                         ba3 = L2[v3 + 11260 >> 2];
@@ -6900,12 +6900,12 @@
                                         u3 = L2[v3 + 11216 >> 2];
                                         s3 = L2[v3 + 11212 >> 2];
                                         o2 = L2[v3 + 11208 >> 2];
-                                        n = L2[v3 + 11204 >> 2];
+                                        n2 = L2[v3 + 11204 >> 2];
                                         m = L2[v3 + 11200 >> 2];
                                         f2 = 0;
                                         while (1) {
                                           h = f2 << 6;
-                                          L2[(v3 + 11168 | 0) + (f2 << 2) >> 2] = O2(L2[h + 41772 >> 2] * ba3) + O2(O2(L2[h + 41768 >> 2] * ha3) + O2(O2(L2[h + 41764 >> 2] * xa3) + O2(O2(L2[h + 41760 >> 2] * wa2) + O2(O2(L2[h + 41756 >> 2] * ia3) + O2(O2(L2[h + 41752 >> 2] * ja3) + O2(O2(L2[h + 41748 >> 2] * Z3) + O2(O2(L2[h + 41744 >> 2] * R3) + O2(O2(L2[h + 41740 >> 2] * J3) + O2(O2(L2[h + 41736 >> 2] * S2) + O2(O2(L2[h + 41732 >> 2] * C5) + O2(O2(L2[h + 41728 >> 2] * u3) + O2(O2(L2[h + 41724 >> 2] * s3) + O2(O2(L2[h + 41720 >> 2] * o2) + O2(O2(L2[h + 41716 >> 2] * n) + O2(O2(L2[h + 41712 >> 2] * m) + O2(0))))))))))))))));
+                                          L2[(v3 + 11168 | 0) + (f2 << 2) >> 2] = O2(L2[h + 41772 >> 2] * ba3) + O2(O2(L2[h + 41768 >> 2] * ha3) + O2(O2(L2[h + 41764 >> 2] * xa3) + O2(O2(L2[h + 41760 >> 2] * wa2) + O2(O2(L2[h + 41756 >> 2] * ia3) + O2(O2(L2[h + 41752 >> 2] * ja3) + O2(O2(L2[h + 41748 >> 2] * Z3) + O2(O2(L2[h + 41744 >> 2] * R3) + O2(O2(L2[h + 41740 >> 2] * J3) + O2(O2(L2[h + 41736 >> 2] * S2) + O2(O2(L2[h + 41732 >> 2] * C5) + O2(O2(L2[h + 41728 >> 2] * u3) + O2(O2(L2[h + 41724 >> 2] * s3) + O2(O2(L2[h + 41720 >> 2] * o2) + O2(O2(L2[h + 41716 >> 2] * n2) + O2(O2(L2[h + 41712 >> 2] * m) + O2(0))))))))))))))));
                                           f2 = f2 + 1 | 0;
                                           if ((f2 | 0) != 8) {
                                             continue;
@@ -6919,14 +6919,14 @@
                                           while (1) {
                                             f2 = h | 1;
                                             i = f2 << 2;
-                                            n = O2(L2[(f2 + r2 << 2) + 41712 >> 2] * O2(0.5));
+                                            n2 = O2(L2[(f2 + r2 << 2) + 41712 >> 2] * O2(0.5));
                                             f2 = q2 + 7080 | 0;
                                             o2 = L2[i + f2 >> 2];
                                             Ta3 = i;
                                             i = q2 + 7008 | 0;
                                             z3 = f2;
                                             f2 = h << 2;
-                                            m = O2(O2(n * O2(o2 + L2[Ta3 + i >> 2])) + O2(O2(O2(L2[(h + r2 << 2) + 41712 >> 2] * O2(0.5)) * O2(L2[z3 + f2 >> 2] + L2[f2 + i >> 2])) + m));
+                                            m = O2(O2(n2 * O2(o2 + L2[Ta3 + i >> 2])) + O2(O2(O2(L2[(h + r2 << 2) + 41712 >> 2] * O2(0.5)) * O2(L2[z3 + f2 >> 2] + L2[f2 + i >> 2])) + m));
                                             h = h + 2 | 0;
                                             if ((h | 0) != 16) {
                                               continue;
@@ -6942,9 +6942,9 @@
                                         }
                                         gb3 = O2(La2 / O2(18));
                                         L2[U3 >> 2] = O2(O2(O2(1) - gb3) * ((t4 | 0) < 10 ? O2(0.5) : O2(Fa3 / O2(18)))) + gb3;
-                                        n = O2(aa2 / O2(9));
+                                        n2 = O2(aa2 / O2(9));
                                         m = O2(L2[q2 + 5848 >> 2] * O2(0.800000011920929));
-                                        m = m < n ? n : m;
+                                        m = m < n2 ? n2 : m;
                                         L2[q2 + 5848 >> 2] = m;
                                         i = sa3 + 7612 | 0;
                                         L2[i >> 2] = Ma3 * O2(0.015625);
@@ -6984,12 +6984,12 @@
                                         db3 = O2(O2(S2 * O2(-1.4349000453948975)) + O2(O2(_a2 * O2(0.6969299912452698)) + O2(O2(u3 * O2(-0.12298999726772308)) + O2(s3 * O2(0.49195000529289246)))));
                                         L2[v3 + 11064 >> 2] = db3;
                                         o2 = L2[q2 + 7368 >> 2];
-                                        n = L2[q2 + 7272 >> 2];
+                                        n2 = L2[q2 + 7272 >> 2];
                                         Sa3 = L2[v3 + 11180 >> 2];
                                         m = L2[q2 + 7336 >> 2];
                                         eb3 = L2[q2 + 7240 >> 2];
                                         fb3 = L2[q2 + 7304 >> 2];
-                                        ba3 = O2(O2(o2 * O2(-1.4349000453948975)) + O2(O2(n * O2(0.6969299912452698)) + O2(O2(O2(Sa3 + m) * O2(-0.12298999726772308)) + O2(O2(eb3 + fb3) * O2(0.49195000529289246)))));
+                                        ba3 = O2(O2(o2 * O2(-1.4349000453948975)) + O2(O2(n2 * O2(0.6969299912452698)) + O2(O2(O2(Sa3 + m) * O2(-0.12298999726772308)) + O2(O2(eb3 + fb3) * O2(0.49195000529289246)))));
                                         L2[v3 + 11068 >> 2] = ba3;
                                         aa2 = O2(O2(1) - fa3);
                                         L2[q2 + 7368 >> 2] = O2(o2 * aa2) + O2(fa3 * Sa3);
@@ -7055,14 +7055,14 @@
                                         L2[q2 + 7268 >> 2] = ab3;
                                         L2[q2 + 7336 >> 2] = fb3;
                                         L2[q2 + 7236 >> 2] = Ra3;
-                                        L2[q2 + 7304 >> 2] = n;
+                                        L2[q2 + 7304 >> 2] = n2;
                                         L2[q2 + 7272 >> 2] = eb3;
                                         L2[q2 + 7240 >> 2] = Sa3;
                                         L2[q2 + 7324 >> 2] = mb3;
                                         L2[q2 + 7292 >> 2] = hb3;
-                                        n = L2[q2 + 7308 >> 2];
+                                        n2 = L2[q2 + 7308 >> 2];
                                         L2[q2 + 7308 >> 2] = L2[q2 + 7276 >> 2];
-                                        L2[q2 + 7340 >> 2] = n;
+                                        L2[q2 + 7340 >> 2] = n2;
                                         L2[q2 + 7276 >> 2] = L2[q2 + 7244 >> 2];
                                         L2[q2 + 7244 >> 2] = L2[v3 + 11184 >> 2];
                                         L2[q2 + 7344 >> 2] = L2[q2 + 7312 >> 2];
@@ -7213,23 +7213,23 @@
                                           }
                                           while (1) {
                                             h = (V3 + 256 | 0) + (g4 << 2) | 0;
-                                            n = O2(O2(L2[h >> 2] * O2(78125e-7)) * O2(0.5));
+                                            n2 = O2(O2(L2[h >> 2] * O2(78125e-7)) * O2(0.5));
                                             m = O2(1);
                                             z: {
-                                              if (!(n < O2(8))) {
+                                              if (!(n2 < O2(8))) {
                                                 break z;
                                               }
                                               m = O2(-1);
-                                              if (!(n > O2(-8))) {
+                                              if (!(n2 > O2(-8))) {
                                                 break z;
                                               }
                                               m = O2(0);
-                                              if (n != n) {
+                                              if (n2 != n2) {
                                                 break z;
                                               }
-                                              f2 = n < O2(0);
-                                              n = f2 ? O2(-n) : n;
-                                              m = O2(T2(O2(O2(n * O2(25)) + O2(0.5))));
+                                              f2 = n2 < O2(0);
+                                              n2 = f2 ? O2(-n2) : n2;
+                                              m = O2(T2(O2(O2(n2 * O2(25)) + O2(0.5))));
                                               A: {
                                                 if (O2(P2(m)) < O2(2147483648)) {
                                                   i = ~~m;
@@ -7237,9 +7237,9 @@
                                                 }
                                                 i = -2147483648;
                                               }
-                                              m = O2(O2(O2(i | 0) * O2(-0.03999999910593033)) + n);
-                                              n = L2[(i << 2) + 42224 >> 2];
-                                              m = O2(O2(O2(m * O2(O2(1) - O2(n * n))) * O2(O2(1) - O2(n * m))) + n);
+                                              m = O2(O2(O2(i | 0) * O2(-0.03999999910593033)) + n2);
+                                              n2 = L2[(i << 2) + 42224 >> 2];
+                                              m = O2(O2(O2(m * O2(O2(1) - O2(n2 * n2))) * O2(O2(1) - O2(n2 * m))) + n2);
                                               m = f2 ? O2(-m) : m;
                                             }
                                             L2[h >> 2] = O2(m * O2(0.5)) + O2(0.5);
@@ -7360,23 +7360,23 @@
                                           }
                                           while (1) {
                                             h = (V3 + 128 | 0) + (g4 << 2) | 0;
-                                            n = O2(O2(L2[h >> 2] * O2(78125e-7)) * O2(0.5));
+                                            n2 = O2(O2(L2[h >> 2] * O2(78125e-7)) * O2(0.5));
                                             m = O2(1);
                                             B: {
-                                              if (!(n < O2(8))) {
+                                              if (!(n2 < O2(8))) {
                                                 break B;
                                               }
                                               m = O2(-1);
-                                              if (!(n > O2(-8))) {
+                                              if (!(n2 > O2(-8))) {
                                                 break B;
                                               }
                                               m = O2(0);
-                                              if (n != n) {
+                                              if (n2 != n2) {
                                                 break B;
                                               }
-                                              f2 = n < O2(0);
-                                              n = f2 ? O2(-n) : n;
-                                              m = O2(T2(O2(O2(n * O2(25)) + O2(0.5))));
+                                              f2 = n2 < O2(0);
+                                              n2 = f2 ? O2(-n2) : n2;
+                                              m = O2(T2(O2(O2(n2 * O2(25)) + O2(0.5))));
                                               C: {
                                                 if (O2(P2(m)) < O2(2147483648)) {
                                                   i = ~~m;
@@ -7384,9 +7384,9 @@
                                                 }
                                                 i = -2147483648;
                                               }
-                                              m = O2(O2(O2(i | 0) * O2(-0.03999999910593033)) + n);
-                                              n = L2[(i << 2) + 42224 >> 2];
-                                              m = O2(O2(O2(m * O2(O2(1) - O2(n * n))) * O2(O2(1) - O2(n * m))) + n);
+                                              m = O2(O2(O2(i | 0) * O2(-0.03999999910593033)) + n2);
+                                              n2 = L2[(i << 2) + 42224 >> 2];
+                                              m = O2(O2(O2(m * O2(O2(1) - O2(n2 * n2))) * O2(O2(1) - O2(n2 * m))) + n2);
                                               m = f2 ? O2(-m) : m;
                                             }
                                             L2[h >> 2] = O2(m * O2(0.5)) + O2(0.5);
@@ -7515,10 +7515,10 @@
                                             if (Ua3) {
                                               while (1) {
                                                 i = g4 | 1;
-                                                n = O2(F2[z3 + (N3(i, ea3) + h | 0) | 0]);
+                                                n2 = O2(F2[z3 + (N3(i, ea3) + h | 0) | 0]);
                                                 Ta3 = i << 2;
                                                 i = V3 + 384 | 0;
-                                                m = O2(O2(n * L2[Ta3 + i >> 2]) + O2(O2(O2(F2[z3 + (N3(g4, ea3) + h | 0) | 0]) * L2[i + (g4 << 2) >> 2]) + m));
+                                                m = O2(O2(n2 * L2[Ta3 + i >> 2]) + O2(O2(O2(F2[z3 + (N3(g4, ea3) + h | 0) | 0]) * L2[i + (g4 << 2) >> 2]) + m));
                                                 g4 = g4 + 2 | 0;
                                                 r2 = r2 + 2 | 0;
                                                 if ((t4 | 0) != (r2 | 0)) {
@@ -7547,23 +7547,23 @@
                                             s3 = O2(O2(1) - u3);
                                             o2 = L2[f2 + la3 >> 2];
                                             h = f2 + V3 | 0;
-                                            n = O2(L2[h >> 2] * O2(78125e-7));
+                                            n2 = O2(L2[h >> 2] * O2(78125e-7));
                                             m = O2(1);
                                             E: {
-                                              if (!(n < O2(8))) {
+                                              if (!(n2 < O2(8))) {
                                                 break E;
                                               }
                                               m = O2(-1);
-                                              if (!(n > O2(-8))) {
+                                              if (!(n2 > O2(-8))) {
                                                 break E;
                                               }
                                               m = O2(0);
-                                              if (n != n) {
+                                              if (n2 != n2) {
                                                 break E;
                                               }
-                                              f2 = n < O2(0);
-                                              n = f2 ? O2(-n) : n;
-                                              m = O2(T2(O2(O2(n * O2(25)) + O2(0.5))));
+                                              f2 = n2 < O2(0);
+                                              n2 = f2 ? O2(-n2) : n2;
+                                              m = O2(T2(O2(O2(n2 * O2(25)) + O2(0.5))));
                                               F: {
                                                 if (O2(P2(m)) < O2(2147483648)) {
                                                   i = ~~m;
@@ -7571,9 +7571,9 @@
                                                 }
                                                 i = -2147483648;
                                               }
-                                              m = O2(O2(O2(i | 0) * O2(-0.03999999910593033)) + n);
-                                              n = L2[(i << 2) + 42224 >> 2];
-                                              m = O2(O2(O2(m * O2(O2(1) - O2(n * n))) * O2(O2(1) - O2(n * m))) + n);
+                                              m = O2(O2(O2(i | 0) * O2(-0.03999999910593033)) + n2);
+                                              n2 = L2[(i << 2) + 42224 >> 2];
+                                              m = O2(O2(O2(m * O2(O2(1) - O2(n2 * n2))) * O2(O2(1) - O2(n2 * m))) + n2);
                                               m = f2 ? O2(-m) : m;
                                             }
                                             L2[h >> 2] = O2(u3 * o2) + O2(s3 * m);
@@ -7675,7 +7675,7 @@
                                   G: {
                                     H: {
                                       if ((r2 | 0) == (x3 | 0)) {
-                                        n = m;
+                                        n2 = m;
                                         k = 0;
                                         break H;
                                       }
@@ -7685,7 +7685,7 @@
                                       g4 = H2[g4 + 7636 >> 2];
                                       k = (g4 | 0) < (h | 0) ? h : g4;
                                       H2[t4 + 32 >> 2] = k;
-                                      n = m > o2 ? m : o2;
+                                      n2 = m > o2 ? m : o2;
                                       y2 = 1;
                                       g4 = 0;
                                       m = O2(m + o2);
@@ -7701,7 +7701,7 @@
                                       g4 = H2[g4 + 7636 >> 2];
                                       r2 = (g4 | 0) < (k | 0) ? k : g4;
                                       H2[t4 + 32 >> 2] = r2;
-                                      n = n > o2 ? n : o2;
+                                      n2 = n2 > o2 ? n2 : o2;
                                       g4 = 0;
                                       m = O2(m + o2);
                                       o2 = O2(3);
@@ -7715,7 +7715,7 @@
                                       o2 = L2[g4 + 7608 >> 2];
                                       g4 = H2[g4 + 7636 >> 2];
                                       H2[t4 + 32 >> 2] = (g4 | 0) < (r2 | 0) ? r2 : g4;
-                                      n = n > o2 ? n : o2;
+                                      n2 = n2 > o2 ? n2 : o2;
                                       m = O2(m + o2);
                                       g4 = 1;
                                       o2 = O2(4);
@@ -7778,7 +7778,7 @@
                                     H2[t4 + 32 >> 2] = (g4 | 0) < (h | 0) ? h : g4;
                                   }
                                   o2 = O2(m / o2);
-                                  m = O2(n + O2(-0.20000000298023224));
+                                  m = O2(n2 + O2(-0.20000000298023224));
                                   L2[t4 + 4 >> 2] = m < o2 ? o2 : m;
                                   g4 = f2;
                                   k = f2;
@@ -7790,7 +7790,7 @@
                                   h = q2 + 7604 | 0;
                                   J3 = L2[(h + (k << 6) | 0) + 36 >> 2];
                                   m = J3 < O2(0.10000000149011612) ? O2(0.10000000149011612) : J3;
-                                  n = O2(L2[(h + (g4 << 6) | 0) + 20 >> 2] * m);
+                                  n2 = O2(L2[(h + (g4 << 6) | 0) + 20 >> 2] * m);
                                   i = (i | 0) != 100 ? i : 0;
                                   J: {
                                     if ((x3 | 0) == (i | 0)) {
@@ -7808,13 +7808,13 @@
                                       }
                                       S2 = L2[(h + (k << 6) | 0) + 36 >> 2];
                                       C5 = O2(J3 - S2);
-                                      u3 = O2(O2(O2(C5 * O2(10)) + n) / m);
+                                      u3 = O2(O2(O2(C5 * O2(10)) + n2) / m);
                                       s3 = s3 < u3 ? u3 : s3;
-                                      u3 = O2(O2(O2(C5 * O2(-10)) + n) / m);
+                                      u3 = O2(O2(O2(C5 * O2(-10)) + n2) / m);
                                       o2 = o2 > u3 ? u3 : o2;
                                       u3 = S2 < O2(0.10000000149011612) ? O2(0.10000000149011612) : S2;
                                       m = O2(m + u3);
-                                      n = O2(O2(u3 * L2[(h + (i << 6) | 0) + 20 >> 2]) + n);
+                                      n2 = O2(O2(u3 * L2[(h + (i << 6) | 0) + 20 >> 2]) + n2);
                                       g4 = i + 1 | 0;
                                       i = (g4 | 0) != 100 ? g4 : 0;
                                       if ((x3 | 0) != (i | 0)) {
@@ -7823,14 +7823,14 @@
                                       break;
                                     }
                                   }
-                                  n = O2(n / m);
-                                  L2[t4 + 20 >> 2] = n;
-                                  m = n > s3 ? n : s3;
+                                  n2 = O2(n2 / m);
+                                  L2[t4 + 20 >> 2] = n2;
+                                  m = n2 > s3 ? n2 : s3;
                                   m = m < O2(1) ? m : O2(1);
-                                  n = n < o2 ? n : o2;
-                                  n = n > O2(0) ? n : O2(0);
+                                  n2 = n2 < o2 ? n2 : o2;
+                                  n2 = n2 > O2(0) ? n2 : O2(0);
                                   if ((r2 | 0) <= 9) {
-                                    o2 = n;
+                                    o2 = n2;
                                     s3 = m;
                                     g4 = H2[q2 + 7436 >> 2];
                                     j = (g4 | 0) > 15 ? 15 : g4 - 1 | 0;
@@ -7869,10 +7869,10 @@
                                     s3 = O2(O2(J3 * O2(0.10000000149011612)) + s3);
                                     m = O2(O2(u3 * O2((s3 > O2(1) ? O2(1) : s3) - m)) + m);
                                     o2 = O2(O2(J3 * O2(-0.10000000149011612)) + o2);
-                                    n = O2(O2(u3 * O2((o2 < O2(0) ? O2(0) : o2) - n)) + n);
+                                    n2 = O2(O2(u3 * O2((o2 < O2(0) ? O2(0) : o2) - n2)) + n2);
                                   }
                                   L2[t4 + 28 >> 2] = m;
-                                  L2[t4 + 24 >> 2] = n;
+                                  L2[t4 + 24 >> 2] = n2;
                                 }
                                 pa2 = v3 + 11360 | 0;
                                 m = O2(-ga2);
@@ -7901,14 +7901,14 @@
                                             x3 = 0;
                                             while (1) {
                                               h = p3 << 2;
-                                              n = L2[(h | 12) + b >> 2];
-                                              o2 = O2(n * n);
-                                              n = L2[(h | 8) + b >> 2];
-                                              s3 = O2(n * n);
-                                              n = L2[(h | 4) + b >> 2];
-                                              u3 = O2(n * n);
-                                              n = L2[b + h >> 2];
-                                              A3 = O2(o2 + O2(s3 + O2(u3 + O2(O2(n * n) + A3))));
+                                              n2 = L2[(h | 12) + b >> 2];
+                                              o2 = O2(n2 * n2);
+                                              n2 = L2[(h | 8) + b >> 2];
+                                              s3 = O2(n2 * n2);
+                                              n2 = L2[(h | 4) + b >> 2];
+                                              u3 = O2(n2 * n2);
+                                              n2 = L2[b + h >> 2];
+                                              A3 = O2(o2 + O2(s3 + O2(u3 + O2(O2(n2 * n2) + A3))));
                                               p3 = p3 + 4 | 0;
                                               x3 = x3 + 4 | 0;
                                               if ((f2 | 0) != (x3 | 0)) {
@@ -7919,8 +7919,8 @@
                                           }
                                           if (g4) {
                                             while (1) {
-                                              n = L2[(p3 << 2) + b >> 2];
-                                              A3 = O2(O2(n * n) + A3);
+                                              n2 = L2[(p3 << 2) + b >> 2];
+                                              A3 = O2(O2(n2 * n2) + A3);
                                               p3 = p3 + 1 | 0;
                                               r2 = r2 + 1 | 0;
                                               if ((g4 | 0) != (r2 | 0)) {
@@ -7929,8 +7929,8 @@
                                               break;
                                             }
                                           }
-                                          n = O2(i | 0);
-                                          if (O2(A3 / n) < m) {
+                                          n2 = O2(i | 0);
+                                          if (O2(A3 / n2) < m) {
                                             break L;
                                           }
                                           g4 = i & 3;
@@ -7943,8 +7943,8 @@
                                           break N;
                                         }
                                         A3 = O2(0);
-                                        n = O2(i | 0);
-                                        if (!(O2(O2(0) / n) < m)) {
+                                        n2 = O2(i | 0);
+                                        if (!(O2(O2(0) / n2) < m)) {
                                           break M;
                                         }
                                         break L;
@@ -7985,7 +7985,7 @@
                                       break;
                                     }
                                   }
-                                  m = O2(A3 / n);
+                                  m = O2(A3 / n2);
                                 }
                                 L2[a3 + 18132 >> 2] = m;
                                 break e;
@@ -8040,13 +8040,13 @@
                               while (1) {
                                 h = p3 << 2;
                                 m = L2[(h | 12) + b >> 2];
-                                n = O2(m * m);
+                                n2 = O2(m * m);
                                 m = L2[(h | 8) + b >> 2];
                                 o2 = O2(m * m);
                                 m = L2[(h | 4) + b >> 2];
                                 s3 = O2(m * m);
                                 m = L2[b + h >> 2];
-                                A3 = O2(n + O2(o2 + O2(s3 + O2(O2(m * m) + A3))));
+                                A3 = O2(n2 + O2(o2 + O2(s3 + O2(O2(m * m) + A3))));
                                 p3 = p3 + 4 | 0;
                                 x3 = x3 + 4 | 0;
                                 if ((f2 | 0) != (x3 | 0)) {
@@ -8130,7 +8130,7 @@
                     if (!(H2[a3 + 120 >> 2] == 1 | H2[a3 + 112 >> 2] != 2)) {
                       p3 = a3 + 14264 | 0;
                       m = O2(0);
-                      n = O2(0);
+                      n2 = O2(0);
                       o2 = O2(0);
                       j = H2[a3 + 144 >> 2] / (c2 | 0) | 0;
                       ia3 = O2(O2(O2(-25) / O2(((j | 0) <= 50 ? 50 : j) | 0)) + O2(1));
@@ -8152,18 +8152,18 @@
                               s3 = L2[f2 + 4 >> 2];
                               o2 = O2(o2 + O2(O2(ja3 * Z3) + O2(O2(R3 * J3) + O2(O2(S2 * C5) + O2(u3 * s3)))));
                               m = O2(m + O2(O2(Z3 * Z3) + O2(O2(J3 * J3) + O2(O2(C5 * C5) + O2(s3 * s3)))));
-                              n = O2(n + O2(O2(ja3 * ja3) + O2(O2(R3 * R3) + O2(O2(S2 * S2) + O2(u3 * u3)))));
+                              n2 = O2(n2 + O2(O2(ja3 * ja3) + O2(O2(R3 * R3) + O2(O2(S2 * S2) + O2(u3 * u3)))));
                               i = i + 4 | 0;
                               if ((g4 | 0) > (i | 0)) {
                                 continue;
                               }
                               break;
                             }
-                            if (!(n < O2(1e9))) {
+                            if (!(n2 < O2(1e9))) {
                               break X;
                             }
                           }
-                          if (!(m < O2(1e9)) | n != n) {
+                          if (!(m < O2(1e9)) | n2 != n2) {
                             break X;
                           }
                           if (m == m) {
@@ -8172,7 +8172,7 @@
                         }
                         m = O2(0);
                         o2 = O2(0);
-                        n = O2(0);
+                        n2 = O2(0);
                       }
                       s3 = m;
                       m = L2[p3 + 8 >> 2];
@@ -8184,7 +8184,7 @@
                       o2 = m < O2(0) ? O2(0) : m;
                       L2[p3 + 4 >> 2] = o2;
                       m = L2[p3 >> 2];
-                      m = O2(O2(ia3 * O2(n - m)) + m);
+                      m = O2(O2(ia3 * O2(n2 - m)) + m);
                       m = m < O2(0) ? O2(0) : m;
                       L2[p3 >> 2] = m;
                       Y: {
@@ -8192,22 +8192,22 @@
                           m = L2[p3 + 16 >> 2];
                           break Y;
                         }
-                        n = O2(W2(m));
+                        n2 = O2(W2(m));
                         m = O2(W2(s3));
-                        u3 = O2(n * m);
+                        u3 = O2(n2 * m);
                         s3 = o2 < u3 ? o2 : u3;
                         L2[p3 + 4 >> 2] = s3;
                         o2 = L2[p3 + 12 >> 2];
-                        n = O2(W2(n));
+                        n2 = O2(W2(n2));
                         m = O2(W2(m));
-                        n = O2(O2(P2(O2(n - m))) / O2(O2(n + O2(10000000036274937e-31)) + m));
+                        n2 = O2(O2(P2(O2(n2 - m))) / O2(O2(n2 + O2(10000000036274937e-31)) + m));
                         m = O2(s3 / O2(u3 + O2(10000000036274937e-31)));
-                        n = O2(O2(n * O2(W2(O2(O2(1) - O2(m * m))))) - o2);
+                        n2 = O2(O2(n2 * O2(W2(O2(O2(1) - O2(m * m))))) - o2);
                         m = O2(j | 0);
-                        n = O2(o2 + O2(n / m));
-                        L2[p3 + 12 >> 2] = n;
+                        n2 = O2(o2 + O2(n2 / m));
+                        L2[p3 + 12 >> 2] = n2;
                         m = O2(L2[p3 + 16 >> 2] + O2(O2(-0.019999999552965164) / m));
-                        m = m > n ? m : n;
+                        m = m > n2 ? m : n2;
                         L2[p3 + 16 >> 2] = m;
                       }
                       m = O2(m * O2(20));
@@ -8404,8 +8404,8 @@
                               break ma;
                             }
                             r2 = k - g4 | 0;
-                            n = O2(O2(1) - A3);
-                            m = O2(O2(n * O2(1e4)) + O2(A3 * O2(1e4)));
+                            n2 = O2(O2(1) - A3);
+                            m = O2(O2(n2 * O2(1e4)) + O2(A3 * O2(1e4)));
                             na: {
                               if (O2(P2(m)) < O2(2147483648)) {
                                 g4 = ~~m;
@@ -8413,7 +8413,7 @@
                               }
                               g4 = -2147483648;
                             }
-                            m = O2(O2(n * O2(64e3)) + O2(A3 * O2(44e3)));
+                            m = O2(O2(n2 * O2(64e3)) + O2(A3 * O2(44e3)));
                             oa: {
                               if (O2(P2(m)) < O2(2147483648)) {
                                 k = ~~m;
@@ -9016,11 +9016,11 @@
                           while (1) {
                             o2 = L2[E5 + 4 >> 2];
                             e4 = N3(p3, r2) << 2;
-                            n = L2[e4 + b >> 2];
-                            m = O2(s3 * n);
+                            n2 = L2[e4 + b >> 2];
+                            m = O2(s3 * n2);
                             J3 = O2(m + L2[E5 >> 2]);
                             L2[E5 + 4 >> 2] = O2(m - O2(J3 * C5)) + O2(10000000031710769e-46);
-                            L2[E5 >> 2] = O2(u3 * n) + O2(o2 - O2(J3 * S2));
+                            L2[E5 >> 2] = O2(u3 * n2) + O2(o2 - O2(J3 * S2));
                             L2[e4 + z3 >> 2] = J3;
                             p3 = p3 + 1 | 0;
                             if ((p3 | 0) != (c2 | 0)) {
@@ -9037,11 +9037,11 @@
                           while (1) {
                             o2 = L2[E5 + 12 >> 2];
                             b = p3 << 3;
-                            n = L2[b + e4 >> 2];
-                            m = O2(s3 * n);
+                            n2 = L2[b + e4 >> 2];
+                            m = O2(s3 * n2);
                             J3 = O2(m + L2[E5 + 8 >> 2]);
                             L2[E5 + 12 >> 2] = O2(m - O2(J3 * C5)) + O2(10000000031710769e-46);
-                            L2[E5 + 8 >> 2] = O2(u3 * n) + O2(o2 - O2(J3 * S2));
+                            L2[E5 + 8 >> 2] = O2(u3 * n2) + O2(o2 - O2(J3 * S2));
                             L2[b + f2 >> 2] = J3;
                             p3 = p3 + 1 | 0;
                             if ((p3 | 0) != (c2 | 0)) {
@@ -9064,10 +9064,10 @@
                               f2 = g4 << 3;
                               e4 = f2 | 4;
                               o2 = L2[e4 + b >> 2];
-                              n = L2[b + f2 >> 2];
-                              L2[f2 + z3 >> 2] = n - m;
+                              n2 = L2[b + f2 >> 2];
+                              L2[f2 + z3 >> 2] = n2 - m;
                               L2[e4 + z3 >> 2] = o2 - A3;
-                              m = O2(O2(s3 * m) + O2(O2(u3 * n) + O2(10000000031710769e-46)));
+                              m = O2(O2(s3 * m) + O2(O2(u3 * n2) + O2(10000000031710769e-46)));
                               A3 = O2(O2(s3 * A3) + O2(O2(u3 * o2) + O2(10000000031710769e-46)));
                               g4 = g4 + 1 | 0;
                               if ((g4 | 0) != (c2 | 0)) {
@@ -9097,10 +9097,10 @@
                               o2 = L2[e4 + b >> 2];
                               L2[e4 + z3 >> 2] = o2 - m;
                               e4 = e4 | 4;
-                              n = L2[e4 + b >> 2];
+                              n2 = L2[e4 + b >> 2];
                               m = O2(O2(s3 * m) + O2(O2(u3 * o2) + O2(10000000031710769e-46)));
-                              L2[e4 + z3 >> 2] = n - m;
-                              m = O2(O2(s3 * m) + O2(O2(u3 * n) + O2(10000000031710769e-46)));
+                              L2[e4 + z3 >> 2] = n2 - m;
+                              m = O2(O2(s3 * m) + O2(O2(u3 * n2) + O2(10000000031710769e-46)));
                               g4 = g4 + 2 | 0;
                               p3 = p3 + 2 | 0;
                               if ((f2 | 0) != (p3 | 0)) {
@@ -9114,9 +9114,9 @@
                           }
                           e4 = b;
                           b = g4 << 2;
-                          n = L2[e4 + b >> 2];
-                          L2[b + z3 >> 2] = n - m;
-                          m = O2(O2(s3 * m) + O2(O2(u3 * n) + O2(10000000031710769e-46)));
+                          n2 = L2[e4 + b >> 2];
+                          L2[b + z3 >> 2] = n2 - m;
+                          m = O2(O2(s3 * m) + O2(O2(u3 * n2) + O2(10000000031710769e-46)));
                         }
                       }
                       L2[E5 >> 2] = m;
@@ -9148,13 +9148,13 @@
                           while (1) {
                             j = b << 2;
                             m = L2[p3 + (j | 12) >> 2];
-                            n = O2(m * m);
+                            n2 = O2(m * m);
                             m = L2[p3 + (j | 8) >> 2];
                             o2 = O2(m * m);
                             m = L2[p3 + (j | 4) >> 2];
                             s3 = O2(m * m);
                             m = L2[j + p3 >> 2];
-                            A3 = O2(n + O2(o2 + O2(s3 + O2(O2(m * m) + A3))));
+                            A3 = O2(n2 + O2(o2 + O2(s3 + O2(O2(m * m) + A3))));
                             b = b + 4 | 0;
                             e4 = e4 + 4 | 0;
                             if ((f2 | 0) != (e4 | 0)) {
@@ -9224,7 +9224,7 @@
                             e4 = f2;
                             break gb;
                           }
-                          n = O2(8e3);
+                          n2 = O2(8e3);
                           e4 = 13;
                           ib: {
                             jb: {
@@ -9239,11 +9239,11 @@
                                     break jb;
                                 }
                               }
-                              n = O2(12e3);
+                              n2 = O2(12e3);
                               e4 = 15;
                               break ib;
                             }
-                            n = O2(16e3);
+                            n2 = O2(16e3);
                             e4 = 17;
                           }
                           ka3 = H2[a3 + 112 >> 2];
@@ -9288,10 +9288,10 @@
                             }
                           }
                           b = (0 - (f2 << 1) | 0) / 3 | 0;
-                          n = O2(n * O2(O2(O2(ga2 / O2(e4 | 0)) * O2(ka3 | 0)) + O2(0.20000000298023224)));
+                          n2 = O2(n2 * O2(O2(O2(ga2 / O2(e4 | 0)) * O2(ka3 | 0)) + O2(0.20000000298023224)));
                           mb: {
-                            if (O2(P2(n)) < O2(2147483648)) {
-                              e4 = ~~n;
+                            if (O2(P2(n2)) < O2(2147483648)) {
+                              e4 = ~~n2;
                               break mb;
                             }
                             e4 = -2147483648;
@@ -9413,12 +9413,12 @@
                               f2 = 0;
                               while (1) {
                                 g4 = U3 + (b << 1) | 0;
-                                n = O2(L2[p3 + (b << 2) >> 2] * O2(32768));
-                                n = n > O2(-32768) ? n : O2(-32768);
-                                n = de(n < O2(32767) ? n : O2(32767));
+                                n2 = O2(L2[p3 + (b << 2) >> 2] * O2(32768));
+                                n2 = n2 > O2(-32768) ? n2 : O2(-32768);
+                                n2 = de(n2 < O2(32767) ? n2 : O2(32767));
                                 wb: {
-                                  if (O2(P2(n)) < O2(2147483648)) {
-                                    e4 = ~~n;
+                                  if (O2(P2(n2)) < O2(2147483648)) {
+                                    e4 = ~~n2;
                                     break wb;
                                   }
                                   e4 = -2147483648;
@@ -9426,12 +9426,12 @@
                                 G2[g4 >> 1] = e4;
                                 g4 = b | 1;
                                 t4 = U3 + (g4 << 1) | 0;
-                                n = O2(L2[p3 + (g4 << 2) >> 2] * O2(32768));
-                                n = n > O2(-32768) ? n : O2(-32768);
-                                n = de(n < O2(32767) ? n : O2(32767));
+                                n2 = O2(L2[p3 + (g4 << 2) >> 2] * O2(32768));
+                                n2 = n2 > O2(-32768) ? n2 : O2(-32768);
+                                n2 = de(n2 < O2(32767) ? n2 : O2(32767));
                                 xb: {
-                                  if (O2(P2(n)) < O2(2147483648)) {
-                                    e4 = ~~n;
+                                  if (O2(P2(n2)) < O2(2147483648)) {
+                                    e4 = ~~n2;
                                     break xb;
                                   }
                                   e4 = -2147483648;
@@ -9449,12 +9449,12 @@
                               break vb;
                             }
                             e4 = U3 + (b << 1) | 0;
-                            n = O2(L2[((b << 2) + a3 | 0) + 14284 >> 2] * O2(32768));
-                            n = n > O2(-32768) ? n : O2(-32768);
-                            n = de(n < O2(32767) ? n : O2(32767));
+                            n2 = O2(L2[((b << 2) + a3 | 0) + 14284 >> 2] * O2(32768));
+                            n2 = n2 > O2(-32768) ? n2 : O2(-32768);
+                            n2 = de(n2 < O2(32767) ? n2 : O2(32767));
                             yb: {
-                              if (O2(P2(n)) < O2(2147483648)) {
-                                b = ~~n;
+                              if (O2(P2(n2)) < O2(2147483648)) {
+                                b = ~~n2;
                                 break yb;
                               }
                               b = -2147483648;
@@ -9477,12 +9477,12 @@
                             f2 = 0;
                             while (1) {
                               g4 = U3 + (b << 1) | 0;
-                              n = O2(L2[X3 + (b + l2 << 2) >> 2] * O2(32768));
-                              n = n > O2(-32768) ? n : O2(-32768);
-                              n = de(n < O2(32767) ? n : O2(32767));
+                              n2 = O2(L2[X3 + (b + l2 << 2) >> 2] * O2(32768));
+                              n2 = n2 > O2(-32768) ? n2 : O2(-32768);
+                              n2 = de(n2 < O2(32767) ? n2 : O2(32767));
                               Ab: {
-                                if (O2(P2(n)) < O2(2147483648)) {
-                                  e4 = ~~n;
+                                if (O2(P2(n2)) < O2(2147483648)) {
+                                  e4 = ~~n2;
                                   break Ab;
                                 }
                                 e4 = -2147483648;
@@ -9490,12 +9490,12 @@
                               G2[g4 >> 1] = e4;
                               g4 = b | 1;
                               x3 = U3 + (g4 << 1) | 0;
-                              n = O2(L2[X3 + (g4 + l2 << 2) >> 2] * O2(32768));
-                              n = n > O2(-32768) ? n : O2(-32768);
-                              n = de(n < O2(32767) ? n : O2(32767));
+                              n2 = O2(L2[X3 + (g4 + l2 << 2) >> 2] * O2(32768));
+                              n2 = n2 > O2(-32768) ? n2 : O2(-32768);
+                              n2 = de(n2 < O2(32767) ? n2 : O2(32767));
                               Bb: {
-                                if (O2(P2(n)) < O2(2147483648)) {
-                                  e4 = ~~n;
+                                if (O2(P2(n2)) < O2(2147483648)) {
+                                  e4 = ~~n2;
                                   break Bb;
                                 }
                                 e4 = -2147483648;
@@ -9513,12 +9513,12 @@
                             break zb;
                           }
                           e4 = U3 + (b << 1) | 0;
-                          n = O2(L2[X3 + (b + l2 << 2) >> 2] * O2(32768));
-                          n = n > O2(-32768) ? n : O2(-32768);
-                          n = de(n < O2(32767) ? n : O2(32767));
+                          n2 = O2(L2[X3 + (b + l2 << 2) >> 2] * O2(32768));
+                          n2 = n2 > O2(-32768) ? n2 : O2(-32768);
+                          n2 = de(n2 < O2(32767) ? n2 : O2(32767));
                           Cb: {
-                            if (O2(P2(n)) < O2(2147483648)) {
-                              b = ~~n;
+                            if (O2(P2(n2)) < O2(2147483648)) {
+                              b = ~~n2;
                               break Cb;
                             }
                             b = -2147483648;
@@ -9668,10 +9668,10 @@
                         }
                         Ca2(Ka3, X3 + (N3(ra3 - f2 | 0, b) << 2) | 0, N3(b, f2) << 2);
                       }
-                      n = L2[a3 + 14208 >> 2];
-                      if (n < O2(1) | m < O2(1)) {
+                      n2 = L2[a3 + 14208 >> 2];
+                      if (n2 < O2(1) | m < O2(1)) {
                         b = H2[w4 + 596 >> 2];
-                        jd(X3, X3, n, m, H2[b + 4 >> 2], c2, H2[a3 + 112 >> 2], H2[b + 60 >> 2], H2[a3 + 144 >> 2]);
+                        jd(X3, X3, n2, m, H2[b + 4 >> 2], c2, H2[a3 + 112 >> 2], H2[b + 60 >> 2], H2[a3 + 144 >> 2]);
                       }
                       L2[a3 + 14208 >> 2] = m;
                       x3 = H2[a3 + 14228 >> 2];
@@ -9709,7 +9709,7 @@
                             e4 = 0;
                             break Ob;
                           }
-                          n = O2(O2(1) - m);
+                          n2 = O2(O2(1) - m);
                           f2 = 0;
                           while (1) {
                             p3 = f2 << 3;
@@ -9719,7 +9719,7 @@
                             m = L2[l2 + (N3(f2, j) << 2) >> 2];
                             m = O2(m * m);
                             b = p3 + 4 | 0;
-                            m = O2(O2(O2(m * o2) + O2(n * O2(O2(1) - m))) * O2(O2(L2[p3 + X3 >> 2] - L2[b + X3 >> 2]) * O2(0.5)));
+                            m = O2(O2(O2(m * o2) + O2(n2 * O2(O2(1) - m))) * O2(O2(L2[p3 + X3 >> 2] - L2[b + X3 >> 2]) * O2(0.5)));
                             L2[y2 >> 2] = s3 - m;
                             b = b + X3 | 0;
                             L2[b >> 2] = L2[b >> 2] + m;
@@ -9735,10 +9735,10 @@
                             f2 = e4 << 3;
                             b = f2 + X3 | 0;
                             j = b;
-                            n = L2[b >> 2];
+                            n2 = L2[b >> 2];
                             b = f2 + 4 | 0;
                             m = O2(o2 * O2(O2(L2[f2 + X3 >> 2] - L2[b + X3 >> 2]) * O2(0.5)));
-                            L2[j >> 2] = n - m;
+                            L2[j >> 2] = n2 - m;
                             b = b + X3 | 0;
                             L2[b >> 2] = L2[b >> 2] + m;
                             e4 = e4 + 1 | 0;
@@ -9969,7 +9969,7 @@
                   return p3;
                 }
                 function ob2(a3, b, c2, d, e4, f2) {
-                  var g4 = O2(0), h = O2(0), i = 0, j = 0, k = O2(0), l2 = 0, m = 0, n = 0, o2 = 0, p3 = 0, q2 = 0, r2 = 0, s3 = O2(0), t4 = 0, u3 = 0, v3 = 0, w4 = 0, x3 = 0, y2 = 0, z3 = O2(0), A3 = 0, C5 = 0, D5 = 0, E5 = 0, K3 = 0, M5 = 0, R3 = 0, S2 = 0, U3 = 0, V3 = O2(0), X3 = 0, Y3 = 0, Z3 = 0, _2 = 0, $2 = 0, aa2 = 0, ba3 = O2(0), ca3 = 0, da3 = 0, ea3 = 0, fa3 = O2(0), ga2 = 0, ha3 = 0, ia3 = 0, ja3 = 0, ka3 = O2(0), la3 = 0, ma3 = 0, na3 = 0, oa3 = 0, qa3 = 0, ra3 = 0, sa3 = 0, ta2 = O2(0), ua2 = 0, va2 = 0, wa2 = 0, xa3 = 0, ya2 = 0, za3 = 0, Aa3 = 0, Fa3 = 0, Ga3 = 0, Ha3 = 0, Ja3 = 0, Ka3 = 0, La2 = 0, Oa3 = 0, Pa3 = 0, Ra3 = O2(0), Sa3 = O2(0), Ta3 = 0, Ua3 = 0, Va3 = 0, Xa3 = 0, Ya3 = 0, _a2 = 0, $a3 = 0, ab3 = 0, bb3 = 0, cb3 = 0, db3 = O2(0), eb3 = O2(0), fb3 = 0, gb3 = 0, hb3 = O2(0), ib3 = 0;
+                  var g4 = O2(0), h = O2(0), i = 0, j = 0, k = O2(0), l2 = 0, m = 0, n2 = 0, o2 = 0, p3 = 0, q2 = 0, r2 = 0, s3 = O2(0), t4 = 0, u3 = 0, v3 = 0, w4 = 0, x3 = 0, y2 = 0, z3 = O2(0), A3 = 0, C5 = 0, D5 = 0, E5 = 0, K3 = 0, M5 = 0, R3 = 0, S2 = 0, U3 = 0, V3 = O2(0), X3 = 0, Y3 = 0, Z3 = 0, _2 = 0, $2 = 0, aa2 = 0, ba3 = O2(0), ca3 = 0, da3 = 0, ea3 = 0, fa3 = O2(0), ga2 = 0, ha3 = 0, ia3 = 0, ja3 = 0, ka3 = O2(0), la3 = 0, ma3 = 0, na3 = 0, oa3 = 0, qa3 = 0, ra3 = 0, sa3 = 0, ta2 = O2(0), ua2 = 0, va2 = 0, wa2 = 0, xa3 = 0, ya2 = 0, za3 = 0, Aa3 = 0, Fa3 = 0, Ga3 = 0, Ha3 = 0, Ja3 = 0, Ka3 = 0, La2 = 0, Oa3 = 0, Pa3 = 0, Ra3 = O2(0), Sa3 = O2(0), Ta3 = 0, Ua3 = 0, Va3 = 0, Xa3 = 0, Ya3 = 0, _a2 = 0, $a3 = 0, ab3 = 0, bb3 = 0, cb3 = 0, db3 = O2(0), eb3 = O2(0), fb3 = 0, gb3 = 0, hb3 = O2(0), ib3 = 0;
                   ca3 = pa2 - 80 | 0;
                   pa2 = ca3;
                   w4 = H2[a3 + 8 >> 2];
@@ -9982,7 +9982,7 @@
                   S2 = H2[a3 >> 2];
                   ga2 = H2[S2 + 32 >> 2];
                   da3 = H2[S2 + 8 >> 2];
-                  n = H2[a3 + 36 >> 2];
+                  n2 = H2[a3 + 36 >> 2];
                   X3 = H2[a3 + 32 >> 2];
                   D5 = H2[S2 + 4 >> 2];
                   H2[ca3 + 8 >> 2] = 0;
@@ -10883,7 +10883,7 @@
                     fb3 = (e4 | 0) > (Xa3 | 0) ? Xa3 : e4;
                     gb3 = (e4 | 0) == -1;
                     R3 = 1 << y2;
-                    r2 = (n | 0) < (La2 | 0) ? n : La2;
+                    r2 = (n2 | 0) < (La2 | 0) ? n2 : La2;
                     i = 4096 - va2 | 0;
                     c2 = x3 << 2;
                     q2 = m + 244 | 0;
@@ -11217,15 +11217,15 @@
                         }
                         Yb(S2, 0, A3, j, w4, K3, y2, H2[m + 28 >> 2]);
                         Nb2(S2, j, a3, r2, w4, y2);
-                        Qb2(S2, r2, n, a3, b, w4);
+                        Qb2(S2, r2, n2, a3, b, w4);
                         M5 = 1;
                         C5 = 1;
                         if ((w4 | 0) > 0) {
-                          D5 = n & -4;
-                          i = n & 3;
+                          D5 = n2 & -4;
+                          i = n2 & 3;
                           l2 = 0;
-                          x3 = (n | 0) <= 0;
-                          q2 = n - 1 >>> 0 < 3;
+                          x3 = (n2 | 0) <= 0;
+                          q2 = n2 - 1 >>> 0 < 3;
                           g4 = O2(O2(y2 | 0) * O2(0.5));
                           while (1) {
                             V: {
@@ -11306,13 +11306,13 @@
                     }
                     Nb2(S2, j, a3, r2, w4, y2);
                     Y: {
-                      if (!H2[m + 64 >> 2] | (n | 0) < 3) {
+                      if (!H2[m + 64 >> 2] | (n2 | 0) < 3) {
                         break Y;
                       }
                       g4 = O2(L2[a3 >> 2] * O2(9999999747378752e-20));
                       c2 = 2;
-                      if ((n | 0) != 3) {
-                        e4 = (n & -2) - 4 | 0;
+                      if ((n2 | 0) != 3) {
+                        e4 = (n2 & -2) - 4 | 0;
                         i = 0;
                         while (1) {
                           l2 = c2 << 2;
@@ -11333,7 +11333,7 @@
                           break;
                         }
                       }
-                      if (!(n & 1)) {
+                      if (!(n2 & 1)) {
                         break Y;
                       }
                       c2 = (c2 << 2) + a3 | 0;
@@ -11341,11 +11341,11 @@
                       g4 = g4 > h ? h : g4;
                       L2[c2 >> 2] = g4 > O2(10000000036274937e-31) ? g4 : O2(10000000036274937e-31);
                     }
-                    Qb2(S2, r2, n, a3, d, w4);
+                    Qb2(S2, r2, n2, a3, d, w4);
                     c2 = b - ((sa3 << 2) + 15 & -16) | 0;
                     U3 = c2;
                     pa2 = c2;
-                    Ua3 = n << 2;
+                    Ua3 = n2 << 2;
                     x3 = Da2(c2, 0, Ua3);
                     fa3 = O2(0);
                     Z: {
@@ -11509,7 +11509,7 @@
                         break Z;
                       }
                       k = O2(0);
-                      if ((n | 0) > (X3 | 0)) {
+                      if ((n2 | 0) > (X3 | 0)) {
                         g4 = o2 ? O2(0) : O2(O2(y2 | 0) * O2(0.5));
                         s3 = O2(-10);
                         c2 = X3;
@@ -11523,14 +11523,14 @@
                           }
                           k = O2(k + s3);
                           c2 = c2 + 1 | 0;
-                          if ((n | 0) != (c2 | 0)) {
+                          if ((n2 | 0) != (c2 | 0)) {
                             continue;
                           }
                           break;
                         }
                       }
                       g4 = L2[m + 240 >> 2];
-                      h = O2(O2(k / O2(n - X3 | 0)) - g4);
+                      h = O2(O2(k / O2(n2 - X3 | 0)) - g4);
                       h = h < O2(-1.5) ? O2(-1.5) : h;
                       s3 = h > O2(3) ? O2(3) : h;
                       L2[m + 240 >> 2] = O2(s3 * O2(0.019999999552965164)) + g4;
@@ -11563,13 +11563,13 @@
                           fa: {
                             if ((w4 | 0) == 1) {
                               L2[e4 >> 2] = g4;
-                              if ((n | 0) < 2) {
+                              if ((n2 | 0) < 2) {
                                 break ea;
                               }
                               c2 = 1;
-                              l2 = n - 1 | 0;
+                              l2 = n2 - 1 | 0;
                               v3 = l2 & 1;
-                              if ((n | 0) != 2) {
+                              if ((n2 | 0) != 2) {
                                 o2 = l2 & -2;
                                 q2 = 0;
                                 while (1) {
@@ -11603,13 +11603,13 @@
                             h = L2[u3 + (da3 << 2) >> 2];
                             g4 = g4 > h ? g4 : h;
                             L2[e4 >> 2] = g4;
-                            if ((n | 0) < 2) {
+                            if ((n2 | 0) < 2) {
                               break ea;
                             }
                             c2 = 1;
-                            l2 = n - 1 | 0;
+                            l2 = n2 - 1 | 0;
                             v3 = l2 & 1;
-                            if ((n | 0) != 2) {
+                            if ((n2 | 0) != 2) {
                               l2 = l2 & -2;
                               q2 = 0;
                               while (1) {
@@ -11646,17 +11646,17 @@
                             g4 = O2(g4 + O2(-1));
                             L2[e4 + l2 >> 2] = g4 > h ? g4 : h;
                           }
-                          if ((n | 0) < 2) {
+                          if ((n2 | 0) < 2) {
                             break ea;
                           }
-                          c2 = n - 2 | 0;
+                          c2 = n2 - 2 | 0;
                           l2 = c2;
-                          if (!(n & 1)) {
+                          if (!(n2 & 1)) {
                             l2 = e4 + (c2 << 2) | 0;
                             g4 = L2[l2 >> 2];
-                            h = O2(L2[(e4 + (n << 2) | 0) - 4 >> 2] + O2(-1));
+                            h = O2(L2[(e4 + (n2 << 2) | 0) - 4 >> 2] + O2(-1));
                             L2[l2 >> 2] = g4 > h ? g4 : h;
-                            l2 = n - 3 | 0;
+                            l2 = n2 - 3 | 0;
                           }
                           if (!c2) {
                             break ea;
@@ -11680,11 +11680,11 @@
                           }
                         }
                         o2 = (w4 | 0) <= 1 ? 1 : w4;
-                        c2 = n - 3 | 0;
+                        c2 = n2 - 3 | 0;
                         t4 = c2 & -2;
                         C5 = c2 & 1;
                         c2 = 0;
-                        na3 = (n | 0) < 4;
+                        na3 = (n2 | 0) < 4;
                         g4 = O2(0);
                         while (1) {
                           ga: {
@@ -11694,7 +11694,7 @@
                             v3 = N3(c2, da3);
                             q2 = 0;
                             l2 = 2;
-                            if ((n | 0) != 4) {
+                            if ((n2 | 0) != 4) {
                               while (1) {
                                 h = g4;
                                 g4 = L2[(l2 + v3 << 2) + d >> 2];
@@ -11732,19 +11732,19 @@
                           }
                           break;
                         }
-                        if (!(O2(g4 / O2(N3(n - 3 | 0, w4) | 0)) > O2(1))) {
+                        if (!(O2(g4 / O2(N3(n2 - 3 | 0, w4) | 0)) > O2(1))) {
                           break da;
                         }
                         Yb(S2, R3, A3, j, w4, K3, y2, H2[m + 28 >> 2]);
                         Nb2(S2, j, a3, r2, w4, y2);
-                        Qb2(S2, r2, n, a3, d, w4);
+                        Qb2(S2, r2, n2, a3, d, w4);
                         E5 = 1;
                         if ((w4 | 0) > 0) {
-                          q2 = n & -4;
-                          D5 = n & 3;
+                          q2 = n2 & -4;
+                          D5 = n2 & 3;
                           l2 = 0;
-                          K3 = (n | 0) <= 0;
-                          A3 = n - 1 >>> 0 < 3;
+                          K3 = (n2 | 0) <= 0;
+                          A3 = n2 - 1 >>> 0 < 3;
                           g4 = O2(O2(y2 | 0) * O2(0.5));
                           while (1) {
                             ha: {
@@ -11903,7 +11903,7 @@
                     pa2 = i;
                     c2 = 0;
                     ra3 = Da2(q2, 0, a3);
-                    t4 = (n | 0) <= 0;
+                    t4 = (n2 | 0) <= 0;
                     if (!t4) {
                       g4 = O2(9 - K3 | 0);
                       a3 = 0;
@@ -11912,7 +11912,7 @@
                         o2 = a3 + 5 | 0;
                         L2[K3 + M5 >> 2] = O2(O2(N3(o2, o2) | 0) * O2(0.006200000178068876)) + O2(O2(O2(O2(O2(G2[A3 + (a3 << 1) >> 1]) * O2(0.0625)) + O2(0.5)) + g4) - L2[K3 + 33520 >> 2]);
                         a3 = a3 + 1 | 0;
-                        if ((n | 0) != (a3 | 0)) {
+                        if ((n2 | 0) != (a3 | 0)) {
                           continue;
                         }
                         break;
@@ -11922,9 +11922,9 @@
                     ga2 = p3;
                     p3 = l2;
                     ma3 = (w4 | 0) <= 1 ? 1 : w4;
-                    $2 = n & -2;
-                    _2 = n & 1;
-                    A3 = n - 1 | 0;
+                    $2 = n2 & -2;
+                    _2 = n2 & 1;
+                    A3 = n2 - 1 | 0;
                     ba3 = O2(-31.899999618530273);
                     ja: {
                       ka: {
@@ -11963,10 +11963,10 @@
                                 pa2 = a3;
                                 c2 = a3 - c2 | 0;
                                 pa2 = c2;
-                                if ((n | 0) <= 0) {
+                                if ((n2 | 0) <= 0) {
                                   break ma;
                                 }
-                                o2 = n & 1;
+                                o2 = n2 & 1;
                                 if (A3) {
                                   break la;
                                 }
@@ -11985,13 +11985,13 @@
                             c2 = a3 - c2 | 0;
                             pa2 = c2;
                           }
-                          Ca2(c2, a3, n << 2);
-                          i = n - 2 | 0;
+                          Ca2(c2, a3, n2 << 2);
+                          i = n2 - 2 | 0;
                           $2 = (w4 | 0) == 2;
                           A3 = 0;
                           break ja;
                         }
-                        $2 = n & -2;
+                        $2 = n2 & -2;
                         t4 = 0;
                         l2 = 0;
                         while (1) {
@@ -12012,16 +12012,16 @@
                         L2[l2 + a3 >> 2] = L2[d + l2 >> 2] - L2[l2 + M5 >> 2];
                       }
                       na: {
-                        if ((w4 | 0) != 2 | (n | 0) <= 0) {
+                        if ((w4 | 0) != 2 | (n2 | 0) <= 0) {
                           break na;
                         }
-                        l2 = n & 1;
+                        l2 = n2 & 1;
                         oa: {
                           if (!A3) {
                             o2 = 0;
                             break oa;
                           }
-                          i = n & -2;
+                          i = n2 & -2;
                           o2 = 0;
                           t4 = 0;
                           while (1) {
@@ -12053,17 +12053,17 @@
                         h = O2(L2[(o2 + da3 << 2) + d >> 2] - L2[l2 + M5 >> 2]);
                         L2[i >> 2] = g4 > h ? g4 : h;
                       }
-                      _2 = Ca2(c2, a3, n << 2);
+                      _2 = Ca2(c2, a3, n2 << 2);
                       c2 = 1;
-                      l2 = (n | 0) > 1;
+                      l2 = (n2 | 0) > 1;
                       pa: {
                         if (!l2) {
-                          i = n - 2 | 0;
+                          i = n2 - 2 | 0;
                           c2 = 0;
                           break pa;
                         }
                         g4 = L2[a3 >> 2];
-                        if (n - 2 >>> 0 >= 3) {
+                        if (n2 - 2 >>> 0 >= 3) {
                           o2 = A3 & -4;
                           t4 = 0;
                           while (1) {
@@ -12109,18 +12109,18 @@
                             break;
                           }
                         }
-                        i = n - 2 | 0;
+                        i = n2 - 2 | 0;
                         c2 = 0;
-                        if ((n | 0) < 2) {
+                        if ((n2 | 0) < 2) {
                           break pa;
                         }
                         c2 = i;
                         if (A3 & 1) {
                           c2 = (i << 2) + a3 | 0;
                           g4 = L2[c2 >> 2];
-                          h = O2(L2[((n << 2) + a3 | 0) - 4 >> 2] + O2(-3));
+                          h = O2(L2[((n2 << 2) + a3 | 0) - 4 >> 2] + O2(-3));
                           L2[c2 >> 2] = g4 > h ? g4 : h;
-                          c2 = n - 3 | 0;
+                          c2 = n2 - 3 | 0;
                         }
                         if (i) {
                           while (1) {
@@ -12145,7 +12145,7 @@
                       }
                       A3 = c2;
                       $2 = (w4 | 0) == 2;
-                      if ((n | 0) <= 0) {
+                      if ((n2 | 0) <= 0) {
                         break ja;
                       }
                       g4 = O2(ba3 + O2(-12));
@@ -12166,7 +12166,7 @@
                         o2 = 0 - l2 | 0;
                         H2[ha3 >> 2] = (l2 | 0) > 0 ? 32 : 32 >>> ((o2 | 0) >= 5 ? 5 : o2) | 0;
                         c2 = c2 + 1 | 0;
-                        if ((n | 0) != (c2 | 0)) {
+                        if ((n2 | 0) != (c2 | 0)) {
                           continue;
                         }
                         break;
@@ -12174,12 +12174,12 @@
                     }
                     ra: {
                       if (!(U3 | ((ga2 | 0) < 51 | (y2 | 0) <= 0))) {
-                        Va3 = n & -2;
-                        $a3 = n & 1;
-                        ha3 = n - 1 | 0;
-                        ab3 = n - 3 | 0;
+                        Va3 = n2 & -2;
+                        $a3 = n2 & 1;
+                        ha3 = n2 - 1 | 0;
+                        ab3 = n2 - 3 | 0;
                         l2 = 0;
-                        ib3 = (n | 0) > 4;
+                        ib3 = (n2 | 0) > 4;
                         t4 = 0;
                         while (1) {
                           o2 = N3(t4, da3);
@@ -12200,7 +12200,7 @@
                               L2[U3 + (c2 << 2) >> 2] = g4;
                               l2 = k > O2(z3 + O2(0.5)) ? c2 : l2;
                               c2 = c2 + 1 | 0;
-                              if ((n | 0) != (c2 | 0)) {
+                              if ((n2 | 0) != (c2 | 0)) {
                                 continue;
                               }
                               break;
@@ -12340,7 +12340,7 @@
                           h = L2[a3 >> 2];
                           L2[a3 >> 2] = g4 < h ? h : g4;
                           wa: {
-                            if ((n | 0) <= 0) {
+                            if ((n2 | 0) <= 0) {
                               break wa;
                             }
                             c2 = 0;
@@ -12382,18 +12382,18 @@
                         }
                         xa: {
                           if (!$2) {
-                            if ((b | 0) >= (n | 0)) {
+                            if ((b | 0) >= (n2 | 0)) {
                               break xa;
                             }
                             a3 = b;
-                            if (n - a3 & 1) {
+                            if (n2 - a3 & 1) {
                               a3 = b << 2;
                               c2 = a3 + C5 | 0;
                               g4 = O2(L2[a3 + d >> 2] - L2[c2 >> 2]);
                               L2[c2 >> 2] = g4 < O2(0) ? O2(0) : g4;
                               a3 = b + 1 | 0;
                             }
-                            if ((0 - n | 0) == (b ^ -1)) {
+                            if ((0 - n2 | 0) == (b ^ -1)) {
                               break xa;
                             }
                             while (1) {
@@ -12406,14 +12406,14 @@
                               g4 = O2(L2[c2 + d >> 2] - L2[l2 >> 2]);
                               L2[l2 >> 2] = g4 < O2(0) ? O2(0) : g4;
                               a3 = a3 + 2 | 0;
-                              if ((n | 0) != (a3 | 0)) {
+                              if ((n2 | 0) != (a3 | 0)) {
                                 continue;
                               }
                               break;
                             }
                             break xa;
                           }
-                          if ((b | 0) >= (n | 0)) {
+                          if ((b | 0) >= (n2 | 0)) {
                             break xa;
                           }
                           a3 = b;
@@ -12435,19 +12435,19 @@
                             g4 = O2(L2[d + j >> 2] - L2[l2 >> 2]);
                             L2[c2 >> 2] = O2(h + (g4 < O2(0) ? O2(0) : g4)) * O2(0.5);
                             a3 = a3 + 1 | 0;
-                            if ((n | 0) != (a3 | 0)) {
+                            if ((n2 | 0) != (a3 | 0)) {
                               continue;
                             }
                             break;
                           }
                         }
-                        l2 = (b | 0) >= (n | 0);
+                        l2 = (b | 0) >= (n2 | 0);
                         ya: {
                           if (l2) {
                             break ya;
                           }
                           a3 = b;
-                          if (n - a3 & 1) {
+                          if (n2 - a3 & 1) {
                             a3 = b << 2;
                             c2 = a3 + C5 | 0;
                             g4 = L2[c2 >> 2];
@@ -12455,7 +12455,7 @@
                             L2[c2 >> 2] = g4 > h ? g4 : h;
                             a3 = b + 1 | 0;
                           }
-                          if ((0 - n | 0) != (b ^ -1)) {
+                          if ((0 - n2 | 0) != (b ^ -1)) {
                             while (1) {
                               c2 = a3 << 2;
                               j = c2 + C5 | 0;
@@ -12468,13 +12468,13 @@
                               h = L2[c2 + x3 >> 2];
                               L2[j >> 2] = g4 > h ? g4 : h;
                               a3 = a3 + 2 | 0;
-                              if ((n | 0) != (a3 | 0)) {
+                              if ((n2 | 0) != (a3 | 0)) {
                                 continue;
                               }
                               break;
                             }
                           }
-                          if ((b | 0) >= (n | 0)) {
+                          if ((b | 0) >= (n2 | 0)) {
                             break ya;
                           }
                           a3 = b;
@@ -12491,7 +12491,7 @@
                             }
                             H2[j + p3 >> 2] = c2;
                             a3 = a3 + 1 | 0;
-                            if ((n | 0) != (a3 | 0)) {
+                            if ((n2 | 0) != (a3 | 0)) {
                               continue;
                             }
                             break;
@@ -12503,7 +12503,7 @@
                             break Aa;
                           }
                           a3 = b;
-                          j = n - a3 & 3;
+                          j = n2 - a3 & 3;
                           if (j) {
                             c2 = 0;
                             while (1) {
@@ -12517,7 +12517,7 @@
                               break;
                             }
                           }
-                          if ((b ^ -1) + n >>> 0 < 3) {
+                          if ((b ^ -1) + n2 >>> 0 < 3) {
                             break Aa;
                           }
                           while (1) {
@@ -12527,7 +12527,7 @@
                             L2[c2 + 8 >> 2] = L2[c2 + 8 >> 2] * O2(0.5);
                             L2[c2 + 12 >> 2] = L2[c2 + 12 >> 2] * O2(0.5);
                             a3 = a3 + 4 | 0;
-                            if ((n | 0) != (a3 | 0)) {
+                            if ((n2 | 0) != (a3 | 0)) {
                               continue;
                             }
                             break;
@@ -12538,7 +12538,7 @@
                             break Ba;
                           }
                           a3 = b;
-                          if (n - a3 & 1) {
+                          if (n2 - a3 & 1) {
                             g4 = O2(2);
                             Ca: {
                               if ((b | 0) >= 8) {
@@ -12552,7 +12552,7 @@
                             }
                             a3 = b + 1 | 0;
                           }
-                          if ((0 - n | 0) == (b ^ -1)) {
+                          if ((0 - n2 | 0) == (b ^ -1)) {
                             break Ba;
                           }
                           while (1) {
@@ -12580,7 +12580,7 @@
                               L2[c2 >> 2] = L2[c2 >> 2] * g4;
                             }
                             a3 = a3 + 2 | 0;
-                            if ((n | 0) != (a3 | 0)) {
+                            if ((n2 | 0) != (a3 | 0)) {
                               continue;
                             }
                             break;
@@ -12590,7 +12590,7 @@
                           if (!H2[za3 >> 2]) {
                             break Fa;
                           }
-                          j = (n | 0) >= 19 ? 19 : n;
+                          j = (n2 | 0) >= 19 ? 19 : n2;
                           if ((j | 0) <= (b | 0)) {
                             break Fa;
                           }
@@ -12679,7 +12679,7 @@
                           a3 = x3;
                           l2 = c2;
                           b = i;
-                          if ((n | 0) != (b | 0)) {
+                          if ((n2 | 0) != (b | 0)) {
                             continue;
                           }
                           break;
@@ -12687,11 +12687,11 @@
                         break ra;
                       }
                       c2 = 0;
-                      if ((b | 0) >= (n | 0)) {
+                      if ((b | 0) >= (n2 | 0)) {
                         break ra;
                       }
-                      l2 = (b ^ -1) + n | 0;
-                      j = n - b & 7;
+                      l2 = (b ^ -1) + n2 | 0;
+                      j = n2 - b & 7;
                       if (j) {
                         a3 = 0;
                         while (1) {
@@ -12718,7 +12718,7 @@
                         H2[a3 + 8 >> 2] = 13;
                         H2[a3 + 12 >> 2] = 13;
                         b = b + 8 | 0;
-                        if ((n | 0) != (b | 0)) {
+                        if ((n2 | 0) != (b | 0)) {
                           continue;
                         }
                         break;
@@ -13078,12 +13078,12 @@
                           pa2 = _2;
                         }
                         e4 = c2;
-                        if ((n | 0) <= (La2 | 0)) {
+                        if ((n2 | 0) <= (La2 | 0)) {
                           break Ja;
                         }
                         a3 = (x3 + (r2 << 2) | 0) - 4 | 0;
                         c2 = r2;
-                        b = n - c2 & 3;
+                        b = n2 - c2 & 3;
                         if (b) {
                           i = 0;
                           while (1) {
@@ -13096,7 +13096,7 @@
                             break;
                           }
                         }
-                        if ((r2 ^ -1) + n >>> 0 < 3) {
+                        if ((r2 ^ -1) + n2 >>> 0 < 3) {
                           break Ja;
                         }
                         while (1) {
@@ -13106,7 +13106,7 @@
                           H2[b + 8 >> 2] = H2[a3 >> 2];
                           H2[b + 12 >> 2] = H2[a3 >> 2];
                           c2 = c2 + 4 | 0;
-                          if ((n | 0) != (c2 | 0)) {
+                          if ((n2 | 0) != (c2 | 0)) {
                             continue;
                           }
                           break;
@@ -13114,14 +13114,14 @@
                         break Ja;
                       }
                       if (!(!X3 | !H2[ca3 >> 2])) {
-                        if ((n | 0) <= 0) {
+                        if ((n2 | 0) <= 0) {
                           e4 = 0;
                           break Ja;
                         }
                         e4 = 0;
                         b = 0;
-                        if (n - 1 >>> 0 >= 7) {
-                          c2 = n & -8;
+                        if (n2 - 1 >>> 0 >= 7) {
+                          c2 = n2 & -8;
                           i = 0;
                           while (1) {
                             a3 = b << 2;
@@ -13141,7 +13141,7 @@
                             break;
                           }
                         }
-                        a3 = n & 7;
+                        a3 = n2 & 7;
                         if (!a3) {
                           break Ja;
                         }
@@ -13159,20 +13159,20 @@
                       }
                       if (!(!X3 | (ga2 | 0) > 14 | H2[m + 184 >> 2] == 2)) {
                         e4 = E5;
-                        if ((n | 0) <= 0) {
+                        if ((n2 | 0) <= 0) {
                           break Ja;
                         }
                         Da2(x3, 0, Ua3);
                         break Ja;
                       }
-                      if ((n | 0) <= 0) {
+                      if ((n2 | 0) <= 0) {
                         e4 = 0;
                         break Ja;
                       }
                       e4 = 0;
                       b = 0;
-                      if (n - 1 >>> 0 >= 7) {
-                        c2 = n & -8;
+                      if (n2 - 1 >>> 0 >= 7) {
+                        c2 = n2 & -8;
                         i = 0;
                         while (1) {
                           a3 = b << 2;
@@ -13192,7 +13192,7 @@
                           break;
                         }
                       }
-                      a3 = n & 7;
+                      a3 = n2 & 7;
                       if (!a3) {
                         break Ja;
                       }
@@ -13212,7 +13212,7 @@
                     pa2 = A3;
                     l2 = 0;
                     while (1) {
-                      U3 = (n | 0) <= (X3 | 0);
+                      U3 = (n2 | 0) <= (X3 | 0);
                       if (!U3) {
                         b = N3(l2, da3);
                         c2 = X3;
@@ -13224,7 +13224,7 @@
                             L2[p3 >> 2] = g4 + O2(L2[a3 + Pa3 >> 2] * O2(-0.25));
                           }
                           c2 = c2 + 1 | 0;
-                          if ((n | 0) != (c2 | 0)) {
+                          if ((n2 | 0) != (c2 | 0)) {
                             continue;
                           }
                           break;
@@ -13252,7 +13252,7 @@
                       if (t4) {
                         break Sa;
                       }
-                      b = N3(n - X3 | 0, w4);
+                      b = N3(n2 - X3 | 0, w4);
                       if (!(L2[m + 84 >> 2] > O2(b << 1))) {
                         break Sa;
                       }
@@ -13327,7 +13327,7 @@
                     pa2 = p3;
                     o2 = Ca2(i, u3, o2);
                     k = O2(O2(Z3 | 0) * O2(0.125));
-                    k = (n - X3 | 0) > 10 ? k > O2(16) ? O2(16) : k : O2(16);
+                    k = (n2 - X3 | 0) > 10 ? k > O2(16) ? O2(16) : k : O2(16);
                     i = 0;
                     C5 = a3 + Q2(C5) | 0;
                     M5 = C5 - 29 >>> 0 <= Y3 >>> 0;
@@ -13345,7 +13345,7 @@
                       Va: {
                         j = j & M5;
                         if (j | t4) {
-                          i = uc(S2, X3, n, d, o2, Y3, C5, N3(y2, 84) + 33674 | 0, p3, f2, w4, y2, 1, h, l2);
+                          i = uc(S2, X3, n2, d, o2, Y3, C5, N3(y2, 84) + 33674 | 0, p3, f2, w4, y2, 1, h, l2);
                           if (j) {
                             break Va;
                           }
@@ -13390,7 +13390,7 @@
                         b = H2[c2 + 52 >> 2];
                         H2[f2 + 28 >> 2] = H2[c2 + 48 >> 2];
                         H2[f2 + 32 >> 2] = b;
-                        b = uc(S2, X3, n, d, u3, Y3, C5, N3(y2, 84) + 33632 | 0, A3, f2, w4, y2, 0, h, l2);
+                        b = uc(S2, X3, n2, d, u3, Y3, C5, N3(y2, 84) + 33632 | 0, A3, f2, w4, y2, 0, h, l2);
                         Wa: {
                           if (!t4) {
                             break Wa;
@@ -13459,7 +13459,7 @@
                         j = 0;
                       }
                       c2 = X3 + 1 | 0;
-                      if ((n | 0) == (c2 | 0)) {
+                      if ((n2 | 0) == (c2 | 0)) {
                         break Xa;
                       }
                       p3 = E5 ? 4 : 5;
@@ -13477,7 +13477,7 @@
                           H2[a3 >> 2] = l2;
                         }
                         c2 = c2 + 1 | 0;
-                        if ((n | 0) != (c2 | 0)) {
+                        if ((n2 | 0) != (c2 | 0)) {
                           continue;
                         }
                         break;
@@ -13500,7 +13500,7 @@
                       }
                       b = E5 << 2 | o2;
                       c2 = X3;
-                      a3 = n - c2 & 3;
+                      a3 = n2 - c2 & 3;
                       if (a3) {
                         i = 0;
                         e4 = (y2 << 3) + 11840 | 0;
@@ -13515,7 +13515,7 @@
                           break;
                         }
                       }
-                      if ((X3 ^ -1) + n >>> 0 < 3) {
+                      if ((X3 ^ -1) + n2 >>> 0 < 3) {
                         break $a;
                       }
                       e4 = (y2 << 3) + 11840 | 0;
@@ -13526,7 +13526,7 @@
                         H2[a3 + 8 >> 2] = F2[e4 + (b + H2[a3 + 8 >> 2] | 0) | 0];
                         H2[a3 + 12 >> 2] = F2[e4 + (b + H2[a3 + 12 >> 2] | 0) | 0];
                         c2 = c2 + 4 | 0;
-                        if ((n | 0) != (c2 | 0)) {
+                        if ((n2 | 0) != (c2 | 0)) {
                           continue;
                         }
                         break;
@@ -13771,7 +13771,7 @@
                           p3 = ((p3 | 0) <= 3 ? 3 : p3) - 1 | 0;
                         }
                         H2[i >> 2] = c2;
-                        if ((b | 0) != (n | 0)) {
+                        if ((b | 0) != (n2 | 0)) {
                           continue;
                         }
                         break;
@@ -13847,7 +13847,7 @@
                         b = a3;
                       }
                       a3 = (b | 0) < (X3 | 0) ? X3 : b;
-                      H2[m + 232 >> 2] = (a3 | 0) > (n | 0) ? n : a3;
+                      H2[m + 232 >> 2] = (a3 | 0) > (n2 | 0) ? n2 : a3;
                     }
                     i = 5;
                     if ((e4 + 48 | 0) <= (r2 - l2 | 0)) {
@@ -14008,12 +14008,12 @@
                           h = O2(h + (g4 < O2(-4) ? O2(-4) : g4));
                         }
                         p3 = (w4 | 0) <= 1 ? 1 : w4;
-                        e4 = n - 1 | 0;
+                        e4 = n2 - 1 | 0;
                         i = e4 & -2;
                         r2 = e4 & 1;
                         g4 = O2(0);
                         c2 = 0;
-                        Y3 = (n | 0) < 2;
+                        Y3 = (n2 | 0) < 2;
                         while (1) {
                           tb: {
                             if (Y3) {
@@ -14022,10 +14022,10 @@
                             a3 = N3(H2[S2 + 8 >> 2], c2);
                             b = 0;
                             j = 0;
-                            if ((n | 0) != 2) {
+                            if ((n2 | 0) != 2) {
                               while (1) {
                                 K3 = b | 1;
-                                g4 = O2(O2(L2[(K3 + a3 << 2) + d >> 2] * O2(((K3 << 1) - n | 0) + 2 | 0)) + O2(O2(L2[(a3 + b << 2) + d >> 2] * O2(((b << 1) - n | 0) + 2 | 0)) + g4));
+                                g4 = O2(O2(L2[(K3 + a3 << 2) + d >> 2] * O2(((K3 << 1) - n2 | 0) + 2 | 0)) + O2(O2(L2[(a3 + b << 2) + d >> 2] * O2(((b << 1) - n2 | 0) + 2 | 0)) + g4));
                                 b = b + 2 | 0;
                                 j = j + 2 | 0;
                                 if ((i | 0) != (j | 0)) {
@@ -14037,7 +14037,7 @@
                             if (!r2) {
                               break tb;
                             }
-                            g4 = O2(O2(L2[(a3 + b << 2) + d >> 2] * O2(((b << 1) - n | 0) + 2 | 0)) + g4);
+                            g4 = O2(O2(L2[(a3 + b << 2) + d >> 2] * O2(((b << 1) - n2 | 0) + 2 | 0)) + g4);
                           }
                           c2 = c2 + 1 | 0;
                           if ((p3 | 0) != (c2 | 0)) {
@@ -14331,9 +14331,9 @@
                       }
                       b = (b | 0) < (ja3 | 0) ? ja3 : b;
                     } else {
-                      b = n - 1 | 0;
+                      b = n2 - 1 | 0;
                     }
-                    b = tc(S2, X3, n, q2, R3, i, c2, d, e4, Y3, j, a3, p3, w4, y2, f2, 1, Z3, H2[m + 64 >> 2] ? 1 : b);
+                    b = tc(S2, X3, n2, q2, R3, i, c2, d, e4, Y3, j, a3, p3, w4, y2, f2, 1, Z3, H2[m + 64 >> 2] ? 1 : b);
                     c2 = H2[m + 92 >> 2];
                     if (c2) {
                       d = c2 + 1 | 0;
@@ -14345,7 +14345,7 @@
                     }
                     H2[m + 92 >> 2] = c2;
                     c2 = X3;
-                    if ((n | 0) > (c2 | 0)) {
+                    if ((n2 | 0) > (c2 | 0)) {
                       ga2 = (w4 | 0) <= 1 ? 1 : w4;
                       while (1) {
                         q2 = a3 + (c2 << 2) | 0;
@@ -14386,7 +14386,7 @@
                           }
                         }
                         c2 = c2 + 1 | 0;
-                        if ((n | 0) != (c2 | 0)) {
+                        if ((n2 | 0) != (c2 | 0)) {
                           continue;
                         }
                         break;
@@ -14395,14 +14395,14 @@
                     d = 0;
                     c2 = p3 - (sa3 + 15 & -16) | 0;
                     pa2 = c2;
-                    qc(1, S2, X3, n, na3, (w4 | 0) == 2 ? na3 + (aa2 << 2) | 0 : 0, c2, v3, j, D5, H2[m + 80 >> 2], H2[ca3 + 20 >> 2], H2[m + 232 >> 2], x3, K3 - r2 | 0, H2[ca3 + 16 >> 2], f2, y2, b, m + 76 | 0, H2[m + 24 >> 2], H2[m + 72 >> 2], H2[m + 68 >> 2]);
+                    qc(1, S2, X3, n2, na3, (w4 | 0) == 2 ? na3 + (aa2 << 2) | 0 : 0, c2, v3, j, D5, H2[m + 80 >> 2], H2[ca3 + 20 >> 2], H2[m + 232 >> 2], x3, K3 - r2 | 0, H2[ca3 + 16 >> 2], f2, y2, b, m + 76 | 0, H2[m + 24 >> 2], H2[m + 72 >> 2], H2[m + 68 >> 2]);
                     if (l2 & 1) {
                       Qa2(f2, H2[m + 116 >> 2] < 2, 1);
                     }
                     c2 = a3;
                     l2 = (w4 | 0) <= 1 ? 1 : w4;
                     a3 = X3;
-                    j = (n | 0) <= (a3 | 0);
+                    j = (n2 | 0) <= (a3 | 0);
                     e4 = ((la3 << 3) - (H2[f2 + 20 >> 2] + Q2(H2[f2 + 28 >> 2]) | 0) | 0) + 32 | 0;
                     Nb: {
                       if (j | (w4 | 0) > (e4 | 0)) {
@@ -14434,7 +14434,7 @@
                           e4 = e4 - l2 | 0;
                         }
                         b = b + 1 | 0;
-                        if ((n | 0) <= (b | 0)) {
+                        if ((n2 | 0) <= (b | 0)) {
                           break Nb;
                         }
                         if ((e4 | 0) >= (w4 | 0)) {
@@ -14472,7 +14472,7 @@
                           e4 = e4 - l2 | 0;
                         }
                         a3 = a3 + 1 | 0;
-                        if ((n | 0) <= (a3 | 0)) {
+                        if ((n2 | 0) <= (a3 | 0)) {
                           break Ob;
                         }
                         if ((e4 | 0) >= (w4 | 0)) {
@@ -14483,9 +14483,9 @@
                     }
                     p3 = ya2 << 2;
                     b = Da2(Pa3, 0, p3);
-                    j = n - X3 & 1;
+                    j = n2 - X3 & 1;
                     a3 = X3 + 1 | 0;
-                    R3 = (a3 | 0) == (n | 0);
+                    R3 = (a3 | 0) == (n2 | 0);
                     while (1) {
                       Pb: {
                         if (U3) {
@@ -14513,7 +14513,7 @@
                           g4 = g4 > O2(0.5) ? O2(0.5) : g4;
                           L2[b + l2 >> 2] = g4 < O2(-0.5) ? O2(-0.5) : g4;
                           c2 = c2 + 2 | 0;
-                          if ((n | 0) != (c2 | 0)) {
+                          if ((n2 | 0) != (c2 | 0)) {
                             continue;
                           }
                           break;
@@ -14617,8 +14617,8 @@
                     }
                     p3 = X3 & -2;
                     l2 = X3 & 1;
-                    j = da3 - n & 1;
-                    a3 = n + 1 | 0;
+                    j = da3 - n2 & 1;
+                    a3 = n2 + 1 | 0;
                     R3 = (a3 | 0) == (da3 | 0);
                     v3 = 0;
                     while (1) {
@@ -14656,13 +14656,13 @@
                         H2[b + qa3 >> 2] = -1042284544;
                       }
                       Tb: {
-                        if ((n | 0) >= (da3 | 0)) {
+                        if ((n2 | 0) >= (da3 | 0)) {
                           break Tb;
                         }
                         d = N3(v3, da3);
-                        b = n;
+                        b = n2;
                         if (j) {
-                          b = d + n << 2;
+                          b = d + n2 << 2;
                           H2[b + u3 >> 2] = 0;
                           H2[b + xa3 >> 2] = -1042284544;
                           H2[b + qa3 >> 2] = -1042284544;
@@ -14702,7 +14702,7 @@
                   return i;
                 }
                 function td3(a3, b, c2, d, e4, f2) {
-                  var g4 = 0, h = 0, i = 0, j = 0, k = 0, l2 = 0, m = O2(0), n = 0, o2 = 0, p3 = 0, q2 = 0, r2 = 0, s3 = 0, t4 = 0, u3 = 0, v3 = 0, w4 = 0, x3 = 0, y2 = 0, z3 = 0, A3 = 0, C5 = 0, D5 = 0, E5 = 0, K3 = 0, M5 = 0, R3 = 0, S2 = 0, T3 = 0, U3 = 0, V3 = 0, W3 = 0, X3 = 0, Y3 = 0, Z3 = 0, _2 = 0, $2 = 0, aa2 = 0, ba3 = 0, ca3 = 0, da3 = 0, ea3 = 0, fa3 = 0, ga2 = 0, ha3 = 0, ia3 = 0, ja3 = 0, ka3 = 0, la3 = 0, ma3 = 0, na3 = 0, oa3 = 0, ra3 = 0, sa3 = 0, ta2 = 0, ua2 = 0, va2 = 0, wa2 = 0, xa3 = 0, ya2 = 0, za3 = 0, Aa3 = 0, Ea3 = 0, Fa3 = 0, Ga3 = 0, Ha3 = 0, Ja3 = 0, Ka3 = 0, La2 = 0, Ma3 = 0, Na3 = 0, Oa3 = 0, Pa3 = 0, Qa3 = 0, Ra3 = 0, Sa3 = 0, Ta3 = 0, Ua3 = 0, Va3 = 0, Wa3 = 0, Xa3 = 0, Ya3 = 0, Za3 = 0, _a2 = 0, $a3 = 0, ab3 = 0, bb3 = 0, cb3 = 0, db3 = 0, eb3 = 0, fb3 = 0, gb3 = 0, hb3 = 0, ib3 = 0, jb2 = 0, kb2 = 0, lb3 = 0, mb3 = 0, nb3 = 0;
+                  var g4 = 0, h = 0, i = 0, j = 0, k = 0, l2 = 0, m = O2(0), n2 = 0, o2 = 0, p3 = 0, q2 = 0, r2 = 0, s3 = 0, t4 = 0, u3 = 0, v3 = 0, w4 = 0, x3 = 0, y2 = 0, z3 = 0, A3 = 0, C5 = 0, D5 = 0, E5 = 0, K3 = 0, M5 = 0, R3 = 0, S2 = 0, T3 = 0, U3 = 0, V3 = 0, W3 = 0, X3 = 0, Y3 = 0, Z3 = 0, _2 = 0, $2 = 0, aa2 = 0, ba3 = 0, ca3 = 0, da3 = 0, ea3 = 0, fa3 = 0, ga2 = 0, ha3 = 0, ia3 = 0, ja3 = 0, ka3 = 0, la3 = 0, ma3 = 0, na3 = 0, oa3 = 0, ra3 = 0, sa3 = 0, ta2 = 0, ua2 = 0, va2 = 0, wa2 = 0, xa3 = 0, ya2 = 0, za3 = 0, Aa3 = 0, Ea3 = 0, Fa3 = 0, Ga3 = 0, Ha3 = 0, Ja3 = 0, Ka3 = 0, La2 = 0, Ma3 = 0, Na3 = 0, Oa3 = 0, Pa3 = 0, Qa3 = 0, Ra3 = 0, Sa3 = 0, Ta3 = 0, Ua3 = 0, Va3 = 0, Wa3 = 0, Xa3 = 0, Ya3 = 0, Za3 = 0, _a2 = 0, $a3 = 0, ab3 = 0, bb3 = 0, cb3 = 0, db3 = 0, eb3 = 0, fb3 = 0, gb3 = 0, hb3 = 0, ib3 = 0, jb2 = 0, kb2 = 0, lb3 = 0, mb3 = 0, nb3 = 0;
                   C5 = pa2 - 1008 | 0;
                   pa2 = C5;
                   a: {
@@ -14713,7 +14713,7 @@
                       }
                       i = H2[a3 + 4636 >> 2];
                       s3 = i & -2;
-                      n = i & 1;
+                      n2 = i & 1;
                       while (1) {
                         c: {
                           if ((i | 0) <= 0) {
@@ -14756,7 +14756,7 @@
                               break;
                             }
                           }
-                          if (!n) {
+                          if (!n2) {
                             break c;
                           }
                           o2 = h + g4 | 0;
@@ -14850,7 +14850,7 @@
                         k = 0;
                         while (1) {
                           p3 = C5 + 240 | 0;
-                          n = p3 + (h << 1) | 0;
+                          n2 = p3 + (h << 1) | 0;
                           m = de(O2(L2[g4 + (h << 2) >> 2] * O2(16384)));
                           l: {
                             if (O2(P2(m)) < O2(2147483648)) {
@@ -14859,10 +14859,10 @@
                             }
                             j = -2147483648;
                           }
-                          G2[n >> 1] = j;
-                          n = h | 1;
-                          q2 = p3 + (n << 1) | 0;
-                          m = de(O2(L2[g4 + (n << 2) >> 2] * O2(16384)));
+                          G2[n2 >> 1] = j;
+                          n2 = h | 1;
+                          q2 = p3 + (n2 << 1) | 0;
+                          m = de(O2(L2[g4 + (n2 << 2) >> 2] * O2(16384)));
                           m: {
                             if (O2(P2(m)) < O2(2147483648)) {
                               j = ~~m;
@@ -14871,9 +14871,9 @@
                             j = -2147483648;
                           }
                           G2[q2 >> 1] = j;
-                          n = h | 2;
-                          q2 = p3 + (n << 1) | 0;
-                          m = de(O2(L2[g4 + (n << 2) >> 2] * O2(16384)));
+                          n2 = h | 2;
+                          q2 = p3 + (n2 << 1) | 0;
+                          m = de(O2(L2[g4 + (n2 << 2) >> 2] * O2(16384)));
                           n: {
                             if (O2(P2(m)) < O2(2147483648)) {
                               j = ~~m;
@@ -14947,7 +14947,7 @@
                       k = 0;
                       while (1) {
                         s3 = C5 + 288 | 0;
-                        n = s3 + (h << 1) | 0;
+                        n2 = s3 + (h << 1) | 0;
                         m = de(O2(L2[p3 + (h << 2) >> 2] * O2(4096)));
                         s: {
                           if (O2(P2(m)) < O2(2147483648)) {
@@ -14956,10 +14956,10 @@
                           }
                           j = -2147483648;
                         }
-                        G2[n >> 1] = j;
-                        n = h | 1;
-                        q2 = s3 + (n << 1) | 0;
-                        m = de(O2(L2[p3 + (n << 2) >> 2] * O2(4096)));
+                        G2[n2 >> 1] = j;
+                        n2 = h | 1;
+                        q2 = s3 + (n2 << 1) | 0;
+                        m = de(O2(L2[p3 + (n2 << 2) >> 2] * O2(4096)));
                         t: {
                           if (O2(P2(m)) < O2(2147483648)) {
                             j = ~~m;
@@ -14968,9 +14968,9 @@
                           j = -2147483648;
                         }
                         G2[q2 >> 1] = j;
-                        n = h | 2;
-                        q2 = s3 + (n << 1) | 0;
-                        m = de(O2(L2[p3 + (n << 2) >> 2] * O2(4096)));
+                        n2 = h | 2;
+                        q2 = s3 + (n2 << 1) | 0;
+                        m = de(O2(L2[p3 + (n2 << 2) >> 2] * O2(4096)));
                         u: {
                           if (O2(P2(m)) < O2(2147483648)) {
                             j = ~~m;
@@ -15031,7 +15031,7 @@
                       p3 = C5 + 320 | 0;
                       s3 = 0;
                       while (1) {
-                        n = p3 + (h << 1) | 0;
+                        n2 = p3 + (h << 1) | 0;
                         m = de(O2(L2[o2 + (h << 2) >> 2] * O2(4096)));
                         x: {
                           if (O2(P2(m)) < O2(2147483648)) {
@@ -15040,10 +15040,10 @@
                           }
                           j = -2147483648;
                         }
-                        G2[n >> 1] = j;
-                        n = h | 1;
-                        q2 = p3 + (n << 1) | 0;
-                        m = de(O2(L2[o2 + (n << 2) >> 2] * O2(4096)));
+                        G2[n2 >> 1] = j;
+                        n2 = h | 1;
+                        q2 = p3 + (n2 << 1) | 0;
+                        m = de(O2(L2[o2 + (n2 << 2) >> 2] * O2(4096)));
                         y: {
                           if (O2(P2(m)) < O2(2147483648)) {
                             j = ~~m;
@@ -15052,9 +15052,9 @@
                           j = -2147483648;
                         }
                         G2[q2 >> 1] = j;
-                        n = h | 2;
-                        q2 = p3 + (n << 1) | 0;
-                        m = de(O2(L2[o2 + (n << 2) >> 2] * O2(4096)));
+                        n2 = h | 2;
+                        q2 = p3 + (n2 << 1) | 0;
+                        m = de(O2(L2[o2 + (n2 << 2) >> 2] * O2(4096)));
                         z: {
                           if (O2(P2(m)) < O2(2147483648)) {
                             j = ~~m;
@@ -15063,9 +15063,9 @@
                           j = -2147483648;
                         }
                         G2[q2 >> 1] = j;
-                        n = h | 3;
-                        q2 = p3 + (n << 1) | 0;
-                        m = de(O2(L2[o2 + (n << 2) >> 2] * O2(4096)));
+                        n2 = h | 3;
+                        q2 = p3 + (n2 << 1) | 0;
+                        m = de(O2(L2[o2 + (n2 << 2) >> 2] * O2(4096)));
                         A: {
                           if (O2(P2(m)) < O2(2147483648)) {
                             j = ~~m;
@@ -15112,7 +15112,7 @@
                     o2 = 0;
                     h = 0;
                     if (l2 >>> 0 >= 4) {
-                      n = l2 & -4;
+                      n2 = l2 & -4;
                       k = 0;
                       while (1) {
                         g4 = h << 2;
@@ -15162,7 +15162,7 @@
                         H2[p3 >> 2] = g4;
                         h = h + 4 | 0;
                         k = k + 4 | 0;
-                        if ((n | 0) != (k | 0)) {
+                        if ((n2 | 0) != (k | 0)) {
                           continue;
                         }
                         break;
@@ -15202,7 +15202,7 @@
                     s3 = 0;
                     h = 0;
                     if (l2 >>> 0 >= 4) {
-                      n = l2 & -4;
+                      n2 = l2 & -4;
                       o2 = 0;
                       while (1) {
                         g4 = C5 + 368 | 0;
@@ -15252,7 +15252,7 @@
                         G2[p3 >> 1] = g4;
                         h = h + 4 | 0;
                         o2 = o2 + 4 | 0;
-                        if ((n | 0) != (o2 | 0)) {
+                        if ((n2 | 0) != (o2 | 0)) {
                           continue;
                         }
                         break;
@@ -15295,7 +15295,7 @@
                       U3 = b + 228 | 0;
                       s3 = i;
                       i = 0;
-                      n = 0;
+                      n2 = 0;
                       b = pa2 - 176 | 0;
                       x3 = b;
                       pa2 = b;
@@ -15401,8 +15401,8 @@
                             a3 = H2[U3 + (h << 2) >> 2] - 3 | 0;
                             A3 = (a3 | 0) > (A3 | 0) ? A3 : a3;
                             h = h + 1 | 0;
-                            n = n + 1 | 0;
-                            if ((b | 0) != (n | 0)) {
+                            n2 = n2 + 1 | 0;
+                            if ((b | 0) != (n2 | 0)) {
                               continue;
                             }
                             break;
@@ -15465,7 +15465,7 @@
                                       break V;
                                     }
                                     a3 = c2 - 1 | 0;
-                                    n = a3 & 3;
+                                    n2 = a3 & 3;
                                     i = H2[u3 + 1296 >> 2];
                                     e4 = 0;
                                     h = 1;
@@ -15500,7 +15500,7 @@
                                         break;
                                       }
                                     }
-                                    if (!n) {
+                                    if (!n2) {
                                       break V;
                                     }
                                     while (1) {
@@ -15510,7 +15510,7 @@
                                       a3 = k ? h : a3;
                                       h = h + 1 | 0;
                                       e4 = e4 + 1 | 0;
-                                      if ((n | 0) != (e4 | 0)) {
+                                      if ((n2 | 0) != (e4 | 0)) {
                                         continue;
                                       }
                                       break;
@@ -15561,10 +15561,10 @@
                                     g4 = (i | 0) < 0 ? i + 40 | 0 : i;
                                     i = (u3 + N3(a3, 1300) | 0) + (g4 << 2) | 0;
                                     F2[e4 + f2 | 0] = (H2[i + 544 >> 2] >>> 9 | 0) + 1 >>> 1;
-                                    n = H2[oa3 + 4 >> 2];
-                                    D5 = n << 16 >> 16;
+                                    n2 = H2[oa3 + 4 >> 2];
+                                    D5 = n2 << 16 >> 16;
                                     k = H2[i + 704 >> 2];
-                                    k = ((N3(D5, k & 65535) >> 16) + N3(D5, k >> 16) | 0) + N3(k, (n >> 15) + 1 >> 1) | 0;
+                                    k = ((N3(D5, k & 65535) >> 16) + N3(D5, k >> 16) | 0) + N3(k, (n2 >> 15) + 1 >> 1) | 0;
                                     G2[(e4 << 1) + b >> 1] = (k | 0) > 536862719 ? 32767 : (k | 0) < -536879104 ? -32768 : (k >>> 13 | 0) + 1 >>> 1 | 0;
                                     H2[(o2 + (e4 + H2[o2 + 4336 >> 2] << 2) | 0) + 1280 >> 2] = H2[i + 1024 >> 2];
                                     h = h + 1 | 0;
@@ -15592,12 +15592,12 @@
                               e4 = H2[r2 >> 2];
                               h = (e4 | 0) <= 1 ? 1 : e4;
                               i = Q2(h);
-                              n = h << i - 1;
-                              q2 = n >> 16;
+                              n2 = h << i - 1;
+                              q2 = n2 >> 16;
                               k = 536870911 / (q2 | 0) | 0;
                               a3 = k << 16 >> 16;
-                              n = 0 - (N3(a3, q2) + (N3(a3, n & 65535) >> 16) << 3) | 0;
-                              a3 = ((N3(n, (k >> 15) + 1 >> 1) + (k << 16) | 0) + N3(a3, n >> 16) | 0) + (N3(a3, n & 65528) >> 16) | 0;
+                              n2 = 0 - (N3(a3, q2) + (N3(a3, n2 & 65535) >> 16) << 3) | 0;
+                              a3 = ((N3(n2, (k >> 15) + 1 >> 1) + (k << 16) | 0) + N3(a3, n2 >> 16) | 0) + (N3(a3, n2 & 65528) >> 16) | 0;
                               q2 = H2[K3 + U3 >> 2];
                               E5 = H2[l2 + 4628 >> 2];
                               Y: {
@@ -15621,7 +15621,7 @@
                                 h = 0;
                                 if ((a3 | 0) != 1) {
                                   y2 = a3 & -2;
-                                  n = 0;
+                                  n2 = 0;
                                   while (1) {
                                     w4 = J2[(h << 1) + da3 >> 1];
                                     T3 = w4 << 16 >> 16;
@@ -15631,8 +15631,8 @@
                                     w4 = z3 << 16 >> 16;
                                     H2[ga2 + (T3 << 2) >> 2] = (N3(k, w4 >> 16) + N3(j, w4) | 0) + (N3(k, z3) >> 16);
                                     h = h + 2 | 0;
-                                    n = n + 2 | 0;
-                                    if ((y2 | 0) != (n | 0)) {
+                                    n2 = n2 + 2 | 0;
+                                    if ((y2 | 0) != (n2 | 0)) {
                                       continue;
                                     }
                                     break;
@@ -15643,8 +15643,8 @@
                                 }
                                 w4 = ga2 + (h << 2) | 0;
                                 h = J2[(h << 1) + da3 >> 1];
-                                n = h << 16 >> 16;
-                                H2[w4 >> 2] = (N3(k, n >> 16) + N3(j, n) | 0) + (N3(h, k) >> 16);
+                                n2 = h << 16 >> 16;
+                                H2[w4 >> 2] = (N3(k, n2 >> 16) + N3(j, n2) | 0) + (N3(h, k) >> 16);
                               }
                               _: {
                                 if (g4) {
@@ -15652,8 +15652,8 @@
                                 }
                                 i = R3 ? i : N3(xa3, i >> 16) + (N3(xa3, i & 65535) >> 16) << 2;
                                 g4 = H2[o2 + 4332 >> 2];
-                                n = g4 - q2 | 0;
-                                h = n - 2 | 0;
+                                n2 = g4 - q2 | 0;
+                                h = n2 - 2 | 0;
                                 if ((h | 0) >= (g4 | 0)) {
                                   break _;
                                 }
@@ -15663,17 +15663,17 @@
                                   j = aa2 + (h << 2) | 0;
                                   h = G2[Z3 + (h << 1) >> 1];
                                   H2[j >> 2] = (N3(h, k) >> 16) + N3(h, i);
-                                  h = n - 1 | 0;
+                                  h = n2 - 1 | 0;
                                 }
                                 if ((q2 | 0) == -1) {
                                   break _;
                                 }
                                 while (1) {
-                                  n = G2[Z3 + (h << 1) >> 1];
-                                  H2[aa2 + (h << 2) >> 2] = (N3(n, k) >> 16) + N3(i, n);
+                                  n2 = G2[Z3 + (h << 1) >> 1];
+                                  H2[aa2 + (h << 2) >> 2] = (N3(n2, k) >> 16) + N3(i, n2);
                                   j = h + 1 | 0;
-                                  n = G2[Z3 + (j << 1) >> 1];
-                                  H2[aa2 + (j << 2) >> 2] = N3(i, n) + (N3(k, n) >> 16);
+                                  n2 = G2[Z3 + (j << 1) >> 1];
+                                  H2[aa2 + (j << 2) >> 2] = N3(i, n2) + (N3(k, n2) >> 16);
                                   h = h + 2 | 0;
                                   if ((g4 | 0) != (h | 0)) {
                                     continue;
@@ -15713,9 +15713,9 @@
                                   a3 = H2[o2 + 4336 >> 2] - a3 | 0;
                                   while (1) {
                                     g4 = (o2 + (a3 << 2) | 0) + 1280 | 0;
-                                    n = H2[g4 >> 2];
-                                    i = n << 16 >> 16;
-                                    H2[g4 >> 2] = (N3(i, k) + (N3(h, i) >> 16) | 0) + N3(e4, (n >> 15) + 1 >> 1);
+                                    n2 = H2[g4 >> 2];
+                                    i = n2 << 16 >> 16;
+                                    H2[g4 >> 2] = (N3(i, k) + (N3(h, i) >> 16) | 0) + N3(e4, (n2 >> 15) + 1 >> 1);
                                     a3 = a3 + 1 | 0;
                                     if ((a3 | 0) < H2[o2 + 4336 >> 2]) {
                                       continue;
@@ -15736,10 +15736,10 @@
                                   k = e4 & 65535;
                                   g4 = e4 >> 16;
                                   while (1) {
-                                    n = aa2 + (a3 << 2) | 0;
-                                    q2 = H2[n >> 2];
+                                    n2 = aa2 + (a3 << 2) | 0;
+                                    q2 = H2[n2 >> 2];
                                     i = q2 << 16 >> 16;
-                                    H2[n >> 2] = (N3(g4, i) + (N3(i, k) >> 16) | 0) + N3(e4, (q2 >> 15) + 1 >> 1);
+                                    H2[n2 >> 2] = (N3(g4, i) + (N3(i, k) >> 16) | 0) + N3(e4, (q2 >> 15) + 1 >> 1);
                                     a3 = a3 + 1 | 0;
                                     if ((h | 0) != (a3 | 0)) {
                                       continue;
@@ -15753,19 +15753,19 @@
                                   a3 = 0;
                                   while (1) {
                                     k = u3 + N3(a3, 1300) | 0;
-                                    n = H2[k + 1280 >> 2];
-                                    g4 = n << 16 >> 16;
-                                    H2[k + 1280 >> 2] = (N3(h, g4) + (N3(g4, i) >> 16) | 0) + N3(e4, (n >> 15) + 1 >> 1);
+                                    n2 = H2[k + 1280 >> 2];
+                                    g4 = n2 << 16 >> 16;
+                                    H2[k + 1280 >> 2] = (N3(h, g4) + (N3(g4, i) >> 16) | 0) + N3(e4, (n2 >> 15) + 1 >> 1);
                                     g4 = H2[k + 1284 >> 2];
-                                    n = g4 << 16 >> 16;
-                                    H2[k + 1284 >> 2] = ((N3(n, i) >> 16) + N3(h, n) | 0) + N3(e4, (g4 >> 15) + 1 >> 1);
+                                    n2 = g4 << 16 >> 16;
+                                    H2[k + 1284 >> 2] = ((N3(n2, i) >> 16) + N3(h, n2) | 0) + N3(e4, (g4 >> 15) + 1 >> 1);
                                     g4 = 0;
                                     while (1) {
                                       q2 = k + (g4 << 2) | 0;
                                       j = H2[q2 >> 2];
-                                      n = j << 16 >> 16;
-                                      H2[q2 >> 2] = (N3(h, n) + (N3(i, n) >> 16) | 0) + N3(e4, (j >> 15) + 1 >> 1);
-                                      n = 0;
+                                      n2 = j << 16 >> 16;
+                                      H2[q2 >> 2] = (N3(h, n2) + (N3(i, n2) >> 16) | 0) + N3(e4, (j >> 15) + 1 >> 1);
+                                      n2 = 0;
                                       g4 = g4 + 1 | 0;
                                       if ((g4 | 0) != 16) {
                                         continue;
@@ -15785,7 +15785,7 @@
                                       break;
                                     }
                                     while (1) {
-                                      g4 = k + (n << 2) | 0;
+                                      g4 = k + (n2 << 2) | 0;
                                       j = H2[g4 + 864 >> 2];
                                       q2 = j << 16 >> 16;
                                       H2[g4 + 864 >> 2] = (N3(h, q2) + (N3(i, q2) >> 16) | 0) + N3(e4, (j >> 15) + 1 >> 1);
@@ -15793,8 +15793,8 @@
                                       j = H2[q2 >> 2];
                                       g4 = j << 16 >> 16;
                                       H2[q2 >> 2] = (N3(h, g4) + (N3(g4, i) >> 16) | 0) + N3(e4, (j >> 15) + 1 >> 1);
-                                      n = n + 1 | 0;
-                                      if ((n | 0) != 40) {
+                                      n2 = n2 + 1 | 0;
+                                      if ((n2 | 0) != 40) {
                                         continue;
                                       }
                                       break;
@@ -15812,7 +15812,7 @@
                                 a3 = H2[l2 + 4588 >> 2];
                               }
                               r2 = D5 << 24 >> 24;
-                              n = f2;
+                              n2 = f2;
                               D5 = b;
                               ea3 = N3(R3, 10) + Ua3 | 0;
                               la3 = N3(R3, 48) + Va3 | 0;
@@ -16303,7 +16303,7 @@
                                         }
                                         if (!(!lb3 & (A3 | 0) > (W3 | 0))) {
                                           a3 = W3 - A3 | 0;
-                                          F2[a3 + n | 0] = (H2[z3 + 544 >> 2] >>> 9 | 0) + 1 >>> 1;
+                                          F2[a3 + n2 | 0] = (H2[z3 + 544 >> 2] >>> 9 | 0) + 1 >>> 1;
                                           e4 = D5 + (a3 << 1) | 0;
                                           b = H2[y2 + x3 >> 2];
                                           c2 = b << 16 >> 16;
@@ -16517,7 +16517,7 @@
                               }
                               c2 = K3 + 1 | 0;
                               i = H2[l2 + 4588 >> 2];
-                              f2 = n + i | 0;
+                              f2 = n2 + i | 0;
                               a3 = i << 1;
                               b = a3 + D5 | 0;
                               da3 = a3 + da3 | 0;
@@ -16530,7 +16530,7 @@
                             }
                             e4 = H2[l2 + 4628 >> 2];
                           }
-                          n = 0;
+                          n2 = 0;
                           oa: {
                             if ((e4 | 0) < 2) {
                               break oa;
@@ -16561,7 +16561,7 @@
                                 a3 = c2 ? E5 : a3;
                                 q2 = (a3 | 0) > (s3 | 0);
                                 a3 = q2 ? s3 : a3;
-                                n = q2 ? h + 3 | 0 : c2 ? h + 2 | 0 : K3 ? h + 1 | 0 : D5 ? h : n;
+                                n2 = q2 ? h + 3 | 0 : c2 ? h + 2 | 0 : K3 ? h + 1 | 0 : D5 ? h : n2;
                                 h = h + 4 | 0;
                                 e4 = e4 + 4 | 0;
                                 if ((j | 0) != (e4 | 0)) {
@@ -16577,7 +16577,7 @@
                               e4 = H2[(u3 + N3(h, 1300) | 0) + 1296 >> 2];
                               c2 = (e4 | 0) < (a3 | 0);
                               a3 = c2 ? e4 : a3;
-                              n = c2 ? h : n;
+                              n2 = c2 ? h : n2;
                               h = h + 1 | 0;
                               k = k + 1 | 0;
                               if ((d | 0) != (k | 0)) {
@@ -16586,7 +16586,7 @@
                               break;
                             }
                           }
-                          a3 = u3 + N3(n, 1300) | 0;
+                          a3 = u3 + N3(n2, 1300) | 0;
                           F2[p3 + 34 | 0] = H2[a3 + 1292 >> 2];
                           if ((A3 | 0) > 0) {
                             e4 = H2[x3 + 172 >> 2] + A3 | 0;
@@ -16673,7 +16673,7 @@
                     H2[l2 + 4340 >> 2] = F2[c2 + 34 | 0];
                     E5 = H2[l2 + 4328 >> 2];
                     d = I4[c2 + 31 | 0];
-                    n = c2;
+                    n2 = c2;
                     o2 = F2[c2 + 29 | 0];
                     c2 = F2[c2 + 30 | 0];
                     e4 = H2[a3 + 4584 >> 2];
@@ -16722,7 +16722,7 @@
                                 H2[l2 + 4348 >> 2] = 0;
                                 t4 = 1;
                                 u3 = ma3 + ((sa3 | A3 >>> 1) << 5) | 0;
-                                k = I4[n + 29 | 0];
+                                k = I4[n2 + 29 | 0];
                                 ua: {
                                   if ((k | 0) != 2) {
                                     break ua;
@@ -16742,7 +16742,7 @@
                                   Db2(T3 + (a3 << 1) | 0, l2 + (a3 + N3(j, A3) << 1) | 0, u3, c2 - a3 | 0, e4);
                                   H2[l2 + 4348 >> 2] = 1;
                                   H2[l2 + 4332 >> 2] = H2[p3 + 4592 >> 2];
-                                  k = I4[n + 29 | 0];
+                                  k = I4[n2 + 29 | 0];
                                   t4 = 0;
                                 }
                                 Y3 = f2 + za3 | 0;
@@ -17270,7 +17270,7 @@
                   pa2 = C5 + 1008 | 0;
                 }
                 function tb2(a3, b, c2, d, e4, f2) {
-                  var g4 = 0, h = 0, i = O2(0), j = 0, k = 0, l2 = 0, m = O2(0), n = 0, o2 = 0, p3 = 0, q2 = 0, r2 = 0, s3 = 0, t4 = O2(0), u3 = 0, v3 = 0, w4 = 0, x3 = 0, y2 = 0, z3 = 0, A3 = 0, C5 = 0, D5 = 0, E5 = 0, J3 = O2(0), M5 = 0, P3 = 0, R3 = 0, S2 = 0, T3 = 0, U3 = 0, V3 = 0, X3 = 0, Y3 = 0, Z3 = O2(0), _2 = O2(0), $2 = 0, aa2 = 0, ba3 = 0, ca3 = O2(0), da3 = 0, ea3 = O2(0), fa3 = O2(0), ga2 = O2(0), ha3 = O2(0), ia3 = O2(0), ja3 = O2(0), ka3 = 0, la3 = 0, ma3 = O2(0), na3 = O2(0), oa3 = 0, qa3 = 0, ra3 = 0, sa3 = 0, ta2 = 0, ua2 = O2(0), va2 = 0, wa2 = 0, xa3 = 0, ya2 = 0, za3 = 0, Aa3 = 0, Ea3 = O2(0), Ga3 = 0, Ha3 = 0, Ja3 = 0, La2 = 0;
+                  var g4 = 0, h = 0, i = O2(0), j = 0, k = 0, l2 = 0, m = O2(0), n2 = 0, o2 = 0, p3 = 0, q2 = 0, r2 = 0, s3 = 0, t4 = O2(0), u3 = 0, v3 = 0, w4 = 0, x3 = 0, y2 = 0, z3 = 0, A3 = 0, C5 = 0, D5 = 0, E5 = 0, J3 = O2(0), M5 = 0, P3 = 0, R3 = 0, S2 = 0, T3 = 0, U3 = 0, V3 = 0, X3 = 0, Y3 = 0, Z3 = O2(0), _2 = O2(0), $2 = 0, aa2 = 0, ba3 = 0, ca3 = O2(0), da3 = 0, ea3 = O2(0), fa3 = O2(0), ga2 = O2(0), ha3 = O2(0), ia3 = O2(0), ja3 = O2(0), ka3 = 0, la3 = 0, ma3 = O2(0), na3 = O2(0), oa3 = 0, qa3 = 0, ra3 = 0, sa3 = 0, ta2 = 0, ua2 = O2(0), va2 = 0, wa2 = 0, xa3 = 0, ya2 = 0, za3 = 0, Aa3 = 0, Ea3 = O2(0), Ga3 = 0, Ha3 = 0, Ja3 = 0, La2 = 0;
                   R3 = pa2 - 80 | 0;
                   pa2 = R3;
                   ka3 = H2[a3 + 8 >> 2];
@@ -17423,7 +17423,7 @@
                     Ba2(10442, 3660, 146);
                     B3();
                   }
-                  n = -1;
+                  n2 = -1;
                   P3 = H2[o2 >> 2];
                   a3 = H2[P3 + 36 >> 2];
                   t: {
@@ -17468,19 +17468,19 @@
                       while (1) {
                         s3 = e4 << 2;
                         C5 = R3 + 24 | 0;
-                        n = l2 + (N3(e4, h) << 2) | 0;
-                        H2[s3 + C5 >> 2] = n;
+                        n2 = l2 + (N3(e4, h) << 2) | 0;
+                        H2[s3 + C5 >> 2] = n2;
                         E5 = s3;
                         s3 = R3 + 16 | 0;
-                        M5 = n;
-                        n = j << 2;
-                        H2[E5 + s3 >> 2] = (M5 + n | 0) - -8192;
+                        M5 = n2;
+                        n2 = j << 2;
+                        H2[E5 + s3 >> 2] = (M5 + n2 | 0) - -8192;
                         M5 = C5;
                         C5 = e4 | 1;
                         S2 = C5 << 2;
                         C5 = l2 + (N3(h, C5) << 2) | 0;
                         H2[M5 + S2 >> 2] = C5;
-                        H2[s3 + S2 >> 2] = (n + C5 | 0) - -8192;
+                        H2[s3 + S2 >> 2] = (n2 + C5 | 0) - -8192;
                         e4 = e4 + 2 | 0;
                         g4 = g4 + 2 | 0;
                         if ((p3 | 0) != (g4 | 0)) {
@@ -17516,19 +17516,19 @@
                         while (1) {
                           p3 = b << 2;
                           s3 = h + 4312 | 0;
-                          n = a3 + (N3(b, c2) << 2) | 0;
-                          H2[p3 + s3 >> 2] = n;
+                          n2 = a3 + (N3(b, c2) << 2) | 0;
+                          H2[p3 + s3 >> 2] = n2;
                           E5 = p3;
                           p3 = h + 4304 | 0;
-                          M5 = n;
-                          n = V3 << 2;
-                          H2[E5 + p3 >> 2] = (M5 + n | 0) - -8192;
+                          M5 = n2;
+                          n2 = V3 << 2;
+                          H2[E5 + p3 >> 2] = (M5 + n2 | 0) - -8192;
                           M5 = s3;
                           s3 = b | 1;
                           u3 = s3 << 2;
                           s3 = a3 + (N3(c2, s3) << 2) | 0;
                           H2[M5 + u3 >> 2] = s3;
-                          H2[p3 + u3 >> 2] = (n + s3 | 0) - -8192;
+                          H2[p3 + u3 >> 2] = (n2 + s3 | 0) - -8192;
                           b = b + 2 | 0;
                           k = k + 2 | 0;
                           if ((j | 0) != (k | 0)) {
@@ -17549,8 +17549,8 @@
                       u: {
                         if (a3 | (S2 | 0) > 39 | H2[o2 + 56 >> 2]) {
                           j = da3 + N3(g4, 96) | 0;
-                          n = q2 << 3;
-                          w4 = j + n | 0;
+                          n2 = q2 << 3;
+                          w4 = j + n2 | 0;
                           u3 = H2[l2 + 12 >> 2];
                           k = H2[o2 + 24 >> 2];
                           c2 = ((e4 >>> 1 | 0) - A3 << 2) - -8192 | 0;
@@ -17594,7 +17594,7 @@
                               break;
                             }
                           }
-                          v3 = n + (n + w4 | 0) | 0;
+                          v3 = n2 + (n2 + w4 | 0) | 0;
                           p3 = (k | 0) < (u3 | 0) ? k : u3;
                           i = S2 ? O2(0.5) : O2(1.5);
                           u3 = k - a3 & 1;
@@ -17610,24 +17610,24 @@
                               b = a3;
                               if (u3) {
                                 b = a3 + s3 << 2;
-                                n = b + j | 0;
+                                n2 = b + j | 0;
                                 m = L2[b + v3 >> 2];
-                                t4 = O2(L2[n >> 2] - i);
-                                L2[n >> 2] = m > t4 ? m : t4;
+                                t4 = O2(L2[n2 >> 2] - i);
+                                L2[n2 >> 2] = m > t4 ? m : t4;
                                 b = c2;
                               }
                               if (w4) {
                                 break v;
                               }
                               while (1) {
-                                n = b + s3 << 2;
-                                x3 = n + j | 0;
-                                m = L2[n + v3 >> 2];
+                                n2 = b + s3 << 2;
+                                x3 = n2 + j | 0;
+                                m = L2[n2 + v3 >> 2];
                                 t4 = O2(L2[x3 >> 2] - i);
                                 L2[x3 >> 2] = m > t4 ? m : t4;
-                                n = n + 4 | 0;
-                                x3 = n + j | 0;
-                                m = L2[n + v3 >> 2];
+                                n2 = n2 + 4 | 0;
+                                x3 = n2 + j | 0;
+                                m = L2[n2 + v3 >> 2];
                                 t4 = O2(L2[x3 >> 2] - i);
                                 L2[x3 >> 2] = m > t4 ? m : t4;
                                 b = b + 2 | 0;
@@ -17649,11 +17649,11 @@
                             f2 = 0;
                             while (1) {
                               if ((a3 | 0) < (p3 | 0)) {
-                                n = N3(f2, A3);
+                                n2 = N3(f2, A3);
                                 k = a3;
                                 while (1) {
                                   q2 = G2[C5 + (k << 1) >> 1];
-                                  s3 = n + (q2 << r2) | 0;
+                                  s3 = n2 + (q2 << r2) | 0;
                                   b = 0;
                                   k = k + 1 | 0;
                                   q2 = G2[C5 + (k << 1) >> 1] - q2 << r2;
@@ -17726,7 +17726,7 @@
                         ya2 = (ra3 - A3 | 0) + 1024 | 0;
                         w4 = a3 - (D5 + 15 & -16) | 0;
                         pa2 = w4;
-                        n = h + 208 | 0;
+                        n2 = h + 208 | 0;
                         x3 = H2[l2 + 60 >> 2];
                         za3 = v3 - 1 >>> 0 < 3;
                         l2 = 0;
@@ -17752,7 +17752,7 @@
                               b = N3(l2, 24);
                               break x;
                             }
-                            mc(n, h, x3, e4, 24, 1024);
+                            mc(n2, h, x3, e4, 24, 1024);
                             L2[h >> 2] = L2[h >> 2] * O2(1.000100016593933);
                             b = 1;
                             while (1) {
@@ -17903,13 +17903,13 @@
                             if ((C5 | 0) >= 4) {
                               while (1) {
                                 a3 = b | 1;
-                                m = L2[(n + (a3 - C5 << 2) | 0) + 4096 >> 2];
+                                m = L2[(n2 + (a3 - C5 << 2) | 0) + 4096 >> 2];
                                 t4 = O2(m * m);
-                                m = L2[(n + (b - C5 << 2) | 0) + 4096 >> 2];
+                                m = L2[(n2 + (b - C5 << 2) | 0) + 4096 >> 2];
                                 i = O2(t4 + O2(O2(m * m) + i));
-                                m = L2[(n + (a3 - U3 << 2) | 0) + 4096 >> 2];
+                                m = L2[(n2 + (a3 - U3 << 2) | 0) + 4096 >> 2];
                                 t4 = O2(m * m);
-                                m = L2[(n + (b - U3 << 2) | 0) + 4096 >> 2];
+                                m = L2[(n2 + (b - U3 << 2) | 0) + 4096 >> 2];
                                 J3 = O2(t4 + O2(O2(m * m) + J3));
                                 b = b + 2 | 0;
                                 c2 = c2 + 2 | 0;
@@ -17922,9 +17922,9 @@
                             if (!T3) {
                               break z;
                             }
-                            m = L2[(n + (b - C5 << 2) | 0) + 4096 >> 2];
+                            m = L2[(n2 + (b - C5 << 2) | 0) + 4096 >> 2];
                             i = O2(O2(m * m) + i);
-                            m = L2[(n + (b - U3 << 2) | 0) + 4096 >> 2];
+                            m = L2[(n2 + (b - U3 << 2) | 0) + 4096 >> 2];
                             J3 = O2(O2(m * m) + J3);
                           }
                           j = Ia2(p3, p3 + qa3 | 0, xa3);
@@ -17943,7 +17943,7 @@
                               a3 = (b | 0) < (g4 | 0);
                               i = O2(i * (a3 ? O2(1) : m));
                               a3 = b - (a3 ? 0 : g4) | 0;
-                              L2[j + (c2 + s3 << 2) >> 2] = i * L2[n + (a3 + ra3 << 2) >> 2];
+                              L2[j + (c2 + s3 << 2) >> 2] = i * L2[n2 + (a3 + ra3 << 2) >> 2];
                               b = a3 + 1 | 0;
                               t4 = L2[j + (a3 + ya2 << 2) >> 2];
                               J3 = O2(O2(t4 * t4) + J3);
@@ -18237,7 +18237,7 @@
                       H2[o2 + 52 >> 2] = (a3 | 0) >= 1e4 ? 1e4 : a3;
                       pa2 = h + 4320 | 0;
                       jc(R3 + 16 | 0, d, A3, ka3, H2[o2 + 16 >> 2], P3 + 16 | 0, o2 + 84 | 0);
-                      n = (A3 | 0) / H2[o2 + 16 >> 2] | 0;
+                      n2 = (A3 | 0) / H2[o2 + 16 >> 2] | 0;
                       break t;
                     }
                     sa3 = H2[P3 + 12 >> 2];
@@ -18387,17 +18387,17 @@
                                           O: {
                                             if (g4 >>> 0 < 32768) {
                                               g4 = h;
-                                              n = 1;
+                                              n2 = 1;
                                               break O;
                                             }
-                                            n = 1;
+                                            n2 = 1;
                                             while (1) {
                                               ba3 = j << 1;
                                               g4 = ba3 + h | 0;
                                               if (p3 >>> 0 < g4 >>> 0) {
                                                 break N;
                                               }
-                                              n = n + 1 | 0;
+                                              n2 = n2 + 1 | 0;
                                               ba3 = N3(E5, ba3 - 2 | 0);
                                               j = (ba3 >>> 15 | 0) + 1 | 0;
                                               h = g4;
@@ -18410,7 +18410,7 @@
                                           h = g4;
                                           g4 = p3 - g4 | 0;
                                           h = h + (g4 & -2) | 0;
-                                          n = (g4 >>> 1 | 0) + n | 0;
+                                          n2 = (g4 >>> 1 | 0) + n2 | 0;
                                         }
                                         g4 = h + j | 0;
                                         E5 = g4 >>> 0 > p3 >>> 0;
@@ -18421,7 +18421,7 @@
                                         if (g4 >>> 0 > p3 >>> 0) {
                                           break K;
                                         }
-                                        h = E5 ? 0 - n | 0 : n;
+                                        h = E5 ? 0 - n2 | 0 : n2;
                                       }
                                       j = g4 + j | 0;
                                       j = j >>> 0 >= 32768 ? 32768 : j;
@@ -18490,8 +18490,8 @@
                       if (s3) {
                         break P;
                       }
-                      n = p3 - h | 0;
-                      if (n >>> 0 >= g4 >>> 0) {
+                      n2 = p3 - h | 0;
+                      if (n2 >>> 0 >= g4 >>> 0) {
                         l2 = Ka2(f2, e4);
                         j = (H2[f2 + 20 >> 2] + Q2(H2[f2 + 28 >> 2]) | 0) - 32 | 0;
                       }
@@ -18503,7 +18503,7 @@
                       p3 = U3 ? 4 : 5;
                       g4 = l2;
                       while (1) {
-                        if (n >>> 0 >= j + p3 >>> 0) {
+                        if (n2 >>> 0 >= j + p3 >>> 0) {
                           E5 = Ka2(f2, p3);
                           j = (H2[f2 + 20 >> 2] + Q2(H2[f2 + 28 >> 2]) | 0) - 32 | 0;
                           g4 = g4 ^ E5;
@@ -18575,7 +18575,7 @@
                     e4 = p3;
                     pa2 = e4;
                     Dc(P3, e4, r2, y2);
-                    n = 6;
+                    n2 = 6;
                     h = c2 << 6;
                     l2 = e4 - g4 | 0;
                     pa2 = l2;
@@ -18592,7 +18592,7 @@
                         E5 = e4 << 2;
                         T: {
                           U: {
-                            if (((n << 3) + j | 0) >= (c2 | 0)) {
+                            if (((n2 << 3) + j | 0) >= (c2 | 0)) {
                               break U;
                             }
                             D5 = p3 + E5 | 0;
@@ -18601,7 +18601,7 @@
                             }
                             e4 = G2[z3 + (e4 << 1) >> 1];
                             g4 = G2[z3 + (s3 << 1) >> 1];
-                            T3 = Ka2(f2, n);
+                            T3 = Ka2(f2, n2);
                             j = Ma2(f2);
                             if (!T3) {
                               break U;
@@ -18639,7 +18639,7 @@
                               }
                             }
                             H2[l2 + E5 >> 2] = e4;
-                            n = (e4 | 0) > 0 ? ((n | 0) <= 3 ? 3 : n) - 1 | 0 : n;
+                            n2 = (e4 | 0) > 0 ? ((n2 | 0) <= 3 ? 3 : n2) - 1 | 0 : n2;
                             break T;
                           }
                           H2[l2 + E5 >> 2] = 0;
@@ -18670,17 +18670,17 @@
                     D5 = R3 + 8 | 0;
                     W: {
                       if (!U3) {
-                        n = 0;
+                        n2 = 0;
                         p3 = 0;
                         break W;
                       }
-                      n = 0;
+                      n2 = 0;
                       p3 = 0;
                       if (r2 >>> 0 < 2) {
                         break W;
                       }
-                      n = (j | 0) >= ((r2 << 3) + 16 | 0);
-                      p3 = n ? 8 : 0;
+                      n2 = (j | 0) >= ((r2 << 3) + 16 | 0);
+                      p3 = n2 ? 8 : 0;
                     }
                     ba3 = tc(M5, a3, k, l2, c2, g4, Aa3, D5, j - p3 | 0, R3 + 4 | 0, E5, s3, z3, y2, r2, f2, 0, 0, 0);
                     c2 = a3;
@@ -18758,7 +18758,7 @@
                     pa2 = $2;
                     ta2 = 1 << r2;
                     qc(0, P3, a3, k, $2, (y2 | 0) == 2 ? $2 + (A3 << 2) | 0 : 0, T3, 0, E5, U3 ? ta2 : 0, aa2, H2[R3 + 8 >> 2], H2[R3 + 12 >> 2], S2, h - p3 | 0, H2[R3 + 4 >> 2], f2, r2, ba3, o2 + 40 | 0, 0, H2[o2 + 36 >> 2], H2[o2 + 32 >> 2]);
-                    if (n) {
+                    if (n2) {
                       j = Ra2(f2, 1);
                     }
                     h = (y2 | 0) <= 1 ? 1 : y2;
@@ -18772,13 +18772,13 @@
                       e4 = c2;
                       while (1) {
                         g4 = e4 << 2;
-                        n = g4 + s3 | 0;
-                        if (!(H2[n >> 2] > 7 | H2[g4 + z3 >> 2])) {
+                        n2 = g4 + s3 | 0;
+                        if (!(H2[n2 >> 2] > 7 | H2[g4 + z3 >> 2])) {
                           g4 = 0;
                           while (1) {
                             S2 = Ra2(f2, 1);
                             aa2 = q2 + (N3(H2[P3 + 8 >> 2], g4) + e4 << 2) | 0;
-                            L2[aa2 >> 2] = L2[aa2 >> 2] + O2(O2(O2(O2(S2 | 0) + O2(-0.5)) * O2(1 << 13 - H2[n >> 2])) * O2(6103515625e-14));
+                            L2[aa2 >> 2] = L2[aa2 >> 2] + O2(O2(O2(O2(S2 | 0) + O2(-0.5)) * O2(1 << 13 - H2[n2 >> 2])) * O2(6103515625e-14));
                             g4 = g4 + 1 | 0;
                             if ((h | 0) != (g4 | 0)) {
                               continue;
@@ -18814,8 +18814,8 @@
                           }
                           while (1) {
                             e4 = Ra2(f2, 1);
-                            n = q2 + (N3(H2[P3 + 8 >> 2], g4) + c2 << 2) | 0;
-                            L2[n >> 2] = L2[n >> 2] + O2(O2(O2(O2(e4 | 0) + O2(-0.5)) * O2(1 << 13 - H2[p3 >> 2])) * O2(6103515625e-14));
+                            n2 = q2 + (N3(H2[P3 + 8 >> 2], g4) + c2 << 2) | 0;
+                            L2[n2 >> 2] = L2[n2 >> 2] + O2(O2(O2(O2(e4 | 0) + O2(-0.5)) * O2(1 << 13 - H2[p3 >> 2])) * O2(6103515625e-14));
                             g4 = g4 + 1 | 0;
                             if ((h | 0) != (g4 | 0)) {
                               continue;
@@ -18887,21 +18887,21 @@
                               l2 = 0;
                               h = 0;
                               while (1) {
-                                n = I4[M5 | 0] >>> h & 1;
-                                l2 = n ? l2 : 1;
+                                n2 = I4[M5 | 0] >>> h & 1;
+                                l2 = n2 ? l2 : 1;
                                 $: {
-                                  if ((p3 | 0) <= 0 | n) {
+                                  if ((p3 | 0) <= 0 | n2) {
                                     break $;
                                   }
-                                  n = 0;
+                                  n2 = 0;
                                   l2 = 0;
                                   if ((la3 | 0) != (za3 | 0)) {
                                     while (1) {
                                       j = N3(j, 1664525) + 1013904223 | 0;
-                                      L2[s3 + ((n << r2) + h << 2) >> 2] = j & 32768 ? i : t4;
+                                      L2[s3 + ((n2 << r2) + h << 2) >> 2] = j & 32768 ? i : t4;
                                       j = N3(j, 1664525) + 1013904223 | 0;
-                                      L2[s3 + (((n | 1) << r2) + h << 2) >> 2] = j & 32768 ? i : t4;
-                                      n = n + 2 | 0;
+                                      L2[s3 + (((n2 | 1) << r2) + h << 2) >> 2] = j & 32768 ? i : t4;
+                                      n2 = n2 + 2 | 0;
                                       l2 = l2 + 2 | 0;
                                       if ((wa2 | 0) != (l2 | 0)) {
                                         continue;
@@ -18914,7 +18914,7 @@
                                     break $;
                                   }
                                   j = N3(j, 1664525) + 1013904223 | 0;
-                                  L2[s3 + ((n << r2) + h << 2) >> 2] = j & 32768 ? i : t4;
+                                  L2[s3 + ((n2 << r2) + h << 2) >> 2] = j & 32768 ? i : t4;
                                 }
                                 h = h + 1 | 0;
                                 if ((z3 | 0) != (h | 0)) {
@@ -19274,19 +19274,19 @@
                     H2[o2 + 40 >> 2] = H2[f2 + 28 >> 2];
                     jc(R3 + 16 | 0, d, A3, ka3, H2[o2 + 16 >> 2], P3 + 16 | 0, o2 + 84 | 0);
                     H2[o2 + 52 >> 2] = 0;
-                    n = -3;
+                    n2 = -3;
                     if ((v3 | 0) >= ((H2[f2 + 20 >> 2] + Q2(H2[f2 + 28 >> 2]) | 0) - 32 | 0)) {
                       if (H2[f2 + 44 >> 2]) {
                         H2[o2 + 44 >> 2] = 1;
                       }
-                      n = (A3 | 0) / H2[o2 + 16 >> 2] | 0;
+                      n2 = (A3 | 0) / H2[o2 + 16 >> 2] | 0;
                     }
                   }
                   pa2 = R3 + 80 | 0;
-                  return n;
+                  return n2;
                 }
                 function od(a3, b, c2, d, e4, f2, g4, h) {
-                  var i = 0, j = 0, k = 0, l2 = 0, m = 0, n = 0, o2 = 0, p3 = 0, q2 = 0, r2 = 0, s3 = 0, t4 = 0, u3 = 0, v3 = 0, w4 = 0, x3 = 0, y2 = 0, z3 = 0, A3 = 0, C5 = 0, D5 = 0, E5 = 0, L3 = 0, M5 = 0, O3 = 0, P3 = 0, R3 = 0, S2 = 0, T3 = 0, U3 = 0, V3 = 0, W3 = 0, X3 = 0, Y3 = 0, Z3 = 0, _2 = 0, $2 = 0, aa2 = 0, ba3 = 0, ca3 = 0, da3 = 0, ea3 = 0, fa3 = 0, ga2 = 0, ha3 = 0, ia3 = 0;
+                  var i = 0, j = 0, k = 0, l2 = 0, m = 0, n2 = 0, o2 = 0, p3 = 0, q2 = 0, r2 = 0, s3 = 0, t4 = 0, u3 = 0, v3 = 0, w4 = 0, x3 = 0, y2 = 0, z3 = 0, A3 = 0, C5 = 0, D5 = 0, E5 = 0, L3 = 0, M5 = 0, O3 = 0, P3 = 0, R3 = 0, S2 = 0, T3 = 0, U3 = 0, V3 = 0, W3 = 0, X3 = 0, Y3 = 0, Z3 = 0, _2 = 0, $2 = 0, aa2 = 0, ba3 = 0, ca3 = 0, da3 = 0, ea3 = 0, fa3 = 0, ga2 = 0, ha3 = 0, ia3 = 0;
                   v3 = pa2 - 32 | 0;
                   pa2 = v3;
                   if (H2[b + 68 >> 2]) {
@@ -19508,7 +19508,7 @@
                             v: {
                               while (1) {
                                 j = N3(b, 10064) + a3 | 0;
-                                n = sb2(j, H2[j + 5092 >> 2]);
+                                n2 = sb2(j, H2[j + 5092 >> 2]);
                                 if (!k) {
                                   o2 = H2[v3 + 20 >> 2];
                                   H2[j + 16 >> 2] = H2[v3 + 16 >> 2];
@@ -19518,7 +19518,7 @@
                                   H2[j + 28 >> 2] = o2;
                                   H2[j + 32 >> 2] = i;
                                 }
-                                if (!n) {
+                                if (!n2) {
                                   b = b + 1 | 0;
                                   j = H2[m + 4 >> 2];
                                   if ((b | 0) >= (j | 0)) {
@@ -19544,18 +19544,18 @@
                               i = j & -4;
                               b = 0;
                               while (1) {
-                                n = N3(k, 10064) + a3 | 0;
-                                H2[n + 4680 >> 2] = 1;
-                                H2[n + 4668 >> 2] = 0;
-                                n = N3(k | 1, 10064) + a3 | 0;
-                                H2[n + 4680 >> 2] = 1;
-                                H2[n + 4668 >> 2] = 0;
-                                n = N3(k | 2, 10064) + a3 | 0;
-                                H2[n + 4680 >> 2] = 1;
-                                H2[n + 4668 >> 2] = 0;
-                                n = N3(k | 3, 10064) + a3 | 0;
-                                H2[n + 4680 >> 2] = 1;
-                                H2[n + 4668 >> 2] = 0;
+                                n2 = N3(k, 10064) + a3 | 0;
+                                H2[n2 + 4680 >> 2] = 1;
+                                H2[n2 + 4668 >> 2] = 0;
+                                n2 = N3(k | 1, 10064) + a3 | 0;
+                                H2[n2 + 4680 >> 2] = 1;
+                                H2[n2 + 4668 >> 2] = 0;
+                                n2 = N3(k | 2, 10064) + a3 | 0;
+                                H2[n2 + 4680 >> 2] = 1;
+                                H2[n2 + 4668 >> 2] = 0;
+                                n2 = N3(k | 3, 10064) + a3 | 0;
+                                H2[n2 + 4680 >> 2] = 1;
+                                H2[n2 + 4668 >> 2] = 0;
                                 k = k + 4 | 0;
                                 b = b + 4 | 0;
                                 if ((i | 0) != (b | 0)) {
@@ -19603,7 +19603,7 @@
                                   k = 0;
                                   b = N3(j, 10064) + a3 | 0;
                                   i = H2[a3 + 20208 >> 2];
-                                  n = (j | 0) == 1 ? H2[a3 + 4576 >> 2] : 0;
+                                  n2 = (j | 0) == 1 ? H2[a3 + 4576 >> 2] : 0;
                                   w4 = 0;
                                   H2[b + 6076 >> 2] = H2[m + 48 >> 2];
                                   H2[b + 4676 >> 2] = H2[m + 52 >> 2];
@@ -19621,7 +19621,7 @@
                                   A: {
                                     B: {
                                       if (!(H2[b + 4680 >> 2] | !H2[b + 4668 >> 2])) {
-                                        n = 0;
+                                        n2 = 0;
                                         if ((o2 | 0) == H2[b + 4560 >> 2]) {
                                           break B;
                                         }
@@ -19629,7 +19629,7 @@
                                         if ((i | 0) <= 0) {
                                           break B;
                                         }
-                                        n = fc(b, i);
+                                        n2 = fc(b, i);
                                         break A;
                                       }
                                       i = H2[b + 4576 >> 2];
@@ -19712,8 +19712,8 @@
                                         o2 = H2[m + 56 >> 2];
                                         H2[m + 56 >> 2] = o2 - ((N3(o2, 5) | 0) / (H2[m + 24 >> 2] + 5 | 0) | 0);
                                       }
-                                      n = n ? n : i;
-                                      z3 = fc(b, n);
+                                      n2 = n2 ? n2 : i;
+                                      z3 = fc(b, n2);
                                       i = H2[m + 24 >> 2];
                                       if ((i | 0) != H2[b + 4612 >> 2]) {
                                         G: {
@@ -19744,7 +19744,7 @@
                                         I: {
                                           if ((i | 0) <= 10) {
                                             H2[b + 5744 >> 2] = 1;
-                                            o2 = n << 16 >> 16;
+                                            o2 = n2 << 16 >> 16;
                                             H2[b + 4584 >> 2] = N3(o2, i << 16 >> 16);
                                             H2[b + 4580 >> 2] = (i | 0) == 10 ? 2 : 1;
                                             H2[b + 4548 >> 2] = N3(o2, 14);
@@ -19757,7 +19757,7 @@
                                           }
                                           H2[b + 4580 >> 2] = 4;
                                           H2[b + 5744 >> 2] = (i >>> 0) / 20;
-                                          o2 = n << 16 >> 16;
+                                          o2 = n2 << 16 >> 16;
                                           H2[b + 4584 >> 2] = N3(o2, 20);
                                           H2[b + 4548 >> 2] = N3(o2, 24);
                                           if (H2[b + 4576 >> 2] == 8) {
@@ -19774,7 +19774,7 @@
                                           L: {
                                             M: {
                                               N: {
-                                                if (!(!(1 << n & 69888) | n >>> 0 > 16)) {
+                                                if (!(!(1 << n2 & 69888) | n2 >>> 0 > 16)) {
                                                   O: {
                                                     P: {
                                                       o2 = H2[b + 4580 >> 2];
@@ -19790,7 +19790,7 @@
                                                     B3();
                                                   }
                                                   Q: {
-                                                    if ((n | 0) != H2[b + 4576 >> 2]) {
+                                                    if ((n2 | 0) != H2[b + 4576 >> 2]) {
                                                       H2[b + 7168 >> 2] = 0;
                                                       H2[b + 7172 >> 2] = 0;
                                                       H2[b + 5748 >> 2] = 0;
@@ -19804,17 +19804,17 @@
                                                       F2[b + 7168 | 0] = 10;
                                                       H2[b + 4664 >> 2] = 1;
                                                       H2[b + 4544 >> 2] = 100;
-                                                      H2[b + 4576 >> 2] = n;
+                                                      H2[b + 4576 >> 2] = n2;
                                                       F2[b + 4541 | 0] = 0;
                                                       H2[b + 4492 >> 2] = 65536;
                                                       H2[b + 4476 >> 2] = 100;
                                                       R: {
-                                                        if ((n | 0) == 8) {
+                                                        if ((n2 | 0) == 8) {
                                                           l2 = 14184;
                                                           q2 = (o2 | 0) == 4 ? 12754 : 12777;
                                                           break R;
                                                         }
-                                                        i = (n | 0) == 12;
+                                                        i = (n2 | 0) == 12;
                                                         l2 = i ? 14184 : 16308;
                                                         i = i ? 10 : 16;
                                                         q2 = (o2 | 0) == 4 ? 12720 : 12765;
@@ -19822,14 +19822,14 @@
                                                       H2[b + 4692 >> 2] = l2;
                                                       H2[b + 4640 >> 2] = i;
                                                       H2[b + 4688 >> 2] = q2;
-                                                      i = N3(n, 5);
+                                                      i = N3(n2, 5);
                                                       H2[b + 4588 >> 2] = i;
-                                                      H2[b + 4596 >> 2] = n << 1;
-                                                      H2[b + 4592 >> 2] = N3(n, 20);
-                                                      H2[b + 4552 >> 2] = N3(n, 18);
+                                                      H2[b + 4596 >> 2] = n2 << 1;
+                                                      H2[b + 4592 >> 2] = N3(n2, 20);
+                                                      H2[b + 4552 >> 2] = N3(n2, 18);
                                                       H2[b + 4584 >> 2] = N3(i, o2);
-                                                      H2[b + 4684 >> 2] = (n | 0) == 16 ? 16480 : (n | 0) == 12 ? 16474 : 16465;
-                                                      H2[b + 4548 >> 2] = N3(n, (o2 | 0) == 4 ? 24 : 14);
+                                                      H2[b + 4684 >> 2] = (n2 | 0) == 16 ? 16480 : (n2 | 0) == 12 ? 16474 : 16465;
+                                                      H2[b + 4548 >> 2] = N3(n2, (o2 | 0) == 4 ? 24 : 14);
                                                       break Q;
                                                     }
                                                     if (H2[b + 4584 >> 2] != (N3(o2, H2[b + 4588 >> 2]) | 0)) {
@@ -19889,13 +19889,13 @@
                                                     H2[b + 4660 >> 2] = 6;
                                                     H2[b + 4628 >> 2] = 2;
                                                     H2[b + 4632 >> 2] = 1;
-                                                    i = N3(n, 5);
+                                                    i = N3(n2, 5);
                                                     H2[b + 4600 >> 2] = i;
-                                                    l2 = N3(n, 983);
+                                                    l2 = N3(n2, 983);
                                                     o2 = 10;
                                                     break J;
                                                   }
-                                                  i = N3(n, 5);
+                                                  i = N3(n2, 5);
                                                   if (q2 >>> 0 <= 7) {
                                                     H2[b + 4652 >> 2] = 47186;
                                                     H2[b + 4644 >> 2] = 1;
@@ -19905,7 +19905,7 @@
                                                     H2[b + 4628 >> 2] = 3;
                                                     H2[b + 4632 >> 2] = 1;
                                                     H2[b + 4600 >> 2] = i;
-                                                    l2 = N3(n, 983);
+                                                    l2 = N3(n2, 983);
                                                     o2 = 12;
                                                     break J;
                                                   }
@@ -19917,7 +19917,7 @@
                                                   H2[b + 4628 >> 2] = 4;
                                                   H2[b + 4632 >> 2] = 1;
                                                   H2[b + 4600 >> 2] = i;
-                                                  l2 = N3(n, 983);
+                                                  l2 = N3(n2, 983);
                                                   o2 = 16;
                                                   break J;
                                                 }
@@ -19930,29 +19930,29 @@
                                             Ba2(9567, 3916, 315);
                                             B3();
                                           }
-                                          i = N3(n, 5);
+                                          i = N3(n2, 5);
                                           H2[b + 4600 >> 2] = i;
                                           l2 = 0;
                                           o2 = 8;
                                           break J;
                                         }
-                                        i = N3(n, 3);
+                                        i = N3(n2, 3);
                                         H2[b + 4600 >> 2] = i;
                                         l2 = 0;
                                         o2 = 6;
                                       }
                                       H2[b + 4672 >> 2] = l2;
                                       H2[b + 4624 >> 2] = q2;
-                                      H2[b + 4604 >> 2] = N3(n, 5) + (i << 1);
+                                      H2[b + 4604 >> 2] = N3(n2, 5) + (i << 1);
                                       i = H2[b + 4640 >> 2];
                                       H2[b + 4648 >> 2] = (i | 0) > (o2 | 0) ? o2 : i;
                                       i = H2[m + 32 >> 2];
                                       H2[b + 4616 >> 2] = i;
-                                      n = H2[b + 6092 >> 2];
+                                      n2 = H2[b + 6092 >> 2];
                                       o2 = H2[m + 44 >> 2];
                                       H2[b + 6092 >> 2] = o2;
                                       if (o2) {
-                                        if (n) {
+                                        if (n2) {
                                           i = (N3(i >> 16, -13107) - (N3(i & 65535, 13107) >>> 16 | 0) | 0) + 7 | 0;
                                           i = (i | 0) <= 3 ? 3 : i;
                                         } else {
@@ -19960,11 +19960,11 @@
                                         }
                                         H2[b + 6096 >> 2] = i;
                                       }
-                                      n = w4 + z3 | 0;
+                                      n2 = w4 + z3 | 0;
                                       H2[b + 4668 >> 2] = 1;
                                     }
                                   }
-                                  o2 = n;
+                                  o2 = n2;
                                   if (o2) {
                                     break x;
                                   }
@@ -20018,8 +20018,8 @@
                               while (1) {
                                 i = H2[a3 + 5740 >> 2];
                                 b = H2[a3 + 4584 >> 2] - i | 0;
-                                n = (b | 0) < (Z3 | 0) ? b : Z3;
-                                w4 = (N3(n, H2[a3 + 4556 >> 2]) | 0) / (N3(H2[a3 + 4576 >> 2], 1e3) | 0) | 0;
+                                n2 = (b | 0) < (Z3 | 0) ? b : Z3;
+                                w4 = (N3(n2, H2[a3 + 4556 >> 2]) | 0) / (N3(H2[a3 + 4576 >> 2], 1e3) | 0) | 0;
                                 U: {
                                   V: {
                                     W: {
@@ -20074,11 +20074,11 @@
                                                       Ca2(Y3, W3, 300);
                                                     }
                                                     b = Ta2(W3, ((i << 1) + a3 | 0) + 5100 | 0, z3, w4);
-                                                    H2[a3 + 5740 >> 2] = n + H2[a3 + 5740 >> 2];
+                                                    H2[a3 + 5740 >> 2] = n2 + H2[a3 + 5740 >> 2];
                                                     i = H2[a3 + 15804 >> 2];
                                                     j = H2[a3 + 14648 >> 2] - i | 0;
                                                     k = N3(H2[a3 + 14640 >> 2], da3);
-                                                    n = (k | 0) > (j | 0) ? j : k;
+                                                    n2 = (k | 0) > (j | 0) ? j : k;
                                                     o2 = b + o2 | 0;
                                                     $: {
                                                       if (l2) {
@@ -20120,7 +20120,7 @@
                                                       }
                                                     }
                                                     b = Ta2(Y3, ((i << 1) + a3 | 0) + 15164 | 0, z3, w4);
-                                                    H2[a3 + 15804 >> 2] = n + H2[a3 + 15804 >> 2];
+                                                    H2[a3 + 15804 >> 2] = n2 + H2[a3 + 15804 >> 2];
                                                     o2 = b + o2 | 0;
                                                     k = H2[a3 + 5740 >> 2];
                                                     break X;
@@ -20201,7 +20201,7 @@
                                                 i = ((b + l2 << 1) + a3 | 0) + 5096 | 0;
                                                 G2[i >> 1] = G2[((b + j << 1) + a3 | 0) + 15160 >> 1] + G2[i >> 1] >>> 1;
                                               }
-                                              k = n + H2[a3 + 5740 >> 2] | 0;
+                                              k = n2 + H2[a3 + 5740 >> 2] | 0;
                                               H2[a3 + 5740 >> 2] = k;
                                               break X;
                                             case 0:
@@ -20214,7 +20214,7 @@
                                           break W;
                                         }
                                         b = Ta2(W3, ((i << 1) + a3 | 0) + 5100 | 0, Ca2(z3, c2, w4 << 1), w4);
-                                        k = n + H2[a3 + 5740 >> 2] | 0;
+                                        k = n2 + H2[a3 + 5740 >> 2] | 0;
                                         H2[a3 + 5740 >> 2] = k;
                                         o2 = b + o2 | 0;
                                       }
@@ -20243,8 +20243,8 @@
                                             break V;
                                           }
                                           while (1) {
-                                            n = N3(l2, 10064) + a3 | 0;
-                                            i = H2[n + 5744 >> 2];
+                                            n2 = N3(l2, 10064) + a3 | 0;
+                                            i = H2[n2 + 5744 >> 2];
                                             ca: {
                                               if ((i | 0) > 0) {
                                                 t4 = 0;
@@ -20254,7 +20254,7 @@
                                                   u3 = i & -4;
                                                   j = 0;
                                                   while (1) {
-                                                    p3 = n + 4724 | 0;
+                                                    p3 = n2 + 4724 | 0;
                                                     O3 = k | 3;
                                                     x3 = H2[p3 + (k << 2) >> 2] << k | b;
                                                     b = k | 1;
@@ -20272,7 +20272,7 @@
                                                 j = i & 3;
                                                 if (j) {
                                                   while (1) {
-                                                    b = H2[(n + (k << 2) | 0) + 4724 >> 2] << k | b;
+                                                    b = H2[(n2 + (k << 2) | 0) + 4724 >> 2] << k | b;
                                                     k = k + 1 | 0;
                                                     t4 = t4 + 1 | 0;
                                                     if ((j | 0) != (t4 | 0)) {
@@ -20281,7 +20281,7 @@
                                                     break;
                                                   }
                                                 }
-                                                F2[n + 4723 | 0] = (b | 0) > 0;
+                                                F2[n2 + 4723 | 0] = (b | 0) > 0;
                                                 if (!b | (i | 0) < 2) {
                                                   break ca;
                                                 }
@@ -20289,7 +20289,7 @@
                                                 s3 = H2[m + 4 >> 2];
                                                 break ca;
                                               }
-                                              F2[n + 4723 | 0] = 0;
+                                              F2[n2 + 4723 | 0] = 0;
                                             }
                                             l2 = l2 + 1 | 0;
                                             if ((s3 | 0) > (l2 | 0)) {
@@ -20313,7 +20313,7 @@
                                   if ((k | 0) > 0) {
                                     while (1) {
                                       if ((s3 | 0) > 0) {
-                                        n = (q2 + N3(j, 6) | 0) + 34 | 0;
+                                        n2 = (q2 + N3(j, 6) | 0) + 34 | 0;
                                         l2 = j - 1 | 0;
                                         p3 = j + q2 | 0;
                                         t4 = j << 2;
@@ -20326,7 +20326,7 @@
                                               if (b | (s3 | 0) != 2) {
                                                 break da;
                                               }
-                                              ec(e4, n);
+                                              ec(e4, n2);
                                               if (H2[u3 >> 2]) {
                                                 break da;
                                               }
@@ -20381,13 +20381,13 @@
                                   i = Ha2((N3(H2[a3 + 4576 >> 2], 65536e3) | 0) / H2[a3 + 4544 >> 2] | 0);
                                   j = H2[a3 + 4696 >> 2];
                                   k = Ha2(3932160);
-                                  n = Ha2(3932160);
+                                  n2 = Ha2(3932160);
                                   l2 = H2[a3 + 8 >> 2];
                                   p3 = i - k << 16 >> 16;
                                   k = 0 - (j << 2) | 0;
                                   j = j << 16 >> 16;
                                   j = (N3(k & 65532, j) >> 16) + N3(j, k >> 16) | 0;
-                                  i = (((i - (l2 >> 8) | 0) + N3(p3, j >> 16) | 0) + (N3(i - n << 16 >> 16, j & 65535) >> 16) | 0) - 2048 | 0;
+                                  i = (((i - (l2 >> 8) | 0) + N3(p3, j >> 16) | 0) + (N3(i - n2 << 16 >> 16, j & 65535) >> 16) | 0) - 2048 | 0;
                                   i = (i | 0) < 0 ? N3(i, 3) : i;
                                   i = (i | 0) <= -51 ? -51 : i;
                                   i = N3(G2[a3 + 4532 >> 1], (i | 0) >= 51 ? 51 : i);
@@ -20422,9 +20422,9 @@
                                   }
                                   H2[a3 + 8 >> 2] = i;
                                 }
-                                n = H2[m + 24 >> 2];
+                                n2 = H2[m + 24 >> 2];
                                 k = H2[m + 28 >> 2];
-                                j = (N3(n, k) | 0) / 1e3 | 0;
+                                j = (N3(n2, k) | 0) / 1e3 | 0;
                                 if (!g4) {
                                   i = 0;
                                   ha: {
@@ -20442,7 +20442,7 @@
                                   j = j - i | 0;
                                 }
                                 i = (j | 0) / H2[a3 + 5744 >> 2] | 0;
-                                b = N3(i << 16 >> 16, (n | 0) == 10 ? 100 : 50) - (H2[a3 + 20188 >> 2] << 1) | 0;
+                                b = N3(i << 16 >> 16, (n2 | 0) == 10 ? 100 : 50) - (H2[a3 + 20188 >> 2] << 1) | 0;
                                 ia: {
                                   if (g4) {
                                     break ia;
@@ -20455,7 +20455,7 @@
                                 }
                                 i = (k | 0) <= 5e3 ? 5e3 : k;
                                 j = (k | 0) >= 5e3 ? 5e3 : k;
-                                n = (b | 0) > (i | 0) ? i : (b | 0) > (j | 0) ? b : j;
+                                n2 = (b | 0) > (i | 0) ? i : (b | 0) > (j | 0) ? b : j;
                                 ja: {
                                   if (H2[m + 4 >> 2] == 2) {
                                     j = H2[a3 + 5748 >> 2];
@@ -20570,7 +20570,7 @@
                                     H2[p3 + 8 >> 2] = x3;
                                     A3 = cc(p3, A3, u3, q2 + 20 | 0, r2, k);
                                     H2[p3 + 12 >> 2] = A3;
-                                    C5 = n + (i ? -1200 : -600) | 0;
+                                    C5 = n2 + (i ? -1200 : -600) | 0;
                                     j = (C5 | 0) <= 1 ? 1 : C5;
                                     y2 = Q2(j);
                                     l2 = j << y2 - 1;
@@ -20882,7 +20882,7 @@
                                   s3 = r2 & H2[m + 52 >> 2] != 0;
                                   Aa: {
                                     if ((i | 0) == 1) {
-                                      b = n;
+                                      b = n2;
                                       break Aa;
                                     }
                                     b = H2[v3 + 16 >> 2];
@@ -20924,7 +20924,7 @@
                                       j = (N3(j, 3) | 0) / 4 | 0;
                                     }
                                     s3 = H2[m + 52 >> 2];
-                                    b = n;
+                                    b = n2;
                                     b = (i | 0) != 1 ? H2[(v3 + 16 | 0) + (k << 2) >> 2] : b;
                                     if ((b | 0) > 0) {
                                       i = N3(k, 10064) + a3 | 0;
@@ -20948,11 +20948,11 @@
                                 p3 = H2[a3 + 5748 >> 2];
                                 H2[a3 + 20212 >> 2] = F2[(p3 + a3 | 0) + 20179 | 0];
                                 if (!((p3 | 0) != H2[a3 + 5744 >> 2] | H2[f2 >> 2] <= 0)) {
-                                  n = 0;
+                                  n2 = 0;
                                   b = 0;
                                   if ((i | 0) > 0) {
                                     while (1) {
-                                      l2 = N3(n, 10064) + a3 | 0;
+                                      l2 = N3(n2, 10064) + a3 | 0;
                                       k = H2[l2 + 5744 >> 2];
                                       Ca: {
                                         if ((k | 0) <= 0) {
@@ -20994,8 +20994,8 @@
                                         }
                                       }
                                       b = F2[l2 + 4723 | 0] | b << 1;
-                                      n = n + 1 | 0;
-                                      if ((n | 0) != (i | 0)) {
+                                      n2 = n2 + 1 | 0;
+                                      if ((n2 | 0) != (i | 0)) {
                                         continue;
                                       }
                                       break;
@@ -21012,9 +21012,9 @@
                                           F2[i | 0] = I4[i | 0] & (j ^ -1) | b << k;
                                           break Ea;
                                         }
-                                        n = H2[e4 + 40 >> 2];
-                                        if ((n | 0) >= 0) {
-                                          H2[e4 + 40 >> 2] = n & (j ^ -1) | b << k;
+                                        n2 = H2[e4 + 40 >> 2];
+                                        if ((n2 | 0) >= 0) {
+                                          H2[e4 + 40 >> 2] = n2 & (j ^ -1) | b << k;
                                           break Ea;
                                         }
                                         if (K2[e4 + 28 >> 2] <= -2147483648 >>> i >>> 0) {
@@ -21134,7 +21134,7 @@
                   B3();
                 }
                 function ib2(a3, b, c2, d, e4) {
-                  var f2 = 0, g4 = 0, h = 0, i = 0, j = 0, k = 0, l2 = 0, m = 0, n = 0, o2 = 0, p3 = 0, q2 = 0, r2 = 0, s3 = 0, t4 = 0, u3 = O2(0), v3 = 0, w4 = 0, x3 = 0, y2 = 0, z3 = 0, A3 = 0, C5 = 0, D5 = 0, E5 = 0, I5 = 0, K3 = 0, M5 = 0, P3 = 0, R3 = 0, S2 = 0, T3 = 0, U3 = 0, V3 = 0, W3 = 0, X3 = 0, Y3 = 0, Z3 = 0, _2 = 0, $2 = 0, aa2 = 0, ba3 = 0, ca3 = 0, da3 = 0, ea3 = 0, fa3 = 0, ga2 = 0, ha3 = 0;
+                  var f2 = 0, g4 = 0, h = 0, i = 0, j = 0, k = 0, l2 = 0, m = 0, n2 = 0, o2 = 0, p3 = 0, q2 = 0, r2 = 0, s3 = 0, t4 = 0, u3 = O2(0), v3 = 0, w4 = 0, x3 = 0, y2 = 0, z3 = 0, A3 = 0, C5 = 0, D5 = 0, E5 = 0, I5 = 0, K3 = 0, M5 = 0, P3 = 0, R3 = 0, S2 = 0, T3 = 0, U3 = 0, V3 = 0, W3 = 0, X3 = 0, Y3 = 0, Z3 = 0, _2 = 0, $2 = 0, aa2 = 0, ba3 = 0, ca3 = 0, da3 = 0, ea3 = 0, fa3 = 0, ga2 = 0, ha3 = 0;
                   o2 = pa2 - 192 | 0;
                   pa2 = o2;
                   H2[o2 + 136 >> 2] = 0;
@@ -21350,7 +21350,7 @@
                                                     }
                                                     H2[a3 + 28 >> 2] = e4;
                                                   }
-                                                  n = a3 + 16 | 0;
+                                                  n2 = a3 + 16 | 0;
                                                   z3 = !b;
                                                   aa2 = v3 << 1;
                                                   m = 0;
@@ -21372,7 +21372,7 @@
                                                         G: {
                                                           H: {
                                                             I: {
-                                                              g4 = H2[n + 4 >> 2];
+                                                              g4 = H2[n2 + 4 >> 2];
                                                               if (g4 - 1 >>> 0 < 2) {
                                                                 J: {
                                                                   if (!f2) {
@@ -21386,10 +21386,10 @@
                                                                 }
                                                                 if (H2[k + 8544 >> 2] < (g4 | 0)) {
                                                                   s3 = Wb(k + 4264 | 0);
-                                                                  g4 = H2[n + 4 >> 2];
+                                                                  g4 = H2[n2 + 4 >> 2];
                                                                 }
                                                                 if (!((g4 | 0) != 1 | H2[k + 8544 >> 2] != 2)) {
-                                                                  Z3 = H2[n + 12 >> 2] == (N3(H2[k + 2316 >> 2], 1e3) | 0);
+                                                                  Z3 = H2[n2 + 12 >> 2] == (N3(H2[k + 2316 >> 2], 1e3) | 0);
                                                                 }
                                                                 K: {
                                                                   if (!(H2[k + 2388 >> 2] | (g4 | 0) <= 0)) {
@@ -21402,7 +21402,7 @@
                                                                           N: {
                                                                             O: {
                                                                               P: {
-                                                                                j = H2[n + 16 >> 2];
+                                                                                j = H2[n2 + 16 >> 2];
                                                                                 switch (j | 0) {
                                                                                   case 0:
                                                                                   case 10:
@@ -21454,11 +21454,11 @@
                                                                       g4 = k + N3(f2, 4264) | 0;
                                                                       H2[g4 + 2324 >> 2] = l2;
                                                                       H2[g4 + 2392 >> 2] = h;
-                                                                      h = H2[n + 12 >> 2] >> 10;
+                                                                      h = H2[n2 + 12 >> 2] >> 10;
                                                                       if (h >>> 0 > 15 | !(1 << h & 34944)) {
                                                                         break K;
                                                                       }
-                                                                      j = H2[n + 8 >> 2];
+                                                                      j = H2[n2 + 8 >> 2];
                                                                       l2 = 0;
                                                                       Q: {
                                                                         p3 = h + 1 | 0;
@@ -21550,7 +21550,7 @@
                                                                       }
                                                                       s3 = l2 + s3 | 0;
                                                                       f2 = f2 + 1 | 0;
-                                                                      g4 = H2[n + 4 >> 2];
+                                                                      g4 = H2[n2 + 4 >> 2];
                                                                       if ((f2 | 0) < (g4 | 0)) {
                                                                         continue;
                                                                       }
@@ -21558,7 +21558,7 @@
                                                                     }
                                                                   }
                                                                   f2 = 2;
-                                                                  j = H2[n >> 2];
+                                                                  j = H2[n2 >> 2];
                                                                   Y: {
                                                                     if ((j | 0) != 2) {
                                                                       f2 = j;
@@ -21576,13 +21576,13 @@
                                                                     H2[k + 8528 >> 2] = 0;
                                                                     H2[k + 8536 >> 2] = 0;
                                                                     Ca2(k + 6696 | 0, k + 2432 | 0, 300);
-                                                                    g4 = H2[n + 4 >> 2];
-                                                                    f2 = H2[n >> 2];
+                                                                    g4 = H2[n2 + 4 >> 2];
+                                                                    f2 = H2[n2 >> 2];
                                                                   }
                                                                   H2[k + 8544 >> 2] = g4;
                                                                   H2[k + 8540 >> 2] = f2;
                                                                   f2 = -200;
-                                                                  if (H2[n + 8 >> 2] - 48001 >>> 0 < 4294927295) {
+                                                                  if (H2[n2 + 8 >> 2] - 48001 >>> 0 < 4294927295) {
                                                                     break E;
                                                                   }
                                                                   Z: {
@@ -21609,7 +21609,7 @@
                                                                           }
                                                                         }
                                                                         ga2 = f2, ha3 = Ka2(i, 1), H2[ga2 + 2416 >> 2] = ha3;
-                                                                        g4 = H2[n + 4 >> 2];
+                                                                        g4 = H2[n2 + 4 >> 2];
                                                                         h = h + 1 | 0;
                                                                         if ((g4 | 0) > (h | 0)) {
                                                                           continue;
@@ -21676,7 +21676,7 @@
                                                                             break;
                                                                           }
                                                                         }
-                                                                        g4 = H2[n + 4 >> 2];
+                                                                        g4 = H2[n2 + 4 >> 2];
                                                                         j = j + 1 | 0;
                                                                         if ((g4 | 0) > (j | 0)) {
                                                                           continue;
@@ -21722,7 +21722,7 @@
                                                                             }
                                                                             Gc(f2, i, h, 1, j);
                                                                             Cc(i, q2, F2[f2 + 2765 | 0], F2[f2 + 2766 | 0], H2[f2 + 2328 >> 2]);
-                                                                            g4 = H2[n + 4 >> 2];
+                                                                            g4 = H2[n2 + 4 >> 2];
                                                                           }
                                                                           l2 = l2 + 1 | 0;
                                                                           if ((l2 | 0) < (g4 | 0)) {
@@ -21779,7 +21779,7 @@
                                                         }
                                                         H2[q2 + 652 >> 2] = 0;
                                                       }
-                                                      g4 = H2[n + 4 >> 2];
+                                                      g4 = H2[n2 + 4 >> 2];
                                                       da: {
                                                         if (H2[q2 + 652 >> 2] | (g4 | 0) != 2) {
                                                           break da;
@@ -21793,9 +21793,9 @@
                                                         F2[k + 6576 | 0] = 10;
                                                         H2[k + 6572 >> 2] = 100;
                                                         H2[k + 6640 >> 2] = 1;
-                                                        g4 = H2[n + 4 >> 2];
+                                                        g4 = H2[n2 + 4 >> 2];
                                                       }
-                                                      _2 = (N3(H2[n + 12 >> 2], g4) | 0) >= (N3(H2[n >> 2], H2[n + 8 >> 2]) | 0);
+                                                      _2 = (N3(H2[n2 + 12 >> 2], g4) | 0) >= (N3(H2[n2 >> 2], H2[n2 + 8 >> 2]) | 0);
                                                       ea: {
                                                         if (!_2) {
                                                           j = e4;
@@ -21822,13 +21822,13 @@
                                                             break ga;
                                                           }
                                                           l2 = 0;
-                                                          g4 = H2[n + 4 >> 2];
+                                                          g4 = H2[n2 + 4 >> 2];
                                                           if ((g4 | 0) != 2 | 1) {
                                                             break fa;
                                                           }
                                                           l2 = H2[(k + (H2[k + 6652 >> 2] << 2) | 0) + 6684 >> 2] == 1;
                                                         }
-                                                        g4 = H2[n + 4 >> 2];
+                                                        g4 = H2[n2 + 4 >> 2];
                                                       }
                                                       ha: {
                                                         ia: {
@@ -21839,7 +21839,7 @@
                                                           f2 = ((h | 0) > 0) << 1;
                                                           f2 = vc(k, i, j + 4 | 0, q2 + 648 | 0, z3, f2, T3);
                                                           g4 = 1;
-                                                          h = H2[n + 4 >> 2];
+                                                          h = H2[n2 + 4 >> 2];
                                                           H2[k + 2388 >> 2] = H2[k + 2388 >> 2] + 1;
                                                           s3 = f2 + s3 | 0;
                                                           if ((h | 0) < 2) {
@@ -21864,13 +21864,13 @@
                                                             f2 = k + N3(g4, 4264) | 0;
                                                             H2[f2 + 2388 >> 2] = H2[f2 + 2388 >> 2] + 1;
                                                             g4 = g4 + 1 | 0;
-                                                            f2 = H2[n + 4 >> 2];
+                                                            f2 = H2[n2 + 4 >> 2];
                                                             if ((g4 | 0) < (f2 | 0)) {
                                                               continue;
                                                             }
                                                             break;
                                                           }
-                                                          if (H2[n >> 2] != 2 | (f2 | 0) != 2) {
+                                                          if (H2[n2 >> 2] != 2 | (f2 | 0) != 2) {
                                                             break ia;
                                                           }
                                                           f2 = H2[k + 2316 >> 2];
@@ -21991,13 +21991,13 @@
                                                         f2 = (g4 << 1) + j | 0;
                                                         H2[i >> 2] = J2[f2 >> 1] | J2[f2 + 2 >> 1] << 16;
                                                       }
-                                                      f2 = (N3(H2[n + 8 >> 2], g4) | 0) / (N3(G2[k + 2316 >> 1], 1e3) | 0) | 0;
+                                                      f2 = (N3(H2[n2 + 8 >> 2], g4) | 0) / (N3(G2[k + 2316 >> 1], 1e3) | 0) | 0;
                                                       H2[o2 + 140 >> 2] = f2;
-                                                      l2 = H2[n >> 2];
+                                                      l2 = H2[n2 >> 2];
                                                       i = (l2 | 0) == 2;
                                                       f2 = r2 - (((i ? f2 : 1) << 1) + 15 & -16) | 0;
                                                       pa2 = f2;
-                                                      g4 = H2[n + 4 >> 2];
+                                                      g4 = H2[n2 + 4 >> 2];
                                                       if (!_2) {
                                                         h = H2[k + 2328 >> 2];
                                                         r2 = N3(h + 2 | 0, g4) << 1;
@@ -22013,7 +22013,7 @@
                                                         i = 0;
                                                         while (1) {
                                                           A3 = Ta2((k + N3(i, 4264) | 0) + 2432 | 0, r2, H2[q2 + (i << 2) >> 2] + 2 | 0, H2[q2 + 648 >> 2]);
-                                                          l2 = H2[n >> 2];
+                                                          l2 = H2[n2 >> 2];
                                                           ka: {
                                                             if ((l2 | 0) != 2) {
                                                               break ka;
@@ -22061,7 +22061,7 @@
                                                           }
                                                           s3 = s3 + A3 | 0;
                                                           i = i + 1 | 0;
-                                                          g4 = H2[n + 4 >> 2];
+                                                          g4 = H2[n2 + 4 >> 2];
                                                           if ((i | 0) < (((g4 | 0) > (l2 | 0) ? l2 : g4) | 0)) {
                                                             continue;
                                                           }
@@ -22160,7 +22160,7 @@
                                                         }
                                                       }
                                                       g4 = 0;
-                                                      H2[n + 20 >> 2] = H2[k + 4164 >> 2] == 2 ? N3(H2[(H2[k + 2316 >> 2] - 8 & -4) + 18652 >> 2], H2[k + 2308 >> 2]) : 0;
+                                                      H2[n2 + 20 >> 2] = H2[k + 4164 >> 2] == 2 ? N3(H2[(H2[k + 2316 >> 2] - 8 & -4) + 18652 >> 2], H2[k + 2308 >> 2]) : 0;
                                                       oa: {
                                                         if (z3) {
                                                           j = H2[k + 8544 >> 2];
@@ -22282,7 +22282,7 @@
                                               ib2(a3, 0, 0, e4, (v3 | 0) > (E5 | 0) ? E5 : v3);
                                               j = e4;
                                             }
-                                            n = a3 + $2 | 0;
+                                            n2 = a3 + $2 | 0;
                                             e4 = 13;
                                             ra: {
                                               sa: {
@@ -22307,7 +22307,7 @@
                                                   e4 = 17;
                                                 }
                                                 H2[o2 + 128 >> 2] = e4;
-                                                if (!La(n, 10012, o2 + 128 | 0)) {
+                                                if (!La(n2, 10012, o2 + 128 | 0)) {
                                                   break ra;
                                                 }
                                                 Ba2(5146, 3680, 492);
@@ -22318,7 +22318,7 @@
                                               }
                                             }
                                             H2[o2 + 112 >> 2] = H2[a3 + 48 >> 2];
-                                            if (La(n, 10008, o2 + 112 | 0)) {
+                                            if (La(n2, 10008, o2 + 112 | 0)) {
                                               break k;
                                             }
                                             va: {
@@ -22337,30 +22337,30 @@
                                                 break va;
                                               }
                                               H2[o2 + 96 >> 2] = 0;
-                                              if (La(n, 10010, o2 + 96 | 0)) {
+                                              if (La(n2, 10010, o2 + 96 | 0)) {
                                                 break j;
                                               }
-                                              tb2(n, b + c2 | 0, I5, h, E5, 0);
+                                              tb2(n2, b + c2 | 0, I5, h, E5, 0);
                                               H2[o2 + 80 >> 2] = o2 + 136;
                                               C5 = 1;
                                               S2 = 1;
-                                              if (La(n, 4031, o2 + 80 | 0)) {
+                                              if (La(n2, 4031, o2 + 80 | 0)) {
                                                 break i;
                                               }
                                             }
                                             H2[o2 + 64 >> 2] = l2;
-                                            if (La(n, 10010, o2 - -64 | 0)) {
+                                            if (La(n2, 10010, o2 - -64 | 0)) {
                                               break h;
                                             }
                                             wa: {
                                               if ((M5 | 0) != 1e3) {
                                                 e4 = H2[a3 + 60 >> 2];
                                                 if (!(H2[a3 + 68 >> 2] | ((e4 | 0) == (M5 | 0) | (e4 | 0) <= 0))) {
-                                                  if (La(n, 4028, 0)) {
+                                                  if (La(n2, 4028, 0)) {
                                                     break g;
                                                   }
                                                 }
-                                                f2 = tb2(n, b, c2, d, (v3 | 0) > (P3 | 0) ? P3 : v3, o2 + 144 | 0);
+                                                f2 = tb2(n2, b, c2, d, (v3 | 0) > (P3 | 0) ? P3 : v3, o2 + 144 | 0);
                                                 break wa;
                                               }
                                               G2[o2 + 132 >> 1] = 65535;
@@ -22370,10 +22370,10 @@
                                               }
                                               if (!(H2[a3 + 60 >> 2] != 1001 | (H2[a3 + 68 >> 2] ? C5 : 0))) {
                                                 H2[o2 + 48 >> 2] = 0;
-                                                if (La(n, 10010, o2 + 48 | 0)) {
+                                                if (La(n2, 10010, o2 + 48 | 0)) {
                                                   break f;
                                                 }
-                                                tb2(n, o2 + 132 | 0, 2, d, D5, 0);
+                                                tb2(n2, o2 + 132 | 0, 2, d, D5, 0);
                                               }
                                               f2 = 0;
                                             }
@@ -22410,7 +22410,7 @@
                                               L2[m >> 2] = O2(O2(G2[(e4 << 1) + t4 >> 1]) * O2(30517578125e-15)) + L2[m >> 2];
                                             }
                                             H2[o2 + 32 >> 2] = o2 + 132;
-                                            if (La(n, 10015, o2 + 32 | 0)) {
+                                            if (La(n2, 10015, o2 + 32 | 0)) {
                                               break e;
                                             }
                                             q2 = f2;
@@ -22419,16 +22419,16 @@
                                               if (z3 | S2) {
                                                 break ya;
                                               }
-                                              if (La(n, 4028, 0)) {
+                                              if (La(n2, 4028, 0)) {
                                                 break d;
                                               }
                                               H2[o2 + 16 >> 2] = 0;
-                                              if (La(n, 10010, o2 + 16 | 0)) {
+                                              if (La(n2, 10010, o2 + 16 | 0)) {
                                                 break c;
                                               }
-                                              tb2(n, b + c2 | 0, I5, h, E5, 0);
+                                              tb2(n2, b + c2 | 0, I5, h, E5, 0);
                                               H2[o2 >> 2] = o2 + 136;
-                                              if (La(n, 4031, o2)) {
+                                              if (La(n2, 4031, o2)) {
                                                 break b;
                                               }
                                               m = H2[a3 + 8 >> 2];
@@ -22436,7 +22436,7 @@
                                                 break ya;
                                               }
                                               f2 = 48e3 / H2[a3 + 12 >> 2] | 0;
-                                              n = (N3(m, D5) << 2) + h | 0;
+                                              n2 = (N3(m, D5) << 2) + h | 0;
                                               t4 = (N3(m, v3 - D5 | 0) << 2) + d | 0;
                                               b = 0;
                                               z3 = (U3 | 0) < 400;
@@ -22448,7 +22448,7 @@
                                                     g4 = r2 + t4 | 0;
                                                     u3 = L2[l2 + (N3(e4, f2) << 2) >> 2];
                                                     u3 = O2(u3 * u3);
-                                                    L2[g4 >> 2] = O2(u3 * L2[n + r2 >> 2]) + O2(O2(O2(1) - u3) * L2[g4 >> 2]);
+                                                    L2[g4 >> 2] = O2(u3 * L2[n2 + r2 >> 2]) + O2(O2(O2(1) - u3) * L2[g4 >> 2]);
                                                     e4 = e4 + 1 | 0;
                                                     if ((D5 | 0) != (e4 | 0)) {
                                                       continue;
@@ -22473,7 +22473,7 @@
                                               }
                                               b = (D5 | 0) <= 1 ? 1 : D5;
                                               z3 = b & 268435452;
-                                              n = b & 3;
+                                              n2 = b & 3;
                                               f2 = 0;
                                               r2 = (U3 | 0) < 400;
                                               g4 = b - 1 >>> 0 < 3;
@@ -22503,7 +22503,7 @@
                                                       break;
                                                     }
                                                   }
-                                                  if (!n) {
+                                                  if (!n2) {
                                                     break Aa;
                                                   }
                                                   while (1) {
@@ -22511,7 +22511,7 @@
                                                     L2[t4 + d >> 2] = L2[h + t4 >> 2];
                                                     e4 = e4 + 1 | 0;
                                                     b = b + 1 | 0;
-                                                    if ((n | 0) != (b | 0)) {
+                                                    if ((n2 | 0) != (b | 0)) {
                                                       continue;
                                                     }
                                                     break;
@@ -22528,7 +22528,7 @@
                                               }
                                               f2 = 48e3 / H2[a3 + 12 >> 2] | 0;
                                               b = N3(m, D5) << 2;
-                                              n = b + d | 0;
+                                              n2 = b + d | 0;
                                               h = b + h | 0;
                                               b = 0;
                                               t4 = (U3 | 0) < 400;
@@ -22537,7 +22537,7 @@
                                                 if (!t4) {
                                                   while (1) {
                                                     z3 = N3(e4, m) + b << 2;
-                                                    r2 = z3 + n | 0;
+                                                    r2 = z3 + n2 | 0;
                                                     u3 = L2[l2 + (N3(e4, f2) << 2) >> 2];
                                                     u3 = O2(u3 * u3);
                                                     L2[r2 >> 2] = O2(u3 * L2[r2 >> 2]) + O2(O2(O2(1) - u3) * L2[h + z3 >> 2]);
@@ -22572,14 +22572,14 @@
                                                     s3 = f2 & -4;
                                                     b = 0;
                                                     while (1) {
-                                                      n = e4 << 2;
-                                                      L2[n + d >> 2] = L2[j + n >> 2];
-                                                      t4 = n | 4;
+                                                      n2 = e4 << 2;
+                                                      L2[n2 + d >> 2] = L2[j + n2 >> 2];
+                                                      t4 = n2 | 4;
                                                       L2[t4 + d >> 2] = L2[j + t4 >> 2];
-                                                      t4 = n | 8;
+                                                      t4 = n2 | 8;
                                                       L2[t4 + d >> 2] = L2[j + t4 >> 2];
-                                                      n = n | 12;
-                                                      L2[n + d >> 2] = L2[j + n >> 2];
+                                                      n2 = n2 | 12;
+                                                      L2[n2 + d >> 2] = L2[j + n2 >> 2];
                                                       e4 = e4 + 4 | 0;
                                                       b = b + 4 | 0;
                                                       if ((s3 | 0) != (b | 0)) {
@@ -22593,8 +22593,8 @@
                                                     break Ca;
                                                   }
                                                   while (1) {
-                                                    n = e4 << 2;
-                                                    L2[n + d >> 2] = L2[j + n >> 2];
+                                                    n2 = e4 << 2;
+                                                    L2[n2 + d >> 2] = L2[j + n2 >> 2];
                                                     e4 = e4 + 1 | 0;
                                                     h = h + 1 | 0;
                                                     if ((b | 0) != (h | 0)) {
@@ -22606,7 +22606,7 @@
                                                 if ((m | 0) <= 0) {
                                                   break Ba;
                                                 }
-                                                n = 48e3 / H2[a3 + 12 >> 2] | 0;
+                                                n2 = 48e3 / H2[a3 + 12 >> 2] | 0;
                                                 b = f2 << 2;
                                                 f2 = b + d | 0;
                                                 j = b + j | 0;
@@ -22618,7 +22618,7 @@
                                                     while (1) {
                                                       s3 = N3(e4, m) + b << 2;
                                                       t4 = s3 + f2 | 0;
-                                                      u3 = L2[l2 + (N3(e4, n) << 2) >> 2];
+                                                      u3 = L2[l2 + (N3(e4, n2) << 2) >> 2];
                                                       u3 = O2(u3 * u3);
                                                       L2[t4 >> 2] = O2(u3 * L2[t4 >> 2]) + O2(O2(O2(1) - u3) * L2[j + s3 >> 2]);
                                                       e4 = e4 + 1 | 0;
@@ -22641,10 +22641,10 @@
                                               }
                                               f2 = 48e3 / H2[a3 + 12 >> 2] | 0;
                                               b = 0;
-                                              n = (U3 | 0) < 400;
+                                              n2 = (U3 | 0) < 400;
                                               while (1) {
                                                 e4 = 0;
-                                                if (!n) {
+                                                if (!n2) {
                                                   while (1) {
                                                     h = N3(e4, m) + b << 2;
                                                     s3 = h + d | 0;
@@ -22684,12 +22684,12 @@
                                                 m = 0;
                                                 while (1) {
                                                   f2 = e4 << 2;
-                                                  n = f2 + d | 0;
-                                                  L2[n >> 2] = L2[n >> 2] * u3;
-                                                  n = (f2 | 4) + d | 0;
-                                                  L2[n >> 2] = L2[n >> 2] * u3;
-                                                  n = (f2 | 8) + d | 0;
-                                                  L2[n >> 2] = L2[n >> 2] * u3;
+                                                  n2 = f2 + d | 0;
+                                                  L2[n2 >> 2] = L2[n2 >> 2] * u3;
+                                                  n2 = (f2 | 4) + d | 0;
+                                                  L2[n2 >> 2] = L2[n2 >> 2] * u3;
+                                                  n2 = (f2 | 8) + d | 0;
+                                                  L2[n2 >> 2] = L2[n2 >> 2] * u3;
                                                   f2 = (f2 | 12) + d | 0;
                                                   L2[f2 >> 2] = L2[f2 >> 2] * u3;
                                                   e4 = e4 + 4 | 0;
@@ -22761,7 +22761,7 @@
                   B3();
                 }
                 function vc(a3, b, c2, d, e4, f2, g4) {
-                  var h = 0, i = 0, j = 0, k = 0, l2 = 0, m = 0, n = 0, o2 = 0, p3 = 0, q2 = 0, r2 = 0, s3 = 0, t4 = 0, u3 = 0, v3 = 0, w4 = 0, x3 = 0, y2 = 0, z3 = 0, A3 = 0, C5 = 0, D5 = 0, E5 = 0, K3 = 0, L3 = 0, M5 = 0, O3 = 0, P3 = 0, R3 = 0, S2 = 0, T3 = 0, U3 = 0, V3 = 0, W3 = 0, X3 = 0, Y3 = 0, Z3 = 0, _2 = 0, $2 = 0, aa2 = 0, ba3 = 0;
+                  var h = 0, i = 0, j = 0, k = 0, l2 = 0, m = 0, n2 = 0, o2 = 0, p3 = 0, q2 = 0, r2 = 0, s3 = 0, t4 = 0, u3 = 0, v3 = 0, w4 = 0, x3 = 0, y2 = 0, z3 = 0, A3 = 0, C5 = 0, D5 = 0, E5 = 0, K3 = 0, L3 = 0, M5 = 0, O3 = 0, P3 = 0, R3 = 0, S2 = 0, T3 = 0, U3 = 0, V3 = 0, W3 = 0, X3 = 0, Y3 = 0, Z3 = 0, _2 = 0, $2 = 0, aa2 = 0, ba3 = 0;
                   r2 = pa2 - 144 | 0;
                   pa2 = r2;
                   o2 = H2[a3 + 2328 >> 2];
@@ -22817,12 +22817,12 @@
                                     j = f2 & -2;
                                     l2 = a3 + 2344 | 0;
                                     while (1) {
-                                      n = b << 1;
-                                      p3 = G2[n + l2 >> 1];
-                                      G2[e4 + n >> 1] = p3 + (N3(m, G2[n + (e4 + 32 | 0) >> 1] - p3 | 0) >>> 2 | 0);
-                                      n = n | 2;
-                                      p3 = G2[n + l2 >> 1];
-                                      G2[e4 + n >> 1] = p3 + (N3(m, G2[n + (e4 + 32 | 0) >> 1] - p3 | 0) >>> 2 | 0);
+                                      n2 = b << 1;
+                                      p3 = G2[n2 + l2 >> 1];
+                                      G2[e4 + n2 >> 1] = p3 + (N3(m, G2[n2 + (e4 + 32 | 0) >> 1] - p3 | 0) >>> 2 | 0);
+                                      n2 = n2 | 2;
+                                      p3 = G2[n2 + l2 >> 1];
+                                      G2[e4 + n2 >> 1] = p3 + (N3(m, G2[n2 + (e4 + 32 | 0) >> 1] - p3 | 0) >>> 2 | 0);
                                       b = b + 2 | 0;
                                       q2 = q2 + 2 | 0;
                                       if ((j | 0) != (q2 | 0)) {
@@ -22835,8 +22835,8 @@
                                     break h;
                                   }
                                   b = b << 1;
-                                  n = G2[(b + a3 | 0) + 2344 >> 1];
-                                  G2[b + e4 >> 1] = n + (N3(m, G2[b + (e4 + 32 | 0) >> 1] - n | 0) >>> 2 | 0);
+                                  n2 = G2[(b + a3 | 0) + 2344 >> 1];
+                                  G2[b + e4 >> 1] = n2 + (N3(m, G2[b + (e4 + 32 | 0) >> 1] - n2 | 0) >>> 2 | 0);
                                 }
                                 $a2(i, e4, f2);
                                 break f;
@@ -22854,9 +22854,9 @@
                                 l2 = G2[a3 + 2762 >> 1];
                                 p3 = F2[a3 + 2764 | 0];
                                 m = H2[a3 + 2324 >> 2];
-                                n = H2[a3 + 2316 >> 2];
+                                n2 = H2[a3 + 2316 >> 2];
                                 j: {
-                                  if ((n | 0) == 8) {
+                                  if ((n2 | 0) == 8) {
                                     b = 18432;
                                     f2 = 11;
                                     k: {
@@ -22890,15 +22890,15 @@
                                   b = 18400;
                                   f2 = 12;
                                 }
-                                i = n << 16 >> 15;
-                                n = N3(n << 16 >> 16, 18);
-                                t4 = (i | 0) < (n | 0) ? i : n;
-                                n = (i | 0) > (n | 0) ? i : n;
+                                i = n2 << 16 >> 15;
+                                n2 = N3(n2 << 16 >> 16, 18);
+                                t4 = (i | 0) < (n2 | 0) ? i : n2;
+                                n2 = (i | 0) > (n2 | 0) ? i : n2;
                                 j = i + l2 | 0;
                                 i = 0;
                                 while (1) {
                                   l2 = j + F2[(p3 + N3(f2, i) | 0) + b | 0] | 0;
-                                  H2[r2 + (i << 2) >> 2] = (l2 | 0) > (n | 0) ? n : (l2 | 0) > (t4 | 0) ? l2 : t4;
+                                  H2[r2 + (i << 2) >> 2] = (l2 | 0) > (n2 | 0) ? n2 : (l2 | 0) > (t4 | 0) ? l2 : t4;
                                   i = i + 1 | 0;
                                   if ((m | 0) != (i | 0)) {
                                     continue;
@@ -22907,11 +22907,11 @@
                                 }
                                 m = H2[a3 + 2324 >> 2];
                                 if ((m | 0) > 0) {
-                                  n = H2[(F2[a3 + 2768 | 0] << 2) + 17136 >> 2];
+                                  n2 = H2[(F2[a3 + 2768 | 0] << 2) + 17136 >> 2];
                                   b = 0;
                                   while (1) {
                                     f2 = r2 + N3(b, 10) | 0;
-                                    i = n + N3(F2[(a3 + b | 0) + 2740 | 0], 5) | 0;
+                                    i = n2 + N3(F2[(a3 + b | 0) + 2740 | 0], 5) | 0;
                                     G2[f2 + 96 >> 1] = F2[i | 0] << 7;
                                     G2[f2 + 98 >> 1] = F2[i + 1 | 0] << 7;
                                     G2[f2 + 100 >> 1] = F2[i + 2 | 0] << 7;
@@ -23002,7 +23002,7 @@
                               n: {
                                 o: {
                                   if (H2[a3 + 2324 >> 2] > 0) {
-                                    n = a3 + 4 | 0;
+                                    n2 = a3 + 4 | 0;
                                     z3 = H2[a3 + 2336 >> 2];
                                     _2 = (i | 0) < 4;
                                     f2 = c2;
@@ -23087,7 +23087,7 @@
                                             }
                                             if ((q2 | 0) != 2) {
                                               m = H2[a3 + 2332 >> 2];
-                                              b = n;
+                                              b = n2;
                                               break s;
                                             }
                                             i = H2[p3 >> 2];
@@ -23193,7 +23193,7 @@
                                             s3 = H2[h - 12 >> 2];
                                             k = (k + N3(e4, s3 >> 16) | 0) + (N3(e4, s3 & 65535) >> 16) | 0;
                                             s3 = H2[h - 16 >> 2];
-                                            s3 = (H2[v3 + n >> 2] + ((k + N3(b, s3 >> 16) | 0) + (N3(b, s3 & 65535) >> 16) << 1) | 0) + 4 | 0;
+                                            s3 = (H2[v3 + n2 >> 2] + ((k + N3(b, s3 >> 16) | 0) + (N3(b, s3 & 65535) >> 16) << 1) | 0) + 4 | 0;
                                             H2[t4 + v3 >> 2] = s3;
                                             H2[y2 + (z3 << 2) >> 2] = s3 << 1;
                                             z3 = z3 + 1 | 0;
@@ -23327,7 +23327,7 @@
                                       H2[j + 8 >> 2] = H2[b + 8 >> 2];
                                       H2[j + 12 >> 2] = g4;
                                       f2 = (m << 1) + f2 | 0;
-                                      n = e4 + n | 0;
+                                      n2 = e4 + n2 | 0;
                                       w4 = w4 + 1 | 0;
                                       if ((w4 | 0) < H2[a3 + 2324 >> 2]) {
                                         continue;
@@ -23408,15 +23408,15 @@
                               l2 = h & -4;
                               m = a3 + 4052 | 0;
                               while (1) {
-                                n = e4 << 1;
+                                n2 = e4 << 1;
                                 g4 = f2 + g4 | 0;
-                                G2[n + m >> 1] = g4;
+                                G2[n2 + m >> 1] = g4;
                                 g4 = f2 + g4 | 0;
-                                G2[m + (n | 2) >> 1] = g4;
+                                G2[m + (n2 | 2) >> 1] = g4;
                                 g4 = f2 + g4 | 0;
-                                G2[m + (n | 4) >> 1] = g4;
+                                G2[m + (n2 | 4) >> 1] = g4;
                                 g4 = f2 + g4 | 0;
-                                G2[m + (n | 6) >> 1] = g4;
+                                G2[m + (n2 | 6) >> 1] = g4;
                                 e4 = e4 + 4 | 0;
                                 i = i + 4 | 0;
                                 if ((l2 | 0) != (i | 0)) {
@@ -23467,17 +23467,17 @@
                                     i = a3 + 2344 | 0;
                                     b = 0;
                                     while (1) {
-                                      n = e4 << 1;
-                                      l2 = n + g4 | 0;
+                                      n2 = e4 << 1;
+                                      l2 = n2 + g4 | 0;
                                       o2 = G2[l2 >> 1];
                                       p3 = o2;
-                                      o2 = G2[i + n >> 1] - o2 | 0;
+                                      o2 = G2[i + n2 >> 1] - o2 | 0;
                                       G2[l2 >> 1] = p3 + ((N3(o2 & 65535, 16348) >>> 16 | 0) + N3(o2 >>> 16 | 0, 16348) | 0);
-                                      o2 = n | 2;
+                                      o2 = n2 | 2;
                                       l2 = o2 + g4 | 0;
-                                      n = G2[l2 >> 1];
-                                      o2 = G2[i + o2 >> 1] - n | 0;
-                                      G2[l2 >> 1] = n + ((N3(o2 & 65535, 16348) >>> 16 | 0) + N3(o2 >>> 16 | 0, 16348) | 0);
+                                      n2 = G2[l2 >> 1];
+                                      o2 = G2[i + o2 >> 1] - n2 | 0;
+                                      G2[l2 >> 1] = n2 + ((N3(o2 & 65535, 16348) >>> 16 | 0) + N3(o2 >>> 16 | 0, 16348) | 0);
                                       e4 = e4 + 2 | 0;
                                       b = b + 2 | 0;
                                       if ((k | 0) != (b | 0)) {
@@ -23495,9 +23495,9 @@
                                   e4 = G2[e4 + 2344 >> 1] - b | 0;
                                   G2[f2 >> 1] = b + ((N3(e4 & 65535, 16348) >>> 16 | 0) + N3(e4 >>> 16 | 0, 16348) | 0);
                                 }
-                                n = H2[a3 + 2324 >> 2];
+                                n2 = H2[a3 + 2324 >> 2];
                                 D: {
-                                  if ((n | 0) <= 0) {
+                                  if ((n2 | 0) <= 0) {
                                     g4 = 0;
                                     break D;
                                   }
@@ -23505,8 +23505,8 @@
                                   e4 = 0;
                                   g4 = 0;
                                   f2 = 0;
-                                  if (n >>> 0 >= 4) {
-                                    q2 = n & -4;
+                                  if (n2 >>> 0 >= 4) {
+                                    q2 = n2 & -4;
                                     o2 = m + 16 | 0;
                                     i = 0;
                                     while (1) {
@@ -23534,7 +23534,7 @@
                                       break;
                                     }
                                   }
-                                  o2 = n & 3;
+                                  o2 = n2 & 3;
                                   if (!o2) {
                                     break D;
                                   }
@@ -23552,7 +23552,7 @@
                                   }
                                 }
                                 b = H2[a3 + 2332 >> 2];
-                                Ia2(h + (b << 2) | 0, h, N3(b, (n << 2) - 4 | 0));
+                                Ia2(h + (b << 2) | 0, h, N3(b, (n2 << 2) - 4 | 0));
                                 b = H2[a3 + 2332 >> 2];
                                 Ca2(h, ((N3(b, g4) << 2) + a3 | 0) + 4 | 0, b << 2);
                                 g4 = H2[a3 + 2324 >> 2];
@@ -23615,8 +23615,8 @@
                                 break E;
                               }
                               i = e4 << 16 >> 16;
-                              n = f2 << 16 >> 16;
-                              e4 = ((N3(i, e4 >> 16) - (((N3(n, f2 & 65535) >> 16) + N3(g4, n) | 0) + N3(f2, (f2 >> 15) + 1 >>> 1 | 0) << 5) | 0) + (N3(i, e4 & 65535) >> 16) | 0) + N3(e4, (e4 >> 15) + 1 >> 1) | 0;
+                              n2 = f2 << 16 >> 16;
+                              e4 = ((N3(i, e4 >> 16) - (((N3(n2, f2 & 65535) >> 16) + N3(g4, n2) | 0) + N3(f2, (f2 >> 15) + 1 >>> 1 | 0) << 5) | 0) + (N3(i, e4 & 65535) >> 16) | 0) + N3(e4, (e4 >> 15) + 1 >> 1) | 0;
                               i = 0;
                               if ((e4 | 0) <= 0) {
                                 break E;
@@ -23635,7 +23635,7 @@
                               b = (b & 1 ? 32768 : 46214) >>> (b >>> 1) | 0;
                               i = (N3(N3(b, e4 & 127), 213) >>> 16 | 0) + b << 8;
                             }
-                            n = o2 - -64 | 0;
+                            n2 = o2 - -64 | 0;
                             f2 = 255;
                             while (1) {
                               e4 = f2;
@@ -23662,9 +23662,9 @@
                                 while (1) {
                                   p3 = f2 << 2;
                                   g4 = N3(g4, 196314165) + 907633515 | 0;
-                                  H2[p3 + n >> 2] = H2[h + ((e4 & g4 >>> 24) << 2) >> 2];
+                                  H2[p3 + n2 >> 2] = H2[h + ((e4 & g4 >>> 24) << 2) >> 2];
                                   g4 = N3(g4, 196314165) + 907633515 | 0;
-                                  H2[n + (p3 | 4) >> 2] = H2[h + ((e4 & g4 >>> 24) << 2) >> 2];
+                                  H2[n2 + (p3 | 4) >> 2] = H2[h + ((e4 & g4 >>> 24) << 2) >> 2];
                                   f2 = f2 + 2 | 0;
                                   b = b + 2 | 0;
                                   if ((l2 | 0) != (b | 0)) {
@@ -23677,7 +23677,7 @@
                                 break H;
                               }
                               g4 = N3(g4, 196314165) + 907633515 | 0;
-                              H2[n + (f2 << 2) >> 2] = H2[h + ((e4 & g4 >>> 24) << 2) >> 2];
+                              H2[n2 + (f2 << 2) >> 2] = H2[h + ((e4 & g4 >>> 24) << 2) >> 2];
                             }
                             H2[a3 + 4152 >> 2] = g4;
                             $a2(t4, a3 + 4052 | 0, H2[a3 + 2340 >> 2]);
@@ -23757,8 +23757,8 @@
                               while (1) {
                                 u3 = (S2 + N3(P3, e4 >> 16) | 0) + (N3(P3, e4 & 65535) >> 16) | 0;
                                 e4 = o2 + (f2 << 2) | 0;
-                                n = H2[e4 + 56 >> 2];
-                                u3 = (((u3 + N3(O3, n >> 16) | 0) + (N3(O3, n & 65535) >> 16) | 0) + N3(M5, b >> 16) | 0) + (N3(M5, b & 65535) >> 16) | 0;
+                                n2 = H2[e4 + 56 >> 2];
+                                u3 = (((u3 + N3(O3, n2 >> 16) | 0) + (N3(O3, n2 & 65535) >> 16) | 0) + N3(M5, b >> 16) | 0) + (N3(M5, b & 65535) >> 16) | 0;
                                 b = H2[e4 + 48 >> 2];
                                 u3 = (((u3 + N3(L3, b >> 16) | 0) + (N3(L3, b & 65535) >> 16) | 0) + N3(K3, i >> 16) | 0) + (N3(K3, i & 65535) >> 16) | 0;
                                 i = H2[e4 + 40 >> 2];
@@ -23802,7 +23802,7 @@
                                 h = g4;
                                 g4 = i;
                                 i = b;
-                                b = n;
+                                b = n2;
                                 f2 = f2 + 1 | 0;
                                 if ((r2 | 0) != (f2 | 0)) {
                                   continue;
@@ -23934,7 +23934,7 @@
                 }
                 function db2(a3) {
                   a3 = a3 | 0;
-                  var b = 0, c2 = 0, d = 0, e4 = 0, f2 = 0, g4 = 0, h = 0, i = 0, j = 0, k = 0, l2 = 0, m = 0, n = 0;
+                  var b = 0, c2 = 0, d = 0, e4 = 0, f2 = 0, g4 = 0, h = 0, i = 0, j = 0, k = 0, l2 = 0, m = 0, n2 = 0;
                   l2 = pa2 - 16 | 0;
                   pa2 = l2;
                   a: {
@@ -23959,7 +23959,7 @@
                                         a3 = H2[d + 8 >> 2];
                                         j: {
                                           if ((b | 0) == (a3 | 0)) {
-                                            m = 59940, n = ee(c2) & g4, H2[m >> 2] = n;
+                                            m = 59940, n2 = ee(c2) & g4, H2[m >> 2] = n2;
                                             break j;
                                           }
                                           H2[a3 + 12 >> 2] = b;
@@ -24501,7 +24501,7 @@
                                           c2 = H2[g4 + 12 >> 2];
                                           b = H2[g4 + 8 >> 2];
                                           if ((c2 | 0) == (b | 0)) {
-                                            m = 59940, n = H2[14985] & ee(f2 >>> 3 | 0), H2[m >> 2] = n;
+                                            m = 59940, n2 = H2[14985] & ee(f2 >>> 3 | 0), H2[m >> 2] = n2;
                                             break F;
                                           }
                                           H2[b + 12 >> 2] = c2;
@@ -24559,7 +24559,7 @@
                                             if (c2) {
                                               break I;
                                             }
-                                            m = 59944, n = H2[14986] & ee(d), H2[m >> 2] = n;
+                                            m = 59944, n2 = H2[14986] & ee(d), H2[m >> 2] = n2;
                                             break F;
                                           }
                                           H2[h + (H2[h + 16 >> 2] == (g4 | 0) ? 16 : 20) >> 2] = c2;
@@ -24903,7 +24903,7 @@
                           if (d) {
                             break U;
                           }
-                          m = 59944, n = ee(b) & j, H2[m >> 2] = n;
+                          m = 59944, n2 = ee(b) & j, H2[m >> 2] = n2;
                           break T;
                         }
                         H2[i + (H2[i + 16 >> 2] == (c2 | 0) ? 16 : 20) >> 2] = d;
@@ -24962,7 +24962,7 @@
                   return a3 | 0;
                 }
                 function ab2(a3, b, c2, d, e4, f2, g4, h, i) {
-                  var j = 0, k = 0, l2 = 0, m = 0, n = 0, o2 = 0, p3 = O2(0), q2 = 0, r2 = O2(0), s3 = O2(0), t4 = 0, u3 = 0, v3 = 0, w4 = 0, x3 = O2(0), y2 = 0, z3 = 0, A3 = O2(0), C5 = 0, D5 = 0, E5 = 0, F3 = 0, J3 = O2(0), M5 = 0, Q3 = O2(0), R3 = 0;
+                  var j = 0, k = 0, l2 = 0, m = 0, n2 = 0, o2 = 0, p3 = O2(0), q2 = 0, r2 = O2(0), s3 = O2(0), t4 = 0, u3 = 0, v3 = 0, w4 = 0, x3 = O2(0), y2 = 0, z3 = 0, A3 = O2(0), C5 = 0, D5 = 0, E5 = 0, F3 = 0, J3 = O2(0), M5 = 0, Q3 = O2(0), R3 = 0;
                   u3 = pa2 - 32 | 0;
                   pa2 = u3;
                   H2[u3 + 24 >> 2] = i;
@@ -24994,8 +24994,8 @@
                         H2[u3 + 24 >> 2] = i & 1 | i << 1;
                       }
                       i = e4 + 1 >> 1;
-                      n = g4 - 1 | 0;
-                      oc(a3, u3, b, m, d, u3 + 28 | 0, i, e4, n, 0, u3 + 24 | 0);
+                      n2 = g4 - 1 | 0;
+                      oc(a3, u3, b, m, d, u3 + 28 | 0, i, e4, n2, 0, u3 + 24 | 0);
                       r2 = O2(H2[u3 + 8 >> 2]);
                       p3 = O2(H2[u3 + 4 >> 2]);
                       j = H2[u3 + 20 >> 2];
@@ -25026,16 +25026,16 @@
                       c2 = (c2 | 0) > 0 ? c2 : 0;
                       g4 = g4 - c2 | 0;
                       if ((c2 | 0) >= (g4 | 0)) {
-                        f2 = ab2(a3, b, d, c2, i, f2, n, O2(p3 * h), j);
+                        f2 = ab2(a3, b, d, c2, i, f2, n2, O2(p3 * h), j);
                         b = a3;
                         a3 = c2 + (H2[a3 + 32 >> 2] - l2 | 0) | 0;
-                        d = f2 | ab2(b, m, d, g4 + ((a3 | 0) > 24 ? k ? a3 - 24 | 0 : 0 : 0) | 0, i, o2, n, O2(r2 * h), j >> i) << (e4 >> 1);
+                        d = f2 | ab2(b, m, d, g4 + ((a3 | 0) > 24 ? k ? a3 - 24 | 0 : 0 : 0) | 0, i, o2, n2, O2(r2 * h), j >> i) << (e4 >> 1);
                         break a;
                       }
-                      m = ab2(a3, m, d, g4, i, o2, n, O2(r2 * h), j >> i);
+                      m = ab2(a3, m, d, g4, i, o2, n2, O2(r2 * h), j >> i);
                       q2 = a3;
                       a3 = g4 + (H2[a3 + 32 >> 2] - l2 | 0) | 0;
-                      d = ab2(q2, b, d, c2 + ((a3 | 0) > 24 ? (k | 0) != 16384 ? a3 - 24 | 0 : 0 : 0) | 0, i, f2, n, O2(p3 * h), j) | m << (e4 >> 1);
+                      d = ab2(q2, b, d, c2 + ((a3 | 0) > 24 ? (k | 0) != 16384 ? a3 - 24 | 0 : 0 : 0) | 0, i, f2, n2, O2(p3 * h), j) | m << (e4 >> 1);
                       break a;
                     }
                     g4 = -1;
@@ -25393,8 +25393,8 @@
                                     b = b | 12;
                                     L2[b + d >> 2] = h * O2(H2[b + k >> 2]);
                                     a3 = a3 + 4 | 0;
-                                    n = n + 4 | 0;
-                                    if ((f2 | 0) != (n | 0)) {
+                                    n2 = n2 + 4 | 0;
+                                    if ((f2 | 0) != (n2 | 0)) {
                                       continue;
                                     }
                                     break;
@@ -25419,7 +25419,7 @@
                               if ((e4 | 0) >= 2) {
                                 d = (c2 >>> 0) / (e4 >>> 0) | 0;
                                 a3 = (d | 0) <= 1 ? 1 : d;
-                                n = a3 & 2147483644;
+                                n2 = a3 & 2147483644;
                                 f2 = a3 & 3;
                                 j = a3 - 1 >>> 0 < 3;
                                 g4 = 0;
@@ -25434,7 +25434,7 @@
                                       i = H2[(c2 + (a3 | 3) << 2) + k >> 2] | (H2[(c2 + (a3 | 2) << 2) + k >> 2] | (H2[(c2 + (a3 | 1) << 2) + k >> 2] | (H2[(a3 + c2 << 2) + k >> 2] | i)));
                                       a3 = a3 + 4 | 0;
                                       t4 = t4 + 4 | 0;
-                                      if ((n | 0) != (t4 | 0)) {
+                                      if ((n2 | 0) != (t4 | 0)) {
                                         continue;
                                       }
                                       break;
@@ -25490,7 +25490,7 @@
                             b = g4;
                             c2 = b + 1 | 0;
                             a3 = d;
-                            n = nb2(z3, H2[H2[(((a3 | 0) > (c2 | 0) ? c2 : a3) << 2) + 34048 >> 2] + (((a3 | 0) < (c2 | 0) ? c2 : a3) << 2) >> 2] + H2[H2[(((a3 | 0) < (b | 0) ? a3 : b) << 2) + 34048 >> 2] + (((a3 | 0) > (b | 0) ? a3 : b) << 2) >> 2] | 0);
+                            n2 = nb2(z3, H2[H2[(((a3 | 0) > (c2 | 0) ? c2 : a3) << 2) + 34048 >> 2] + (((a3 | 0) < (c2 | 0) ? c2 : a3) << 2) >> 2] + H2[H2[(((a3 | 0) < (b | 0) ? a3 : b) << 2) + 34048 >> 2] + (((a3 | 0) > (b | 0) ? a3 : b) << 2) >> 2] | 0);
                             p: {
                               q: {
                                 if ((b | 0) > 0) {
@@ -25506,14 +25506,14 @@
                                           t4 = j << 2;
                                           v3 = H2[t4 + 34048 >> 2];
                                           l2 = H2[(v3 + (b << 2) | 0) + 4 >> 2];
-                                          z3 = l2 >>> 0 > n >>> 0;
-                                          l2 = n - (z3 ? 0 : l2) | 0;
+                                          z3 = l2 >>> 0 > n2 >>> 0;
+                                          l2 = n2 - (z3 ? 0 : l2) | 0;
                                           s: {
                                             if (l2 >>> 0 < K2[t4 + v3 >> 2]) {
                                               while (1) {
                                                 a3 = a3 - 1 | 0;
-                                                n = H2[t4 + H2[(a3 << 2) + 34048 >> 2] >> 2];
-                                                if (l2 >>> 0 < n >>> 0) {
+                                                n2 = H2[t4 + H2[(a3 << 2) + 34048 >> 2] >> 2];
+                                                if (l2 >>> 0 < n2 >>> 0) {
                                                   continue;
                                                 }
                                                 break s;
@@ -25522,8 +25522,8 @@
                                             while (1) {
                                               a3 = c2;
                                               c2 = a3 - 1 | 0;
-                                              n = H2[v3 + (a3 << 2) >> 2];
-                                              if (l2 >>> 0 < n >>> 0) {
+                                              n2 = H2[v3 + (a3 << 2) >> 2];
+                                              if (l2 >>> 0 < n2 >>> 0) {
                                                 continue;
                                               }
                                               break;
@@ -25535,25 +25535,25 @@
                                           p3 = O2(b | 0);
                                           r2 = O2(O2(p3 * p3) + r2);
                                           b = a3;
-                                          n = l2 - n | 0;
+                                          n2 = l2 - n2 | 0;
                                           break r;
                                         }
                                         c2 = j << 2;
                                         l2 = b << 2;
                                         a3 = H2[c2 + H2[l2 + 34052 >> 2] >> 2];
                                         l2 = H2[c2 + H2[l2 + 34048 >> 2] >> 2];
-                                        if (!(a3 >>> 0 <= n >>> 0 | l2 >>> 0 > n >>> 0)) {
+                                        if (!(a3 >>> 0 <= n2 >>> 0 | l2 >>> 0 > n2 >>> 0)) {
                                           H2[f2 >> 2] = 0;
-                                          n = n - l2 | 0;
+                                          n2 = n2 - l2 | 0;
                                           break r;
                                         }
-                                        l2 = a3 >>> 0 > n >>> 0;
-                                        n = n - (l2 ? 0 : a3) | 0;
+                                        l2 = a3 >>> 0 > n2 >>> 0;
+                                        n2 = n2 - (l2 ? 0 : a3) | 0;
                                         a3 = b;
                                         while (1) {
                                           a3 = a3 - 1 | 0;
                                           t4 = H2[c2 + H2[(a3 << 2) + 34048 >> 2] >> 2];
-                                          if (t4 >>> 0 > n >>> 0) {
+                                          if (t4 >>> 0 > n2 >>> 0) {
                                             continue;
                                           }
                                           break;
@@ -25564,7 +25564,7 @@
                                         p3 = O2(b | 0);
                                         r2 = O2(O2(p3 * p3) + r2);
                                         b = a3;
-                                        n = n - t4 | 0;
+                                        n2 = n2 - t4 | 0;
                                       }
                                       a3 = j - 1 | 0;
                                       f2 = f2 + 4 | 0;
@@ -25575,16 +25575,16 @@
                                     }
                                   }
                                   c2 = b << 1 | 1;
-                                  a3 = c2 >>> 0 > n >>> 0;
+                                  a3 = c2 >>> 0 > n2 >>> 0;
                                   j = b;
-                                  c2 = n - (a3 ? 0 : c2) | 0;
+                                  c2 = n2 - (a3 ? 0 : c2) | 0;
                                   b = c2 + 1 | 0;
-                                  n = b >>> 1 | 0;
-                                  j = j - n | 0;
+                                  n2 = b >>> 1 | 0;
+                                  j = j - n2 | 0;
                                   a3 = (a3 ? j : 0 - j | 0) << 16 >> 16;
                                   H2[f2 >> 2] = a3;
                                   b = c2 - (b >>> 0 >= 2 ? (b & -2) - 1 | 0 : 0) | 0;
-                                  b = (n - b ^ 0 - b) << 16 >> 16;
+                                  b = (n2 - b ^ 0 - b) << 16 >> 16;
                                   H2[f2 + 4 >> 2] = b;
                                   p3 = O2(b | 0);
                                   s3 = O2(p3 * p3);
@@ -25637,7 +25637,7 @@
                             if ((k | 0) >= 2) {
                               d = (d >>> 0) / (k >>> 0) | 0;
                               a3 = (d | 0) <= 1 ? 1 : d;
-                              n = a3 & 2147483644;
+                              n2 = a3 & 2147483644;
                               f2 = a3 & 3;
                               j = a3 - 1 >>> 0 < 3;
                               i = 0;
@@ -25652,7 +25652,7 @@
                                     c2 = H2[e4 + (b + (a3 | 3) << 2) >> 2] | (H2[e4 + (b + (a3 | 2) << 2) >> 2] | (H2[e4 + (b + (a3 | 1) << 2) >> 2] | (H2[e4 + (a3 + b << 2) >> 2] | c2)));
                                     a3 = a3 + 4 | 0;
                                     m = m + 4 | 0;
-                                    if ((n | 0) != (m | 0)) {
+                                    if ((n2 | 0) != (m | 0)) {
                                       continue;
                                     }
                                     break;
@@ -25709,7 +25709,7 @@
                               if ((c2 | 0) <= 0) {
                                 break u;
                               }
-                              n = c2 & 1;
+                              n2 = c2 & 1;
                               d = H2[a3 + 40 >> 2];
                               if ((c2 | 0) != 1) {
                                 break w;
@@ -25720,7 +25720,7 @@
                             if ((c2 | 0) <= 0) {
                               break t;
                             }
-                            n = c2 & 3;
+                            n2 = c2 & 3;
                             k = H2[a3 + 40 >> 2];
                             f2 = 0;
                             x: {
@@ -25749,13 +25749,13 @@
                                 break;
                               }
                             }
-                            if (n) {
+                            if (n2) {
                               while (1) {
                                 k = N3(k, 1664525) + 1013904223 | 0;
                                 L2[(g4 << 2) + b >> 2] = k >> 20;
                                 g4 = g4 + 1 | 0;
                                 f2 = f2 + 1 | 0;
-                                if ((n | 0) != (f2 | 0)) {
+                                if ((n2 | 0) != (f2 | 0)) {
                                   continue;
                                 }
                                 break;
@@ -25782,7 +25782,7 @@
                             break;
                           }
                         }
-                        if (n) {
+                        if (n2) {
                           g4 = g4 << 2;
                           d = N3(d, 1664525) + 1013904223 | 0;
                           L2[g4 + b >> 2] = L2[f2 + g4 >> 2] + (d & 32768 ? O2(390625e-8) : O2(-390625e-8));
@@ -25796,7 +25796,7 @@
                   pa2 = u3 + 32 | 0;
                   return d;
                 }
-                function qc(a3, b, c2, d, e4, f2, g4, h, i, j, k, l2, m, n, o2, p3, q2, r2, s3, t4, u3, v3, w4) {
+                function qc(a3, b, c2, d, e4, f2, g4, h, i, j, k, l2, m, n2, o2, p3, q2, r2, s3, t4, u3, v3, w4) {
                   var x3 = 0, y2 = 0, z3 = 0, A3 = 0, C5 = 0, D5 = 0, E5 = 0, J3 = 0, K3 = 0, M5 = 0, N4 = 0, P3 = 0, Q3 = 0, R3 = O2(0), S2 = 0, T3 = O2(0), U3 = 0, V3 = 0, W3 = 0, X3 = O2(0), Y3 = 0, Z3 = 0, _2 = 0, $2 = 0, aa2 = 0, ba3 = 0, ca3 = 0, da3 = 0, ea3 = 0, fa3 = O2(0), ga2 = O2(0), ha3 = 0, ia3 = 0, ja3 = 0, ka3 = 0, la3 = 0, ma3 = 0, na3 = 0, oa3 = 0, qa3 = 0, ra3 = 0, sa3 = 0, ta2 = 0, ua2 = 0, va2 = 0, wa2 = O2(0), xa3 = 0, ya2 = 0, za3 = 0, Aa3 = 0, Da3 = 0, Ea3 = 0, Fa3 = 0, Ga3 = 0, Ha3 = 0, Ia3 = 0, Ja3 = 0, Ka3 = 0, La2 = 0, Na3 = 0, Oa3 = 0, Pa3 = 0, Qa3 = 0, Ra3 = 0, Ta3 = 0, Ua3 = O2(0), Va3 = 0, Wa3 = 0, Xa3 = 0, Ya3 = 0, Za3 = 0, _a2 = 0, $a3 = 0, ab3 = 0, bb3 = 0, cb3 = 0, db3 = 0, eb3 = 0, fb3 = 0, gb3 = 0, hb3 = 0, ib3 = 0, jb2 = 0, kb2 = 0, lb3 = 0, mb3 = 0, nb3 = 0, ob3 = 0, pb3 = O2(0), qb3 = O2(0);
                   x3 = pa2 - 1568 | 0;
                   pa2 = x3;
@@ -25919,7 +25919,7 @@
                             ia3 = f2 ? u3 : 0;
                             u3 = a3 + e4 | 0;
                             va2 = A3 << 2;
-                            k = H2[va2 + n >> 2];
+                            k = H2[va2 + n2 >> 2];
                             H2[x3 + 1528 >> 2] = k;
                             z3 = (A3 | 0) < H2[b + 12 >> 2];
                             E5 = z3 ? K3 : 0;
@@ -26466,7 +26466,7 @@
                   pa2 = x3 + 1568 | 0;
                 }
                 function ld(a3, b, c2, d) {
-                  var e4 = 0, f2 = 0, g4 = 0, h = 0, i = 0, j = 0, k = 0, l2 = 0, m = 0, n = 0, o2 = 0, p3 = 0, q2 = 0, r2 = 0, s3 = 0, t4 = 0, u3 = 0, v3 = 0, w4 = 0, x3 = 0, y2 = 0, z3 = 0, A3 = 0, C5 = 0, D5 = 0, E5 = 0, I5 = 0, K3 = 0, L3 = 0, M5 = 0, O3 = 0, P3 = 0, R3 = 0, S2 = 0, T3 = 0;
+                  var e4 = 0, f2 = 0, g4 = 0, h = 0, i = 0, j = 0, k = 0, l2 = 0, m = 0, n2 = 0, o2 = 0, p3 = 0, q2 = 0, r2 = 0, s3 = 0, t4 = 0, u3 = 0, v3 = 0, w4 = 0, x3 = 0, y2 = 0, z3 = 0, A3 = 0, C5 = 0, D5 = 0, E5 = 0, I5 = 0, K3 = 0, L3 = 0, M5 = 0, O3 = 0, P3 = 0, R3 = 0, S2 = 0, T3 = 0;
                   g4 = H2[a3 + 2316 >> 2];
                   if ((g4 | 0) != H2[a3 + 4252 >> 2]) {
                     H2[a3 + 4252 >> 2] = g4;
@@ -26518,7 +26518,7 @@
                     o2 = h + 52 | 0;
                     k = h + 60 | 0;
                     m = h + 48 | 0;
-                    n = h + 56 | 0;
+                    n2 = h + 56 | 0;
                     j = a3 + 4 | 0;
                     e4 = H2[a3 + 2324 >> 2];
                     c2 = 0;
@@ -26566,7 +26566,7 @@
                       }
                     }
                     fb2(o2, k, d, b);
-                    fb2(m, n, i, b);
+                    fb2(m, n2, i, b);
                     pa2 = p3;
                     i = H2[a3 + 4256 >> 2];
                     b: {
@@ -26616,24 +26616,24 @@
                         e4 = b >> 31;
                         q2 = (b ^ e4) - e4 | 0;
                         e4 = Q2(q2);
-                        n = b << e4 - 1;
-                        r2 = n >> 16;
+                        n2 = b << e4 - 1;
+                        r2 = n2 >> 16;
                         f2 = 536870911 / (r2 | 0) | 0;
                         b = f2 << 16 >> 16;
-                        n = 0 - (N3(b, r2) + (N3(b, n & 65535) >> 16) << 3) | 0;
-                        b = ((N3(n, (f2 >> 15) + 1 >> 1) + (f2 << 16) | 0) + N3(b, n >> 16) | 0) + (N3(b, n & 65528) >> 16) | 0;
+                        n2 = 0 - (N3(b, r2) + (N3(b, n2 & 65535) >> 16) << 3) | 0;
+                        b = ((N3(n2, (f2 >> 15) + 1 >> 1) + (f2 << 16) | 0) + N3(b, n2 >> 16) | 0) + (N3(b, n2 & 65528) >> 16) | 0;
                         e: {
                           if (q2 >>> 0 <= 65535) {
                             e4 = e4 - 16 | 0;
                             f2 = 2147483647 >>> e4 | 0;
-                            n = -2147483648 >> e4;
-                            b = ((b | 0) > (f2 | 0) ? f2 : (b | 0) > (n | 0) ? b : n) << e4;
+                            n2 = -2147483648 >> e4;
+                            b = ((b | 0) > (f2 | 0) ? f2 : (b | 0) > (n2 | 0) ? b : n2) << e4;
                             break e;
                           }
                           b = b >> 16 - e4;
                         }
-                        n = H2[a3 + 2340 >> 2];
-                        e4 = n + d | 0;
+                        n2 = H2[a3 + 2340 >> 2];
+                        e4 = n2 + d | 0;
                         r2 = H2[a3 + 2336 >> 2];
                         if ((e4 | 0) < (r2 | 0)) {
                           b = (b | 0) >= 1073741823 ? 1073741823 : b;
@@ -26759,12 +26759,12 @@
                         c2 = H2[b + 4 >> 2];
                         H2[f2 + 8 >> 2] = H2[b >> 2];
                         H2[f2 + 12 >> 2] = c2;
-                        if ((n | 0) >= 10) {
+                        if ((n2 | 0) >= 10) {
                           q2 = H2[a3 + 2328 >> 2];
                           if ((q2 | 0) > 0) {
-                            O3 = n & 1;
-                            P3 = n >>> 1 | 0;
-                            R3 = (n & -2) - 12 | 0;
+                            O3 = n2 & 1;
+                            P3 = n2 >>> 1 | 0;
+                            R3 = (n2 & -2) - 12 | 0;
                             S2 = (w4 >> 21) + 1 >> 1;
                             c2 = H2[f2 + 28 >> 2];
                             b = H2[f2 + 36 >> 2];
@@ -26782,7 +26782,7 @@
                             I5 = G2[h + 20 >> 1];
                             C5 = G2[h + 18 >> 1];
                             K3 = G2[h + 16 >> 1];
-                            T3 = n >>> 0 < 11;
+                            T3 = n2 >>> 0 < 11;
                             o2 = 0;
                             while (1) {
                               j = (N3(e4 >> 16, K3) + P3 | 0) + (N3(e4 & 65535, K3) >> 16) | 0;
@@ -26803,7 +26803,7 @@
                                 }
                                 c2 = 0;
                                 e4 = 10;
-                                if ((n | 0) != 11) {
+                                if ((n2 | 0) != 11) {
                                   while (1) {
                                     v3 = h + 16 | 0;
                                     D5 = e4 << 1;
@@ -26981,7 +26981,7 @@
                   H2[a3 + 4256 >> 2] = g4;
                 }
                 function oc(a3, b, c2, d, e4, f2, g4, h, i, j, k) {
-                  var l2 = O2(0), m = 0, n = O2(0), o2 = 0, p3 = 0, q2 = 0, r2 = O2(0), s3 = 0, t4 = 0, u3 = O2(0), v3 = O2(0), w4 = 0, x3 = 0, y2 = 0, z3 = O2(0), A3 = 0, C5 = 0, D5 = O2(0), E5 = O2(0);
+                  var l2 = O2(0), m = 0, n2 = O2(0), o2 = 0, p3 = 0, q2 = 0, r2 = O2(0), s3 = 0, t4 = 0, u3 = O2(0), v3 = O2(0), w4 = 0, x3 = 0, y2 = 0, z3 = O2(0), A3 = 0, C5 = 0, D5 = O2(0), E5 = O2(0);
                   y2 = H2[a3 + 36 >> 2];
                   w4 = H2[a3 + 28 >> 2];
                   m = H2[a3 + 16 >> 2];
@@ -27032,13 +27032,13 @@
                                                           if ((e4 | 0) == 1) {
                                                             l2 = O2(10000000036274937e-31);
                                                             i = 0;
-                                                            n = O2(10000000036274937e-31);
+                                                            n2 = O2(10000000036274937e-31);
                                                             break r;
                                                           }
                                                           q2 = e4 & -2;
                                                           l2 = O2(10000000036274937e-31);
                                                           i = 0;
-                                                          n = O2(10000000036274937e-31);
+                                                          n2 = O2(10000000036274937e-31);
                                                           t4 = 0;
                                                           while (1) {
                                                             m = i << 2;
@@ -27050,7 +27050,7 @@
                                                             u3 = L2[c2 + m >> 2];
                                                             z3 = L2[d + m >> 2];
                                                             D5 = O2(u3 - z3);
-                                                            n = O2(E5 + O2(O2(D5 * D5) + n));
+                                                            n2 = O2(E5 + O2(O2(D5 * D5) + n2));
                                                             r2 = O2(r2 + v3);
                                                             v3 = O2(r2 * r2);
                                                             r2 = O2(u3 + z3);
@@ -27070,7 +27070,7 @@
                                                         r2 = L2[i + c2 >> 2];
                                                         v3 = L2[d + i >> 2];
                                                         u3 = O2(r2 - v3);
-                                                        n = O2(O2(u3 * u3) + n);
+                                                        n2 = O2(O2(u3 * u3) + n2);
                                                         r2 = O2(r2 + v3);
                                                         l2 = O2(O2(r2 * r2) + l2);
                                                         break p;
@@ -27096,7 +27096,7 @@
                                                           l2 = L2[(m | 4) + c2 >> 2];
                                                           z3 = O2(l2 * l2);
                                                           l2 = L2[c2 + m >> 2];
-                                                          n = O2(u3 + O2(v3 + O2(z3 + O2(O2(l2 * l2) + n))));
+                                                          n2 = O2(u3 + O2(v3 + O2(z3 + O2(O2(l2 * l2) + n2))));
                                                           i = i + 4 | 0;
                                                           p3 = p3 + 4 | 0;
                                                           if ((x3 | 0) != (p3 | 0)) {
@@ -27108,7 +27108,7 @@
                                                       if (q2) {
                                                         while (1) {
                                                           l2 = L2[(i << 2) + c2 >> 2];
-                                                          n = O2(O2(l2 * l2) + n);
+                                                          n2 = O2(O2(l2 * l2) + n2);
                                                           i = i + 1 | 0;
                                                           t4 = t4 + 1 | 0;
                                                           if ((q2 | 0) != (t4 | 0)) {
@@ -27157,32 +27157,32 @@
                                                           break;
                                                         }
                                                       }
-                                                      l2 = O2(n + O2(10000000036274937e-31));
-                                                      n = O2(r2 + O2(10000000036274937e-31));
+                                                      l2 = O2(n2 + O2(10000000036274937e-31));
+                                                      n2 = O2(r2 + O2(10000000036274937e-31));
                                                       break p;
                                                     }
-                                                    n = O2(10000000036274937e-31);
+                                                    n2 = O2(10000000036274937e-31);
                                                     l2 = O2(10000000036274937e-31);
                                                   }
-                                                  v3 = O2(W2(n));
-                                                  n = O2(v3 * v3);
+                                                  v3 = O2(W2(n2));
+                                                  n2 = O2(v3 * v3);
                                                   u3 = O2(W2(l2));
                                                   l2 = O2(u3 * u3);
                                                   r2 = O2(0);
                                                   u: {
-                                                    if (O2(n + l2) < O2(1000000045813705e-33)) {
+                                                    if (O2(n2 + l2) < O2(1000000045813705e-33)) {
                                                       break u;
                                                     }
-                                                    r2 = O2(O2(1.5707963705062866) - O2(O2(O2(v3 * u3) * O2(O2(l2 * O2(0.43157973885536194)) + n)) / O2(O2(O2(l2 * O2(0.6784840226173401)) + n) * O2(O2(l2 * O2(0.0859554186463356)) + n))));
-                                                    if (l2 < n) {
+                                                    r2 = O2(O2(1.5707963705062866) - O2(O2(O2(v3 * u3) * O2(O2(l2 * O2(0.43157973885536194)) + n2)) / O2(O2(O2(l2 * O2(0.6784840226173401)) + n2) * O2(O2(l2 * O2(0.0859554186463356)) + n2))));
+                                                    if (l2 < n2) {
                                                       break u;
                                                     }
-                                                    r2 = O2(O2(O2(O2(O2(v3 * u3) * O2(O2(n * O2(0.43157973885536194)) + l2)) / O2(O2(O2(n * O2(0.6784840226173401)) + l2) * O2(O2(n * O2(0.0859554186463356)) + l2))) + O2(1.5707963705062866)) + O2(-1.5707963705062866));
+                                                    r2 = O2(O2(O2(O2(O2(v3 * u3) * O2(O2(n2 * O2(0.43157973885536194)) + l2)) / O2(O2(O2(n2 * O2(0.6784840226173401)) + l2) * O2(O2(n2 * O2(0.0859554186463356)) + l2))) + O2(1.5707963705062866)) + O2(-1.5707963705062866));
                                                   }
-                                                  n = O2(T2(O2(O2(r2 * O2(10430.3818359375)) + O2(0.5))));
+                                                  n2 = O2(T2(O2(O2(r2 * O2(10430.3818359375)) + O2(0.5))));
                                                   v: {
-                                                    if (O2(P2(n)) < O2(2147483648)) {
-                                                      i = ~~n;
+                                                    if (O2(P2(n2)) < O2(2147483648)) {
+                                                      i = ~~n2;
                                                       break v;
                                                     }
                                                     i = -2147483648;
@@ -27370,10 +27370,10 @@
                                           if ((e4 | 0) <= 0) {
                                             break j;
                                           }
-                                          n = L2[y2 + (s3 + H2[C5 + 8 >> 2] << 2) >> 2];
+                                          n2 = L2[y2 + (s3 + H2[C5 + 8 >> 2] << 2) >> 2];
                                           l2 = L2[y2 + (s3 << 2) >> 2];
-                                          r2 = O2(O2(W2(O2(O2(n * n) + O2(O2(l2 * l2) + O2(10000000036274937e-31))))) + O2(10000000036274937e-31));
-                                          n = O2(n / r2);
+                                          r2 = O2(O2(W2(O2(O2(n2 * n2) + O2(O2(l2 * l2) + O2(10000000036274937e-31))))) + O2(10000000036274937e-31));
+                                          n2 = O2(n2 / r2);
                                           l2 = O2(l2 / r2);
                                           j = 0;
                                           if ((e4 | 0) != 1) {
@@ -27382,10 +27382,10 @@
                                             while (1) {
                                               i = j << 2;
                                               y2 = i + c2 | 0;
-                                              L2[y2 >> 2] = O2(l2 * L2[y2 >> 2]) + O2(n * L2[d + i >> 2]);
+                                              L2[y2 >> 2] = O2(l2 * L2[y2 >> 2]) + O2(n2 * L2[d + i >> 2]);
                                               i = i | 4;
                                               y2 = i + c2 | 0;
-                                              L2[y2 >> 2] = O2(l2 * L2[y2 >> 2]) + O2(n * L2[d + i >> 2]);
+                                              L2[y2 >> 2] = O2(l2 * L2[y2 >> 2]) + O2(n2 * L2[d + i >> 2]);
                                               j = j + 2 | 0;
                                               o2 = o2 + 2 | 0;
                                               if ((s3 | 0) != (o2 | 0)) {
@@ -27400,7 +27400,7 @@
                                           e4 = c2;
                                           c2 = j << 2;
                                           e4 = e4 + c2 | 0;
-                                          L2[e4 >> 2] = O2(l2 * L2[e4 >> 2]) + O2(n * L2[c2 + d >> 2]);
+                                          L2[e4 >> 2] = O2(l2 * L2[e4 >> 2]) + O2(n2 * L2[c2 + d >> 2]);
                                           break j;
                                         }
                                         Ba2(7095, 3543, 669);
@@ -27445,10 +27445,10 @@
                                     h = 0;
                                     break g;
                                   }
-                                  n = L2[y2 + (s3 + H2[C5 + 8 >> 2] << 2) >> 2];
+                                  n2 = L2[y2 + (s3 + H2[C5 + 8 >> 2] << 2) >> 2];
                                   l2 = L2[y2 + (s3 << 2) >> 2];
-                                  r2 = O2(O2(W2(O2(O2(n * n) + O2(O2(l2 * l2) + O2(10000000036274937e-31))))) + O2(10000000036274937e-31));
-                                  n = O2(n / r2);
+                                  r2 = O2(O2(W2(O2(O2(n2 * n2) + O2(O2(l2 * l2) + O2(10000000036274937e-31))))) + O2(10000000036274937e-31));
+                                  n2 = O2(n2 / r2);
                                   l2 = O2(l2 / r2);
                                   j = e4 & 1;
                                   h = 0;
@@ -27459,10 +27459,10 @@
                                     while (1) {
                                       i = a3 << 2;
                                       s3 = i + c2 | 0;
-                                      L2[s3 >> 2] = O2(l2 * L2[s3 >> 2]) + O2(n * L2[d + i >> 2]);
+                                      L2[s3 >> 2] = O2(l2 * L2[s3 >> 2]) + O2(n2 * L2[d + i >> 2]);
                                       i = i | 4;
                                       s3 = i + c2 | 0;
-                                      L2[s3 >> 2] = O2(l2 * L2[s3 >> 2]) + O2(n * L2[d + i >> 2]);
+                                      L2[s3 >> 2] = O2(l2 * L2[s3 >> 2]) + O2(n2 * L2[d + i >> 2]);
                                       a3 = a3 + 2 | 0;
                                       e4 = e4 + 2 | 0;
                                       if ((o2 | 0) != (e4 | 0)) {
@@ -27476,7 +27476,7 @@
                                   }
                                   a3 = a3 << 2;
                                   c2 = a3 + c2 | 0;
-                                  L2[c2 >> 2] = O2(l2 * L2[c2 >> 2]) + O2(n * L2[a3 + d >> 2]);
+                                  L2[c2 >> 2] = O2(l2 * L2[c2 >> 2]) + O2(n2 * L2[a3 + d >> 2]);
                                   break g;
                                 }
                                 if ((e4 | 0) <= 0) {
@@ -27489,19 +27489,19 @@
                                   while (1) {
                                     h = a3 << 2;
                                     s3 = h + c2 | 0;
-                                    n = O2(L2[s3 >> 2] * O2(0.7071067690849304));
+                                    n2 = O2(L2[s3 >> 2] * O2(0.7071067690849304));
                                     m = s3;
                                     s3 = d + h | 0;
                                     l2 = O2(L2[s3 >> 2] * O2(0.7071067690849304));
-                                    L2[m >> 2] = n + l2;
-                                    L2[s3 >> 2] = l2 - n;
+                                    L2[m >> 2] = n2 + l2;
+                                    L2[s3 >> 2] = l2 - n2;
                                     h = h | 4;
                                     s3 = h + c2 | 0;
-                                    n = O2(L2[s3 >> 2] * O2(0.7071067690849304));
+                                    n2 = O2(L2[s3 >> 2] * O2(0.7071067690849304));
                                     h = d + h | 0;
                                     l2 = O2(L2[h >> 2] * O2(0.7071067690849304));
-                                    L2[s3 >> 2] = n + l2;
-                                    L2[h >> 2] = l2 - n;
+                                    L2[s3 >> 2] = n2 + l2;
+                                    L2[h >> 2] = l2 - n2;
                                     a3 = a3 + 2 | 0;
                                     o2 = o2 + 2 | 0;
                                     if ((j | 0) != (o2 | 0)) {
@@ -27515,11 +27515,11 @@
                                 }
                                 a3 = a3 << 2;
                                 c2 = a3 + c2 | 0;
-                                n = O2(L2[c2 >> 2] * O2(0.7071067690849304));
+                                n2 = O2(L2[c2 >> 2] * O2(0.7071067690849304));
                                 a3 = a3 + d | 0;
                                 l2 = O2(L2[a3 >> 2] * O2(0.7071067690849304));
-                                L2[c2 >> 2] = n + l2;
-                                L2[a3 >> 2] = l2 - n;
+                                L2[c2 >> 2] = n2 + l2;
+                                L2[a3 >> 2] = l2 - n2;
                                 break e;
                               }
                               j = Ma2(w4) - t4 | 0;
@@ -28286,7 +28286,7 @@
                   return c2 | 0;
                 }
                 function rd(a3, b) {
-                  var c2 = 0, d = 0, e4 = 0, f2 = 0, g4 = 0, h = 0, i = 0, j = 0, k = 0, l2 = 0, m = 0, n = 0, o2 = 0, p3 = 0, q2 = 0, r2 = 0, s3 = 0, t4 = 0, u3 = 0, v3 = 0, w4 = 0;
+                  var c2 = 0, d = 0, e4 = 0, f2 = 0, g4 = 0, h = 0, i = 0, j = 0, k = 0, l2 = 0, m = 0, n2 = 0, o2 = 0, p3 = 0, q2 = 0, r2 = 0, s3 = 0, t4 = 0, u3 = 0, v3 = 0, w4 = 0;
                   l2 = a3 + 5098 | 0;
                   f2 = pa2 - 48 | 0;
                   k = f2;
@@ -28390,11 +28390,11 @@
                               c2 = 0;
                               e4 = 0;
                               while (1) {
-                                n = c2;
+                                n2 = c2;
                                 c2 = G2[(a3 + m << 1) + f2 >> 1] >> 3;
-                                n = n + N3(c2, c2) | 0;
+                                n2 = n2 + N3(c2, c2) | 0;
                                 c2 = G2[(m + (a3 | 1) << 1) + f2 >> 1] >> 3;
-                                c2 = n + N3(c2, c2) | 0;
+                                c2 = n2 + N3(c2, c2) | 0;
                                 a3 = a3 + 2 | 0;
                                 e4 = e4 + 2 | 0;
                                 if ((q2 | 0) != (e4 | 0)) {
@@ -28424,11 +28424,11 @@
                               c2 = 0;
                               e4 = 0;
                               while (1) {
-                                n = c2;
+                                n2 = c2;
                                 c2 = G2[(m + (a3 + h | 0) << 1) + f2 >> 1] >> 3;
-                                n = n + N3(c2, c2) | 0;
+                                n2 = n2 + N3(c2, c2) | 0;
                                 c2 = G2[(m + (h + (a3 | 1) | 0) << 1) + f2 >> 1] >> 3;
-                                c2 = n + N3(c2, c2) | 0;
+                                c2 = n2 + N3(c2, c2) | 0;
                                 a3 = a3 + 2 | 0;
                                 e4 = e4 + 2 | 0;
                                 if ((p3 | 0) != (e4 | 0)) {
@@ -28458,11 +28458,11 @@
                               c2 = 0;
                               e4 = 0;
                               while (1) {
-                                n = c2;
+                                n2 = c2;
                                 c2 = G2[(p3 + (a3 + m | 0) << 1) + f2 >> 1] >> 3;
-                                n = n + N3(c2, c2) | 0;
+                                n2 = n2 + N3(c2, c2) | 0;
                                 c2 = G2[(p3 + (m + (a3 | 1) | 0) << 1) + f2 >> 1] >> 3;
-                                c2 = n + N3(c2, c2) | 0;
+                                c2 = n2 + N3(c2, c2) | 0;
                                 a3 = a3 + 2 | 0;
                                 e4 = e4 + 2 | 0;
                                 if ((u3 | 0) != (e4 | 0)) {
@@ -28492,11 +28492,11 @@
                               c2 = 0;
                               e4 = 0;
                               while (1) {
-                                n = a3;
+                                n2 = a3;
                                 a3 = G2[(o2 + (c2 + h | 0) << 1) + f2 >> 1] >> 3;
-                                n = n + N3(a3, a3) | 0;
+                                n2 = n2 + N3(a3, a3) | 0;
                                 a3 = G2[(o2 + (h + (c2 | 1) | 0) << 1) + f2 >> 1] >> 3;
-                                a3 = n + N3(a3, a3) | 0;
+                                a3 = n2 + N3(a3, a3) | 0;
                                 c2 = c2 + 2 | 0;
                                 e4 = e4 + 2 | 0;
                                 if ((i | 0) != (e4 | 0)) {
@@ -28798,8 +28798,8 @@
                   F2[(H2[g4 + 5748 >> 2] + g4 | 0) + 4720 | 0] = b;
                 }
                 function Tc(a3, b, c2, d) {
-                  var e4 = 0, f2 = 0, g4 = 0, h = 0, i = 0, j = 0, k = 0, l2 = 0, m = 0, n = 0, o2 = 0, p3 = 0, q2 = 0, r2 = 0, s3 = 0, t4 = 0, u3 = 0, v3 = 0, w4 = 0, x3 = 0, y2 = 0, z3 = 0, A3 = 0, B4 = 0, C5 = 0, D5 = 0, E5 = 0, J3 = 0, K3 = 0, L3 = 0;
-                  n = 11736;
+                  var e4 = 0, f2 = 0, g4 = 0, h = 0, i = 0, j = 0, k = 0, l2 = 0, m = 0, n2 = 0, o2 = 0, p3 = 0, q2 = 0, r2 = 0, s3 = 0, t4 = 0, u3 = 0, v3 = 0, w4 = 0, x3 = 0, y2 = 0, z3 = 0, A3 = 0, B4 = 0, C5 = 0, D5 = 0, E5 = 0, J3 = 0, K3 = 0, L3 = 0;
+                  n2 = 11736;
                   i = pa2 - 80 | 0;
                   pa2 = i;
                   H2[i + 76 >> 2] = 11736;
@@ -28810,7 +28810,7 @@
                       c: {
                         d: while (1) {
                           e: {
-                            f2 = n;
+                            f2 = n2;
                             f: {
                               g: {
                                 if ((p3 ^ 2147483647) < (e4 | 0)) {
@@ -28827,7 +28827,7 @@
                                           g4 = g4 & 255;
                                           k: {
                                             if (!g4) {
-                                              n = e4;
+                                              n2 = e4;
                                               break k;
                                             }
                                             if ((g4 | 0) != 37) {
@@ -28836,13 +28836,13 @@
                                             g4 = e4;
                                             while (1) {
                                               if (I4[g4 + 1 | 0] != 37) {
-                                                n = g4;
+                                                n2 = g4;
                                                 break k;
                                               }
                                               e4 = e4 + 1 | 0;
                                               h = I4[g4 + 2 | 0];
-                                              n = g4 + 2 | 0;
-                                              g4 = n;
+                                              n2 = g4 + 2 | 0;
+                                              g4 = n2;
                                               if ((h | 0) == 37) {
                                                 continue;
                                               }
@@ -28860,41 +28860,41 @@
                                           if (e4) {
                                             continue d;
                                           }
-                                          H2[i + 76 >> 2] = n;
-                                          e4 = n + 1 | 0;
+                                          H2[i + 76 >> 2] = n2;
+                                          e4 = n2 + 1 | 0;
                                           q2 = -1;
-                                          g4 = F2[n + 1 | 0];
-                                          if (!(I4[n + 2 | 0] != 36 | g4 - 48 >>> 0 >= 10)) {
+                                          g4 = F2[n2 + 1 | 0];
+                                          if (!(I4[n2 + 2 | 0] != 36 | g4 - 48 >>> 0 >= 10)) {
                                             q2 = g4 - 48 | 0;
                                             x3 = 1;
-                                            e4 = n + 3 | 0;
+                                            e4 = n2 + 3 | 0;
                                           }
                                           H2[i + 76 >> 2] = e4;
                                           l2 = 0;
                                           j = F2[e4 | 0];
-                                          n = j - 32 | 0;
+                                          n2 = j - 32 | 0;
                                           l: {
-                                            if (n >>> 0 > 31) {
+                                            if (n2 >>> 0 > 31) {
                                               g4 = e4;
                                               break l;
                                             }
                                             g4 = e4;
-                                            n = 1 << n;
-                                            if (!(n & 75913)) {
+                                            n2 = 1 << n2;
+                                            if (!(n2 & 75913)) {
                                               break l;
                                             }
                                             while (1) {
                                               g4 = e4 + 1 | 0;
                                               H2[i + 76 >> 2] = g4;
-                                              l2 = l2 | n;
+                                              l2 = l2 | n2;
                                               j = F2[e4 + 1 | 0];
-                                              n = j - 32 | 0;
-                                              if (n >>> 0 >= 32) {
+                                              n2 = j - 32 | 0;
+                                              if (n2 >>> 0 >= 32) {
                                                 break l;
                                               }
                                               e4 = g4;
-                                              n = 1 << n;
-                                              if (n & 75913) {
+                                              n2 = 1 << n2;
+                                              if (n2 & 75913) {
                                                 continue;
                                               }
                                               break;
@@ -28944,7 +28944,7 @@
                                           m = -1;
                                           o: {
                                             if (I4[j | 0] != 46) {
-                                              n = j;
+                                              n2 = j;
                                               C5 = 0;
                                               break o;
                                             }
@@ -28953,14 +28953,14 @@
                                               p: {
                                                 if (!(I4[j + 3 | 0] != 36 | g4 - 48 >>> 0 >= 10)) {
                                                   H2[((g4 << 2) + d | 0) - 192 >> 2] = 10;
-                                                  n = j + 4 | 0;
+                                                  n2 = j + 4 | 0;
                                                   m = H2[((F2[j + 2 | 0] << 3) + c2 | 0) - 384 >> 2];
                                                   break p;
                                                 }
                                                 if (x3) {
                                                   break i;
                                                 }
-                                                n = j + 2 | 0;
+                                                n2 = j + 2 | 0;
                                                 m = 0;
                                                 if (!a3) {
                                                   break p;
@@ -28969,31 +28969,31 @@
                                                 H2[b >> 2] = g4 + 4;
                                                 m = H2[g4 >> 2];
                                               }
-                                              H2[i + 76 >> 2] = n;
+                                              H2[i + 76 >> 2] = n2;
                                               C5 = (m ^ -1) >>> 31 | 0;
                                               break o;
                                             }
                                             H2[i + 76 >> 2] = j + 1;
                                             m = Sc(i + 76 | 0);
-                                            n = H2[i + 76 >> 2];
+                                            n2 = H2[i + 76 >> 2];
                                             C5 = 1;
                                           }
                                           while (1) {
                                             k = e4;
                                             g4 = 28;
-                                            j = n;
+                                            j = n2;
                                             e4 = F2[j | 0];
                                             if (e4 - 123 >>> 0 < 4294967238) {
                                               break e;
                                             }
-                                            n = j + 1 | 0;
+                                            n2 = j + 1 | 0;
                                             e4 = I4[(e4 + N3(k, 58) | 0) + 58479 | 0];
                                             if (e4 - 1 >>> 0 < 8) {
                                               continue;
                                             }
                                             break;
                                           }
-                                          H2[i + 76 >> 2] = n;
+                                          H2[i + 76 >> 2] = n2;
                                           q: {
                                             r: {
                                               if ((e4 | 0) != 27) {
@@ -29587,7 +29587,7 @@
                   return p3;
                 }
                 function Vc(a3) {
-                  var b = 0, c2 = 0, d = 0, e4 = 0, f2 = 0, g4 = 0, h = 0, i = 0, j = 0, k = 0, l2 = 0, m = 0, n = 0, o2 = 0, p3 = 0, q2 = 0, r2 = 0, s3 = 0, t4 = 0, u3 = 0, w4 = 0, y2 = 0, B4 = 0, C5 = 0, D5 = 0, E5 = 0;
+                  var b = 0, c2 = 0, d = 0, e4 = 0, f2 = 0, g4 = 0, h = 0, i = 0, j = 0, k = 0, l2 = 0, m = 0, n2 = 0, o2 = 0, p3 = 0, q2 = 0, r2 = 0, s3 = 0, t4 = 0, u3 = 0, w4 = 0, y2 = 0, B4 = 0, C5 = 0, D5 = 0, E5 = 0;
                   f2 = pa2 - 16 | 0;
                   pa2 = f2;
                   A2(+a3);
@@ -29816,10 +29816,10 @@
                       q2 = g4 - 24 | 0;
                       c2 = 0;
                       d = (p3 | 0) > 0 ? p3 : 0;
-                      n = (r2 | 0) <= 0;
+                      n2 = (r2 | 0) <= 0;
                       while (1) {
                         g: {
-                          if (n) {
+                          if (n2) {
                             a3 = 0;
                             break g;
                           }
@@ -29856,7 +29856,7 @@
                           k = (c2 | 0) <= 0;
                           if (!k) {
                             while (1) {
-                              n = (h + 480 | 0) + (b << 2) | 0;
+                              n2 = (h + 480 | 0) + (b << 2) | 0;
                               e4 = a3 * 5960464477539063e-23;
                               i: {
                                 if (P2(e4) < 2147483648) {
@@ -29874,7 +29874,7 @@
                                 }
                                 i = -2147483648;
                               }
-                              H2[n >> 2] = i;
+                              H2[n2 >> 2] = i;
                               d = d - 1 | 0;
                               a3 = M4[(d << 3) + h >> 3] + e4;
                               b = b + 1 | 0;
@@ -29888,12 +29888,12 @@
                           a3 = a3 + T2(a3 * 0.125) * -8;
                           k: {
                             if (P2(a3) < 2147483648) {
-                              n = ~~a3;
+                              n2 = ~~a3;
                               break k;
                             }
-                            n = -2147483648;
+                            n2 = -2147483648;
                           }
-                          a3 = a3 - +(n | 0);
+                          a3 = a3 - +(n2 | 0);
                           l: {
                             m: {
                               n: {
@@ -29905,7 +29905,7 @@
                                     s3 = b;
                                     b = i - (d << y2) | 0;
                                     H2[s3 + 476 >> 2] = b;
-                                    n = d + n | 0;
+                                    n2 = d + n2 | 0;
                                     i = b >> D5;
                                     break o;
                                   }
@@ -29974,7 +29974,7 @@
                               k = (c2 << 2) + h | 0;
                               H2[k + 476 >> 2] = H2[k + 476 >> 2] & b;
                             }
-                            n = n + 1 | 0;
+                            n2 = n2 + 1 | 0;
                             if ((i | 0) != 2) {
                               break l;
                             }
@@ -30152,7 +30152,7 @@
                       }
                       M4[m + 8 >> 3] = i ? -a3 : a3;
                       pa2 = h + 560 | 0;
-                      c2 = n & 7;
+                      c2 = n2 & 7;
                       a3 = M4[m >> 3];
                       if ((o2 | 0) < 0) {
                         M4[f2 >> 3] = -a3;
@@ -30184,7 +30184,7 @@
                   pa2 = f2 + 16 | 0;
                   return e4;
                 }
-                function tc(a3, b, c2, d, e4, f2, g4, h, i, j, k, l2, m, n, o2, p3, q2, r2, s3) {
+                function tc(a3, b, c2, d, e4, f2, g4, h, i, j, k, l2, m, n2, o2, p3, q2, r2, s3) {
                   var t4 = 0, u3 = 0, v3 = 0, w4 = 0, x3 = 0, y2 = 0, z3 = 0, A3 = 0, C5 = 0, D5 = 0, E5 = 0, F3 = 0, K3 = 0, L3 = 0, M5 = 0, O3 = 0, P3 = 0, Q3 = 0, R3 = 0, S2 = 0, T3 = 0, U3 = 0, V3 = 0, W3 = 0, X3 = 0, Y3 = 0;
                   t4 = pa2;
                   V3 = t4;
@@ -30193,7 +30193,7 @@
                   D5 = i - U3 | 0;
                   E5 = H2[a3 + 8 >> 2];
                   a: {
-                    if ((n | 0) != 2) {
+                    if ((n2 | 0) != 2) {
                       break a;
                     }
                     y2 = I4[(c2 - b | 0) + 34016 | 0];
@@ -30215,13 +30215,13 @@
                   K3 = t4 - i | 0;
                   t4 = K3;
                   pa2 = t4;
-                  C5 = n << 3;
+                  C5 = n2 << 3;
                   L3 = t4 - i | 0;
                   pa2 = L3;
                   P3 = (b | 0) >= (c2 | 0);
                   if (!P3) {
                     u3 = o2 + 3 | 0;
-                    z3 = N3((f2 - o2 | 0) - 5 | 0, n);
+                    z3 = N3((f2 - o2 | 0) - 5 | 0, n2);
                     x3 = H2[a3 + 32 >> 2];
                     f2 = J2[x3 + (b << 1) >> 1];
                     i = b;
@@ -30258,7 +30258,7 @@
                         while (1) {
                           i = i - 1 | 0;
                           x3 = G2[R3 + (i << 1) >> 1];
-                          u3 = N3(N3((u3 << 16 >> 16) - x3 | 0, n), I4[S2 + (i + T3 | 0) | 0]) << o2;
+                          u3 = N3(N3((u3 << 16 >> 16) - x3 | 0, n2), I4[S2 + (i + T3 | 0) | 0]) << o2;
                           f2 = u3 >> 2;
                           if ((u3 | 0) >= 4) {
                             f2 = f2 + H2[L3 + (i << 2) >> 2] | 0;
@@ -30302,7 +30302,7 @@
                         while (1) {
                           f2 = i + 1 | 0;
                           v3 = G2[S2 + (f2 << 1) >> 1];
-                          t4 = N3(v3 - (u3 << 16 >> 16) | 0, n);
+                          t4 = N3(v3 - (u3 << 16 >> 16) | 0, n2);
                           A3 = N3(t4, I4[x3 + (i + R3 | 0) | 0]) << o2;
                           if ((w4 | 0) >= (Q3 | 0)) {
                             u3 = H2[(i << 2) + e4 >> 2];
@@ -30346,7 +30346,7 @@
                     }
                     z3 = b;
                   }
-                  E5 = (n | 0) > 1;
+                  E5 = (n2 | 0) > 1;
                   u3 = 64;
                   d = 0;
                   w4 = 0;
@@ -30612,7 +30612,7 @@
                           }
                           z3 = o2 << 3;
                           w4 = r2 ? d : b;
-                          F3 = (n | 0) > 1 ? 4 : 3;
+                          F3 = (n2 | 0) > 1 ? 4 : 3;
                           v3 = 0;
                           s: {
                             while (1) {
@@ -30634,12 +30634,12 @@
                                   u3 = H2[e4 + q2 >> 2];
                                   y2 = (s3 | 0) < (u3 | 0) ? s3 : u3;
                                   H2[r2 >> 2] = y2;
-                                  x3 = N3(n, t4);
+                                  x3 = N3(n2, t4);
                                   D5 = s3 - u3 | 0;
                                   K3 = (D5 | 0) > 0;
                                   s3 = 0;
                                   u: {
-                                    if ((n | 0) != 2) {
+                                    if ((n2 | 0) != 2) {
                                       break u;
                                     }
                                     s3 = 0;
@@ -30673,7 +30673,7 @@
                                   s3 = (((y2 | 0) > 0 ? y2 : 0) >>> 0) / (s3 >>> 0) >>> 3 | 0;
                                   H2[t4 >> 2] = s3;
                                   y2 = H2[r2 >> 2];
-                                  s3 = (N3(n, s3) | 0) > y2 >> 3 ? y2 >> E5 >> 3 : s3;
+                                  s3 = (N3(n2, s3) | 0) > y2 >> 3 ? y2 >> E5 >> 3 : s3;
                                   s3 = (s3 | 0) >= 8 ? 8 : s3;
                                   H2[t4 >> 2] = s3;
                                   H2[m + q2 >> 2] = (H2[r2 >> 2] + b | 0) <= (N3(s3, u3) | 0);
@@ -30753,7 +30753,7 @@
                   b = b | 0;
                   c2 = c2 | 0;
                   d = d | 0;
-                  var e4 = O2(0), f2 = 0, g4 = 0, h = 0, i = 0, j = 0, k = 0, l2 = 0, m = 0, n = O2(0), o2 = O2(0), p3 = O2(0), q2 = 0, r2 = 0, s3 = 0, t4 = 0, u3 = 0, v3 = 0, w4 = 0, x3 = 0, y2 = 0, z3 = O2(0);
+                  var e4 = O2(0), f2 = 0, g4 = 0, h = 0, i = 0, j = 0, k = 0, l2 = 0, m = 0, n2 = O2(0), o2 = O2(0), p3 = O2(0), q2 = 0, r2 = 0, s3 = 0, t4 = 0, u3 = 0, v3 = 0, w4 = 0, x3 = 0, y2 = 0, z3 = O2(0);
                   k = H2[a3 + 8 >> 2];
                   v3 = H2[a3 + 12 >> 2];
                   f2 = 5760;
@@ -31015,12 +31015,12 @@
                                                 b = r2 << 2;
                                                 l2 = b + m | 0;
                                                 y2 = b + x3 | 0;
-                                                n = L2[y2 >> 2];
+                                                n2 = L2[y2 >> 2];
                                                 f2 = 0;
                                                 while (1) {
                                                   b = l2 + (N3(f2, j) << 2) | 0;
                                                   e4 = L2[b >> 2];
-                                                  p3 = O2(n * e4);
+                                                  p3 = O2(n2 * e4);
                                                   if (!(p3 >= O2(0))) {
                                                     L2[b >> 2] = O2(p3 * e4) + e4;
                                                     f2 = f2 + 1 | 0;
@@ -31051,16 +31051,16 @@
                                                         }
                                                         break;
                                                       }
-                                                      n = O2(0);
+                                                      n2 = O2(0);
                                                       break y;
                                                     }
                                                     if ((c2 | 0) == (h | 0)) {
-                                                      n = O2(0);
+                                                      n2 = O2(0);
                                                       break y;
                                                     }
                                                     i = h >> 31 & h;
-                                                    n = L2[l2 + (N3(h, j) << 2) >> 2];
-                                                    e4 = O2(P2(n));
+                                                    n2 = L2[l2 + (N3(h, j) << 2) >> 2];
+                                                    e4 = O2(P2(n2));
                                                     b = h;
                                                     while (1) {
                                                       A: {
@@ -31070,7 +31070,7 @@
                                                           break A;
                                                         }
                                                         b = f2 - 1 | 0;
-                                                        if (O2(n * L2[l2 + (N3(j, b) << 2) >> 2]) >= O2(0)) {
+                                                        if (O2(n2 * L2[l2 + (N3(j, b) << 2) >> 2]) >= O2(0)) {
                                                           continue;
                                                         }
                                                       }
@@ -31083,7 +31083,7 @@
                                                       }
                                                       while (1) {
                                                         p3 = L2[l2 + (N3(b, j) << 2) >> 2];
-                                                        if (!(O2(n * p3) >= O2(0))) {
+                                                        if (!(O2(n2 * p3) >= O2(0))) {
                                                           break B;
                                                         }
                                                         p3 = O2(P2(p3));
@@ -31099,10 +31099,10 @@
                                                       b = c2;
                                                     }
                                                     u3 = 0;
-                                                    u3 = f2 ? u3 : O2(n * L2[l2 >> 2]) >= O2(0);
+                                                    u3 = f2 ? u3 : O2(n2 * L2[l2 >> 2]) >= O2(0);
                                                     e4 = O2(O2(e4 + O2(-1)) / O2(e4 * e4));
                                                     e4 = O2(O2(e4 * O2(2399999914359796e-22)) + e4);
-                                                    n = n > O2(0) ? O2(-e4) : e4;
+                                                    n2 = n2 > O2(0) ? O2(-e4) : e4;
                                                     C: {
                                                       if ((b | 0) <= (f2 | 0)) {
                                                         break C;
@@ -31111,7 +31111,7 @@
                                                       if (b - f2 & 1) {
                                                         f2 = l2 + (N3(f2, j) << 2) | 0;
                                                         e4 = L2[f2 >> 2];
-                                                        L2[f2 >> 2] = O2(O2(n * e4) * e4) + e4;
+                                                        L2[f2 >> 2] = O2(O2(n2 * e4) * e4) + e4;
                                                         f2 = i;
                                                       }
                                                       if ((b | 0) == (i | 0)) {
@@ -31120,10 +31120,10 @@
                                                       while (1) {
                                                         i = l2 + (N3(f2, j) << 2) | 0;
                                                         e4 = L2[i >> 2];
-                                                        L2[i >> 2] = O2(O2(n * e4) * e4) + e4;
+                                                        L2[i >> 2] = O2(O2(n2 * e4) * e4) + e4;
                                                         i = l2 + (N3(f2 + 1 | 0, j) << 2) | 0;
                                                         e4 = L2[i >> 2];
-                                                        L2[i >> 2] = O2(O2(n * e4) * e4) + e4;
+                                                        L2[i >> 2] = O2(O2(n2 * e4) * e4) + e4;
                                                         f2 = f2 + 2 | 0;
                                                         if ((f2 | 0) != (b | 0)) {
                                                           continue;
@@ -31173,7 +31173,7 @@
                                                   }
                                                   break;
                                                 }
-                                                L2[y2 >> 2] = n;
+                                                L2[y2 >> 2] = n2;
                                                 r2 = r2 + 1 | 0;
                                                 if ((r2 | 0) != (j | 0)) {
                                                   continue;
@@ -31317,7 +31317,7 @@
                   return h | 0;
                 }
                 function Gb2(a3, b, c2, d, e4) {
-                  var f2 = 0, g4 = 0, h = 0, i = 0, j = 0, k = 0, l2 = 0, m = 0, n = 0, o2 = 0, p3 = 0, q2 = 0, r2 = 0, s3 = 0, t4 = 0, u3 = 0, v3 = 0, w4 = 0, x3 = 0, y2 = 0, z3 = 0, A3 = 0, C5 = 0, D5 = 0, E5 = 0, G3 = 0, J3 = 0, K3 = 0, L3 = 0, M5 = 0;
+                  var f2 = 0, g4 = 0, h = 0, i = 0, j = 0, k = 0, l2 = 0, m = 0, n2 = 0, o2 = 0, p3 = 0, q2 = 0, r2 = 0, s3 = 0, t4 = 0, u3 = 0, v3 = 0, w4 = 0, x3 = 0, y2 = 0, z3 = 0, A3 = 0, C5 = 0, D5 = 0, E5 = 0, G3 = 0, J3 = 0, K3 = 0, L3 = 0, M5 = 0;
                   f2 = pa2;
                   J3 = f2;
                   a: {
@@ -31452,21 +31452,21 @@
                           }
                           k = H2[g4 + 44 >> 2] + H2[g4 + 40 >> 2] | 0;
                           if ((k | 0) > (o2 | 0)) {
-                            n = j;
+                            n2 = j;
                             p3 = 1;
                             break d;
                           }
                           m = H2[g4 + 52 >> 2] + H2[g4 + 48 >> 2] | 0;
                           if ((m | 0) > (o2 | 0)) {
-                            n = j;
+                            n2 = j;
                             y2 = k;
                             p3 = 1;
                             break d;
                           }
-                          n = H2[g4 + 60 >> 2] + H2[g4 + 56 >> 2] | 0;
-                          p3 = (n | 0) > (o2 | 0);
-                          G3 = p3 ? G3 : n;
-                          n = j;
+                          n2 = H2[g4 + 60 >> 2] + H2[g4 + 56 >> 2] | 0;
+                          p3 = (n2 | 0) > (o2 | 0);
+                          G3 = p3 ? G3 : n2;
+                          n2 = j;
                           y2 = k;
                           z3 = m;
                         }
@@ -31484,7 +31484,7 @@
                                 f2 = i;
                                 break i;
                               }
-                              j = n + y2 | 0;
+                              j = n2 + y2 | 0;
                               if ((q2 | 0) >= (j | 0)) {
                                 break h;
                               }
@@ -31565,21 +31565,21 @@
                       i = 0;
                       if ((r2 | 0) != 1) {
                         while (1) {
-                          n = f2;
+                          n2 = f2;
                           f2 = g4 << 2;
                           if (H2[f2 + u3 >> 2] <= 0) {
                             f2 = m + H2[f2 + s3 >> 2] | 0;
                           } else {
                             f2 = j;
                           }
-                          n = n + I4[f2 | 0] | 0;
+                          n2 = n2 + I4[f2 | 0] | 0;
                           f2 = j;
                           q2 = (g4 | 1) << 2;
                           if (H2[q2 + u3 >> 2] <= 0) {
                             f2 = m + H2[q2 + s3 >> 2] | 0;
                           }
                           g4 = g4 + 2 | 0;
-                          f2 = n + I4[f2 | 0] | 0;
+                          f2 = n2 + I4[f2 | 0] | 0;
                           i = i + 2 | 0;
                           if ((y2 | 0) != (i | 0)) {
                             continue;
@@ -31629,9 +31629,9 @@
                         g4 = 0;
                         while (1) {
                           Ea2(a3, 17, 17410, 8);
-                          n = (g4 | 0) != (h | 0);
+                          n2 = (g4 | 0) != (h | 0);
                           g4 = g4 + 1 | 0;
-                          if (n) {
+                          if (n2) {
                             continue;
                           }
                           break;
@@ -31662,8 +31662,8 @@
                         k = H2[f2 + 20 >> 2] + H2[f2 + 16 >> 2] | 0;
                         v3 = q2 + k | 0;
                         w4 = H2[f2 + 12 >> 2] + H2[f2 + 8 >> 2] | 0;
-                        n = H2[f2 + 4 >> 2] + H2[f2 >> 2] | 0;
-                        l2 = w4 + n | 0;
+                        n2 = H2[f2 + 4 >> 2] + H2[f2 >> 2] | 0;
+                        l2 = w4 + n2 | 0;
                         m = v3 + l2 | 0;
                         A3 = p3 + m | 0;
                         if ((A3 | 0) > 0) {
@@ -31673,10 +31673,10 @@
                           Ea2(a3, l2, I4[m + 18320 | 0] + 18e3 | 0, 8);
                         }
                         if ((l2 | 0) > 0) {
-                          Ea2(a3, n, I4[l2 + 18320 | 0] + 17840 | 0, 8);
+                          Ea2(a3, n2, I4[l2 + 18320 | 0] + 17840 | 0, 8);
                         }
-                        if ((n | 0) > 0) {
-                          Ea2(a3, H2[f2 >> 2], I4[n + 18320 | 0] + 17680 | 0, 8);
+                        if ((n2 | 0) > 0) {
+                          Ea2(a3, H2[f2 >> 2], I4[n2 + 18320 | 0] + 17680 | 0, 8);
                         }
                         if ((w4 | 0) > 0) {
                           Ea2(a3, H2[f2 + 8 >> 2], I4[w4 + 18320 | 0] + 17680 | 0, 8);
@@ -31736,9 +31736,9 @@
                             while (1) {
                               h = g4 - 1 | 0;
                               Ea2(a3, j >>> h & 1, 16432, 8);
-                              n = (g4 | 0) > 2;
+                              n2 = (g4 | 0) > 2;
                               g4 = h;
-                              if (n) {
+                              if (n2) {
                                 continue;
                               }
                               break;
@@ -31796,7 +31796,7 @@
                   pa2 = J3;
                 }
                 function Pc(a3, b, c2, d) {
-                  var e4 = 0, f2 = 0, g4 = 0, h = 0, i = 0, j = 0, k = 0, l2 = 0, m = 0, n = 0, o2 = 0, p3 = 0, q2 = 0, r2 = 0, s3 = 0, t4 = 0, u3 = 0, v3 = 0;
+                  var e4 = 0, f2 = 0, g4 = 0, h = 0, i = 0, j = 0, k = 0, l2 = 0, m = 0, n2 = 0, o2 = 0, p3 = 0, q2 = 0, r2 = 0, s3 = 0, t4 = 0, u3 = 0, v3 = 0;
                   k = pa2;
                   u3 = k;
                   e4 = H2[a3 + 268 >> 2];
@@ -31804,14 +31804,14 @@
                   k = k - ((e4 + i << 2) + 15 & -16) | 0;
                   pa2 = k;
                   s3 = a3 + 24 | 0;
-                  n = Ca2(k, s3, i << 2);
+                  n2 = Ca2(k, s3, i << 2);
                   k = H2[a3 + 296 >> 2];
                   t4 = k + 4 | 0;
                   q2 = H2[a3 + 272 >> 2];
                   g4 = k;
                   while (1) {
                     o2 = (d | 0) < (e4 | 0) ? d : e4;
-                    Uc(a3, (i << 2) + n | 0, c2, g4, o2);
+                    Uc(a3, (i << 2) + n2 | 0, c2, g4, o2);
                     p3 = o2 << 16;
                     a: {
                       b: {
@@ -31840,7 +31840,7 @@
                               l2 = N3(g4 & 65535, v3) >> 16;
                               e4 = N3(l2, 18) + t4 | 0;
                               j = G2[e4 >> 1];
-                              i = (g4 >> 16 << 2) + n | 0;
+                              i = (g4 >> 16 << 2) + n2 | 0;
                               f2 = H2[i >> 2];
                               m = (N3(j, f2 & 65535) >> 16) + N3(j, f2 >> 16) | 0;
                               j = G2[e4 + 2 >> 1];
@@ -31916,7 +31916,7 @@
                           }
                           while (1) {
                             h = G2[k + 4 >> 1];
-                            g4 = (i >> 16 << 2) + n | 0;
+                            g4 = (i >> 16 << 2) + n2 | 0;
                             e4 = H2[g4 + 92 >> 2] + H2[g4 >> 2] | 0;
                             f2 = (N3(h, e4 & 65535) >> 16) + N3(h, e4 >> 16) | 0;
                             h = G2[k + 6 >> 1];
@@ -31977,7 +31977,7 @@
                       }
                       while (1) {
                         h = G2[k + 4 >> 1];
-                        g4 = (i >> 16 << 2) + n | 0;
+                        g4 = (i >> 16 << 2) + n2 | 0;
                         e4 = H2[g4 + 140 >> 2] + H2[g4 >> 2] | 0;
                         f2 = (N3(h, e4 & 65535) >> 16) + N3(h, e4 >> 16) | 0;
                         h = G2[k + 6 >> 1];
@@ -32048,7 +32048,7 @@
                     }
                     d = d - o2 | 0;
                     if ((d | 0) >= 2) {
-                      Ca2(n, (o2 << 2) + n | 0, r2 << 2);
+                      Ca2(n2, (o2 << 2) + n2 | 0, r2 << 2);
                       c2 = (o2 << 1) + c2 | 0;
                       g4 = H2[a3 + 296 >> 2];
                       i = H2[a3 + 276 >> 2];
@@ -32057,11 +32057,11 @@
                     }
                     break;
                   }
-                  Ca2(s3, (o2 << 2) + n | 0, r2 << 2);
+                  Ca2(s3, (o2 << 2) + n2 | 0, r2 << 2);
                   pa2 = u3;
                 }
                 function jb(a3, b) {
-                  var c2 = 0, d = O2(0), e4 = O2(0), f2 = O2(0), g4 = O2(0), h = 0, i = 0, j = O2(0), k = 0, l2 = 0, m = 0, n = 0, o2 = O2(0), p3 = O2(0), q2 = O2(0), r2 = O2(0), s3 = 0, t4 = 0, u3 = O2(0), v3 = O2(0), w4 = 0, x3 = 0, y2 = 0, z3 = 0, A3 = O2(0), C5 = 0, D5 = 0, E5 = 0, F3 = 0, I5 = O2(0), K3 = 0, M5 = 0, P3 = 0, Q3 = O2(0), R3 = O2(0), S2 = O2(0), T3 = O2(0), U3 = O2(0), V3 = O2(0), W3 = O2(0), X3 = O2(0), Y3 = O2(0), Z3 = O2(0), _2 = 0, $2 = O2(0), aa2 = O2(0), ba3 = O2(0), ca3 = O2(0), da3 = O2(0);
+                  var c2 = 0, d = O2(0), e4 = O2(0), f2 = O2(0), g4 = O2(0), h = 0, i = 0, j = O2(0), k = 0, l2 = 0, m = 0, n2 = 0, o2 = O2(0), p3 = O2(0), q2 = O2(0), r2 = O2(0), s3 = 0, t4 = 0, u3 = O2(0), v3 = O2(0), w4 = 0, x3 = 0, y2 = 0, z3 = 0, A3 = O2(0), C5 = 0, D5 = 0, E5 = 0, F3 = 0, I5 = O2(0), K3 = 0, M5 = 0, P3 = 0, Q3 = O2(0), R3 = O2(0), S2 = O2(0), T3 = O2(0), U3 = O2(0), V3 = O2(0), W3 = O2(0), X3 = O2(0), Y3 = O2(0), Z3 = O2(0), _2 = 0, $2 = O2(0), aa2 = O2(0), ba3 = O2(0), ca3 = O2(0), da3 = O2(0);
                   C5 = pa2 - 32 | 0;
                   pa2 = C5;
                   y2 = H2[a3 + 8 >> 2];
@@ -32221,7 +32221,7 @@
                                 F3 = 0;
                                 h = m;
                                 k = h;
-                                n = h;
+                                n2 = h;
                                 while (1) {
                                   Q3 = L2[c2 >> 2];
                                   x3 = (E5 << 3) + c2 | 0;
@@ -32234,8 +32234,8 @@
                                   A3 = O2(T3 + U3);
                                   l2 = (i << 3) + c2 | 0;
                                   V3 = L2[l2 >> 2];
-                                  I5 = L2[n + 4 >> 2];
-                                  u3 = L2[n >> 2];
+                                  I5 = L2[n2 + 4 >> 2];
+                                  u3 = L2[n2 >> 2];
                                   f2 = L2[l2 + 4 >> 2];
                                   o2 = O2(O2(V3 * I5) + O2(u3 * f2));
                                   s3 = (z3 << 3) + c2 | 0;
@@ -32265,7 +32265,7 @@
                                   c2 = c2 + 8 | 0;
                                   h = (M5 << 3) + h | 0;
                                   k = (P3 << 3) + k | 0;
-                                  n = (t4 << 3) + n | 0;
+                                  n2 = (t4 << 3) + n2 | 0;
                                   F3 = F3 + 1 | 0;
                                   if ((i | 0) != (F3 | 0)) {
                                     continue;
@@ -32294,13 +32294,13 @@
                           while (1) {
                             c2 = (N3(s3, y2) << 3) + b | 0;
                             k = m;
-                            n = k;
+                            n2 = k;
                             h = i;
                             while (1) {
                               l2 = (i << 3) + c2 | 0;
                               u3 = L2[l2 >> 2];
-                              o2 = L2[n >> 2];
-                              v3 = L2[n + 4 >> 2];
+                              o2 = L2[n2 >> 2];
+                              v3 = L2[n2 + 4 >> 2];
                               f2 = L2[l2 + 4 >> 2];
                               p3 = O2(O2(u3 * o2) - O2(v3 * f2));
                               t4 = (M5 << 3) + c2 | 0;
@@ -32325,7 +32325,7 @@
                               L2[l2 + 4 >> 2] = d + L2[l2 + 4 >> 2];
                               c2 = c2 + 8 | 0;
                               k = (P3 << 3) + k | 0;
-                              n = (E5 << 3) + n | 0;
+                              n2 = (E5 << 3) + n2 | 0;
                               h = h - 1 | 0;
                               if (h) {
                                 continue;
@@ -32361,7 +32361,7 @@
                             c2 = (N3(l2, y2) << 3) + b | 0;
                             h = c2 + (i << 3) | 0;
                             k = (E5 << 3) + c2 | 0;
-                            n = (P3 << 3) + c2 | 0;
+                            n2 = (P3 << 3) + c2 | 0;
                             w4 = (M5 << 3) + c2 | 0;
                             F3 = 0;
                             while (1) {
@@ -32374,11 +32374,11 @@
                               R3 = L2[m >> 2];
                               g4 = L2[k + 4 >> 2];
                               S2 = O2(O2(da3 * Q3) + O2(R3 * g4));
-                              T3 = L2[n >> 2];
+                              T3 = L2[n2 >> 2];
                               m = x3 + N3(s3, 24) | 0;
                               U3 = L2[m + 4 >> 2];
                               A3 = L2[m >> 2];
-                              f2 = L2[n + 4 >> 2];
+                              f2 = L2[n2 + 4 >> 2];
                               V3 = O2(O2(T3 * U3) + O2(A3 * f2));
                               ba3 = O2(S2 + V3);
                               I5 = L2[h >> 2];
@@ -32420,10 +32420,10 @@
                               e4 = O2(O2(e4 * Y3) - O2(W3 * j));
                               d = O2($2 + O2(O2(o2 * X3) + O2(Z3 * A3)));
                               L2[k >> 2] = e4 + d;
-                              L2[n + 4 >> 2] = g4 - f2;
-                              L2[n >> 2] = d - e4;
+                              L2[n2 + 4 >> 2] = g4 - f2;
+                              L2[n2 >> 2] = d - e4;
                               w4 = w4 + 8 | 0;
-                              n = n + 8 | 0;
+                              n2 = n2 + 8 | 0;
                               k = k + 8 | 0;
                               h = h + 8 | 0;
                               c2 = c2 + 8 | 0;
@@ -32454,8 +32454,8 @@
                   B3();
                 }
                 function Sa2(a3, b, c2, d, e4, f2, g4, h, i, j, k) {
-                  var l2 = 0, m = 0, n = 0, o2 = 0, p3 = 0, q2 = 0, r2 = O2(0), s3 = 0, t4 = 0, u3 = 0, v3 = O2(0), w4 = 0, x3 = 0, y2 = 0, z3 = 0;
-                  n = (c2 >>> 0) / (e4 >>> 0) | 0;
+                  var l2 = 0, m = 0, n2 = 0, o2 = 0, p3 = 0, q2 = 0, r2 = O2(0), s3 = 0, t4 = 0, u3 = 0, v3 = O2(0), w4 = 0, x3 = 0, y2 = 0, z3 = 0;
+                  n2 = (c2 >>> 0) / (e4 >>> 0) | 0;
                   w4 = H2[a3 >> 2];
                   a: {
                     b: {
@@ -32500,7 +32500,7 @@
                               break f;
                             }
                             z3 = 1;
-                            if (!(n & 1) & (t4 | 0) != 0 | (e4 | 0) > 1) {
+                            if (!(n2 & 1) & (t4 | 0) != 0 | (e4 | 0) > 1) {
                               break f;
                             }
                             j = f2;
@@ -32594,13 +32594,13 @@
                       }
                       l2 = e4 >> u3;
                       x3 = 0;
-                      q2 = n << u3;
+                      q2 = n2 << u3;
                       h: {
                         if (!(q2 & 1 | (t4 | 0) >= 0)) {
                           while (1) {
                             if (!(!w4 | (l2 | 0) <= 0)) {
                               f2 = q2 >> 1;
-                              n = (f2 | 0) <= 1 ? 1 : f2;
+                              n2 = (f2 | 0) <= 1 ? 1 : f2;
                               m = l2 << 1;
                               o2 = 0;
                               while (1) {
@@ -32615,7 +32615,7 @@
                                     L2[p3 >> 2] = r2 + v3;
                                     L2[s3 >> 2] = r2 - v3;
                                     f2 = f2 + 1 | 0;
-                                    if ((n | 0) != (f2 | 0)) {
+                                    if ((n2 | 0) != (f2 | 0)) {
                                       continue;
                                     }
                                     break;
@@ -32631,18 +32631,18 @@
                             i: {
                               if (!((l2 | 0) > 0 ? j : 0)) {
                                 m = q2 >> 1;
-                                n = l2 << 1;
+                                n2 = l2 << 1;
                                 break i;
                               }
                               m = q2 >> 1;
                               s3 = (m | 0) <= 1 ? 1 : m;
-                              n = l2 << 1;
+                              n2 = l2 << 1;
                               o2 = 0;
                               while (1) {
                                 f2 = 0;
                                 if ((q2 | 0) >= 2) {
                                   while (1) {
-                                    p3 = (N3(f2, n) + o2 << 2) + j | 0;
+                                    p3 = (N3(f2, n2) + o2 << 2) + j | 0;
                                     r2 = O2(L2[p3 >> 2] * O2(0.7071067690849304));
                                     y2 = p3;
                                     p3 = (N3(f2 << 1 | 1, l2) + o2 << 2) + j | 0;
@@ -32670,7 +32670,7 @@
                             }
                             f2 = (t4 | 0) < -1;
                             t4 = t4 + 1 | 0;
-                            l2 = n;
+                            l2 = n2;
                             q2 = m;
                             if (f2) {
                               continue;
@@ -32680,24 +32680,24 @@
                           break h;
                         }
                         m = q2;
-                        n = l2;
+                        n2 = l2;
                       }
-                      if ((n | 0) >= 2) {
+                      if ((n2 | 0) >= 2) {
                         l2 = (e4 | 0) == 1;
                         if (w4) {
-                          pc(b, m >> u3, n << u3, l2);
+                          pc(b, m >> u3, n2 << u3, l2);
                         }
                         if (j) {
-                          pc(j, m >> u3, n << u3, l2);
+                          pc(j, m >> u3, n2 << u3, l2);
                         }
-                        k = ab2(a3, b, c2, d, n, j, g4, i, k);
+                        k = ab2(a3, b, c2, d, n2, j, g4, i, k);
                         if (!H2[a3 + 4 >> 2]) {
                           break b;
                         }
                         a3 = pa2;
                         o2 = a3;
                         f2 = m >> u3;
-                        e4 = n << u3;
+                        e4 = n2 << u3;
                         q2 = N3(f2, e4);
                         g4 = a3 - ((q2 << 2) + 15 & -16) | 0;
                         pa2 = g4;
@@ -32787,7 +32787,7 @@
                         pa2 = o2;
                         break a;
                       }
-                      k = ab2(a3, b, c2, d, n, j, g4, i, k);
+                      k = ab2(a3, b, c2, d, n2, j, g4, i, k);
                       if (H2[a3 + 4 >> 2]) {
                         break a;
                       }
@@ -32796,30 +32796,30 @@
                   }
                   m: {
                     if (!x3) {
-                      o2 = n;
+                      o2 = n2;
                       break m;
                     }
                     a3 = 0;
                     while (1) {
                       m = m << 1;
-                      o2 = n >> 1;
+                      o2 = n2 >> 1;
                       d = k >>> o2 | 0;
-                      if ((n | 0) >= 2) {
+                      if ((n2 | 0) >= 2) {
                         e4 = m >> 1;
                         e4 = (e4 | 0) <= 1 ? 1 : e4;
-                        g4 = n & -2;
+                        g4 = n2 & -2;
                         j = 0;
                         while (1) {
                           f2 = 0;
                           if ((m | 0) >= 2) {
                             while (1) {
-                              n = (N3(f2, g4) + j << 2) + b | 0;
-                              i = O2(L2[n >> 2] * O2(0.7071067690849304));
-                              p3 = n;
-                              n = (N3(f2 << 1 | 1, o2) + j << 2) + b | 0;
-                              r2 = O2(L2[n >> 2] * O2(0.7071067690849304));
+                              n2 = (N3(f2, g4) + j << 2) + b | 0;
+                              i = O2(L2[n2 >> 2] * O2(0.7071067690849304));
+                              p3 = n2;
+                              n2 = (N3(f2 << 1 | 1, o2) + j << 2) + b | 0;
+                              r2 = O2(L2[n2 >> 2] * O2(0.7071067690849304));
                               L2[p3 >> 2] = i + r2;
-                              L2[n >> 2] = i - r2;
+                              L2[n2 >> 2] = i - r2;
                               f2 = f2 + 1 | 0;
                               if ((e4 | 0) != (f2 | 0)) {
                                 continue;
@@ -32835,7 +32835,7 @@
                         }
                       }
                       k = d | k;
-                      n = o2;
+                      n2 = o2;
                       a3 = a3 + 1 | 0;
                       if ((x3 | 0) != (a3 | 0)) {
                         continue;
@@ -32847,19 +32847,19 @@
                     m = 0;
                     while (1) {
                       k = I4[k + 39232 | 0];
-                      n = 32;
+                      n2 = 32;
                       if ((m | 0) != 31) {
                         a3 = 1 << m;
                         d = c2 >>> m | 0;
                         e4 = d >> 1;
                         e4 = (e4 | 0) <= 1 ? 1 : e4;
-                        n = m + 1 | 0;
+                        n2 = m + 1 | 0;
                         j = 0;
                         while (1) {
                           f2 = 0;
                           if ((d | 0) >= 2) {
                             while (1) {
-                              g4 = ((f2 << n) + j << 2) + b | 0;
+                              g4 = ((f2 << n2) + j << 2) + b | 0;
                               i = O2(L2[g4 >> 2] * O2(0.7071067690849304));
                               p3 = g4;
                               g4 = (((f2 << 1 | 1) << m) + j << 2) + b | 0;
@@ -32880,7 +32880,7 @@
                           break;
                         }
                       }
-                      m = n;
+                      m = n2;
                       if ((u3 | 0) != (m | 0)) {
                         continue;
                       }
@@ -32933,7 +32933,7 @@
                   return (-1 << d ^ -1) & k;
                 }
                 function $a2(a3, b, c2) {
-                  var d = 0, e4 = 0, f2 = 0, g4 = 0, h = 0, i = 0, j = 0, k = 0, l2 = 0, m = 0, n = 0, o2 = 0, p3 = 0, q2 = 0;
+                  var d = 0, e4 = 0, f2 = 0, g4 = 0, h = 0, i = 0, j = 0, k = 0, l2 = 0, m = 0, n2 = 0, o2 = 0, p3 = 0, q2 = 0;
                   i = pa2 - 320 | 0;
                   pa2 = i;
                   a: {
@@ -32974,13 +32974,13 @@
                         d = g4 << 1;
                         j = H2[(i + 224 | 0) + (e4 << 3) >> 2];
                         o2 = j >> 31;
-                        n = H2[f2 >> 2];
-                        n = ce(j, o2, n, n >> 31);
+                        n2 = H2[f2 >> 2];
+                        n2 = ce(j, o2, n2, n2 >> 31);
                         p3 = h;
                         k = d;
                         d = qa2;
                         h = d >>> 15 | 0;
-                        d = ((d & 32767) << 17 | n >>> 15) + 1 | 0;
+                        d = ((d & 32767) << 17 | n2 >>> 15) + 1 | 0;
                         H2[p3 >> 2] = k - (((d ? h : h + 1 | 0) & 1) << 31 | d >>> 1);
                         c: {
                           if (e4 >>> 0 < 2) {
@@ -32995,11 +32995,11 @@
                             h = d + H2[f2 >> 2] | 0;
                             g4 = ce(g4, g4 >> 31, j, o2);
                             k = f2;
-                            n = h;
+                            n2 = h;
                             f2 = qa2;
                             h = f2 >>> 15 | 0;
                             g4 = ((f2 & 32767) << 17 | g4 >>> 15) + 1 | 0;
-                            H2[k >> 2] = n - (((g4 ? h : h + 1 | 0) & 1) << 31 | g4 >>> 1);
+                            H2[k >> 2] = n2 - (((g4 ? h : h + 1 | 0) & 1) << 31 | g4 >>> 1);
                             e4 = e4 - 1 | 0;
                           }
                           if ((m | 0) == 1) {
@@ -33010,23 +33010,23 @@
                             f2 = h + (e4 << 2) | 0;
                             g4 = e4 - 2 | 0;
                             h = H2[h + (g4 << 2) >> 2];
-                            n = H2[f2 >> 2] + h | 0;
+                            n2 = H2[f2 >> 2] + h | 0;
                             d = ce(d, d >> 31, j, o2);
-                            p3 = n;
-                            n = qa2;
-                            k = n >>> 15 | 0;
-                            d = ((n & 32767) << 17 | d >>> 15) + 1 | 0;
+                            p3 = n2;
+                            n2 = qa2;
+                            k = n2 >>> 15 | 0;
+                            d = ((n2 & 32767) << 17 | d >>> 15) + 1 | 0;
                             H2[f2 >> 2] = p3 - (((d ? k : k + 1 | 0) & 1) << 31 | d >>> 1);
                             d = H2[f2 - 12 >> 2];
-                            n = f2 - 4 | 0;
-                            f2 = d + H2[n >> 2] | 0;
+                            n2 = f2 - 4 | 0;
+                            f2 = d + H2[n2 >> 2] | 0;
                             h = ce(h, h >> 31, j, o2);
-                            p3 = n;
+                            p3 = n2;
                             k = f2;
                             f2 = qa2;
-                            n = f2 >>> 15 | 0;
+                            n2 = f2 >>> 15 | 0;
                             f2 = ((f2 & 32767) << 17 | h >>> 15) + 1 | 0;
-                            H2[p3 >> 2] = k - (((f2 ? n : n + 1 | 0) & 1) << 31 | f2 >>> 1);
+                            H2[p3 >> 2] = k - (((f2 ? n2 : n2 + 1 | 0) & 1) << 31 | f2 >>> 1);
                             f2 = (e4 | 0) > 3;
                             e4 = g4;
                             if (f2) {
@@ -33045,7 +33045,7 @@
                       H2[i + 96 >> 2] = 65536;
                       m = 0;
                       H2[i + 100 >> 2] = 0 - H2[i + 228 >> 2];
-                      n = i + 224 | 4;
+                      n2 = i + 224 | 4;
                       b = 1;
                       while (1) {
                         d = i + 96 | 0;
@@ -33055,7 +33055,7 @@
                         f2 = d + (e4 << 2) | 0;
                         g4 = H2[f2 - 4 >> 2];
                         d = g4 << 1;
-                        j = H2[n + (e4 << 3) >> 2];
+                        j = H2[n2 + (e4 << 3) >> 2];
                         o2 = j >> 31;
                         k = H2[f2 >> 2];
                         k = ce(j, o2, k, k >> 31);
@@ -33156,7 +33156,7 @@
                   d = 0;
                   g4 = 0;
                   h = c2 & -2;
-                  n = c2 & 1;
+                  n2 = c2 & 1;
                   m = c2 - 1 | 0;
                   g: {
                     h: {
@@ -33190,7 +33190,7 @@
                               break;
                             }
                           }
-                          if (!n) {
+                          if (!n2) {
                             break i;
                           }
                           l2 = H2[(b << 2) + i >> 2];
@@ -33318,7 +33318,7 @@
                   a3 = a3 | 0;
                   b = b | 0;
                   c2 = c2 | 0;
-                  var d = 0, e4 = 0, f2 = 0, g4 = 0, h = 0, i = 0, j = 0, k = 0, l2 = 0, m = 0, n = 0, o2 = 0, p3 = 0, q2 = 0;
+                  var d = 0, e4 = 0, f2 = 0, g4 = 0, h = 0, i = 0, j = 0, k = 0, l2 = 0, m = 0, n2 = 0, o2 = 0, p3 = 0, q2 = 0;
                   l2 = pa2 - 16 | 0;
                   pa2 = l2;
                   m = cb2(16);
@@ -33432,7 +33432,7 @@
                       H2[a3 + 24 >> 2] = 8e3;
                       H2[a3 + 16 >> 2] = H2[a3 + 144 >> 2];
                       j = a3 + c2 | 0;
-                      n = H2[a3 + 180 >> 2];
+                      n2 = H2[a3 + 180 >> 2];
                       c2 = -1;
                       g: {
                         if (b >>> 0 > 2) {
@@ -33449,7 +33449,7 @@
                         H2[c2 + 4 >> 2] = b;
                         H2[c2 >> 2] = 18664;
                         o2 = H2[4669];
-                        H2[c2 + 72 >> 2] = n;
+                        H2[c2 + 72 >> 2] = n2;
                         H2[c2 + 36 >> 2] = o2;
                         H2[c2 + 48 >> 2] = 1;
                         H2[c2 + 52 >> 2] = 1;
@@ -33660,7 +33660,7 @@
                   B3();
                 }
                 function sd(a3, b, c2, d, e4, f2) {
-                  var g4 = 0, h = 0, i = 0, j = 0, k = 0, l2 = 0, m = 0, n = 0, o2 = 0, p3 = 0, q2 = 0, r2 = 0, s3 = 0, t4 = 0, u3 = 0, v3 = 0, w4 = 0, x3 = 0, y2 = 0, z3 = 0, A3 = 0, C5 = 0, D5 = O2(0), E5 = O2(0), F3 = O2(0), G3 = 0, H3 = 0, I5 = 0;
+                  var g4 = 0, h = 0, i = 0, j = 0, k = 0, l2 = 0, m = 0, n2 = 0, o2 = 0, p3 = 0, q2 = 0, r2 = 0, s3 = 0, t4 = 0, u3 = 0, v3 = 0, w4 = 0, x3 = 0, y2 = 0, z3 = 0, A3 = 0, C5 = 0, D5 = O2(0), E5 = O2(0), F3 = O2(0), G3 = 0, H3 = 0, I5 = 0;
                   h = pa2 - 992 | 0;
                   pa2 = h;
                   g4 = N3(d, e4);
@@ -33722,14 +33722,14 @@
                                 g4 = 0;
                                 if (j) {
                                   while (1) {
-                                    n = g4 << 3;
-                                    u3 = n + (h + 800 | 0) | 0;
+                                    n2 = g4 << 3;
+                                    u3 = n2 + (h + 800 | 0) | 0;
                                     E5 = L2[k + (j + (g4 ^ -1) << 2) >> 2];
                                     M4[u3 >> 3] = M4[u3 >> 3] - +O2(D5 * E5);
-                                    u3 = n + (h + 608 | 0) | 0;
+                                    u3 = n2 + (h + 608 | 0) | 0;
                                     F3 = L2[k + (g4 + q2 << 2) >> 2];
                                     M4[u3 >> 3] = M4[u3 >> 3] - +O2(c2 * F3);
-                                    i = M4[h + n >> 3];
+                                    i = M4[h + n2 >> 3];
                                     m = +E5 * i + m;
                                     l2 = +F3 * i + l2;
                                     g4 = g4 + 1 | 0;
@@ -33743,11 +33743,11 @@
                                 l2 = -m;
                                 g4 = 0;
                                 while (1) {
-                                  n = g4 << 3;
-                                  u3 = n + (h + 400 | 0) | 0;
+                                  n2 = g4 << 3;
+                                  u3 = n2 + (h + 400 | 0) | 0;
                                   M4[u3 >> 3] = l2 * +L2[k + (j - g4 << 2) >> 2] + M4[u3 >> 3];
-                                  n = n + (h + 192 | 0) | 0;
-                                  M4[n >> 3] = i * +L2[k + (g4 + v3 << 2) >> 2] + M4[n >> 3];
+                                  n2 = n2 + (h + 192 | 0) | 0;
+                                  M4[n2 >> 3] = i * +L2[k + (g4 + v3 << 2) >> 2] + M4[n2 >> 3];
                                   g4 = g4 + 1 | 0;
                                   if ((r2 | 0) != (g4 | 0)) {
                                     continue;
@@ -33773,18 +33773,18 @@
                                 o2 = j & 2147483646;
                                 k = 0;
                                 while (1) {
-                                  n = (j - g4 << 3) - 16 | 0;
+                                  n2 = (j - g4 << 3) - 16 | 0;
                                   q2 = h + 800 | 0;
                                   u3 = g4 << 3;
                                   i = M4[(u3 | 8) + h >> 3];
-                                  z3 = M4[n + q2 >> 3] * i;
+                                  z3 = M4[n2 + q2 >> 3] * i;
                                   s3 = q2;
                                   q2 = j + (g4 ^ -1) << 3;
                                   t4 = M4[h + u3 >> 3];
                                   m = z3 + (M4[s3 + q2 >> 3] * t4 + m);
-                                  s3 = n;
-                                  n = h + 608 | 0;
-                                  l2 = M4[s3 + n >> 3] * i + (M4[n + q2 >> 3] * t4 + l2);
+                                  s3 = n2;
+                                  n2 = h + 608 | 0;
+                                  l2 = M4[s3 + n2 >> 3] * i + (M4[n2 + q2 >> 3] * t4 + l2);
                                   g4 = g4 + 2 | 0;
                                   k = k + 2 | 0;
                                   if ((o2 | 0) != (k | 0)) {
@@ -33812,13 +33812,13 @@
                             if (j) {
                               while (1) {
                                 o2 = g4 + 1 | 0;
-                                n = o2 << 3;
+                                n2 = o2 << 3;
                                 z3 = M4[(g4 << 3) + h >> 3];
-                                l2 = M4[n + (h + 400 | 0) >> 3] * z3 + l2;
-                                q2 = n;
-                                n = h + 192 | 0;
-                                i = M4[q2 + n >> 3] * z3 + i;
-                                m = M4[n + (j - g4 << 3) >> 3] * z3 + m;
+                                l2 = M4[n2 + (h + 400 | 0) >> 3] * z3 + l2;
+                                q2 = n2;
+                                n2 = h + 192 | 0;
+                                i = M4[q2 + n2 >> 3] * z3 + i;
+                                m = M4[n2 + (j - g4 << 3) >> 3] * z3 + m;
                                 g4 = o2;
                                 if ((j | 0) != (g4 | 0)) {
                                   continue;
@@ -33828,8 +33828,8 @@
                             }
                             l2 = m * -2 / (l2 + i);
                             i = p3 * (1 - l2 * l2);
-                            n = i <= w4;
-                            if (n) {
+                            n2 = i <= w4;
+                            if (n2) {
                               p3 = W2(1 - w4 / p3);
                               l2 = m > 0 ? -p3 : p3;
                               p3 = w4;
@@ -33883,27 +33883,27 @@
                             }
                             M4[h + v3 >> 3] = l2;
                             f: {
-                              if (!n) {
+                              if (!n2) {
                                 o2 = A3 & -2;
                                 C5 = A3 & 1;
                                 g4 = 0;
                                 j = 0;
                                 while (1) {
                                   v3 = h + 192 | 0;
-                                  n = v3 + (k - g4 << 3) | 0;
-                                  i = M4[n >> 3];
-                                  s3 = n;
-                                  n = h + 400 | 0;
-                                  q2 = n + (g4 << 3) | 0;
+                                  n2 = v3 + (k - g4 << 3) | 0;
+                                  i = M4[n2 >> 3];
+                                  s3 = n2;
+                                  n2 = h + 400 | 0;
+                                  q2 = n2 + (g4 << 3) | 0;
                                   m = M4[q2 >> 3];
                                   M4[s3 >> 3] = l2 * m + i;
                                   M4[q2 >> 3] = m + l2 * i;
                                   q2 = g4 | 1;
-                                  n = n + (q2 << 3) | 0;
+                                  n2 = n2 + (q2 << 3) | 0;
                                   v3 = v3 + (k - q2 << 3) | 0;
                                   i = M4[v3 >> 3];
-                                  m = M4[n >> 3];
-                                  M4[n >> 3] = l2 * i + m;
+                                  m = M4[n2 >> 3];
+                                  M4[n2 >> 3] = l2 * i + m;
                                   M4[v3 >> 3] = i + l2 * m;
                                   g4 = g4 + 2 | 0;
                                   j = j + 2 | 0;
@@ -34423,7 +34423,7 @@
                   return c2;
                 }
                 function kc(a3, b, c2, d, e4) {
-                  var f2 = 0, g4 = 0, h = O2(0), i = O2(0), j = O2(0), k = 0, l2 = O2(0), m = 0, n = 0, o2 = 0, p3 = 0, q2 = O2(0), r2 = 0, s3 = 0, t4 = 0, u3 = 0, v3 = 0, w4 = O2(0), x3 = 0, y2 = 0, z3 = 0, A3 = O2(0), C5 = 0, D5 = 0, E5 = 0;
+                  var f2 = 0, g4 = 0, h = O2(0), i = O2(0), j = O2(0), k = 0, l2 = O2(0), m = 0, n2 = 0, o2 = 0, p3 = 0, q2 = O2(0), r2 = 0, s3 = 0, t4 = 0, u3 = 0, v3 = 0, w4 = O2(0), x3 = 0, y2 = 0, z3 = 0, A3 = O2(0), C5 = 0, D5 = 0, E5 = 0;
                   f2 = pa2 - 16 | 0;
                   p3 = f2;
                   pa2 = f2;
@@ -34452,7 +34452,7 @@
                             f2 = v3 >>> 0 <= 1 ? 1 : v3;
                             s3 = f2 & 3;
                             if (f2 - 1 >>> 0 >= 3) {
-                              n = f2 & 1073741820;
+                              n2 = f2 & 1073741820;
                               while (1) {
                                 L2[u3 + (g4 << 2) >> 2] = L2[(g4 << 3) + a3 >> 2];
                                 f2 = g4 | 1;
@@ -34463,7 +34463,7 @@
                                 L2[u3 + (f2 << 2) >> 2] = L2[(f2 << 3) + a3 >> 2];
                                 g4 = g4 + 4 | 0;
                                 o2 = o2 + 4 | 0;
-                                if ((n | 0) != (o2 | 0)) {
+                                if ((n2 | 0) != (o2 | 0)) {
                                   continue;
                                 }
                                 break;
@@ -34492,7 +34492,7 @@
                             t4 = 0;
                             g4 = 0;
                             if (f2 - 1 >>> 0 >= 3) {
-                              n = f2 & 1073741820;
+                              n2 = f2 & 1073741820;
                               o2 = 0;
                               while (1) {
                                 L2[k + (g4 << 2) >> 2] = L2[(g4 << 3) + b >> 2];
@@ -34504,7 +34504,7 @@
                                 L2[k + (f2 << 2) >> 2] = L2[(f2 << 3) + b >> 2];
                                 g4 = g4 + 4 | 0;
                                 o2 = o2 + 4 | 0;
-                                if ((n | 0) != (o2 | 0)) {
+                                if ((n2 | 0) != (o2 | 0)) {
                                   continue;
                                 }
                                 break;
@@ -34532,7 +34532,7 @@
                           if (c2 >>> 0 < 4) {
                             break a;
                           }
-                          n = v3 & 3;
+                          n2 = v3 & 3;
                           if (v3 - 1 >>> 0 < 3) {
                             break b;
                           }
@@ -34563,7 +34563,7 @@
                       Ba2(9025, 3729, 312);
                       B3();
                     }
-                    if (!n) {
+                    if (!n2) {
                       break a;
                     }
                     f2 = 0;
@@ -34572,7 +34572,7 @@
                       h = O2(O2(i * i) + h);
                       g4 = g4 + 1 | 0;
                       f2 = f2 + 1 | 0;
-                      if ((n | 0) != (f2 | 0)) {
+                      if ((n2 | 0) != (f2 | 0)) {
                         continue;
                       }
                       break;
@@ -34584,8 +34584,8 @@
                     g4 = 0;
                     i = O2(-1);
                     while (1) {
-                      n = g4 << 2;
-                      j = L2[n + y2 >> 2];
+                      n2 = g4 << 2;
+                      j = L2[n2 + y2 >> 2];
                       f: {
                         if (!(j > O2(0))) {
                           break f;
@@ -34615,7 +34615,7 @@
                       j = h;
                       h = L2[k + (g4 + v3 << 2) >> 2];
                       A3 = O2(h * h);
-                      h = L2[k + n >> 2];
+                      h = L2[k + n2 >> 2];
                       h = O2(j + O2(A3 - O2(h * h)));
                       h = h < O2(1) ? O2(1) : h;
                       g4 = g4 + 1 | 0;
@@ -34638,8 +34638,8 @@
                     E5 = x3 & 3;
                     s3 = x3 - 1 >>> 0 < 3;
                     while (1) {
-                      n = C5 << 2;
-                      g4 = n + y2 | 0;
+                      n2 = C5 << 2;
+                      g4 = n2 + y2 | 0;
                       H2[g4 >> 2] = 0;
                       f2 = C5 - u3 | 0;
                       k = f2 >> 31;
@@ -34656,10 +34656,10 @@
                           if (c2 >>> 0 < 2) {
                             break j;
                           }
-                          D5 = b + n | 0;
+                          D5 = b + n2 | 0;
                           t4 = 0;
                           m = 0;
-                          n = 0;
+                          n2 = 0;
                           if (!s3) {
                             while (1) {
                               k = m << 2;
@@ -34670,8 +34670,8 @@
                               f2 = k | 4;
                               h = O2(i + O2(l2 + O2(O2(L2[f2 + a3 >> 2] * L2[f2 + D5 >> 2]) + O2(O2(L2[a3 + k >> 2] * L2[k + D5 >> 2]) + h))));
                               m = m + 4 | 0;
-                              n = n + 4 | 0;
-                              if ((r2 | 0) != (n | 0)) {
+                              n2 = n2 + 4 | 0;
+                              if ((r2 | 0) != (n2 | 0)) {
                                 continue;
                               }
                               break;
@@ -34812,7 +34812,7 @@
                   pa2 = p3 + 16 | 0;
                 }
                 function Pb2(a3, b, c2, d, e4, f2) {
-                  var g4 = O2(0), h = O2(0), i = O2(0), j = O2(0), k = 0, l2 = 0, m = O2(0), n = O2(0), o2 = 0, p3 = 0, q2 = 0, r2 = O2(0), s3 = 0, t4 = 0, u3 = 0, v3 = 0, w4 = 0, x3 = 0, y2 = 0, z3 = 0, A3 = 0, B4 = 0, C5 = 0, D5 = 0, E5 = 0, F3 = 0, G3 = 0;
+                  var g4 = O2(0), h = O2(0), i = O2(0), j = O2(0), k = 0, l2 = 0, m = O2(0), n2 = O2(0), o2 = 0, p3 = 0, q2 = 0, r2 = O2(0), s3 = 0, t4 = 0, u3 = 0, v3 = 0, w4 = 0, x3 = 0, y2 = 0, z3 = 0, A3 = 0, B4 = 0, C5 = 0, D5 = 0, E5 = 0, F3 = 0, G3 = 0;
                   a: {
                     if (!f2 | e4 << 1 >= (b | 0)) {
                       break a;
@@ -34855,7 +34855,7 @@
                     i = O2(E5);
                     m = O2(-i);
                     j = O2(F3);
-                    n = O2(-j);
+                    n2 = O2(-j);
                     G3 = (c2 | 0) >= 0;
                     while (1) {
                       k = N3(p3, u3);
@@ -34954,12 +34954,12 @@
                             if (w4) {
                               while (1) {
                                 g4 = L2[e4 + 4 >> 2];
-                                L2[e4 >> 2] = O2(i * h) + O2(g4 * n);
+                                L2[e4 >> 2] = O2(i * h) + O2(g4 * n2);
                                 r2 = L2[e4 + 8 >> 2];
                                 g4 = O2(O2(i * g4) + O2(h * j));
                                 h = O2(O2(i * r2) + O2(g4 * j));
                                 L2[e4 + 8 >> 2] = h;
-                                L2[e4 + 4 >> 2] = O2(i * g4) + O2(r2 * n);
+                                L2[e4 + 4 >> 2] = O2(i * g4) + O2(r2 * n2);
                                 e4 = e4 + 8 | 0;
                                 b = b + 2 | 0;
                                 if ((x3 | 0) != (b | 0)) {
@@ -34972,7 +34972,7 @@
                               break e;
                             }
                             g4 = L2[e4 + 4 >> 2];
-                            L2[e4 >> 2] = O2(i * h) + O2(g4 * n);
+                            L2[e4 >> 2] = O2(i * h) + O2(g4 * n2);
                             L2[e4 + 4 >> 2] = O2(i * g4) + O2(h * j);
                           }
                           if ((q2 | 0) < 0) {
@@ -34983,7 +34983,7 @@
                             h = L2[e4 + 4 >> 2];
                             g4 = L2[e4 >> 2];
                             L2[e4 + 4 >> 2] = O2(i * h) + O2(g4 * j);
-                            L2[e4 >> 2] = O2(i * g4) + O2(h * n);
+                            L2[e4 >> 2] = O2(i * g4) + O2(h * n2);
                             e4 = e4 - 4 | 0;
                             b = v3;
                           } else {
@@ -34996,11 +34996,11 @@
                             h = L2[e4 + 4 >> 2];
                             g4 = L2[e4 >> 2];
                             L2[e4 + 4 >> 2] = O2(i * h) + O2(g4 * j);
-                            h = O2(O2(i * g4) + O2(h * n));
+                            h = O2(O2(i * g4) + O2(h * n2));
                             c2 = e4 - 4 | 0;
                             g4 = L2[c2 >> 2];
                             L2[e4 >> 2] = O2(i * h) + O2(g4 * j);
-                            L2[c2 >> 2] = O2(i * g4) + O2(h * n);
+                            L2[c2 >> 2] = O2(i * g4) + O2(h * n2);
                             e4 = e4 - 8 | 0;
                             c2 = (b | 0) == 1;
                             b = b - 2 | 0;
@@ -35024,8 +35024,8 @@
                               g4 = L2[e4 + 4 >> 2];
                               L2[e4 >> 2] = O2(i * h) + O2(g4 * j);
                               r2 = L2[e4 + 8 >> 2];
-                              g4 = O2(O2(i * g4) + O2(h * n));
-                              h = O2(O2(i * r2) + O2(g4 * n));
+                              g4 = O2(O2(i * g4) + O2(h * n2));
+                              h = O2(O2(i * r2) + O2(g4 * n2));
                               L2[e4 + 8 >> 2] = h;
                               L2[e4 + 4 >> 2] = O2(i * g4) + O2(r2 * j);
                               e4 = e4 + 8 | 0;
@@ -35041,7 +35041,7 @@
                           }
                           g4 = L2[e4 + 4 >> 2];
                           L2[e4 >> 2] = O2(i * h) + O2(g4 * j);
-                          L2[e4 + 4 >> 2] = O2(i * g4) + O2(h * n);
+                          L2[e4 + 4 >> 2] = O2(i * g4) + O2(h * n2);
                         }
                         g: {
                           if ((q2 | 0) < 0) {
@@ -35051,7 +35051,7 @@
                           if (s3) {
                             h = L2[e4 + 4 >> 2];
                             g4 = L2[e4 >> 2];
-                            L2[e4 + 4 >> 2] = O2(i * h) + O2(g4 * n);
+                            L2[e4 + 4 >> 2] = O2(i * h) + O2(g4 * n2);
                             L2[e4 >> 2] = O2(i * g4) + O2(h * j);
                             e4 = e4 - 4 | 0;
                             b = v3;
@@ -35064,11 +35064,11 @@
                           while (1) {
                             h = L2[e4 + 4 >> 2];
                             g4 = L2[e4 >> 2];
-                            L2[e4 + 4 >> 2] = O2(i * h) + O2(g4 * n);
+                            L2[e4 + 4 >> 2] = O2(i * h) + O2(g4 * n2);
                             h = O2(O2(i * g4) + O2(h * j));
                             k = e4 - 4 | 0;
                             g4 = L2[k >> 2];
-                            L2[e4 >> 2] = O2(i * h) + O2(g4 * n);
+                            L2[e4 >> 2] = O2(i * h) + O2(g4 * n2);
                             L2[k >> 2] = O2(i * g4) + O2(h * j);
                             e4 = e4 - 8 | 0;
                             k = (b | 0) != 1;
@@ -35168,7 +35168,7 @@
                   }
                 }
                 function Yb(a3, b, c2, d, e4, f2, g4, h) {
-                  var i = 0, j = 0, k = 0, l2 = 0, m = 0, n = 0, o2 = 0, p3 = O2(0), q2 = 0, r2 = 0, s3 = 0, t4 = 0, u3 = O2(0), v3 = 0, w4 = 0, x3 = 0, y2 = 0, z3 = 0, A3 = 0, B4 = 0, C5 = 0, D5 = 0, E5 = O2(0), F3 = O2(0), I5 = 0, J3 = 0, K3 = 0, M5 = 0, P3 = O2(0), Q3 = 0, R3 = 0, S2 = 0, T3 = 0, U3 = 0;
+                  var i = 0, j = 0, k = 0, l2 = 0, m = 0, n2 = 0, o2 = 0, p3 = O2(0), q2 = 0, r2 = 0, s3 = 0, t4 = 0, u3 = O2(0), v3 = 0, w4 = 0, x3 = 0, y2 = 0, z3 = 0, A3 = 0, B4 = 0, C5 = 0, D5 = 0, E5 = O2(0), F3 = O2(0), I5 = 0, J3 = 0, K3 = 0, M5 = 0, P3 = O2(0), Q3 = 0, R3 = 0, S2 = 0, T3 = 0, U3 = 0;
                   I5 = H2[a3 + 44 >> 2];
                   z3 = H2[a3 + 4 >> 2];
                   if (b) {
@@ -35197,7 +35197,7 @@
                         U3 = j;
                         m = M5 + (A3 << 2) | 0;
                         v3 = H2[M5 + 24 >> 2];
-                        n = H2[M5 >> 2];
+                        n2 = H2[M5 >> 2];
                         a: {
                           if ((A3 | 0) <= 0) {
                             break a;
@@ -35206,9 +35206,9 @@
                             k = A3 & -8;
                             i = 0;
                             while (1) {
-                              x3 = (((((((n << 1 & -4) + v3 | 0) + (n & -4) | 0) + (n >> 3 << 2) | 0) + (n >> 4 << 2) | 0) + (n >> 5 << 2) | 0) + (n >> 6 << 2) | 0) + (n >> 7 << 2) | 0;
-                              n = n >> 8;
-                              v3 = x3 + (n << 2) | 0;
+                              x3 = (((((((n2 << 1 & -4) + v3 | 0) + (n2 & -4) | 0) + (n2 >> 3 << 2) | 0) + (n2 >> 4 << 2) | 0) + (n2 >> 5 << 2) | 0) + (n2 >> 6 << 2) | 0) + (n2 >> 7 << 2) | 0;
+                              n2 = n2 >> 8;
+                              v3 = x3 + (n2 << 2) | 0;
                               i = i + 8 | 0;
                               if ((k | 0) != (i | 0)) {
                                 continue;
@@ -35222,8 +35222,8 @@
                           }
                           i = 0;
                           while (1) {
-                            n = n >> 1;
-                            v3 = (n << 2) + v3 | 0;
+                            n2 = n2 >> 1;
+                            v3 = (n2 << 2) + v3 | 0;
                             i = i + 1 | 0;
                             if ((k | 0) != (i | 0)) {
                               continue;
@@ -35234,13 +35234,13 @@
                         x3 = H2[m + 8 >> 2];
                         i = z3 >> 1;
                         l2 = q2 + (i << 2) | 0;
-                        y2 = n >> 1;
+                        y2 = n2 >> 1;
                         k = y2 << 2;
                         o2 = (l2 + k | 0) - 4 | 0;
                         k = j - (k + 15 & -16) | 0;
                         pa2 = k;
                         D5 = z3 + 3 >> 2;
-                        s3 = n >> 2;
+                        s3 = n2 >> 2;
                         w4 = k - ((s3 << 3) + 15 & -16) | 0;
                         pa2 = w4;
                         b: {
@@ -35335,7 +35335,7 @@
                           }
                         }
                         c: {
-                          if ((n | 0) <= 3) {
+                          if ((n2 | 0) <= 3) {
                             jb(x3, w4);
                             break c;
                           }
@@ -35357,7 +35357,7 @@
                             break;
                           }
                           jb(x3, w4);
-                          if ((n | 0) >= 4) {
+                          if ((n2 | 0) >= 4) {
                             j = (s3 | 0) <= 1 ? 1 : s3;
                             i = 0;
                             l2 = (N3(y2 - 1 | 0, b) << 2) + K3 | 0;
@@ -35483,11 +35483,11 @@
                   }
                 }
                 function Lb2(a3, b, c2, d, e4, f2, g4, h, i, j, k) {
-                  var l2 = O2(0), m = O2(0), n = 0, o2 = 0, p3 = 0, q2 = O2(0), r2 = 0, s3 = O2(0), t4 = O2(0), u3 = 0, v3 = 0, w4 = 0, x3 = 0, y2 = 0, z3 = 0;
-                  n = pa2 - 32 | 0;
-                  pa2 = n;
-                  H2[n + 24 >> 2] = k;
-                  H2[n + 28 >> 2] = e4;
+                  var l2 = O2(0), m = O2(0), n2 = 0, o2 = 0, p3 = 0, q2 = O2(0), r2 = 0, s3 = O2(0), t4 = O2(0), u3 = 0, v3 = 0, w4 = 0, x3 = 0, y2 = 0, z3 = 0;
+                  n2 = pa2 - 32 | 0;
+                  pa2 = n2;
+                  H2[n2 + 24 >> 2] = k;
+                  H2[n2 + 28 >> 2] = e4;
                   v3 = H2[a3 + 28 >> 2];
                   w4 = H2[a3 >> 2];
                   a: {
@@ -35539,15 +35539,15 @@
                       L2[i >> 2] = L2[b >> 2];
                       break a;
                     }
-                    oc(a3, n, b, c2, d, n + 28 | 0, f2, f2, h, 1, n + 24 | 0);
-                    l2 = O2(O2(H2[n + 8 >> 2]) * O2(30517578125e-15));
-                    s3 = O2(O2(H2[n + 4 >> 2]) * O2(30517578125e-15));
-                    p3 = H2[n + 20 >> 2];
-                    r2 = H2[n + 16 >> 2];
-                    y2 = H2[n >> 2];
+                    oc(a3, n2, b, c2, d, n2 + 28 | 0, f2, f2, h, 1, n2 + 24 | 0);
+                    l2 = O2(O2(H2[n2 + 8 >> 2]) * O2(30517578125e-15));
+                    s3 = O2(O2(H2[n2 + 4 >> 2]) * O2(30517578125e-15));
+                    p3 = H2[n2 + 20 >> 2];
+                    r2 = H2[n2 + 16 >> 2];
+                    y2 = H2[n2 >> 2];
                     e: {
                       if ((d | 0) == 2) {
-                        z3 = H2[n + 28 >> 2];
+                        z3 = H2[n2 + 28 >> 2];
                         u3 = r2 & -16385;
                         o2 = u3 ? -8 : 0;
                         H2[a3 + 32 >> 2] = H2[a3 + 32 >> 2] + (o2 - p3 | 0);
@@ -35586,11 +35586,11 @@
                         L2[c2 + 4 >> 2] = l2 + L2[c2 + 4 >> 2];
                         break e;
                       }
-                      o2 = H2[n + 28 >> 2];
-                      e4 = H2[n + 12 >> 2];
+                      o2 = H2[n2 + 28 >> 2];
+                      e4 = H2[n2 + 12 >> 2];
                       k = H2[a3 + 32 >> 2] - p3 | 0;
                       H2[a3 + 32 >> 2] = k;
-                      u3 = H2[n + 24 >> 2];
+                      u3 = H2[n2 + 24 >> 2];
                       p3 = o2;
                       e4 = (o2 - e4 | 0) / 2 | 0;
                       e4 = (e4 | 0) > (o2 | 0) ? o2 : e4;
@@ -35752,13 +35752,13 @@
                       break;
                     }
                   }
-                  pa2 = n + 32 | 0;
+                  pa2 = n2 + 32 | 0;
                   return e4;
                 }
                 function Cc(a3, b, c2, d, e4) {
-                  var f2 = 0, g4 = 0, h = 0, i = 0, j = 0, k = 0, l2 = 0, m = 0, n = 0, o2 = 0, p3 = 0, q2 = 0, r2 = 0;
-                  n = pa2 - 160 | 0;
-                  pa2 = n;
+                  var f2 = 0, g4 = 0, h = 0, i = 0, j = 0, k = 0, l2 = 0, m = 0, n2 = 0, o2 = 0, p3 = 0, q2 = 0, r2 = 0;
+                  n2 = pa2 - 160 | 0;
+                  pa2 = n2;
                   o2 = 8;
                   g4 = Fa2(a3, N3(c2 >> 1, 9) + 17616 | 0, 8);
                   a: {
@@ -35778,7 +35778,7 @@
                     g4 = N3(g4, 18) + 17248 | 0;
                     while (1) {
                       i = f2 << 2;
-                      j = i + n | 0;
+                      j = i + n2 | 0;
                       H2[j >> 2] = 0;
                       k = 0;
                       h = Fa2(a3, g4, 8);
@@ -35793,7 +35793,7 @@
                         }
                         H2[j >> 2] = k;
                       }
-                      H2[i + (n + 80 | 0) >> 2] = h;
+                      H2[i + (n2 + 80 | 0) >> 2] = h;
                       f2 = f2 + 1 | 0;
                       if ((o2 | 0) != (f2 | 0)) {
                         continue;
@@ -35803,7 +35803,7 @@
                     k = 0;
                     while (1) {
                       f2 = (k << 16 >> 11) + b | 0;
-                      g4 = H2[(n + 80 | 0) + (k << 2) >> 2];
+                      g4 = H2[(n2 + 80 | 0) + (k << 2) >> 2];
                       c: {
                         if ((g4 | 0) > 0) {
                           i = 0;
@@ -35979,7 +35979,7 @@
                     f2 = 0;
                     while (1) {
                       j = f2 << 2;
-                      g4 = H2[j + n >> 2];
+                      g4 = H2[j + n2 >> 2];
                       if ((g4 | 0) > 0) {
                         l2 = (f2 << 16 >> 11) + b | 0;
                         i = 0;
@@ -36002,7 +36002,7 @@
                           }
                           break;
                         }
-                        h = j + (n + 80 | 0) | 0;
+                        h = j + (n2 + 80 | 0) | 0;
                         H2[h >> 2] = H2[h >> 2] | g4 << 5;
                       }
                       f2 = f2 + 1 | 0;
@@ -36012,7 +36012,7 @@
                       break;
                     }
                   }
-                  g4 = n + 80 | 0;
+                  g4 = n2 + 80 | 0;
                   h = 0;
                   f2 = pa2 - 16 | 0;
                   pa2 = f2;
@@ -36047,7 +36047,7 @@
                     }
                   }
                   pa2 = f2 + 16 | 0;
-                  pa2 = n + 160 | 0;
+                  pa2 = n2 + 160 | 0;
                 }
                 function Va2(a3) {
                   a3 = a3 | 0;
@@ -36368,7 +36368,7 @@
                     H2[14993] = a3 ? a3 : -1;
                   }
                 }
-                function uc(a3, b, c2, d, e4, f2, g4, h, i, j, k, l2, m, n, o2) {
+                function uc(a3, b, c2, d, e4, f2, g4, h, i, j, k, l2, m, n2, o2) {
                   var p3 = 0, q2 = 0, r2 = O2(0), s3 = 0, t4 = 0, u3 = 0, v3 = O2(0), w4 = O2(0), x3 = 0, y2 = 0, z3 = O2(0), A3 = 0, C5 = O2(0), D5 = 0, E5 = O2(0), G3 = O2(0), J3 = 0, M5 = 0, R3 = 0, S2 = 0, U3 = 0, V3 = O2(0), W3 = O2(0), X3 = 0, Y3 = 0;
                   s3 = pa2 - 16 | 0;
                   pa2 = s3;
@@ -36418,7 +36418,7 @@
                           if ((f2 | 0) >= 0) {
                             break b;
                           }
-                          r2 = O2((r2 < O2(-28) ? O2(-28) : r2) - n);
+                          r2 = O2((r2 < O2(-28) ? O2(-28) : r2) - n2);
                           if (!(r2 > v3)) {
                             break b;
                           }
@@ -36631,7 +36631,7 @@
                   return o2 ? 0 : g4;
                 }
                 function Kb2(a3, b) {
-                  var c2 = 0, d = 0, e4 = 0, f2 = 0, g4 = 0, h = 0, i = 0, j = 0, k = 0, l2 = 0, m = 0, n = 0, o2 = 0, p3 = 0, q2 = 0, r2 = 0, s3 = 0, t4 = 0, u3 = 0;
+                  var c2 = 0, d = 0, e4 = 0, f2 = 0, g4 = 0, h = 0, i = 0, j = 0, k = 0, l2 = 0, m = 0, n2 = 0, o2 = 0, p3 = 0, q2 = 0, r2 = 0, s3 = 0, t4 = 0, u3 = 0;
                   j = pa2 - 96 | 0;
                   a: {
                     b: {
@@ -36725,10 +36725,10 @@
                                 s3 = (i + (a3 ^ -1) << 2) + j | 0;
                                 d = H2[s3 >> 2];
                                 b = d;
-                                n = ce(b, b >> 31, l2, h);
+                                n2 = ce(b, b >> 31, l2, h);
                                 c2 = qa2;
                                 b = c2 >>> 30 | 0;
-                                c2 = ((c2 & 1073741823) << 2 | n >>> 30) + 1 | 0;
+                                c2 = ((c2 & 1073741823) << 2 | n2 >>> 30) + 1 | 0;
                                 b = ((c2 ? b : b + 1 | 0) & 1) << 31 | c2 >>> 1;
                                 c2 = e4 - b | 0;
                                 e4 = (c2 | 0) >= 0;
@@ -36742,23 +36742,23 @@
                                         u3 = ce(c2, 0, f2, o2) & 1;
                                         c2 = b;
                                         b = c2 >> 1;
-                                        n = (c2 & 1) << 31 | e4 >>> 1;
-                                        e4 = u3 + n | 0;
+                                        n2 = (c2 & 1) << 31 | e4 >>> 1;
+                                        e4 = u3 + n2 | 0;
                                         c2 = b;
-                                        if (((e4 >>> 0 < n >>> 0 ? c2 + 1 | 0 : c2) - (e4 >>> 0 < 2147483648) | 0) == -1) {
+                                        if (((e4 >>> 0 < n2 >>> 0 ? c2 + 1 | 0 : c2) - (e4 >>> 0 < 2147483648) | 0) == -1) {
                                           break g;
                                         }
                                         return 0;
                                       }
                                       c2 = b;
-                                      n = e4;
+                                      n2 = e4;
                                       e4 = k & 31;
                                       if ((k & 63) >>> 0 >= 32) {
                                         b = c2 >> 31;
                                         c2 = c2 >> e4;
                                       } else {
                                         b = c2 >> e4;
-                                        c2 = ((1 << e4) - 1 & c2) << 32 - e4 | n >>> e4;
+                                        c2 = ((1 << e4) - 1 & c2) << 32 - e4 | n2 >>> e4;
                                       }
                                       e4 = c2 + 1 | 0;
                                       if (!e4) {
@@ -36862,7 +36862,7 @@
                   return a3;
                 }
                 function xc(a3, b, c2) {
-                  var d = 0, e4 = 0, f2 = 0, g4 = 0, h = 0, i = 0, j = 0, k = 0, l2 = 0, m = 0, n = 0, o2 = 0, p3 = 0, q2 = 0, r2 = 0, s3 = 0, t4 = 0, u3 = 0, v3 = 0;
+                  var d = 0, e4 = 0, f2 = 0, g4 = 0, h = 0, i = 0, j = 0, k = 0, l2 = 0, m = 0, n2 = 0, o2 = 0, p3 = 0, q2 = 0, r2 = 0, s3 = 0, t4 = 0, u3 = 0, v3 = 0;
                   q2 = c2 - 2 | 0;
                   o2 = c2 - 1 | 0;
                   t4 = o2 & -2;
@@ -36874,8 +36874,8 @@
                     b: {
                       while (1) {
                         g4 = G2[a3 >> 1];
-                        n = G2[b >> 1];
-                        d = g4 - n | 0;
+                        n2 = G2[b >> 1];
+                        d = g4 - n2 | 0;
                         c: {
                           if (v3) {
                             f2 = 0;
@@ -36925,7 +36925,7 @@
                         f2 = e4 ? c2 : f2;
                         d: {
                           if (!f2) {
-                            G2[a3 >> 1] = n;
+                            G2[a3 >> 1] = n2;
                             break d;
                           }
                           if ((c2 | 0) != (f2 | 0)) {
@@ -36967,8 +36967,8 @@
                               }
                             }
                             j = f2 << 1;
-                            n = j + b | 0;
-                            i = G2[n >> 1] >> 1;
+                            n2 = j + b | 0;
+                            i = G2[n2 >> 1] >> 1;
                             h = i + d | 0;
                             d = 32768;
                             f: {
@@ -37016,7 +37016,7 @@
                             e4 = (e4 | 0) > (h | 0) ? h : e4;
                             e4 = ((d | 0) > (k | 0) ? k : (d | 0) > (e4 | 0) ? d : e4) - i | 0;
                             G2[f2 >> 1] = e4;
-                            G2[g4 >> 1] = e4 + J2[n >> 1];
+                            G2[g4 >> 1] = e4 + J2[n2 >> 1];
                             break d;
                           }
                           G2[l2 >> 1] = -32768 - g4;
@@ -37135,9 +37135,9 @@
                   G2[l2 >> 1] = (a3 | 0) < (b | 0) ? a3 : b;
                 }
                 function ud(a3, b, c2) {
-                  var d = 0, e4 = 0, f2 = 0, g4 = 0, h = O2(0), i = 0, j = 0, k = 0, l2 = 0, m = 0, n = 0, o2 = 0, p3 = 0, q2 = 0, r2 = 0, s3 = 0;
-                  n = pa2 + -64 | 0;
-                  pa2 = n;
+                  var d = 0, e4 = 0, f2 = 0, g4 = 0, h = O2(0), i = 0, j = 0, k = 0, l2 = 0, m = 0, n2 = 0, o2 = 0, p3 = 0, q2 = 0, r2 = 0, s3 = 0;
+                  n2 = pa2 + -64 | 0;
+                  pa2 = n2;
                   a: {
                     if ((c2 | 0) <= 0) {
                       break a;
@@ -37146,7 +37146,7 @@
                       p3 = c2 & -4;
                       while (1) {
                         k = g4 << 2;
-                        e4 = k + n | 0;
+                        e4 = k + n2 | 0;
                         h = de(O2(L2[b + k >> 2] * O2(65536)));
                         b: {
                           if (O2(P2(h)) < O2(2147483648)) {
@@ -37157,7 +37157,7 @@
                         }
                         H2[e4 >> 2] = f2;
                         f2 = k | 4;
-                        e4 = f2 + n | 0;
+                        e4 = f2 + n2 | 0;
                         h = de(O2(L2[b + f2 >> 2] * O2(65536)));
                         c: {
                           if (O2(P2(h)) < O2(2147483648)) {
@@ -37168,7 +37168,7 @@
                         }
                         H2[e4 >> 2] = f2;
                         f2 = k | 8;
-                        e4 = f2 + n | 0;
+                        e4 = f2 + n2 | 0;
                         h = de(O2(L2[b + f2 >> 2] * O2(65536)));
                         d: {
                           if (O2(P2(h)) < O2(2147483648)) {
@@ -37179,7 +37179,7 @@
                         }
                         H2[e4 >> 2] = f2;
                         f2 = k | 12;
-                        e4 = f2 + n | 0;
+                        e4 = f2 + n2 | 0;
                         h = de(O2(L2[b + f2 >> 2] * O2(65536)));
                         e: {
                           if (O2(P2(h)) < O2(2147483648)) {
@@ -37203,7 +37203,7 @@
                     }
                     while (1) {
                       e4 = g4 << 2;
-                      d = e4 + n | 0;
+                      d = e4 + n2 | 0;
                       h = de(O2(L2[b + e4 >> 2] * O2(65536)));
                       f: {
                         if (O2(P2(h)) < O2(2147483648)) {
@@ -37230,7 +37230,7 @@
                   H2[l2 + 8 >> 2] = j;
                   r2 = c2;
                   m = c2 >> 1;
-                  wd(n, j, a3, m);
+                  wd(n2, j, a3, m);
                   k = G2[5952];
                   d = Ua2(j, k, m);
                   if ((d | 0) < 0) {
@@ -37317,9 +37317,9 @@
                               }
                               break h;
                             }
-                            Mb2(n, r2, (-2 << s3) + 65536 | 0);
+                            Mb2(n2, r2, (-2 << s3) + 65536 | 0);
                             j = l2 + 80 | 0;
-                            wd(n, j, l2 + 16 | 0, m);
+                            wd(n2, j, l2 + 16 | 0, m);
                             o2 = 0;
                             s3 = s3 + 1 | 0;
                             d = Ua2(j, k, m);
@@ -37412,10 +37412,10 @@
                     break;
                   }
                   pa2 = l2 + 144 | 0;
-                  pa2 = n - -64 | 0;
+                  pa2 = n2 - -64 | 0;
                 }
                 function cc(a3, b, c2, d, e4, f2) {
-                  var g4 = 0, h = 0, i = 0, j = 0, k = 0, l2 = 0, m = 0, n = 0, o2 = 0, p3 = 0, q2 = 0, r2 = 0;
+                  var g4 = 0, h = 0, i = 0, j = 0, k = 0, l2 = 0, m = 0, n2 = 0, o2 = 0, p3 = 0, q2 = 0, r2 = 0;
                   k = pa2 - 16 | 0;
                   pa2 = k;
                   fb2(k + 4 | 0, k + 12 | 0, b, e4);
@@ -37500,8 +37500,8 @@
                     h = Q2(c2);
                     o2 = 24 - h | 0;
                     q2 = h - 24 | 0;
-                    n = (h & 1 ? 32768 : 46214) >>> (h >>> 1) | 0;
-                    e4 = N3(n, 213);
+                    n2 = (h & 1 ? 32768 : 46214) >>> (h >>> 1) | 0;
+                    e4 = N3(n2, 213);
                     b = (h | 0) == 24;
                     p3 = c2;
                     d: {
@@ -37514,21 +37514,21 @@
                       }
                       p3 = c2 << h + 8 | c2 >>> o2;
                     }
-                    r2 = ((N3(e4, p3 & 127) >>> 16 | 0) + n << l2) - j >> 16;
+                    r2 = ((N3(e4, p3 & 127) >>> 16 | 0) + n2 << l2) - j >> 16;
                     f2 = f2 << 16 >> 16;
-                    p3 = n;
-                    n = c2;
+                    p3 = n2;
+                    n2 = c2;
                     e: {
                       if (b) {
                         break e;
                       }
-                      n = c2 << q2 | c2 >>> 56 - h;
+                      n2 = c2 << q2 | c2 >>> 56 - h;
                       if (c2 >>> 0 <= 127) {
                         break e;
                       }
-                      n = c2 << h + 8 | c2 >>> o2;
+                      n2 = c2 << h + 8 | c2 >>> o2;
                     }
-                    b = p3 + (N3(n & 127, e4) >>> 16 | 0) | 0;
+                    b = p3 + (N3(n2 & 127, e4) >>> 16 | 0) | 0;
                     e4 = N3(f2, r2);
                   }
                   h = (e4 + j | 0) + (N3((b << l2) - j & 65535, f2) >> 16) | 0;
@@ -37546,10 +37546,10 @@
                     m = c2 - 24 | 0;
                     o2 = (c2 & 1 ? 32768 : 46214) >>> (c2 >>> 1) | 0;
                     q2 = N3(o2, 213);
-                    n = (c2 | 0) == 24;
+                    n2 = (c2 | 0) == 24;
                     b = e4;
                     g: {
-                      if (n) {
+                      if (n2) {
                         break g;
                       }
                       b = e4 << m | e4 >>> 56 - c2;
@@ -37560,7 +37560,7 @@
                     }
                     b = (N3(q2, b & 127) >>> 16 | 0) + o2 | 0;
                     h: {
-                      if (n) {
+                      if (n2) {
                         break h;
                       }
                       if (e4 >>> 0 <= 127) {
@@ -37712,7 +37712,7 @@
                   B3();
                 }
                 function dd(a3, b, c2) {
-                  var d = O2(0), e4 = 0, f2 = O2(0), g4 = 0, h = 0, i = 0, j = 0, k = 0, l2 = 0, m = 0, n = 0, o2 = 0;
+                  var d = O2(0), e4 = 0, f2 = O2(0), g4 = 0, h = 0, i = 0, j = 0, k = 0, l2 = 0, m = 0, n2 = 0, o2 = 0;
                   h = H2[a3 + 12 >> 2];
                   a: {
                     if ((h | 0) <= 0) {
@@ -37770,8 +37770,8 @@
                           while (1) {
                             d = O2(O2(O2(F2[k + (N3(e4, h) + g4 | 0) | 0]) * L2[(e4 << 2) + c2 >> 2]) + d);
                             L2[m >> 2] = d;
-                            n = e4 | 1;
-                            d = O2(O2(O2(F2[k + (N3(n, h) + g4 | 0) | 0]) * L2[(n << 2) + c2 >> 2]) + d);
+                            n2 = e4 | 1;
+                            d = O2(O2(O2(F2[k + (N3(n2, h) + g4 | 0) | 0]) * L2[(n2 << 2) + c2 >> 2]) + d);
                             L2[m >> 2] = d;
                             e4 = e4 + 2 | 0;
                             i = i + 2 | 0;
@@ -38148,7 +38148,7 @@
                   return c2;
                 }
                 function hd(a3, b, c2, d, e4) {
-                  var f2 = 0, g4 = 0, h = 0, i = 0, j = 0, k = 0, l2 = 0, m = 0, n = 0, o2 = 0, p3 = 0;
+                  var f2 = 0, g4 = 0, h = 0, i = 0, j = 0, k = 0, l2 = 0, m = 0, n2 = 0, o2 = 0, p3 = 0;
                   f2 = -1;
                   a: {
                     if (H2[a3 + 4 >> 2] < (b | 0) | (b | 0) <= 0) {
@@ -38229,8 +38229,8 @@
                             }
                             p3 = (b | 0) > (g4 | 0);
                           }
-                          n = b - 1 | 0;
-                          g4 = (n | 0) <= 1 ? 1 : n;
+                          n2 = b - 1 | 0;
+                          g4 = (n2 | 0) <= 1 ? 1 : n2;
                           o2 = g4 & 3;
                           h = 0;
                           h: {
@@ -38272,7 +38272,7 @@
                               break;
                             }
                           }
-                          h = G2[(n << 1) + i >> 1] + f2 | 0;
+                          h = G2[(n2 << 1) + i >> 1] + f2 | 0;
                           f2 = -2;
                           if ((h | 0) > (d | 0)) {
                             break a;
@@ -38331,15 +38331,15 @@
                       g4 = 0;
                       if ((0 - b | 0) != -1) {
                         l2 = b & -2;
-                        n = 0;
+                        n2 = 0;
                         while (1) {
                           j = g4 | 1;
                           o2 = (j << 1) + i | 0;
                           a3 = (g4 << 1) + i | 0;
                           f2 = Ia2(Ia2(f2, H2[m + (g4 << 2) >> 2], G2[a3 >> 1]) + G2[a3 >> 1] | 0, H2[m + (j << 2) >> 2], G2[o2 >> 1]) + G2[o2 >> 1] | 0;
                           g4 = g4 + 2 | 0;
-                          n = n + 2 | 0;
-                          if ((l2 | 0) != (n | 0)) {
+                          n2 = n2 + 2 | 0;
+                          if ((l2 | 0) != (n2 | 0)) {
                             continue;
                           }
                           break;
@@ -38366,7 +38366,7 @@
                   return f2;
                 }
                 function gc(a3, b, c2, d, e4, f2) {
-                  var g4 = 0, h = 0, i = 0, j = 0, k = 0, l2 = 0, m = 0, n = 0, o2 = 0, p3 = 0, q2 = 0;
+                  var g4 = 0, h = 0, i = 0, j = 0, k = 0, l2 = 0, m = 0, n2 = 0, o2 = 0, p3 = 0, q2 = 0;
                   p3 = -1;
                   a: {
                     if (!e4 | (b | 0) < 0) {
@@ -38481,7 +38481,7 @@
                             g4 = b;
                             m = g4;
                             while (1) {
-                              k = (n << 1) + e4 | 0;
+                              k = (n2 << 1) + e4 | 0;
                               if ((m | 0) <= 0) {
                                 break d;
                               }
@@ -38501,8 +38501,8 @@
                               }
                               j = j + l2 | 0;
                               g4 = g4 - (b + l2 | 0) | 0;
-                              b = (i | 0) != (n | 0);
-                              n = n + 1 | 0;
+                              b = (i | 0) != (n2 | 0);
+                              n2 = n2 + 1 | 0;
                               if (b) {
                                 continue;
                               }
@@ -38526,7 +38526,7 @@
                             b = b & -8;
                             l2 = 0;
                             while (1) {
-                              k = n << 1;
+                              k = n2 << 1;
                               G2[k + e4 >> 1] = g4;
                               G2[(k | 2) + e4 >> 1] = g4;
                               G2[(k | 4) + e4 >> 1] = g4;
@@ -38535,7 +38535,7 @@
                               G2[(k | 10) + e4 >> 1] = g4;
                               G2[(k | 12) + e4 >> 1] = g4;
                               G2[(k | 14) + e4 >> 1] = g4;
-                              n = n + 8 | 0;
+                              n2 = n2 + 8 | 0;
                               l2 = l2 + 8 | 0;
                               if ((b | 0) != (l2 | 0)) {
                                 continue;
@@ -38545,8 +38545,8 @@
                           }
                           if (i) {
                             while (1) {
-                              G2[(n << 1) + e4 >> 1] = g4;
-                              n = n + 1 | 0;
+                              G2[(n2 << 1) + e4 >> 1] = g4;
+                              n2 = n2 + 1 | 0;
                               o2 = o2 + 1 | 0;
                               if ((i | 0) != (o2 | 0)) {
                                 continue;
@@ -38615,7 +38615,7 @@
                   return p3;
                 }
                 function ed(a3, b, c2, d, e4, f2, g4, h, i) {
-                  var j = O2(0), k = 0, l2 = 0, m = O2(0), n = O2(0), o2 = O2(0), p3 = O2(0), q2 = O2(0), r2 = 0, s3 = O2(0), t4 = O2(0);
+                  var j = O2(0), k = 0, l2 = 0, m = O2(0), n2 = O2(0), o2 = O2(0), p3 = O2(0), q2 = O2(0), r2 = 0, s3 = O2(0), t4 = O2(0);
                   k = pa2;
                   r2 = k;
                   if (!e4) {
@@ -38691,8 +38691,8 @@
                       while (1) {
                         b = k + (g4 << 3) | 0;
                         j = L2[b >> 2];
-                        n = L2[d >> 2];
-                        o2 = O2(O2(j - n) * O2(0.6074370741844177));
+                        n2 = L2[d >> 2];
+                        o2 = O2(O2(j - n2) * O2(0.6074370741844177));
                         L2[d >> 2] = j + o2;
                         j = L2[b + 4 >> 2];
                         p3 = L2[d + 4 >> 2];
@@ -38701,7 +38701,7 @@
                         s3 = L2[d + 8 >> 2];
                         t4 = O2(O2(O2(-j) - s3) * O2(0.15062999725341797));
                         L2[d + 8 >> 2] = t4 - j;
-                        j = O2(n + o2);
+                        j = O2(n2 + o2);
                         L2[(g4 << 2) + c2 >> 2] = O2(O2(p3 + j) + q2) * O2(0.5);
                         j = O2(O2(j + s3) + t4);
                         m = O2(O2(j * j) + m);
@@ -38768,15 +38768,15 @@
                       while (1) {
                         e4 = b + (g4 << 3) | 0;
                         j = L2[e4 >> 2];
-                        n = L2[d >> 2];
-                        o2 = O2(O2(j - n) * O2(0.6074370741844177));
+                        n2 = L2[d >> 2];
+                        o2 = O2(O2(j - n2) * O2(0.6074370741844177));
                         L2[d >> 2] = j + o2;
                         j = L2[e4 + 4 >> 2];
                         p3 = L2[d + 4 >> 2];
                         q2 = O2(O2(j - p3) * O2(0.15062999725341797));
                         L2[d + 4 >> 2] = j + q2;
                         L2[d + 8 >> 2] = O2(O2(O2(-j) - L2[d + 8 >> 2]) * O2(0.15062999725341797)) - j;
-                        L2[(g4 << 2) + c2 >> 2] = O2(O2(p3 + O2(n + o2)) + q2) * O2(0.5);
+                        L2[(g4 << 2) + c2 >> 2] = O2(O2(p3 + O2(n2 + o2)) + q2) * O2(0.5);
                         g4 = g4 + 1 | 0;
                         if ((a3 | 0) != (g4 | 0)) {
                           continue;
@@ -38789,7 +38789,7 @@
                   return m;
                 }
                 function jc(a3, b, c2, d, e4, f2, g4) {
-                  var h = O2(0), i = 0, j = O2(0), k = 0, l2 = 0, m = 0, n = 0, o2 = 0, p3 = 0, q2 = 0, r2 = O2(0), s3 = 0, t4 = 0, u3 = 0, v3 = 0, w4 = O2(0), x3 = 0, y2 = 0, z3 = 0, A3 = 0;
+                  var h = O2(0), i = 0, j = O2(0), k = 0, l2 = 0, m = 0, n2 = 0, o2 = 0, p3 = 0, q2 = 0, r2 = O2(0), s3 = 0, t4 = 0, u3 = 0, v3 = 0, w4 = O2(0), x3 = 0, y2 = 0, z3 = 0, A3 = 0;
                   i = pa2;
                   q2 = i;
                   if (!((d | 0) != 2 | (e4 | 0) != 1)) {
@@ -38834,7 +38834,7 @@
                   j = L2[f2 >> 2];
                   while (1) {
                     f2 = p3 << 2;
-                    n = f2 + b | 0;
+                    n2 = f2 + b | 0;
                     k = H2[a3 + f2 >> 2];
                     v3 = f2 + g4 | 0;
                     h = L2[v3 >> 2];
@@ -38848,10 +38848,10 @@
                         if (u3) {
                           while (1) {
                             h = O2(h + O2(L2[k + (i << 2) >> 2] + O2(10000000031710769e-46)));
-                            L2[(N3(d, i) << 2) + n >> 2] = h * O2(30517578125e-15);
+                            L2[(N3(d, i) << 2) + n2 >> 2] = h * O2(30517578125e-15);
                             l2 = i | 1;
                             h = O2(O2(j * h) + O2(L2[k + (l2 << 2) >> 2] + O2(10000000031710769e-46)));
-                            L2[(N3(d, l2) << 2) + n >> 2] = h * O2(30517578125e-15);
+                            L2[(N3(d, l2) << 2) + n2 >> 2] = h * O2(30517578125e-15);
                             h = O2(j * h);
                             i = i + 2 | 0;
                             f2 = f2 + 2 | 0;
@@ -38865,7 +38865,7 @@
                           break a;
                         }
                         h = O2(h + O2(L2[k + (i << 2) >> 2] + O2(10000000031710769e-46)));
-                        L2[(N3(d, i) << 2) + n >> 2] = h * O2(30517578125e-15);
+                        L2[(N3(d, i) << 2) + n2 >> 2] = h * O2(30517578125e-15);
                         h = O2(j * h);
                         break a;
                       }
@@ -38909,9 +38909,9 @@
                       f2 = 0;
                       if ((o2 | 0) != 1) {
                         while (1) {
-                          L2[(N3(d, i) << 2) + n >> 2] = L2[(N3(e4, i) << 2) + m >> 2] * O2(30517578125e-15);
+                          L2[(N3(d, i) << 2) + n2 >> 2] = L2[(N3(e4, i) << 2) + m >> 2] * O2(30517578125e-15);
                           k = i | 1;
-                          L2[(N3(k, d) << 2) + n >> 2] = L2[(N3(e4, k) << 2) + m >> 2] * O2(30517578125e-15);
+                          L2[(N3(k, d) << 2) + n2 >> 2] = L2[(N3(e4, k) << 2) + m >> 2] * O2(30517578125e-15);
                           i = i + 2 | 0;
                           f2 = f2 + 2 | 0;
                           if ((y2 | 0) != (f2 | 0)) {
@@ -38923,7 +38923,7 @@
                       if (!z3) {
                         break b;
                       }
-                      L2[(N3(d, i) << 2) + n >> 2] = L2[(N3(e4, i) << 2) + m >> 2] * O2(30517578125e-15);
+                      L2[(N3(d, i) << 2) + n2 >> 2] = L2[(N3(e4, i) << 2) + m >> 2] * O2(30517578125e-15);
                     }
                     p3 = p3 + 1 | 0;
                     if ((x3 | 0) != (p3 | 0)) {
@@ -38934,7 +38934,7 @@
                   pa2 = q2;
                 }
                 function lc(a3, b, c2, d, e4) {
-                  var f2 = O2(0), g4 = 0, h = 0, i = 0, j = O2(0), k = O2(0), l2 = 0, m = O2(0), n = O2(0), o2 = O2(0), p3 = O2(0), q2 = O2(0), r2 = O2(0), s3 = O2(0), t4 = O2(0), u3 = 0, v3 = O2(0);
+                  var f2 = O2(0), g4 = 0, h = 0, i = 0, j = O2(0), k = O2(0), l2 = 0, m = O2(0), n2 = O2(0), o2 = O2(0), p3 = O2(0), q2 = O2(0), r2 = O2(0), s3 = O2(0), t4 = O2(0), u3 = 0, v3 = O2(0);
                   g4 = pa2 - 48 | 0;
                   pa2 = g4;
                   i = c2 >> 1;
@@ -38993,7 +38993,7 @@
                     }
                     f2 = O2(L2[g4 + 8 >> 2] * O2(0.7289999127388));
                     j = O2(L2[g4 + 12 >> 2] * O2(0.6560999155044556));
-                    n = O2(O2(f2 * O2(0.800000011920929)) + j);
+                    n2 = O2(O2(f2 * O2(0.800000011920929)) + j);
                     k = O2(L2[g4 + 4 >> 2] * O2(0.809999942779541));
                     o2 = O2(O2(k * O2(0.800000011920929)) + f2);
                     f2 = O2(L2[g4 >> 2] * O2(0.8999999761581421));
@@ -39014,10 +39014,10 @@
                         v3 = O2(q2 * k);
                         k = j;
                         j = s3;
-                        L2[i >> 2] = v3 + O2(O2(n * t4) + O2(O2(o2 * k) + O2(O2(p3 * f2) + O2(O2(r2 * j) + m))));
+                        L2[i >> 2] = v3 + O2(O2(n2 * t4) + O2(O2(o2 * k) + O2(O2(p3 * f2) + O2(O2(r2 * j) + m))));
                         e4 = (e4 | 4) + b | 0;
                         s3 = L2[e4 >> 2];
-                        L2[e4 >> 2] = O2(q2 * t4) + O2(O2(n * k) + O2(O2(o2 * f2) + O2(O2(p3 * j) + O2(O2(r2 * m) + s3))));
+                        L2[e4 >> 2] = O2(q2 * t4) + O2(O2(n2 * k) + O2(O2(o2 * f2) + O2(O2(p3 * j) + O2(O2(r2 * m) + s3))));
                         h = h + 2 | 0;
                         t4 = f2;
                         a3 = a3 + 2 | 0;
@@ -39031,12 +39031,12 @@
                       break a;
                     }
                     a3 = (h << 2) + b | 0;
-                    L2[a3 >> 2] = O2(q2 * k) + O2(O2(n * f2) + O2(O2(o2 * j) + O2(O2(p3 * m) + O2(O2(r2 * s3) + L2[a3 >> 2]))));
+                    L2[a3 >> 2] = O2(q2 * k) + O2(O2(n2 * f2) + O2(O2(o2 * j) + O2(O2(p3 * m) + O2(O2(r2 * s3) + L2[a3 >> 2]))));
                   }
                   pa2 = g4 + 48 | 0;
                 }
                 function vb2(a3, b, c2, d, e4) {
-                  var f2 = 0, g4 = 0, h = O2(0), i = O2(0), j = 0, k = 0, l2 = O2(0), m = O2(0), n = O2(0), o2 = O2(0), p3 = O2(0), q2 = O2(0), r2 = 0, s3 = 0, t4 = 0, u3 = O2(0), v3 = 0, w4 = O2(0), x3 = O2(0), y2 = O2(0), z3 = O2(0), A3 = O2(0), C5 = O2(0), D5 = 0, E5 = 0, F3 = 0;
+                  var f2 = 0, g4 = 0, h = O2(0), i = O2(0), j = 0, k = 0, l2 = O2(0), m = O2(0), n2 = O2(0), o2 = O2(0), p3 = O2(0), q2 = O2(0), r2 = 0, s3 = 0, t4 = 0, u3 = O2(0), v3 = 0, w4 = O2(0), x3 = O2(0), y2 = O2(0), z3 = O2(0), A3 = O2(0), C5 = O2(0), D5 = 0, E5 = 0, F3 = 0;
                   if ((e4 | 0) > 0) {
                     a: {
                       if (e4 >>> 0 < 4) {
@@ -39057,7 +39057,7 @@
                           l2 = L2[f2 + 4 >> 2];
                           u3 = L2[f2 >> 2];
                           m = O2(0);
-                          n = O2(0);
+                          n2 = O2(0);
                           o2 = O2(0);
                           p3 = O2(0);
                           f2 = a3;
@@ -39074,7 +39074,7 @@
                               C5 = L2[f2 >> 2];
                               q2 = L2[g4 >> 2];
                               m = O2(O2(x3 * y2) + O2(O2(z3 * w4) + O2(O2(A3 * i) + O2(O2(C5 * q2) + m))));
-                              n = O2(O2(x3 * w4) + O2(O2(z3 * i) + O2(O2(A3 * q2) + O2(O2(C5 * h) + n))));
+                              n2 = O2(O2(x3 * w4) + O2(O2(z3 * i) + O2(O2(A3 * q2) + O2(O2(C5 * h) + n2))));
                               o2 = O2(O2(x3 * i) + O2(O2(z3 * q2) + O2(O2(A3 * h) + O2(O2(C5 * l2) + o2))));
                               p3 = O2(O2(x3 * q2) + O2(O2(z3 * h) + O2(O2(A3 * l2) + O2(O2(C5 * u3) + p3))));
                               g4 = g4 + 16 | 0;
@@ -39093,7 +39093,7 @@
                             i = L2[f2 >> 2];
                             q2 = L2[g4 >> 2];
                             m = O2(O2(i * q2) + m);
-                            n = O2(O2(i * h) + n);
+                            n2 = O2(O2(i * h) + n2);
                             o2 = O2(O2(i * l2) + o2);
                             p3 = O2(O2(i * u3) + p3);
                             g4 = g4 + 4 | 0;
@@ -39105,7 +39105,7 @@
                             i = L2[j >> 2];
                             u3 = L2[f2 >> 2];
                             m = O2(O2(i * u3) + m);
-                            n = O2(O2(i * q2) + n);
+                            n2 = O2(O2(i * q2) + n2);
                             o2 = O2(O2(i * h) + o2);
                             p3 = O2(O2(i * l2) + p3);
                             j = j + 4 | 0;
@@ -39117,12 +39117,12 @@
                             l2 = L2[j >> 2];
                             m = O2(O2(l2 * L2[g4 >> 2]) + m);
                             o2 = O2(O2(l2 * q2) + o2);
-                            n = O2(O2(l2 * u3) + n);
+                            n2 = O2(O2(l2 * u3) + n2);
                             p3 = O2(O2(l2 * h) + p3);
                           }
                           L2[f2 >> 2] = p3;
                           L2[(s3 | 4) + c2 >> 2] = o2;
-                          L2[(s3 | 8) + c2 >> 2] = n;
+                          L2[(s3 | 8) + c2 >> 2] = n2;
                           L2[(s3 | 12) + c2 >> 2] = m;
                           r2 = r2 + 4 | 0;
                           if ((v3 | 0) > (r2 | 0)) {
@@ -40033,23 +40033,23 @@
                   return c2;
                 }
                 function ic(a3, b, c2, d, e4, f2, g4, h, i, j, k, l2) {
-                  var m = 0, n = 0, o2 = 0, p3 = 0, q2 = 0, r2 = 0, s3 = 0, t4 = 0, u3 = 0, v3 = 0;
+                  var m = 0, n2 = 0, o2 = 0, p3 = 0, q2 = 0, r2 = 0, s3 = 0, t4 = 0, u3 = 0, v3 = 0;
                   m = pa2;
                   t4 = m;
                   s3 = H2[a3 + 8 >> 2];
                   p3 = H2[a3 + 4 >> 2];
                   o2 = H2[a3 + 44 >> 2];
-                  n = o2 << j;
-                  m = m - ((n << 2) + 15 & -16) | 0;
+                  n2 = o2 << j;
+                  m = m - ((n2 << 2) + 15 & -16) | 0;
                   pa2 = m;
                   r2 = H2[a3 + 36 >> 2] - (i ? 0 : j) | 0;
                   q2 = 1 << j;
                   j = i ? q2 : 1;
-                  o2 = i ? o2 : n;
+                  o2 = i ? o2 : n2;
                   a: {
                     if (!((g4 | 0) != 1 | (h | 0) != 2)) {
                       wb2(a3, b, m, d, e4, f2, q2, k, l2);
-                      b = Ca2(H2[c2 + 4 >> 2] + ((p3 | 0) / 2 << 2) | 0, m, n << 2);
+                      b = Ca2(H2[c2 + 4 >> 2] + ((p3 | 0) / 2 << 2) | 0, m, n2 << 2);
                       if ((j | 0) <= 0) {
                         break a;
                       }
@@ -40083,7 +40083,7 @@
                       u3 = a3 - -64 | 0;
                       g4 = 0;
                       while (1) {
-                        wb2(a3, (N3(g4, n) << 2) + b | 0, m, (N3(g4, s3) << 2) + d | 0, e4, f2, q2, k, l2);
+                        wb2(a3, (N3(g4, n2) << 2) + b | 0, m, (N3(g4, s3) << 2) + d | 0, e4, f2, q2, k, l2);
                         if ((j | 0) > 0) {
                           v3 = (g4 << 2) + c2 | 0;
                           i = 0;
@@ -40106,16 +40106,16 @@
                     }
                     g4 = H2[c2 >> 2];
                     wb2(a3, b, m, d, e4, f2, q2, k, l2);
-                    h = (n << 2) + b | 0;
+                    h = (n2 << 2) + b | 0;
                     b = g4 + ((p3 | 0) / 2 << 2) | 0;
                     wb2(a3, h, b, (s3 << 2) + d | 0, e4, f2, q2, k, l2);
                     b: {
-                      if ((n | 0) <= 0) {
+                      if ((n2 | 0) <= 0) {
                         break b;
                       }
                       i = 0;
-                      if ((n | 0) != 1) {
-                        e4 = n & -2;
+                      if ((n2 | 0) != 1) {
+                        e4 = n2 & -2;
                         g4 = 0;
                         while (1) {
                           d = i << 2;
@@ -40132,7 +40132,7 @@
                           break;
                         }
                       }
-                      if (!(n & 1)) {
+                      if (!(n2 & 1)) {
                         break b;
                       }
                       d = i << 2;
@@ -40462,7 +40462,7 @@
                   c2 = c2 | 0;
                   d = d | 0;
                   e4 = e4 | 0;
-                  var f2 = 0, g4 = 0, h = 0, i = 0, j = 0, k = 0, l2 = 0, m = 0, n = 0;
+                  var f2 = 0, g4 = 0, h = 0, i = 0, j = 0, k = 0, l2 = 0, m = 0, n2 = 0;
                   a: {
                     if ((c2 | 0) <= 0) {
                       break a;
@@ -40537,7 +40537,7 @@
                       h = 0;
                       c2 = 0;
                       if (g4 >>> 0 >= 4) {
-                        n = g4 & -4;
+                        n2 = g4 & -4;
                         while (1) {
                           L2[f2 + (c2 << 2) >> 2] = O2(G2[(c2 << 1) + b >> 1]) * O2(30517578125e-15);
                           i = c2 | 1;
@@ -40548,7 +40548,7 @@
                           L2[f2 + (i << 2) >> 2] = O2(G2[(i << 1) + b >> 1]) * O2(30517578125e-15);
                           c2 = c2 + 4 | 0;
                           l2 = l2 + 4 | 0;
-                          if ((n | 0) != (l2 | 0)) {
+                          if ((n2 | 0) != (l2 | 0)) {
                             continue;
                           }
                           break;
@@ -40574,7 +40574,7 @@
                   return h | 0;
                 }
                 function ub2(a3, b, c2, d, e4, f2, g4) {
-                  var h = 0, i = 0, j = 0, k = 0, l2 = O2(0), m = O2(0), n = O2(0), o2 = O2(0), p3 = 0, q2 = 0, r2 = 0, s3 = 0, t4 = O2(0), u3 = O2(0), v3 = 0, w4 = 0;
+                  var h = 0, i = 0, j = 0, k = 0, l2 = O2(0), m = O2(0), n2 = O2(0), o2 = O2(0), p3 = 0, q2 = 0, r2 = 0, s3 = 0, t4 = O2(0), u3 = O2(0), v3 = 0, w4 = 0;
                   j = H2[a3 + 24 >> 2];
                   h = H2[a3 >> 2];
                   a: {
@@ -40626,12 +40626,12 @@
                     w4 = 0 - g4 << 2;
                     while (1) {
                       s3 = (G2[f2 >> 1] << 3) + i | 0;
-                      n = L2[b >> 2];
+                      n2 = L2[b >> 2];
                       o2 = L2[(a3 << 2) + j >> 2];
                       l2 = L2[(a3 + k << 2) + j >> 2];
                       m = L2[r2 >> 2];
-                      L2[s3 >> 2] = O2(n * o2) - O2(l2 * m);
-                      L2[s3 + 4 >> 2] = O2(m * o2) + O2(n * l2);
+                      L2[s3 >> 2] = O2(n2 * o2) - O2(l2 * m);
+                      L2[s3 + 4 >> 2] = O2(m * o2) + O2(n2 * l2);
                       f2 = f2 + 2 | 0;
                       r2 = r2 + w4 | 0;
                       b = (g4 << 2) + b | 0;
@@ -40651,7 +40651,7 @@
                     h = 0;
                     while (1) {
                       f2 = a3 - 4 | 0;
-                      n = L2[f2 >> 2];
+                      n2 = L2[f2 >> 2];
                       a3 = a3 - 8 | 0;
                       o2 = L2[a3 >> 2];
                       l2 = L2[i + 4 >> 2];
@@ -40663,8 +40663,8 @@
                       f2 = h ^ -1;
                       l2 = L2[(f2 + k << 2) + j >> 2];
                       m = L2[(f2 + q2 << 2) + j >> 2];
-                      L2[a3 >> 2] = O2(n * l2) + O2(o2 * m);
-                      L2[i + 4 >> 2] = O2(n * m) - O2(l2 * o2);
+                      L2[a3 >> 2] = O2(n2 * l2) + O2(o2 * m);
+                      L2[i + 4 >> 2] = O2(n2 * m) - O2(l2 * o2);
                       i = i + 8 | 0;
                       h = h + 1 | 0;
                       if ((b | 0) != (h | 0)) {
@@ -40681,13 +40681,13 @@
                     i = 0;
                     while (1) {
                       j = j - 4 | 0;
-                      n = L2[j >> 2];
+                      n2 = L2[j >> 2];
                       o2 = L2[c2 >> 2];
                       h = h - 4 | 0;
                       l2 = L2[h >> 2];
                       m = L2[d >> 2];
-                      L2[c2 >> 2] = O2(n * o2) - O2(l2 * m);
-                      L2[h >> 2] = O2(m * o2) + O2(l2 * n);
+                      L2[c2 >> 2] = O2(n2 * o2) - O2(l2 * m);
+                      L2[h >> 2] = O2(m * o2) + O2(l2 * n2);
                       d = d + 4 | 0;
                       c2 = c2 + 4 | 0;
                       i = i + 1 | 0;
@@ -40699,7 +40699,7 @@
                   }
                 }
                 function mb2(a3, b, c2, d, e4, f2, g4, h, i, j, k) {
-                  var l2 = 0, m = O2(0), n = O2(0), o2 = O2(0), p3 = O2(0), q2 = O2(0), r2 = 0, s3 = 0, t4 = 0, u3 = 0, v3 = O2(0), w4 = O2(0), x3 = O2(0), y2 = O2(0), z3 = 0, A3 = O2(0), B4 = O2(0), C5 = O2(0);
+                  var l2 = 0, m = O2(0), n2 = O2(0), o2 = O2(0), p3 = O2(0), q2 = O2(0), r2 = 0, s3 = 0, t4 = 0, u3 = 0, v3 = O2(0), w4 = O2(0), x3 = O2(0), y2 = O2(0), z3 = 0, A3 = O2(0), B4 = O2(0), C5 = O2(0);
                   a: {
                     if (!(f2 != O2(0) | g4 != O2(0))) {
                       if ((a3 | 0) == (b | 0)) {
@@ -40725,7 +40725,7 @@
                       B4 = O2(L2[h + 11796 >> 2] * f2);
                       C5 = O2(L2[h + 11792 >> 2] * f2);
                       m = L2[(t4 << 2) + b >> 2];
-                      n = L2[(u3 << 2) + b >> 2];
+                      n2 = L2[(u3 << 2) + b >> 2];
                       o2 = L2[(s3 << 2) + b >> 2];
                       y2 = L2[(r2 << 2) + b >> 2];
                       k = 0;
@@ -40736,10 +40736,10 @@
                         q2 = O2(O2(1) - p3);
                         f2 = L2[((k - l2 << 2) + b | 0) + 8 >> 2];
                         i = (k - d << 2) + b | 0;
-                        L2[a3 + h >> 2] = O2(O2(v3 * p3) * O2(y2 + f2)) + O2(O2(O2(w4 * p3) * O2(m + o2)) + O2(O2(O2(x3 * p3) * n) + O2(O2(O2(A3 * q2) * O2(L2[i + 8 >> 2] + L2[i - 8 >> 2])) + O2(O2(O2(B4 * q2) * O2(L2[i + 4 >> 2] + L2[i - 4 >> 2])) + O2(O2(O2(C5 * q2) * L2[i >> 2]) + L2[b + h >> 2])))));
+                        L2[a3 + h >> 2] = O2(O2(v3 * p3) * O2(y2 + f2)) + O2(O2(O2(w4 * p3) * O2(m + o2)) + O2(O2(O2(x3 * p3) * n2) + O2(O2(O2(A3 * q2) * O2(L2[i + 8 >> 2] + L2[i - 8 >> 2])) + O2(O2(O2(B4 * q2) * O2(L2[i + 4 >> 2] + L2[i - 4 >> 2])) + O2(O2(O2(C5 * q2) * L2[i >> 2]) + L2[b + h >> 2])))));
                         y2 = o2;
-                        o2 = n;
-                        n = m;
+                        o2 = n2;
+                        n2 = m;
                         m = f2;
                         k = k + 1 | 0;
                         if ((c2 | 0) != (k | 0)) {
@@ -40767,16 +40767,16 @@
                     o2 = L2[b + (r2 << 2) >> 2];
                     f2 = L2[b + (s3 << 2) >> 2];
                     m = L2[b + (u3 << 2) >> 2];
-                    n = L2[b + (t4 << 2) >> 2];
+                    n2 = L2[b + (t4 << 2) >> 2];
                     k = 0;
                     while (1) {
                       a3 = k << 2;
                       g4 = L2[(b + (k - l2 << 2) | 0) + 8 >> 2];
-                      L2[a3 + c2 >> 2] = O2(v3 * O2(o2 + g4)) + O2(O2(w4 * O2(f2 + n)) + O2(O2(x3 * m) + L2[a3 + b >> 2]));
+                      L2[a3 + c2 >> 2] = O2(v3 * O2(o2 + g4)) + O2(O2(w4 * O2(f2 + n2)) + O2(O2(x3 * m) + L2[a3 + b >> 2]));
                       o2 = f2;
                       f2 = m;
-                      m = n;
-                      n = g4;
+                      m = n2;
+                      n2 = g4;
                       k = k + 1 | 0;
                       if ((e4 | 0) != (k | 0)) {
                         continue;
@@ -41396,7 +41396,7 @@
                   }
                 }
                 function nc(a3, b, c2) {
-                  var d = O2(0), e4 = 0, f2 = 0, g4 = 0, h = O2(0), i = O2(0), j = 0, k = O2(0), l2 = 0, m = 0, n = 0, o2 = 0, p3 = 0, q2 = 0;
+                  var d = O2(0), e4 = 0, f2 = 0, g4 = 0, h = O2(0), i = O2(0), j = 0, k = O2(0), l2 = 0, m = 0, n2 = 0, o2 = 0, p3 = 0, q2 = 0;
                   k = L2[b >> 2];
                   f2 = Da2(a3, 0, c2 << 2);
                   a: {
@@ -41427,8 +41427,8 @@
                           c2 = 0;
                           e4 = 0;
                           while (1) {
-                            n = c2 | 1;
-                            d = O2(O2(L2[(n << 2) + f2 >> 2] * L2[(a3 - n << 2) + b >> 2]) + O2(O2(L2[(c2 << 2) + f2 >> 2] * L2[(a3 - c2 << 2) + b >> 2]) + d));
+                            n2 = c2 | 1;
+                            d = O2(O2(L2[(n2 << 2) + f2 >> 2] * L2[(a3 - n2 << 2) + b >> 2]) + O2(O2(L2[(c2 << 2) + f2 >> 2] * L2[(a3 - c2 << 2) + b >> 2]) + d));
                             c2 = c2 + 2 | 0;
                             e4 = e4 + 2 | 0;
                             if ((o2 | 0) != (e4 | 0)) {
@@ -41454,7 +41454,7 @@
                         o2 = e4 & 1;
                         c2 = 0;
                         if (l2 >>> 0 >= 4) {
-                          n = e4 & 2147483646;
+                          n2 = e4 & 2147483646;
                           e4 = 0;
                           while (1) {
                             g4 = c2 << 2;
@@ -41474,7 +41474,7 @@
                             L2[g4 >> 2] = i + O2(d * h);
                             c2 = c2 + 2 | 0;
                             e4 = e4 + 2 | 0;
-                            if ((n | 0) != (e4 | 0)) {
+                            if ((n2 | 0) != (e4 | 0)) {
                               continue;
                             }
                             break;
@@ -41590,7 +41590,7 @@
                   return c2;
                 }
                 function jd(a3, b, c2, d, e4, f2, g4, h, i) {
-                  var j = O2(0), k = 0, l2 = 0, m = 0, n = 0, o2 = 0, p3 = 0;
+                  var j = O2(0), k = 0, l2 = 0, m = 0, n2 = 0, o2 = 0, p3 = 0;
                   l2 = 48e3 / (i | 0) | 0;
                   k = (e4 | 0) / (l2 | 0) | 0;
                   a: {
@@ -41669,10 +41669,10 @@
                         break b;
                       }
                       while (1) {
-                        n = N3(g4, i) + e4 << 2;
-                        L2[n + b >> 2] = L2[a3 + n >> 2] * d;
-                        n = N3(i + 1 | 0, g4) + e4 << 2;
-                        L2[n + b >> 2] = L2[a3 + n >> 2] * d;
+                        n2 = N3(g4, i) + e4 << 2;
+                        L2[n2 + b >> 2] = L2[a3 + n2 >> 2] * d;
+                        n2 = N3(i + 1 | 0, g4) + e4 << 2;
+                        L2[n2 + b >> 2] = L2[a3 + n2 >> 2] * d;
                         i = i + 2 | 0;
                         if ((i | 0) != (f2 | 0)) {
                           continue;
@@ -41688,7 +41688,7 @@
                   }
                 }
                 function fb2(a3, b, c2, d) {
-                  var e4 = 0, f2 = 0, g4 = 0, h = 0, i = 0, j = 0, k = 0, l2 = 0, m = 0, n = 0, o2 = 0, p3 = 0;
+                  var e4 = 0, f2 = 0, g4 = 0, h = 0, i = 0, j = 0, k = 0, l2 = 0, m = 0, n2 = 0, o2 = 0, p3 = 0;
                   m = Q2(d);
                   h = 31 - m | 0;
                   e4 = d;
@@ -41698,7 +41698,7 @@
                     }
                     e4 = d - 2 | 0;
                     f2 = (e4 >>> 1 | 0) + 1 | 0;
-                    n = f2 & 1;
+                    n2 = f2 & 1;
                     b: {
                       if (e4 >>> 0 < 2) {
                         f2 = 0;
@@ -41727,7 +41727,7 @@
                       }
                     }
                     g4 = d & -2;
-                    if (!n) {
+                    if (!n2) {
                       break a;
                     }
                     j = e4;
@@ -41758,7 +41758,7 @@
                         f2 = 0;
                         break d;
                       }
-                      n = f2 & -2;
+                      n2 = f2 & -2;
                       e4 = 0;
                       f2 = 0;
                       while (1) {
@@ -41773,7 +41773,7 @@
                         e4 = (l2 + N3(k, k) >>> h) + (j + (o2 + N3(e4, e4) >>> h | 0)) | 0;
                         f2 = f2 + 4 | 0;
                         g4 = g4 + 2 | 0;
-                        if ((n | 0) != (g4 | 0)) {
+                        if ((n2 | 0) != (g4 | 0)) {
                           continue;
                         }
                         break;
@@ -41797,14 +41797,14 @@
                   H2[a3 >> 2] = e4;
                 }
                 function ac(a3, b, c2) {
-                  var d = 0, e4 = 0, f2 = 0, g4 = 0, h = 0, i = 0, j = 0, k = 0, l2 = 0, m = 0, n = 0;
+                  var d = 0, e4 = 0, f2 = 0, g4 = 0, h = 0, i = 0, j = 0, k = 0, l2 = 0, m = 0, n2 = 0;
                   f2 = pa2 - 400 | 0;
                   pa2 = f2;
                   a: {
                     b: {
                       if (c2 >>> 0 <= 24) {
                         i = c2 + 1 | 0;
-                        n = i & 1;
+                        n2 = i & 1;
                         if (c2) {
                           break b;
                         }
@@ -41832,7 +41832,7 @@
                       break;
                     }
                   }
-                  if (n) {
+                  if (n2) {
                     i = (g4 << 4) + f2 | 0;
                     d = +L2[(g4 << 2) + b >> 2];
                     M4[i >> 3] = d;
@@ -41840,7 +41840,7 @@
                   }
                   if ((c2 | 0) > 0) {
                     b = 0;
-                    n = 0 - c2 | 0;
+                    n2 = 0 - c2 | 0;
                     i = c2;
                     while (1) {
                       e4 = b;
@@ -41854,7 +41854,7 @@
                           break c;
                         }
                         g4 = 0;
-                        if ((n | 0) != (e4 ^ -1)) {
+                        if ((n2 | 0) != (e4 ^ -1)) {
                           m = i & -2;
                           e4 = 0;
                           while (1) {
@@ -41902,7 +41902,7 @@
                   return O2(M4[f2 + 8 >> 3]);
                 }
                 function Yc(a3, b, c2, d) {
-                  var e4 = 0, f2 = 0, g4 = 0, h = 0, i = 0, j = 0, k = 0, l2 = 0, m = 0, n = 0, o2 = 0;
+                  var e4 = 0, f2 = 0, g4 = 0, h = 0, i = 0, j = 0, k = 0, l2 = 0, m = 0, n2 = 0, o2 = 0;
                   f2 = pa2;
                   l2 = f2;
                   e4 = H2[a3 + 268 >> 2];
@@ -41915,7 +41915,7 @@
                   H2[f2 >> 2] = H2[a3 + 24 >> 2];
                   H2[f2 + 4 >> 2] = g4;
                   m = f2 + 16 | 0;
-                  n = H2[a3 + 272 >> 2];
+                  n2 = H2[a3 + 272 >> 2];
                   while (1) {
                     g4 = (d | 0) < (e4 | 0) ? d : e4;
                     ad(a3, m, c2, g4);
@@ -41937,7 +41937,7 @@
                         }
                         G2[b >> 1] = e4;
                         b = b + 2 | 0;
-                        h = h + n | 0;
+                        h = h + n2 | 0;
                         if ((j | 0) > (h | 0)) {
                           continue;
                         }
@@ -42076,9 +42076,9 @@
                   return a3;
                 }
                 function Qb2(a3, b, c2, d, e4, f2) {
-                  var g4 = 0, h = 0, i = 0, j = O2(0), k = 0, l2 = 0, m = 0, n = 0, o2 = 0, p3 = 0, q2 = 0, r2 = O2(0);
+                  var g4 = 0, h = 0, i = 0, j = O2(0), k = 0, l2 = 0, m = 0, n2 = 0, o2 = 0, p3 = 0, q2 = 0, r2 = O2(0);
                   m = (f2 | 0) <= 1 ? 1 : f2;
-                  n = b & -2;
+                  n2 = b & -2;
                   o2 = b & 1;
                   l2 = c2 - b & 3;
                   p3 = (b ^ -1) + c2 >>> 0 < 3;
@@ -42101,7 +42101,7 @@
                           q2 = h + e4 | 0, r2 = O2(O2(Za2(+L2[d + h >> 2]) * 1.4426950408889634) - j), L2[q2 >> 2] = r2;
                           f2 = f2 + 2 | 0;
                           g4 = g4 + 2 | 0;
-                          if ((n | 0) != (g4 | 0)) {
+                          if ((n2 | 0) != (g4 | 0)) {
                             continue;
                           }
                           break;
@@ -42156,7 +42156,7 @@
                   }
                 }
                 function hb2(a3, b) {
-                  var c2 = 0, d = 0, e4 = 0, f2 = 0, g4 = 0, h = 0, i = 0, j = 0, k = 0, l2 = 0, m = 0, n = 0, o2 = 0;
+                  var c2 = 0, d = 0, e4 = 0, f2 = 0, g4 = 0, h = 0, i = 0, j = 0, k = 0, l2 = 0, m = 0, n2 = 0, o2 = 0;
                   o2 = 1;
                   while (1) {
                     l2 = (c2 << 2) + a3 | 0;
@@ -42185,9 +42185,9 @@
                               f2 = N3(m, 3) + j | 0;
                               h = H2[l2 >> 2] - f2 | 0;
                               i = h >> 31;
-                              n = d;
+                              n2 = d;
                               d = (i ^ h) - i | 0;
-                              if (n >>> 0 <= d >>> 0) {
+                              if (n2 >>> 0 <= d >>> 0) {
                                 break b;
                               }
                               F2[e4 | 0] = c2;
@@ -42195,9 +42195,9 @@
                               i = N3(m, 5) + j | 0;
                               h = H2[l2 >> 2] - i | 0;
                               g4 = h >> 31;
-                              n = d;
+                              n2 = d;
                               d = (g4 ^ h) - g4 | 0;
-                              if (n >>> 0 <= d >>> 0) {
+                              if (n2 >>> 0 <= d >>> 0) {
                                 break c;
                               }
                               F2[e4 | 0] = c2;
@@ -42205,9 +42205,9 @@
                               g4 = N3(m, 7) + j | 0;
                               h = H2[l2 >> 2] - g4 | 0;
                               f2 = h >> 31;
-                              n = d;
+                              n2 = d;
                               d = (f2 ^ h) - f2 | 0;
-                              if (n >>> 0 <= d >>> 0) {
+                              if (n2 >>> 0 <= d >>> 0) {
                                 break a;
                               }
                               F2[e4 | 0] = c2;
@@ -42253,7 +42253,7 @@
                   H2[a3 >> 2] = H2[a3 >> 2] - H2[a3 + 4 >> 2];
                 }
                 function ad(a3, b, c2, d) {
-                  var e4 = 0, f2 = 0, g4 = 0, h = 0, i = 0, j = 0, k = 0, l2 = 0, m = 0, n = 0, o2 = 0, p3 = 0, q2 = 0, r2 = 0, s3 = 0;
+                  var e4 = 0, f2 = 0, g4 = 0, h = 0, i = 0, j = 0, k = 0, l2 = 0, m = 0, n2 = 0, o2 = 0, p3 = 0, q2 = 0, r2 = 0, s3 = 0;
                   if ((d | 0) > 0) {
                     h = H2[a3 + 20 >> 2];
                     f2 = H2[a3 + 16 >> 2];
@@ -42265,8 +42265,8 @@
                       o2 = 32767;
                       m = (l2 << 2) + b | 0;
                       p3 = l2 << 1;
-                      n = G2[p3 + c2 >> 1] << 10;
-                      e4 = n - k | 0;
+                      n2 = G2[p3 + c2 >> 1] << 10;
+                      e4 = n2 - k | 0;
                       q2 = (N3(e4 & 65535, 1746) >>> 16 | 0) + N3(e4 >> 16, 1746) | 0;
                       r2 = k + q2 | 0;
                       e4 = r2 - g4 | 0;
@@ -42281,7 +42281,7 @@
                         e4 = 32767;
                       }
                       G2[m >> 1] = e4;
-                      e4 = n - i | 0;
+                      e4 = n2 - i | 0;
                       m = (N3(e4 & 65535, 6854) >>> 16 | 0) + N3(e4 >> 16, 6854) | 0;
                       i = m + i | 0;
                       e4 = i - f2 | 0;
@@ -42295,10 +42295,10 @@
                       }
                       j = g4 + j | 0;
                       g4 = k + r2 | 0;
-                      k = n + q2 | 0;
+                      k = n2 + q2 | 0;
                       h = f2 + h | 0;
                       f2 = i + s3 | 0;
-                      i = n + m | 0;
+                      i = n2 + m | 0;
                       G2[(p3 << 1 | 2) + b >> 1] = o2;
                       l2 = l2 + 1 | 0;
                       if ((l2 | 0) != (d | 0)) {
@@ -42315,7 +42315,7 @@
                   }
                 }
                 function Cb2(a3) {
-                  var b = 0, c2 = 0, d = 0, e4 = 0, f2 = 0, g4 = 0, h = 0, i = 0, j = 0, k = 0, l2 = 0, m = 0, n = 0;
+                  var b = 0, c2 = 0, d = 0, e4 = 0, f2 = 0, g4 = 0, h = 0, i = 0, j = 0, k = 0, l2 = 0, m = 0, n2 = 0;
                   A2(+a3);
                   b = v(1) | 0;
                   d = v(0) | 0;
@@ -42368,16 +42368,16 @@
                     x2(1, b | 0);
                     j = +z2();
                     m = j * 0.4342944818781689;
-                    n = f2 + m;
+                    n2 = f2 + m;
                     a3 = h * (g4 + (a3 * (a3 * (a3 * 0.15313837699209373 + 0.22222198432149784) + 0.3999999999940942) + i * (a3 * (a3 * (a3 * 0.14798198605116586 + 0.1818357216161805) + 0.2857142874366239) + 0.6666666666666735))) + (c2 - j - g4);
-                    a3 = n + (m + (f2 - n) + (a3 * 0.4342944818781689 + (l2 * 3694239077158931e-28 + (a3 + j) * 25082946711645275e-27)));
+                    a3 = n2 + (m + (f2 - n2) + (a3 * 0.4342944818781689 + (l2 * 3694239077158931e-28 + (a3 + j) * 25082946711645275e-27)));
                   }
                   return a3;
                 }
                 function pc(a3, b, c2, d) {
-                  var e4 = 0, f2 = 0, g4 = 0, h = 0, i = 0, j = 0, k = 0, l2 = 0, m = 0, n = 0;
+                  var e4 = 0, f2 = 0, g4 = 0, h = 0, i = 0, j = 0, k = 0, l2 = 0, m = 0, n2 = 0;
                   e4 = pa2;
-                  n = e4;
+                  n2 = e4;
                   l2 = N3(b, c2);
                   f2 = e4 - ((l2 << 2) + 15 & -16) | 0;
                   pa2 = f2;
@@ -42459,7 +42459,7 @@
                       }
                     }
                     Ca2(a3, f2, l2 << 2);
-                    pa2 = n;
+                    pa2 = n2;
                     return;
                   }
                   Ba2(9055, 3543, 591);
@@ -42540,7 +42540,7 @@
                   }
                 }
                 function Nb2(a3, b, c2, d, e4, f2) {
-                  var g4 = O2(0), h = 0, i = O2(0), j = 0, k = 0, l2 = 0, m = 0, n = 0, o2 = 0, p3 = 0, q2 = 0, r2 = 0, s3 = 0, t4 = 0, u3 = 0, v3 = 0, w4 = 0, x3 = O2(0), y2 = O2(0), z3 = O2(0);
+                  var g4 = O2(0), h = 0, i = O2(0), j = 0, k = 0, l2 = 0, m = 0, n2 = 0, o2 = 0, p3 = 0, q2 = 0, r2 = 0, s3 = 0, t4 = 0, u3 = 0, v3 = 0, w4 = 0, x3 = O2(0), y2 = O2(0), z3 = O2(0);
                   r2 = (e4 | 0) <= 1 ? 1 : e4;
                   s3 = H2[a3 + 44 >> 2] << f2;
                   q2 = H2[a3 + 32 >> 2];
@@ -42548,14 +42548,14 @@
                     if ((d | 0) > 0) {
                       t4 = N3(l2, s3);
                       u3 = N3(H2[a3 + 8 >> 2], l2);
-                      n = J2[q2 >> 1];
+                      n2 = J2[q2 >> 1];
                       j = 0;
                       while (1) {
-                        e4 = n << 16 >> 16;
+                        e4 = n2 << 16 >> 16;
                         v3 = j;
                         j = j + 1 | 0;
-                        n = G2[(j << 1) + q2 >> 1];
-                        h = n - e4 << f2;
+                        n2 = G2[(j << 1) + q2 >> 1];
+                        h = n2 - e4 << f2;
                         a: {
                           if ((h | 0) <= 0) {
                             i = O2(0);
@@ -42730,7 +42730,7 @@
                   }
                 }
                 function Ob2(a3, b, c2) {
-                  var d = O2(0), e4 = 0, f2 = 0, g4 = O2(0), h = 0, i = 0, j = 0, k = 0, l2 = O2(0), m = O2(0), n = O2(0);
+                  var d = O2(0), e4 = 0, f2 = 0, g4 = O2(0), h = 0, i = 0, j = 0, k = 0, l2 = O2(0), m = O2(0), n2 = O2(0);
                   a: {
                     if ((b | 0) <= 0) {
                       break a;
@@ -42748,9 +42748,9 @@
                         d = L2[(f2 | 8) + a3 >> 2];
                         m = O2(d * d);
                         d = L2[(f2 | 4) + a3 >> 2];
-                        n = O2(d * d);
+                        n2 = O2(d * d);
                         d = L2[a3 + f2 >> 2];
-                        g4 = O2(l2 + O2(m + O2(n + O2(O2(d * d) + g4))));
+                        g4 = O2(l2 + O2(m + O2(n2 + O2(O2(d * d) + g4))));
                         e4 = e4 + 4 | 0;
                         i = i + 4 | 0;
                         if ((k | 0) != (i | 0)) {
@@ -42995,7 +42995,7 @@
                   return a3;
                 }
                 function Bc(a3, b, c2, d, e4) {
-                  var f2 = 0, g4 = 0, h = 0, i = 0, j = 0, k = 0, l2 = 0, m = 0, n = 0;
+                  var f2 = 0, g4 = 0, h = 0, i = 0, j = 0, k = 0, l2 = 0, m = 0, n2 = 0;
                   if ((e4 | 0) > 0) {
                     while (1) {
                       k = (j << 2) + b | 0;
@@ -43041,7 +43041,7 @@
                       }
                       f2 = f2 << 24 >> 24;
                       f2 = (N3(f2, 7281) >> 16) + N3(f2, 29) | 0;
-                      m = k, n = Xa2(((f2 | 0) >= 1877 ? 1877 : f2) + 2090 | 0), H2[m >> 2] = n;
+                      m = k, n2 = Xa2(((f2 | 0) >= 1877 ? 1877 : f2) + 2090 | 0), H2[m >> 2] = n2;
                       j = j + 1 | 0;
                       if ((j | 0) != (e4 | 0)) {
                         continue;
@@ -43580,12 +43580,12 @@
                   B3();
                 }
                 function $b(a3, b, c2) {
-                  var d = 0, e4 = 0, f2 = 0, g4 = 0, h = O2(0), i = O2(0), j = O2(0), k = 0, l2 = 0, m = 0, n = 0, o2 = 0, p3 = 0, q2 = 0;
+                  var d = 0, e4 = 0, f2 = 0, g4 = 0, h = O2(0), i = O2(0), j = O2(0), k = 0, l2 = 0, m = 0, n2 = 0, o2 = 0, p3 = 0, q2 = 0;
                   l2 = 1;
                   if ((c2 | 0) > 0) {
                     while (1) {
-                      e4 = n;
-                      n = e4 + 1 | 0;
+                      e4 = n2;
+                      n2 = e4 + 1 | 0;
                       o2 = e4 << 2;
                       j = L2[o2 + b >> 2];
                       a: {
@@ -43635,7 +43635,7 @@
                       }
                       L2[a3 + o2 >> 2] = -j;
                       l2 = l2 + 1 | 0;
-                      if ((c2 | 0) != (n | 0)) {
+                      if ((c2 | 0) != (n2 | 0)) {
                         continue;
                       }
                       break;
@@ -43840,16 +43840,16 @@
                   return 0;
                 }
                 function wb2(a3, b, c2, d, e4, f2, g4, h, i) {
-                  var j = 0, k = 0, l2 = 0, m = O2(0), n = 0, o2 = 0, p3 = 0;
+                  var j = 0, k = 0, l2 = 0, m = O2(0), n2 = 0, o2 = 0, p3 = 0;
                   o2 = N3(H2[a3 + 44 >> 2], g4);
-                  n = H2[a3 + 32 >> 2];
-                  k = N3(G2[n + (f2 << 1) >> 1], g4);
+                  n2 = H2[a3 + 32 >> 2];
+                  k = N3(G2[n2 + (f2 << 1) >> 1], g4);
                   if ((h | 0) != 1) {
                     a3 = (o2 | 0) / (h | 0) | 0;
                     k = (a3 | 0) > (k | 0) ? k : a3;
                   }
                   e4 = i ? 0 : e4;
-                  l2 = G2[(e4 << 1) + n >> 1];
+                  l2 = G2[(e4 << 1) + n2 >> 1];
                   j = N3(l2, g4);
                   h = j << 2;
                   a3 = c2;
@@ -43866,7 +43866,7 @@
                       m = O2(Wa2(+(m > O2(32) ? O2(32) : m) * 0.6931471805599453));
                       h = N3(l2 << 16 >> 16, g4);
                       b = b + 1 | 0;
-                      l2 = G2[(b << 1) + n >> 1];
+                      l2 = G2[(b << 1) + n2 >> 1];
                       p3 = N3(l2, g4);
                       while (1) {
                         L2[a3 >> 2] = L2[f2 >> 2] * m;
@@ -46448,7 +46448,7 @@
               l = true;
               break;
             }
-            var n = "void" !== b[0].name, m = "", q = "";
+            var n2 = "void" !== b[0].name, m = "", q = "";
             for (c = 0; c < k - 2; ++c) m += (0 !== c ? ", " : "") + "arg" + c, q += (0 !== c ? ", " : "") + "arg" + c + "Wired";
             a = "return function " + Qa(a) + "(" + m + ") {\nif (arguments.length !== " + (k - 2) + ") {\nthrowBindingError('function " + a + " called with ' + arguments.length + ' arguments, expected " + (k - 2) + " args!');\n}\n";
             l && (a += "var destructors = [];\n");
@@ -46458,10 +46458,10 @@
             h && (a += "var thisWired = classParam.toWireType(" + r + ", this);\n");
             for (c = 0; c < k - 2; ++c) a += "var arg" + c + "Wired = argType" + c + ".toWireType(" + r + ", arg" + c + "); // " + b[c + 2].name + "\n", m.push("argType" + c), d.push(b[c + 2]);
             h && (q = "thisWired" + (0 < q.length ? ", " : "") + q);
-            a += (n || f ? "var rv = " : "") + "invoker(fn" + (0 < q.length ? ", " : "") + q + ");\n";
+            a += (n2 || f ? "var rv = " : "") + "invoker(fn" + (0 < q.length ? ", " : "") + q + ");\n";
             if (l) a += "runDestructors(destructors);\n";
             else for (c = h ? 1 : 2; c < b.length; ++c) f = 1 === c ? "thisWired" : "arg" + (c - 2) + "Wired", null !== b[c].N && (a += f + "_dtor(" + f + "); // " + b[c].name + "\n", m.push(f + "_dtor"), d.push(b[c].N));
-            n && (a += "var ret = retType.fromWireType(rv);\nreturn ret;\n");
+            n2 && (a += "var ret = retType.fromWireType(rv);\nreturn ret;\n");
             m.push(a + "}\n");
             return yb(m).apply(null, d);
           }
@@ -46769,11 +46769,11 @@
                 return this.fromWireType(h[k >> f]);
               }, N: null });
             },
-            u: function(a, b, c, d, e3, f, k, h, l, n, m, q, r) {
+            u: function(a, b, c, d, e3, f, k, h, l, n2, m, q, r) {
               m = I3(m);
               f = W(e3, f);
               h && (h = W(k, h));
-              n && (n = W(l, n));
+              n2 && (n2 = W(l, n2));
               r = W(
                 q,
                 r
@@ -46797,7 +46797,7 @@
                 });
                 var La = Object.create(aa, { constructor: { value: v } });
                 v.prototype = La;
-                var S = new fb(m, v, La, r, B3, f, h, n);
+                var S = new fb(m, v, La, r, B3, f, h, n2);
                 B3 = new V(m, S, true, false);
                 aa = new V(m + "*", S, false, false);
                 var kb = new V(m + " const*", S, false, true);
@@ -46810,14 +46810,14 @@
               var l = Ab(c, d);
               b = I3(b);
               f = W(e3, f);
-              N2([], [a], function(n) {
+              N2([], [a], function(n2) {
                 function m() {
                   wb("Cannot call " + q + " due to unbound types", l);
                 }
-                n = n[0];
-                var q = n.name + "." + b;
+                n2 = n2[0];
+                var q = n2.name + "." + b;
                 b.startsWith("@@") && (b = Symbol[b.substring(2)]);
-                var r = n.F.constructor;
+                var r = n2.F.constructor;
                 void 0 === r[b] ? (m.R = c - 1, r[b] = m) : (db(r, b, q), r[b].I[c - 1] = m);
                 N2([], l, function(t3) {
                   t3 = [t3[0], null].concat(t3.slice(1));
@@ -46840,21 +46840,21 @@
                 h.F.O[b - 1] = () => {
                   wb("Cannot construct " + h.name + " due to unbound types", k);
                 };
-                N2([], k, function(n) {
-                  n.splice(1, 0, null);
-                  h.F.O[b - 1] = zb(l, n, null, e3, f);
+                N2([], k, function(n2) {
+                  n2.splice(1, 0, null);
+                  h.F.O[b - 1] = zb(l, n2, null, e3, f);
                   return [];
                 });
                 return [];
               });
             },
             d: function(a, b, c, d, e3, f, k, h, l) {
-              var n = Ab(c, d);
+              var n2 = Ab(c, d);
               b = I3(b);
               f = W(e3, f);
               N2([], [a], function(m) {
                 function q() {
-                  wb("Cannot call " + r + " due to unbound types", n);
+                  wb("Cannot call " + r + " due to unbound types", n2);
                 }
                 m = m[0];
                 var r = m.name + "." + b;
@@ -46862,7 +46862,7 @@
                 h && m.F.la.push(b);
                 var t3 = m.F.T, v = t3[b];
                 void 0 === v || void 0 === v.I && v.className !== m.name && v.R === c - 2 ? (q.R = c - 2, q.className = m.name, t3[b] = q) : (db(t3, b, r), t3[b].I[c - 2] = q);
-                N2([], n, function(B3) {
+                N2([], n2, function(B3) {
                   B3 = zb(r, B3, m, f, k, l);
                   void 0 === t3[b].I ? (B3.R = c - 2, t3[b] = B3) : t3[b].I[c - 2] = B3;
                   return [];
@@ -46941,18 +46941,18 @@
                   var l = f + h;
                   if (h == e3 || 0 == z[l]) {
                     k = k ? Eb(z, k, l - k) : "";
-                    if (void 0 === n) var n = k;
-                    else n += String.fromCharCode(0), n += k;
+                    if (void 0 === n2) var n2 = k;
+                    else n2 += String.fromCharCode(0), n2 += k;
                     k = l + 1;
                   }
                 }
                 else {
-                  n = Array(e3);
-                  for (h = 0; h < e3; ++h) n[h] = String.fromCharCode(z[f + h]);
-                  n = n.join("");
+                  n2 = Array(e3);
+                  for (h = 0; h < e3; ++h) n2[h] = String.fromCharCode(z[f + h]);
+                  n2 = n2.join("");
                 }
                 X(d);
-                return n;
+                return n2;
               }, toWireType: function(d, e3) {
                 e3 instanceof ArrayBuffer && (e3 = new Uint8Array(e3));
                 var f, k = "string" == typeof e3;
@@ -46970,10 +46970,10 @@
                 if (c && k) {
                   if (k = l, l = f + 1, f = z, 0 < l) {
                     l = k + l - 1;
-                    for (var n = 0; n < e3.length; ++n) {
-                      var m = e3.charCodeAt(n);
+                    for (var n2 = 0; n2 < e3.length; ++n2) {
+                      var m = e3.charCodeAt(n2);
                       if (55296 <= m && 57343 >= m) {
-                        var q = e3.charCodeAt(++n);
+                        var q = e3.charCodeAt(++n2);
                         m = 65536 + ((m & 1023) << 10) | q & 1023;
                       }
                       if (127 >= m) {
@@ -46999,7 +46999,7 @@
                     }
                     f[k] = 0;
                   }
-                } else if (k) for (k = 0; k < f; ++k) n = e3.charCodeAt(k), 255 < n && (X(l), M3("String has UTF-16 code units that do not fit in 8 bits")), z[l + k] = n;
+                } else if (k) for (k = 0; k < f; ++k) n2 = e3.charCodeAt(k), 255 < n2 && (X(l), M3("String has UTF-16 code units that do not fit in 8 bits")), z[l + k] = n2;
                 else for (k = 0; k < f; ++k) z[l + k] = e3[k];
                 null !== d && d.push(X, h);
                 return h;
@@ -47019,18 +47019,18 @@
               O(a, {
                 name: c,
                 fromWireType: function(l) {
-                  for (var n = D3[l >> 2], m = k(), q, r = l + 4, t3 = 0; t3 <= n; ++t3) {
+                  for (var n2 = D3[l >> 2], m = k(), q, r = l + 4, t3 = 0; t3 <= n2; ++t3) {
                     var v = l + 4 + t3 * b;
-                    if (t3 == n || 0 == m[v >> h]) r = d(r, v - r), void 0 === q ? q = r : (q += String.fromCharCode(0), q += r), r = v + b;
+                    if (t3 == n2 || 0 == m[v >> h]) r = d(r, v - r), void 0 === q ? q = r : (q += String.fromCharCode(0), q += r), r = v + b;
                   }
                   X(l);
                   return q;
                 },
-                toWireType: function(l, n) {
-                  "string" != typeof n && M3("Cannot pass non-string to C++ string type " + c);
-                  var m = f(n), q = Qb(4 + m + b);
+                toWireType: function(l, n2) {
+                  "string" != typeof n2 && M3("Cannot pass non-string to C++ string type " + c);
+                  var m = f(n2), q = Qb(4 + m + b);
                   D3[q >> 2] = m >> h;
-                  e3(n, q + 4, m + b);
+                  e3(n2, q + 4, m + b);
                   null !== l && l.push(X, q);
                   return q;
                 },
@@ -47089,8 +47089,8 @@
                 var k = D3[b >> 2], h = D3[b + 4 >> 2];
                 b += 8;
                 for (var l = 0; l < h; l++) {
-                  var n = z[k + l], m = Mb[a];
-                  0 === n || 10 === n ? ((1 === a ? ma : u)(Eb(m, 0)), m.length = 0) : m.push(n);
+                  var n2 = z[k + l], m = Mb[a];
+                  0 === n2 || 10 === n2 ? ((1 === a ? ma : u)(Eb(m, 0)), m.length = 0) : m.push(n2);
                 }
                 e3 += h;
               }
@@ -47385,7 +47385,7 @@
 
   // src/formats/opus.ts
   function concat(parts2) {
-    const n = parts2.reduce((s2, p) => s2 + p.length, 0), out = new Uint8Array(n);
+    const n2 = parts2.reduce((s2, p) => s2 + p.length, 0), out = new Uint8Array(n2);
     let o2 = 0;
     for (const p of parts2) {
       out.set(p, o2);
@@ -47393,22 +47393,22 @@
     }
     return out;
   }
-  function u16le(n) {
-    return Uint8Array.of(n & 255, n >>> 8 & 255);
+  function u16le(n2) {
+    return Uint8Array.of(n2 & 255, n2 >>> 8 & 255);
   }
-  function u32le(n) {
-    return Uint8Array.of(n & 255, n >>> 8 & 255, n >>> 16 & 255, n >>> 24 & 255);
+  function u32le(n2) {
+    return Uint8Array.of(n2 & 255, n2 >>> 8 & 255, n2 >>> 16 & 255, n2 >>> 24 & 255);
   }
-  function u64le(n) {
-    let x = BigInt(Math.max(0, Math.floor(n))), a = new Uint8Array(8);
+  function u64le(n2) {
+    let x = BigInt(Math.max(0, Math.floor(n2))), a = new Uint8Array(8);
     for (let i = 0; i < 8; i++) {
       a[i] = Number(x & 255n);
       x >>= 8n;
     }
     return a;
   }
-  function u16be(n) {
-    return Uint8Array.of(n >>> 8 & 255, n & 255);
+  function u16be(n2) {
+    return Uint8Array.of(n2 >>> 8 & 255, n2 & 255);
   }
   function makeOpusHead(channels3 = 2, preSkip3 = 0, inputRate = 48e3) {
     return concat([te4.encode("OpusHead"), Uint8Array.of(1, channels3), u16le(preSkip3), u32le(inputRate), u16le(0), Uint8Array.of(0)]);
@@ -47457,15 +47457,15 @@
     }
     return concat(pages);
   }
-  function id(...n) {
-    return Uint8Array.from(n);
+  function id(...n2) {
+    return Uint8Array.from(n2);
   }
-  function vintSize(n) {
+  function vintSize(n2) {
     for (let len = 1; len <= 8; len++) {
       const max = Math.pow(2, 7 * len) - 2;
-      if (n <= max) {
+      if (n2 <= max) {
         const a = new Uint8Array(len);
-        let x = BigInt(n);
+        let x = BigInt(n2);
         for (let i = len - 1; i >= 0; i--) {
           a[i] = Number(x & 255n);
           x >>= 8n;
@@ -47479,11 +47479,11 @@
   function elem(elementId, payload) {
     return concat([elementId, vintSize(payload.length), payload]);
   }
-  function uint(n, bytes) {
+  function uint(n2, bytes) {
     let len = bytes || 1;
-    while (!bytes && n >= Math.pow(256, len) && len < 8) len++;
+    while (!bytes && n2 >= Math.pow(256, len) && len < 8) len++;
     const a = new Uint8Array(len);
-    let x = BigInt(Math.floor(n));
+    let x = BigInt(Math.floor(n2));
     for (let i = len - 1; i >= 0; i--) {
       a[i] = Number(x & 255n);
       x >>= 8n;
@@ -47493,9 +47493,9 @@
   function str2(s2) {
     return te4.encode(s2);
   }
-  function float64(n) {
+  function float64(n2) {
     const a = new Uint8Array(8);
-    new DataView(a.buffer).setFloat64(0, n, false);
+    new DataView(a.buffer).setFloat64(0, n2, false);
     return a;
   }
   function ebml(...parts2) {
@@ -47563,9 +47563,9 @@
   var t, e;
   var init_esm = __esm({
     "node_modules/simple-yenc/dist/esm.js"() {
-      t = (t3, n = 4294967295, e3 = 79764919) => {
+      t = (t3, n2 = 4294967295, e3 = 79764919) => {
         const r = new Int32Array(256);
-        let o2, s2, i, c = n;
+        let o2, s2, i, c = n2;
         for (o2 = 0; o2 < 256; o2++) {
           for (i = o2 << 24, s2 = 8; s2 > 0; --s2) i = 2147483648 & i ? i << 1 ^ e3 : i << 1;
           r[o2] = i;
@@ -47573,17 +47573,17 @@
         for (o2 = 0; o2 < t3.length; o2++) c = c << 8 ^ r[255 & (c >> 24 ^ t3[o2])];
         return c;
       };
-      e = (n, e3 = t) => {
-        const r = (t3) => new Uint8Array(t3.length / 2).map(((n2, e4) => parseInt(t3.substring(2 * e4, 2 * (e4 + 1)), 16))), o2 = (t3) => r(t3)[0], s2 = /* @__PURE__ */ new Map();
-        [, 8364, , 8218, 402, 8222, 8230, 8224, 8225, 710, 8240, 352, 8249, 338, , 381, , , 8216, 8217, 8220, 8221, 8226, 8211, 8212, 732, 8482, 353, 8250, 339, , 382, 376].forEach(((t3, n2) => s2.set(t3, n2)));
-        const i = new Uint8Array(n.length);
-        let c, a, l, f = false, g3 = 0, h = 42, p = n.length > 13 && "dynEncode" === n.substring(0, 9), u = 0;
-        p && (u = 11, a = o2(n.substring(9, u)), a <= 1 && (u += 2, h = o2(n.substring(11, u))), 1 === a && (u += 8, l = ((t3) => new DataView(r(t3).buffer).getInt32(0, true))(n.substring(13, u))));
+      e = (n2, e3 = t) => {
+        const r = (t3) => new Uint8Array(t3.length / 2).map(((n3, e4) => parseInt(t3.substring(2 * e4, 2 * (e4 + 1)), 16))), o2 = (t3) => r(t3)[0], s2 = /* @__PURE__ */ new Map();
+        [, 8364, , 8218, 402, 8222, 8230, 8224, 8225, 710, 8240, 352, 8249, 338, , 381, , , 8216, 8217, 8220, 8221, 8226, 8211, 8212, 732, 8482, 353, 8250, 339, , 382, 376].forEach(((t3, n3) => s2.set(t3, n3)));
+        const i = new Uint8Array(n2.length);
+        let c, a, l, f = false, g3 = 0, h = 42, p = n2.length > 13 && "dynEncode" === n2.substring(0, 9), u = 0;
+        p && (u = 11, a = o2(n2.substring(9, u)), a <= 1 && (u += 2, h = o2(n2.substring(11, u))), 1 === a && (u += 8, l = ((t3) => new DataView(r(t3).buffer).getInt32(0, true))(n2.substring(13, u))));
         const d = 256 - h;
-        for (let t3 = u; t3 < n.length; t3++) if (c = n.charCodeAt(t3), 61 !== c || f) {
-          if (92 === c && t3 < n.length - 5 && p) {
-            const e4 = n.charCodeAt(t3 + 1);
-            117 !== e4 && 85 !== e4 || (c = parseInt(n.substring(t3 + 2, t3 + 6), 16), t3 += 5);
+        for (let t3 = u; t3 < n2.length; t3++) if (c = n2.charCodeAt(t3), 61 !== c || f) {
+          if (92 === c && t3 < n2.length - 5 && p) {
+            const e4 = n2.charCodeAt(t3 + 1);
+            117 !== e4 && 85 !== e4 || (c = parseInt(n2.substring(t3 + 2, t3 + 6), 16), t3 += 5);
           }
           if (c > 255) {
             const t4 = s2.get(c);
@@ -47595,8 +47595,8 @@
         if (p && 1 === a) {
           const t3 = e3(m);
           if (t3 !== l) {
-            const n2 = "Decode failed crc32 validation";
-            throw console.error("`simple-yenc`\n", n2 + "\n", "Expected: " + l + "; Got: " + t3 + "\n", "Visit https://github.com/eshaz/simple-yenc for more information"), Error(n2);
+            const n3 = "Decode failed crc32 validation";
+            throw console.error("`simple-yenc`\n", n3 + "\n", "Expected: " + l + "; Got: " + t3 + "\n", "Visit https://github.com/eshaz/simple-yenc for more information"), Error(n3);
           }
         }
         return m;
@@ -60639,11 +60639,11 @@ W+üÇí¾Z[Ø Ê§×;E|ËJfü¿0âGõMp·ÇòúgD>Îñß¶â
             return result;
           }
           function countChildren(children) {
-            var n = 0;
+            var n2 = 0;
             mapChildren(children, function() {
-              n++;
+              n2++;
             });
-            return n;
+            return n2;
           }
           function forEachChildren(children, forEachFunc, forEachContext) {
             mapChildren(children, function() {
@@ -61988,8 +61988,8 @@ W+üÇí¾Z[Ø Ê§×;E|ËJfü¿0âGõMp·ÇòúgD>Îñß¶â
     }
     let y;
     if (Number.isFinite(link.sourceMin) && Number.isFinite(link.sourceMax) && Number.isFinite(link.targetMin) && Number.isFinite(link.targetMax) && link.sourceMax !== link.sourceMin) {
-      const n = (x - link.sourceMin) / (link.sourceMax - link.sourceMin);
-      y = link.targetMin + n * (link.targetMax - link.targetMin);
+      const n2 = (x - link.sourceMin) / (link.sourceMax - link.sourceMin);
+      y = link.targetMin + n2 * (link.targetMax - link.targetMin);
       y = y * link.scale + link.offset;
     } else y = x * link.scale + link.offset;
     if (Number.isFinite(link.min)) y = Math.max(link.min, y);
@@ -62261,7 +62261,7 @@ W+üÇí¾Z[Ø Ê§×;E|ËJfü¿0âGõMp·ÇòúgD>Îñß¶â
       this.assets = assets;
       this.sampleRate = sampleRate2;
       this.seed = seed;
-      this.anySolo = project.voices.some((v) => v.solo) || project.noiseTracks.some((n) => n.solo) || project.audioTracks.some((a) => a.solo);
+      this.anySolo = project.voices.some((v) => v.solo) || project.noiseTracks.some((n2) => n2.solo) || project.audioTracks.some((a) => a.solo);
     }
     project;
     assets;
@@ -62355,15 +62355,15 @@ W+üÇí¾Z[Ø Ê§×;E|ËJfü¿0âGõMp·ÇòúgD>Îñß¶â
           this.state.phaseL.set(v.id, pl);
           this.state.phaseR.set(v.id, pr);
         }
-        for (const n of this.project.noiseTracks) {
-          const sc = segmentContext(this.project, n.id, t3);
-          if (!sc || n.mute || this.anySolo && !n.solo || sc.time < n.start || !n.loop && sc.time >= n.start + n.duration) continue;
-          let ns = this.state.noise.get(n.id);
+        for (const n2 of this.project.noiseTracks) {
+          const sc = segmentContext(this.project, n2.id, t3);
+          if (!sc || n2.mute || this.anySolo && !n2.solo || sc.time < n2.start || !n2.loop && sc.time >= n2.start + n2.duration) continue;
+          let ns = this.state.noise.get(n2.id);
           if (!ns) {
-            ns = createNoiseState(n.id, this.seed);
-            this.state.noise.set(n.id, ns);
+            ns = createNoiseState(n2.id, this.seed);
+            this.state.noise.set(n2.id, ns);
           }
-          nextNoiseStereo(n, ns, this.sampleRate, this.noiseTmp, sc.time - n.start);
+          nextNoiseStereo(n2, ns, this.sampleRate, this.noiseTmp, sc.time - n2.start);
           l += this.noiseTmp[0];
           r += this.noiseTmp[1];
         }
@@ -62402,9 +62402,9 @@ W+üÇí¾Z[Ø Ê§×;E|ËJfü¿0âGõMp·ÇòúgD>Îñß¶â
     const sr = options.sampleRate ?? project.sampleRate, renderer = new ProjectRenderer(project, options.assets || {}, sr, options.seed), chunkFrames = Math.max(1, Math.round(chunkSeconds * sr)), total2 = Math.round(project.duration * sr);
     let done = 0;
     while (done < total2) {
-      const n = Math.min(chunkFrames, total2 - done);
-      yield renderer.renderFrames(n);
-      done += n;
+      const n2 = Math.min(chunkFrames, total2 - done);
+      yield renderer.renderFrames(n2);
+      done += n2;
       options.onProgress?.(done / total2);
     }
   }
@@ -62526,8 +62526,8 @@ W+üÇí¾Z[Ø Ê§×;E|ËJfü¿0âGõMp·ÇòúgD>Îñß¶â
       const d = l - r;
       diff2 += d * d;
     }
-    const n = Math.max(1, buf.left.length), rmsL = Math.sqrt(sl / n), rmsR = Math.sqrt(sr / n), diffRms = Math.sqrt(diff2 / n);
-    return { peakLeft: pl, peakRight: pr, rmsLeft: rmsL, rmsRight: rmsR, correlation: xy / Math.sqrt(Math.max(1e-20, x2 * y2)), clipping: pl >= 0.999999 || pr >= 0.999999, dcLeft: dl / n, dcRight: dr / n, mono: diffRms < Math.max(1e-7, (rmsL + rmsR) * 1e-4), channelUnique: diffRms >= Math.max(1e-7, (rmsL + rmsR) * 1e-4) };
+    const n2 = Math.max(1, buf.left.length), rmsL = Math.sqrt(sl / n2), rmsR = Math.sqrt(sr / n2), diffRms = Math.sqrt(diff2 / n2);
+    return { peakLeft: pl, peakRight: pr, rmsLeft: rmsL, rmsRight: rmsR, correlation: xy / Math.sqrt(Math.max(1e-20, x2 * y2)), clipping: pl >= 0.999999 || pr >= 0.999999, dcLeft: dl / n2, dcRight: dr / n2, mono: diffRms < Math.max(1e-7, (rmsL + rmsR) * 1e-4), channelUnique: diffRms >= Math.max(1e-7, (rmsL + rmsR) * 1e-4) };
   }
   function goertzel(samples2, sampleRate2, freq) {
     if (freq <= 0 || freq >= sampleRate2 / 2) return 0;
@@ -62541,9 +62541,9 @@ W+üÇí¾Z[Ø Ê§×;E|ËJfü¿0âGõMp·ÇòúgD>Îñß¶â
     return Math.sqrt(Math.max(0, s1 * s1 + s2 * s2 - c * s1 * s2)) / Math.max(1, samples2.length);
   }
   function dominantFrequency(samples2, sampleRate2, minHz = 20, maxHz = 1400) {
-    const n = Math.min(samples2.length, Math.max(4096, Math.floor(sampleRate2 * 2))), src = samples2.subarray(0, n);
+    const n2 = Math.min(samples2.length, Math.max(4096, Math.floor(sampleRate2 * 2))), src = samples2.subarray(0, n2);
     let best = 0, bestMag = -1;
-    const resolution = sampleRate2 / n, lo = Math.max(1, Math.floor(minHz / resolution)), hi = Math.min(Math.floor(maxHz / resolution), Math.floor(n / 2) - 1);
+    const resolution = sampleRate2 / n2, lo = Math.max(1, Math.floor(minHz / resolution)), hi = Math.min(Math.floor(maxHz / resolution), Math.floor(n2 / 2) - 1);
     for (let k = lo; k <= hi; k++) {
       const f = k * resolution, m = goertzel(src, sampleRate2, f);
       if (m > bestMag) {
@@ -62554,7 +62554,7 @@ W+üÇí¾Z[Ø Ê§×;E|ËJfü¿0âGõMp·ÇòúgD>Îñß¶â
     return best;
   }
   function cpuSpectrum(samples2, sampleRate2, bins = 512) {
-    const n = Math.min(samples2.length, 4096), src = samples2.subarray(0, n), freqs = new Float32Array(bins), mags = new Float32Array(bins), max = sampleRate2 / 2;
+    const n2 = Math.min(samples2.length, 4096), src = samples2.subarray(0, n2), freqs = new Float32Array(bins), mags = new Float32Array(bins), max = sampleRate2 / 2;
     for (let i = 0; i < bins; i++) {
       const f = (i + 1) * max / (bins + 1);
       freqs[i] = f;
@@ -62575,9 +62575,9 @@ W+üÇí¾Z[Ø Ê§×;E|ËJfü¿0âGõMp·ÇòúgD>Îñß¶â
     return { times, frequencies: freqs, magnitudes: out, frames, bins, backend: "cpu" };
   }
   function topPeaks(samples2, sr, min = 40, max = 1200, count = 6) {
-    const n = Math.min(samples2.length, Math.max(4096, Math.floor(sr * 2))), res = sr / n, candidates = [];
-    for (let k = Math.max(1, Math.floor(min / res)); k <= Math.min(Math.floor(max / res), Math.floor(n / 2) - 1); k++) {
-      const f = k * res, m = goertzel(samples2.subarray(0, n), sr, f);
+    const n2 = Math.min(samples2.length, Math.max(4096, Math.floor(sr * 2))), res = sr / n2, candidates = [];
+    for (let k = Math.max(1, Math.floor(min / res)); k <= Math.min(Math.floor(max / res), Math.floor(n2 / 2) - 1); k++) {
+      const f = k * res, m = goertzel(samples2.subarray(0, n2), sr, f);
       if (candidates.length < count || m > candidates[candidates.length - 1].m) {
         candidates.push({ f, m });
         candidates.sort((a, b) => b.m - a.m);
@@ -62656,7 +62656,7 @@ W+üÇí¾Z[Ø Ê§×;E|ËJfü¿0âGõMp·ÇòúgD>Îñß¶â
     async spectrum(samples2, sampleRate2, bins = 512) {
       if (!this.device) await this.init();
       if (!this.device) return cpuSpectrum(samples2, sampleRate2, bins);
-      const n = Math.min(samples2.length, 4096), src = samples2.slice(0, n), device = this.device;
+      const n2 = Math.min(samples2.length, 4096), src = samples2.slice(0, n2), device = this.device;
       const shader = `struct P{n:u32;bins:u32;sampleRate:f32;pad:f32};@group(0) @binding(0)var<storage,read>x:array<f32>;@group(0) @binding(1)var<storage,read_write>out:array<f32>;@group(0) @binding(2)var<uniform>p:P;@compute @workgroup_size(64) fn main(@builtin(global_invocation_id)id:vec3<u32>){let k=id.x;if(k>=p.bins){return;}let f=f32(k+1u)*(p.sampleRate*.5)/f32(p.bins+1u);var re:f32=0.0;var im:f32=0.0;for(var i:u32=0u;i<p.n;i=i+1u){let a=6.28318530718*f*f32(i)/p.sampleRate;re=re+x[i]*cos(a);im=im-x[i]*sin(a);}out[k]=sqrt(re*re+im*im)/f32(p.n);}`;
       try {
         const module = device.createShaderModule({ code: shader });
@@ -62667,7 +62667,7 @@ W+üÇí¾Z[Ø Ê§×;E|ËJfü¿0âGõMp·ÇòúgD>Îñß¶â
         inBuf.unmap();
         const outBuf = device.createBuffer({ size: bins * 4, usage: 128 | 4 }), readBuf = device.createBuffer({ size: bins * 4, usage: 1 | 8 }), uniform = device.createBuffer({ size: 16, usage: 64 | 8, mappedAtCreation: true });
         const dv = new DataView(uniform.getMappedRange());
-        dv.setUint32(0, n, true);
+        dv.setUint32(0, n2, true);
         dv.setUint32(4, bins, true);
         dv.setFloat32(8, sampleRate2, true);
         uniform.unmap();
@@ -62732,7 +62732,7 @@ W+üÇí¾Z[Ø Ê§×;E|ËJfü¿0âGõMp·ÇòúgD>Îñß¶â
   }
   function serializeSession(p) {
     const sr = p.sampleRate;
-    return { schemaVersion: "1.0.0", id: p.id, metadata: { title: p.title, author: p.provenance.author, description: p.description, createdAt: p.provenance.createdAt, updatedAt: p.provenance.updatedAt, tags: p.tags }, sampleRatePolicy: { live: "device", offlineHz: sr }, tracks: [...p.voices.map((v) => ({ id: `track-${v.id}`, type: "stimulus", name: v.name, muted: v.mute, solo: v.solo, gainDb: 0, voices: [voiceOut(v, sr)], routingBus: "protected-stereo", extensions: {} })), ...p.noiseTracks.map((n) => ({ id: n.id, type: "noise", name: n.name, muted: n.mute, solo: n.solo, gainDb: g2db(n.amplitude), routingBus: "background", extensions: { noise: n } })), ...p.audioTracks.map((a) => ({ id: a.id, type: "audio", name: a.name, muted: a.mute, solo: a.solo, gainDb: g2db(a.amplitude), routingBus: "background", clips: [a], extensions: {} }))], assets: p.assets.map((a) => Object.fromEntries(Object.entries({ id: a.id, sha256: a.hash, mediaType: a.mime, sizeBytes: a.size, source: a.source || "local", license: a.license, embeddedPath: a.hash ? `assets/${a.id}` : void 0, extensions: { name: a.name } }).filter(([, v]) => v !== void 0))), segments: p.segments.map((s2) => ({ id: s2.id, name: s2.name, startFrame: Math.round(s2.start * sr), durationFrames: Math.max(1, Math.round(s2.duration * sr)), repeatCount: s2.repeat, crossfadeFrames: Math.round(s2.crossfade * sr), extensions: { trackIds: s2.trackIds, overrides: s2.overrides, phaseContinuous: s2.phaseContinuous } })), master: { monitorGainDb: g2db(p.masterGain), hardMonitorSafety: true, extensions: {} }, evidence: [{ level: evidenceOut[p.evidence.state], claim: p.evidence.claim, citations: [p.evidence.citation, p.evidence.doi ? `doi:${p.evidence.doi}` : void 0, p.evidence.pmid ? `pmid:${p.evidence.pmid}` : void 0].filter(Boolean), protocolNotes: p.evidence.notes }], provenance: { engineVersion: p.provenance.engineVersion, legacySource: p.provenance.source ? { source: p.provenance.source } : void 0, citations: p.evidence.citation ? [p.evidence.citation] : [], extensions: { appVersion: p.provenance.appVersion, lineage: p.provenance.lineage || [] } }, exportDefaults: { sampleRate: sr }, extensions: { durationSeconds: p.duration, revision: p.revision } };
+    return { schemaVersion: "1.0.0", id: p.id, metadata: { title: p.title, author: p.provenance.author, description: p.description, createdAt: p.provenance.createdAt, updatedAt: p.provenance.updatedAt, tags: p.tags }, sampleRatePolicy: { live: "device", offlineHz: sr }, tracks: [...p.voices.map((v) => ({ id: `track-${v.id}`, type: "stimulus", name: v.name, muted: v.mute, solo: v.solo, gainDb: 0, voices: [voiceOut(v, sr)], routingBus: "protected-stereo", extensions: {} })), ...p.noiseTracks.map((n2) => ({ id: n2.id, type: "noise", name: n2.name, muted: n2.mute, solo: n2.solo, gainDb: g2db(n2.amplitude), routingBus: "background", extensions: { noise: n2 } })), ...p.audioTracks.map((a) => ({ id: a.id, type: "audio", name: a.name, muted: a.mute, solo: a.solo, gainDb: g2db(a.amplitude), routingBus: "background", clips: [a], extensions: {} }))], assets: p.assets.map((a) => Object.fromEntries(Object.entries({ id: a.id, sha256: a.hash, mediaType: a.mime, sizeBytes: a.size, source: a.source || "local", license: a.license, embeddedPath: a.hash ? `assets/${a.id}` : void 0, extensions: { name: a.name } }).filter(([, v]) => v !== void 0))), segments: p.segments.map((s2) => ({ id: s2.id, name: s2.name, startFrame: Math.round(s2.start * sr), durationFrames: Math.max(1, Math.round(s2.duration * sr)), repeatCount: s2.repeat, crossfadeFrames: Math.round(s2.crossfade * sr), extensions: { trackIds: s2.trackIds, overrides: s2.overrides, phaseContinuous: s2.phaseContinuous } })), master: { monitorGainDb: g2db(p.masterGain), hardMonitorSafety: true, extensions: {} }, evidence: [{ level: evidenceOut[p.evidence.state], claim: p.evidence.claim, citations: [p.evidence.citation, p.evidence.doi ? `doi:${p.evidence.doi}` : void 0, p.evidence.pmid ? `pmid:${p.evidence.pmid}` : void 0].filter(Boolean), protocolNotes: p.evidence.notes }], provenance: { engineVersion: p.provenance.engineVersion, legacySource: p.provenance.source ? { source: p.provenance.source } : void 0, citations: p.evidence.citation ? [p.evidence.citation] : [], extensions: { appVersion: p.provenance.appVersion, lineage: p.provenance.lineage || [] } }, exportDefaults: { sampleRate: sr }, extensions: { durationSeconds: p.duration, revision: p.revision } };
   }
   function deserializeSession(s2) {
     if (!s2 || s2.schemaVersion !== "1.0.0") throw new Error("Unsupported session schema");
@@ -62836,7 +62836,7 @@ W+üÇí¾Z[Ø Ê§×;E|ËJfü¿0âGõMp·ÇòúgD>Îñß¶â
     let offset = 0, count = 0, centralLength = 0;
     for (const [name, val] of Object.entries(entries)) {
       if (name.includes("..") || name.startsWith("/") || name.includes("\\")) throw new Error("Unsafe ZIP path");
-      const n = te2.encode(name), d = typeof val === "string" ? te2.encode(val) : val, crc2 = crc32(d), local = [];
+      const n2 = te2.encode(name), d = typeof val === "string" ? te2.encode(val) : val, crc2 = crc32(d), local = [];
       u32(local, 67324752);
       u16(local, 20);
       u16(local, 0);
@@ -62846,7 +62846,7 @@ W+üÇí¾Z[Ø Ê§×;E|ËJfü¿0âGõMp·ÇòúgD>Îñß¶â
       u32(local, crc2);
       u32(local, d.length);
       u32(local, d.length);
-      u16(local, n.length);
+      u16(local, n2.length);
       u16(local, 0);
       const header3 = Uint8Array.from(local), central = [];
       u32(central, 33639248);
@@ -62859,18 +62859,18 @@ W+üÇí¾Z[Ø Ê§×;E|ËJfü¿0âGõMp·ÇòúgD>Îñß¶â
       u32(central, crc2);
       u32(central, d.length);
       u32(central, d.length);
-      u16(central, n.length);
+      u16(central, n2.length);
       u16(central, 0);
       u16(central, 0);
       u16(central, 0);
       u16(central, 0);
       u32(central, 0);
       u32(central, offset);
-      const record = { name: n, data: d, local: header3, central: Uint8Array.from(central) };
+      const record = { name: n2, data: d, local: header3, central: Uint8Array.from(central) };
       records.push(record);
-      chunks.push(header3, n, d);
-      offset += header3.length + n.length + d.length;
-      centralLength += record.central.length + n.length;
+      chunks.push(header3, n2, d);
+      offset += header3.length + n2.length + d.length;
+      centralLength += record.central.length + n2.length;
       count++;
     }
     const centralStart = offset;
@@ -63165,28 +63165,28 @@ W+üÇí¾Z[Ø Ê§×;E|ËJfü¿0âGõMp·ÇòúgD>Îñß¶â
     }
     return crc2;
   }
-  function utf8Uint(n) {
-    n = Math.max(0, Math.floor(n));
-    if (n < 128) return [n];
-    if (n < 2048) return [192 | n >> 6, 128 | n & 63];
-    if (n < 65536) return [224 | n >> 12, 128 | n >> 6 & 63, 128 | n & 63];
-    if (n < 2097152) return [240 | n >> 18, 128 | n >> 12 & 63, 128 | n >> 6 & 63, 128 | n & 63];
-    if (n < 67108864) return [248 | n >> 24, 128 | n >> 18 & 63, 128 | n >> 12 & 63, 128 | n >> 6 & 63, 128 | n & 63];
-    return [252 | n / 1073741824 & 1, 128 | n >> 24 & 63, 128 | n >> 18 & 63, 128 | n >> 12 & 63, 128 | n >> 6 & 63, 128 | n & 63];
+  function utf8Uint(n2) {
+    n2 = Math.max(0, Math.floor(n2));
+    if (n2 < 128) return [n2];
+    if (n2 < 2048) return [192 | n2 >> 6, 128 | n2 & 63];
+    if (n2 < 65536) return [224 | n2 >> 12, 128 | n2 >> 6 & 63, 128 | n2 & 63];
+    if (n2 < 2097152) return [240 | n2 >> 18, 128 | n2 >> 12 & 63, 128 | n2 >> 6 & 63, 128 | n2 & 63];
+    if (n2 < 67108864) return [248 | n2 >> 24, 128 | n2 >> 18 & 63, 128 | n2 >> 12 & 63, 128 | n2 >> 6 & 63, 128 | n2 & 63];
+    return [252 | n2 / 1073741824 & 1, 128 | n2 >> 24 & 63, 128 | n2 >> 18 & 63, 128 | n2 >> 12 & 63, 128 | n2 >> 6 & 63, 128 | n2 & 63];
   }
-  function put24(a, o2, n) {
-    a[o2] = n >>> 16 & 255;
-    a[o2 + 1] = n >>> 8 & 255;
-    a[o2 + 2] = n & 255;
+  function put24(a, o2, n2) {
+    a[o2] = n2 >>> 16 & 255;
+    a[o2 + 1] = n2 >>> 8 & 255;
+    a[o2 + 2] = n2 & 255;
   }
   function pcmInt(x, bits) {
     x = Math.max(-1, Math.min(1, x));
     return Math.round(x < 0 ? x * Math.pow(2, bits - 1) : x * (Math.pow(2, bits - 1) - 1));
   }
-  function writeSigned(out, n, bits) {
+  function writeSigned(out, n2, bits) {
     if (bits === 16) {
-      out.push(n >> 8 & 255, n & 255);
-    } else out.push(n >> 16 & 255, n >> 8 & 255, n & 255);
+      out.push(n2 >> 8 & 255, n2 & 255);
+    } else out.push(n2 >> 16 & 255, n2 >> 8 & 255, n2 & 255);
   }
   function makeFrame(buf, start, count, bits, frameNo) {
     const header3 = [255, 248, 112, 16 | (bits === 16 ? 4 : 6) << 1, ...utf8Uint(frameNo), count - 1 >> 8, count - 1 & 255];
@@ -63205,7 +63205,7 @@ W+üÇí¾Z[Ø Ê§×;E|ËJfü¿0âGõMp·ÇòúgD>Îñß¶â
     if (!Number.isInteger(buf.sampleRate) || buf.sampleRate < 1 || buf.sampleRate > 1048575) throw new Error("FLAC sample rate is out of range");
     blockSize2 = Math.max(16, Math.min(65535, Math.floor(blockSize2)));
     const frames = [];
-    for (let p = 0, n = 0; p < buf.left.length; p += blockSize2, n++) frames.push(makeFrame(buf, p, Math.min(blockSize2, buf.left.length - p), bits, n));
+    for (let p = 0, n2 = 0; p < buf.left.length; p += blockSize2, n2++) frames.push(makeFrame(buf, p, Math.min(blockSize2, buf.left.length - p), bits, n2));
     const minBlock = buf.left.length ? Math.min(blockSize2, buf.left.length) : blockSize2, maxBlock = buf.left.length ? Math.min(blockSize2, buf.left.length) : blockSize2, minFrame = frames.length ? Math.min(...frames.map((x) => x.length)) : 0, maxFrame = frames.length ? Math.max(...frames.map((x) => x.length)) : 0;
     const stream2 = new Uint8Array(4 + 4 + 34);
     stream2.set([102, 76, 97, 67], 0);
@@ -63238,26 +63238,26 @@ W+üÇí¾Z[Ø Ê§×;E|ËJfü¿0âGõMp·ÇòúgD>Îñß¶â
       mask >>= 1;
     }
     if (count < 2 || count > 6) throw new Error("Invalid FLAC UTF-8 integer");
-    let n = b & (1 << 7 - count) - 1;
+    let n2 = b & (1 << 7 - count) - 1;
     for (let i = 1; i < count; i++) {
       const c = a[state.o++];
       if ((c & 192) !== 128) throw new Error("Invalid FLAC UTF-8 continuation");
-      n = n * 64 + (c & 63);
+      n2 = n2 * 64 + (c & 63);
     }
-    return n;
+    return n2;
   }
   function readSigned(a, state, bits) {
     if (bits === 16) {
-      let n = a[state.o] << 8 | a[state.o + 1];
+      let n2 = a[state.o] << 8 | a[state.o + 1];
       state.o += 2;
-      if (n & 32768) n -= 65536;
-      return n / 32768;
+      if (n2 & 32768) n2 -= 65536;
+      return n2 / 32768;
     }
     if (bits === 24) {
-      let n = a[state.o] << 16 | a[state.o + 1] << 8 | a[state.o + 2];
+      let n2 = a[state.o] << 16 | a[state.o + 1] << 8 | a[state.o + 2];
       state.o += 3;
-      if (n & 8388608) n -= 16777216;
-      return n / 8388608;
+      if (n2 & 8388608) n2 -= 16777216;
+      return n2 / 8388608;
     }
     throw new Error("Unsupported FLAC bit depth");
   }
@@ -63375,14 +63375,14 @@ W+üÇí¾Z[Ø Ê§×;E|ËJfü¿0âGõMp·ÇòúgD>Îñß¶â
     if (bytes.length < 44 || tag(bytes, 0) !== "RIFF" || tag(bytes, 8) !== "WAVE") throw new Error("Not a RIFF/WAVE file");
     const v = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength), riffSize = v.getUint32(4, true);
     if (riffSize + 8 > bytes.length) throw new Error("Truncated RIFF container");
-    let p = 12, fmt5 = 0, ch = 0, sr = 0, bits = 0, blockAlign = 0, dataOff = -1, dataLen = 0, haveFmt = false;
+    let p = 12, fmt4 = 0, ch = 0, sr = 0, bits = 0, blockAlign = 0, dataOff = -1, dataLen = 0, haveFmt = false;
     const limit = Math.min(bytes.length, riffSize + 8);
     while (p + 8 <= limit) {
       const id2 = tag(bytes, p), len = v.getUint32(p + 4, true), body = p + 8, end = body + len;
       if (end > limit) throw new Error(`Truncated WAV ${id2} chunk`);
       if (id2 === "fmt ") {
         if (len < 16) throw new Error("Invalid WAV fmt chunk");
-        fmt5 = v.getUint16(body, true);
+        fmt4 = v.getUint16(body, true);
         ch = v.getUint16(body + 2, true);
         sr = v.getUint32(body + 4, true);
         blockAlign = v.getUint16(body + 12, true);
@@ -63395,7 +63395,7 @@ W+üÇí¾Z[Ø Ê§×;E|ËJfü¿0âGõMp·ÇòúgD>Îñß¶â
       p = end + (len & 1);
     }
     if (!haveFmt || dataOff < 0) throw new Error("WAV requires fmt and data chunks");
-    if (![1, 2].includes(ch) || ![1, 3].includes(fmt5) || ![8, 16, 24, 32].includes(bits) || !sr || fmt5 === 3 && bits !== 32) throw new Error("Unsupported WAV encoding");
+    if (![1, 2].includes(ch) || ![1, 3].includes(fmt4) || ![8, 16, 24, 32].includes(bits) || !sr || fmt4 === 3 && bits !== 32) throw new Error("Unsupported WAV encoding");
     const bytesPerSample = bits / 8, expectedAlign = ch * bytesPerSample;
     if (blockAlign !== expectedAlign || dataLen % blockAlign) throw new Error("Invalid WAV frame alignment");
     const frames = dataLen / blockAlign;
@@ -63403,7 +63403,7 @@ W+üÇí¾Z[Ø Ê§×;E|ËJfü¿0âGõMp·ÇòúgD>Îñß¶â
     const l = new Float32Array(frames), r = new Float32Array(frames);
     let o2 = dataOff;
     const read = () => {
-      if (fmt5 === 3) {
+      if (fmt4 === 3) {
         const x2 = v.getFloat32(o2, true);
         o2 += 4;
         return Number.isFinite(x2) ? x2 : 0;
@@ -63506,12 +63506,12 @@ W+üÇí¾Z[Ø Ê§×;E|ËJfü¿0âGõMp·ÇòúgD>Îñß¶â
       p.audioTracks = [];
       entries[`stems/voice-${safe(v.name)}.wav`] = encodeWav(renderProject(p, { assets }), 24);
     }
-    for (const n of project.noiseTracks) {
+    for (const n2 of project.noiseTracks) {
       const p = structuredClone(project);
       p.voices = [];
-      p.noiseTracks = p.noiseTracks.filter((x) => x.id === n.id);
+      p.noiseTracks = p.noiseTracks.filter((x) => x.id === n2.id);
       p.audioTracks = [];
-      entries[`stems/noise-${safe(n.name)}.wav`] = encodeWav(renderProject(p, { assets }), 24);
+      entries[`stems/noise-${safe(n2.name)}.wav`] = encodeWav(renderProject(p, { assets }), 24);
     }
     for (const a of project.audioTracks) {
       const p = structuredClone(project);
@@ -65729,7 +65729,7 @@ W+üÇí¾Z[Ø Ê§×;E|ËJfü¿0âGõMp·ÇòúgD>Îñß¶â
     var _fd_read = (fd, iov, iovcnt, pnum) => 52;
     var INT53_MAX = 9007199254740992;
     var INT53_MIN = -9007199254740992;
-    var bigintToI53Checked = (num2) => num2 < INT53_MIN || num2 > INT53_MAX ? NaN : Number(num2);
+    var bigintToI53Checked = (num) => num < INT53_MIN || num > INT53_MAX ? NaN : Number(num);
     function _fd_seek(fd, offset, whence, newOffset) {
       offset = bigintToI53Checked(offset);
       return 70;
@@ -65752,7 +65752,7 @@ W+üÇí¾Z[Ø Ê§×;E|ËJfü¿0âGõMp·ÇòúgD>Îñß¶â
       }
     };
     var _fd_write = (fd, iov, iovcnt, pnum) => {
-      var num2 = 0;
+      var num = 0;
       for (var i2 = 0; i2 < iovcnt; i2++) {
         var ptr = HEAPU32[iov >> 2];
         var len = HEAPU32[iov + 4 >> 2];
@@ -65760,9 +65760,9 @@ W+üÇí¾Z[Ø Ê§×;E|ËJfü¿0âGõMp·ÇòúgD>Îñß¶â
         for (var j = 0; j < len; j++) {
           printChar(fd, HEAPU8[ptr + j]);
         }
-        num2 += len;
+        num += len;
       }
-      HEAPU32[pnum >> 2] = num2;
+      HEAPU32[pnum >> 2] = num;
       return 0;
     };
     var _proc_exit = (code) => {
@@ -67465,8 +67465,8 @@ Iwu¸öôú!3å6³âVq£³¹´RN£%y10º:p#\:J:b9Hµ7h_:¢I9 _
           while (i < u8.length) {
             let b = u8[i++], c = b;
             if (b > 127) {
-              let n = b > 239 ? 3 : b > 223 ? 2 : 1;
-              for (c = b & 63 >> n; n--; ) c = c << 6 | u8[i++] & 63;
+              let n2 = b > 239 ? 3 : b > 223 ? 2 : 1;
+              for (c = b & 63 >> n2; n2--; ) c = c << 6 | u8[i++] & 63;
             }
             if (c > 65535) c -= 65536, s2 += String.fromCharCode(55296 | c >> 10, 56320 | c & 1023);
             else s2 += String.fromCharCode(c);
@@ -67481,9 +67481,9 @@ Iwu¸öôú!3å6³âVq£³¹´RN£%y10º:p#\:J:b9Hµ7h_:¢I9 _
   init_text_decoder();
   init_text_decoder();
   init_text_decoder();
-  var t2 = (t22, n = 4294967295, e22 = 79764919) => {
+  var t2 = (t22, n2 = 4294967295, e22 = 79764919) => {
     const r = new Int32Array(256);
-    let o2, s2, i, c = n;
+    let o2, s2, i, c = n2;
     for (o2 = 0; o2 < 256; o2++) {
       for (i = o2 << 24, s2 = 8; s2 > 0; --s2) i = 2147483648 & i ? i << 1 ^ e22 : i << 1;
       r[o2] = i;
@@ -67491,17 +67491,17 @@ Iwu¸öôú!3å6³âVq£³¹´RN£%y10º:p#\:J:b9Hµ7h_:¢I9 _
     for (o2 = 0; o2 < t22.length; o2++) c = c << 8 ^ r[255 & (c >> 24 ^ t22[o2])];
     return c;
   };
-  var e2 = (n, e22 = t2) => {
-    const r = (t22) => new Uint8Array(t22.length / 2).map(((n2, e3) => parseInt(t22.substring(2 * e3, 2 * (e3 + 1)), 16))), o2 = (t22) => r(t22)[0], s2 = /* @__PURE__ */ new Map();
-    [, 8364, , 8218, 402, 8222, 8230, 8224, 8225, 710, 8240, 352, 8249, 338, , 381, , , 8216, 8217, 8220, 8221, 8226, 8211, 8212, 732, 8482, 353, 8250, 339, , 382, 376].forEach(((t22, n2) => s2.set(t22, n2)));
-    const i = new Uint8Array(n.length);
-    let c, a, l, f = false, g3 = 0, h = 42, p = n.length > 13 && "dynEncode" === n.substring(0, 9), u = 0;
-    p && (u = 11, a = o2(n.substring(9, u)), a <= 1 && (u += 2, h = o2(n.substring(11, u))), 1 === a && (u += 8, l = ((t22) => new DataView(r(t22).buffer).getInt32(0, true))(n.substring(13, u))));
+  var e2 = (n2, e22 = t2) => {
+    const r = (t22) => new Uint8Array(t22.length / 2).map(((n22, e3) => parseInt(t22.substring(2 * e3, 2 * (e3 + 1)), 16))), o2 = (t22) => r(t22)[0], s2 = /* @__PURE__ */ new Map();
+    [, 8364, , 8218, 402, 8222, 8230, 8224, 8225, 710, 8240, 352, 8249, 338, , 381, , , 8216, 8217, 8220, 8221, 8226, 8211, 8212, 732, 8482, 353, 8250, 339, , 382, 376].forEach(((t22, n22) => s2.set(t22, n22)));
+    const i = new Uint8Array(n2.length);
+    let c, a, l, f = false, g3 = 0, h = 42, p = n2.length > 13 && "dynEncode" === n2.substring(0, 9), u = 0;
+    p && (u = 11, a = o2(n2.substring(9, u)), a <= 1 && (u += 2, h = o2(n2.substring(11, u))), 1 === a && (u += 8, l = ((t22) => new DataView(r(t22).buffer).getInt32(0, true))(n2.substring(13, u))));
     const d = 256 - h;
-    for (let t22 = u; t22 < n.length; t22++) if (c = n.charCodeAt(t22), 61 !== c || f) {
-      if (92 === c && t22 < n.length - 5 && p) {
-        const e3 = n.charCodeAt(t22 + 1);
-        117 !== e3 && 85 !== e3 || (c = parseInt(n.substring(t22 + 2, t22 + 6), 16), t22 += 5);
+    for (let t22 = u; t22 < n2.length; t22++) if (c = n2.charCodeAt(t22), 61 !== c || f) {
+      if (92 === c && t22 < n2.length - 5 && p) {
+        const e3 = n2.charCodeAt(t22 + 1);
+        117 !== e3 && 85 !== e3 || (c = parseInt(n2.substring(t22 + 2, t22 + 6), 16), t22 += 5);
       }
       if (c > 255) {
         const t3 = s2.get(c);
@@ -67513,8 +67513,8 @@ Iwu¸öôú!3å6³âVq£³¹´RN£%y10º:p#\:J:b9Hµ7h_:¢I9 _
     if (p && 1 === a) {
       const t22 = e22(m);
       if (t22 !== l) {
-        const n2 = "Decode failed crc32 validation";
-        throw console.error("`simple-yenc`\n", n2 + "\n", "Expected: " + l + "; Got: " + t22 + "\n", "Visit https://github.com/eshaz/simple-yenc for more information"), Error(n2);
+        const n22 = "Decode failed crc32 validation";
+        throw console.error("`simple-yenc`\n", n22 + "\n", "Expected: " + l + "; Got: " + t22 + "\n", "Visit https://github.com/eshaz/simple-yenc for more information"), Error(n22);
       }
     }
     return m;
@@ -67755,7 +67755,7 @@ Iwu¸öôú!3å6³âVq£³¹´RN£%y10º:p#\:J:b9Hµ7h_:¢I9 _
     var _fd_read = (fd, iov, iovcnt, pnum) => 52;
     var INT53_MAX = 9007199254740992;
     var INT53_MIN = -9007199254740992;
-    var bigintToI53Checked = (num2) => num2 < INT53_MIN || num2 > INT53_MAX ? NaN : Number(num2);
+    var bigintToI53Checked = (num) => num < INT53_MIN || num > INT53_MAX ? NaN : Number(num);
     function _fd_seek(fd, offset, whence, newOffset) {
       offset = bigintToI53Checked(offset);
       return 70;
@@ -67778,7 +67778,7 @@ Iwu¸öôú!3å6³âVq£³¹´RN£%y10º:p#\:J:b9Hµ7h_:¢I9 _
       }
     };
     var _fd_write = (fd, iov, iovcnt, pnum) => {
-      var num2 = 0;
+      var num = 0;
       for (var i2 = 0; i2 < iovcnt; i2++) {
         var ptr = HEAPU32[iov >> 2];
         var len = HEAPU32[iov + 4 >> 2];
@@ -67786,9 +67786,9 @@ Iwu¸öôú!3å6³âVq£³¹´RN£%y10º:p#\:J:b9Hµ7h_:¢I9 _
         for (var j = 0; j < len; j++) {
           printChar(fd, HEAPU8[ptr + j]);
         }
-        num2 += len;
+        num += len;
       }
-      HEAPU32[pnum >> 2] = num2;
+      HEAPU32[pnum >> 2] = num;
       return 0;
     };
     var _proc_exit = (code) => {
@@ -68416,14 +68416,14 @@ r÷|ú
     const CHUNK = 1152 * 1024;
     return { encode, flush, free: free2 };
     function encode(ch) {
-      let n = ch[0].length;
-      if (n <= CHUNK) {
+      let n2 = ch[0].length;
+      if (n2 <= CHUNK) {
         let raw = encoder.encode(ch);
         return new Uint8Array(raw);
       }
       let parts2 = [];
-      for (let i = 0; i < n; i += CHUNK) {
-        let end = Math.min(i + CHUNK, n);
+      for (let i = 0; i < n2; i += CHUNK) {
+        let end = Math.min(i + CHUNK, n2);
         let slice = ch.map((c) => c.subarray(i, end));
         let raw = encoder.encode(slice);
         if (raw.length) parts2.push(new Uint8Array(raw));
@@ -68690,7 +68690,7 @@ r÷|ú
     if (!Number.isInteger(kbps) || kbps < 32 || kbps > 320) throw new Error("MP3 bitrate must be 32\u2013320 kbps");
     const encoder = await mp3({ sampleRate: input.sampleRate, channels: 2, bitrate: kbps }), chunks = [encoder.encode([input.left, input.right]), encoder.flush()];
     encoder.free();
-    const length2 = chunks.reduce((n, chunk) => n + chunk.length, 0);
+    const length2 = chunks.reduce((n2, chunk) => n2 + chunk.length, 0);
     if (!length2) throw new Error("MP3 encoder returned no bytes");
     const out = new Uint8Array(length2);
     let offset = 0;
@@ -68870,9 +68870,9 @@ r÷|ú
   var CODEC_PRIVATE = 25506;
   var TIMECODE_SCALE = 2807729;
   function idValue(a, start, len) {
-    let n = 0;
-    for (let i = 0; i < len; i++) n = n * 256 + a[start + i];
-    return n;
+    let n2 = 0;
+    for (let i = 0; i < len; i++) n2 = n2 * 256 + a[start + i];
+    return n2;
   }
   function vint(a, start, mask = true) {
     const first = a[start];
@@ -68880,9 +68880,9 @@ r÷|ú
     let len = 1;
     while (len <= 8 && !(first & 1 << 8 - len)) len++;
     if (len > 8 || start + len > a.length) throw new Error("Truncated EBML variable integer");
-    let n = first & (mask ? 255 >>> len : 255);
-    for (let i = 1; i < len; i++) n = n * 256 + a[start + i];
-    return { value: n, length: len };
+    let n2 = first & (mask ? 255 >>> len : 255);
+    for (let i = 1; i < len; i++) n2 = n2 * 256 + a[start + i];
+    return { value: n2, length: len };
   }
   function element(a, start, end) {
     const id2 = vint(a, start, false), size = vint(a, start + id2.length);
@@ -69166,42 +69166,28 @@ r÷|ú
     return rows.map((r) => r.map(cell).join(",")).join("\n");
   }
 
-  // src/ui/StudioSurface.tsx
-  var fmt = (n, d = 2) => Number.isFinite(n) ? Number(n).toFixed(d) : "\u2014";
+  // src/ui/StudioTimelineSurface.tsx
+  var voiceParams = ["beatHz", "carrierHz", "leftHz", "rightHz", "amplitude", "duty"];
   var curves = ["hold", "linear", "smooth", "exponential", "logarithmic", "bezier"];
-  var waveforms = ["sine", "sine2", "triangle", "square", "smooth-square", "saw", "reverse-saw", "pulse", "bandlimited-square", "bandlimited-saw", "custom-harmonic", "imported-cycle"];
-  var generators = ["binaural", "monaural", "isochronic", "am", "stereo", "noise-modulated", "sham"];
-  var laneParams = ["beatHz", "carrierHz", "leftHz", "rightHz", "amplitude", "pan", "duty"];
-  function num(x, f = 0) {
-    const n = Number(x);
-    return Number.isFinite(n) ? n : f;
+  var n = (v, f = 0) => Number.isFinite(Number(v)) ? Number(v) : f;
+  function HelpTip({ children }) {
+    return /* @__PURE__ */ React.createElement("span", { className: "studio-help", tabIndex: 0, title: children, "aria-label": `Help: ${children}` }, "?");
   }
-  function NumberInput({ label, value, onChange, min, max, step = 0.01, suffix }) {
-    return /* @__PURE__ */ React.createElement("label", { className: "studio-field" }, /* @__PURE__ */ React.createElement("span", null, label), /* @__PURE__ */ React.createElement("div", { className: "input-suffix" }, /* @__PURE__ */ React.createElement("input", { type: "number", value: Number.isFinite(value) ? value : "", min, max, step, onChange: (e3) => onChange(num(e3.target.value, value)) }), suffix && /* @__PURE__ */ React.createElement("i", null, suffix)));
+  function Field({ label, value, onChange, min, max, step = 0.01, suffix, help }) {
+    return /* @__PURE__ */ React.createElement("label", { className: "studio-field" }, /* @__PURE__ */ React.createElement("span", null, label, help && /* @__PURE__ */ React.createElement(HelpTip, null, help)), /* @__PURE__ */ React.createElement("div", { className: "input-suffix" }, /* @__PURE__ */ React.createElement("input", { type: "number", value: Number.isFinite(value) ? value : "", min, max, step, onChange: (e3) => onChange(n(e3.target.value, value)) }), suffix && /* @__PURE__ */ React.createElement("i", null, suffix)));
   }
-  function TrackRows({ project, selection, setSelection, setProject }) {
-    const toggle = (kind, id2, key) => setProject((p) => touchProject({ ...p, [kind]: p[kind] instanceof Array ? p[kind].map((x) => x.id === id2 ? { ...x, [key]: !x[key] } : x) : p[kind] }));
-    return /* @__PURE__ */ React.createElement("div", { className: "studio-track-list", role: "listbox", "aria-label": "Tracks" }, /* @__PURE__ */ React.createElement("div", { className: "track-group-label" }, "STIMULUS"), project.voices.map((v) => /* @__PURE__ */ React.createElement("div", { className: "studio-track-row " + (selection.kind === "voice" && selection.id === v.id ? "selected" : ""), key: v.id, onClick: () => setSelection({ kind: "voice", id: v.id }) }, /* @__PURE__ */ React.createElement("button", { className: "track-main" }, /* @__PURE__ */ React.createElement("b", null, v.name), /* @__PURE__ */ React.createElement("small", null, v.type, " \xB7 \u0394 ", fmt(beatOf(v)), " Hz")), /* @__PURE__ */ React.createElement("button", { "aria-label": `Mute ${v.name}`, className: v.mute ? "tiny active" : "", onClick: (e3) => {
+  function TrackList({ project, selection, setSelection, setProject }) {
+    const toggle = (kind, id2, key) => setProject((p) => touchProject({ ...p, [kind]: p[kind].map((x) => x.id === id2 ? { ...x, [key]: !x[key] } : x) }));
+    const row2 = (kind, key, label, sub, mute, solo) => /* @__PURE__ */ React.createElement("div", { className: `studio-track-row ${selection.kind === kind && selection.id === key ? "selected" : ""}`, key, onClick: () => setSelection({ kind, id: key }) }, /* @__PURE__ */ React.createElement("button", { className: "track-main", title: `Select ${label}` }, /* @__PURE__ */ React.createElement("b", null, label), /* @__PURE__ */ React.createElement("small", null, sub)), /* @__PURE__ */ React.createElement("button", { className: mute ? "tiny active" : "tiny", "aria-label": `Mute ${label}`, onClick: (e3) => {
       e3.stopPropagation();
-      toggle("voices", v.id, "mute");
-    } }, "M"), /* @__PURE__ */ React.createElement("button", { "aria-label": `Solo ${v.name}`, className: v.solo ? "tiny active" : "", onClick: (e3) => {
+      toggle(kind === "voice" ? "voices" : kind === "noise" ? "noiseTracks" : "audioTracks", key, "mute");
+    } }, "M"), /* @__PURE__ */ React.createElement("button", { className: solo ? "tiny active" : "tiny", "aria-label": `Solo ${label}`, onClick: (e3) => {
       e3.stopPropagation();
-      toggle("voices", v.id, "solo");
-    } }, "S"))), /* @__PURE__ */ React.createElement("div", { className: "track-group-label" }, "NOISE / BACKGROUND"), project.noiseTracks.map((n) => /* @__PURE__ */ React.createElement("div", { className: "studio-track-row " + (selection.kind === "noise" && selection.id === n.id ? "selected" : ""), key: n.id, onClick: () => setSelection({ kind: "noise", id: n.id }) }, /* @__PURE__ */ React.createElement("button", { className: "track-main" }, /* @__PURE__ */ React.createElement("b", null, n.name), /* @__PURE__ */ React.createElement("small", null, n.kind, " noise")), /* @__PURE__ */ React.createElement("button", { className: n.mute ? "tiny active" : "", onClick: (e3) => {
-      e3.stopPropagation();
-      toggle("noiseTracks", n.id, "mute");
-    } }, "M"), /* @__PURE__ */ React.createElement("button", { className: n.solo ? "tiny active" : "", onClick: (e3) => {
-      e3.stopPropagation();
-      toggle("noiseTracks", n.id, "solo");
-    } }, "S"))), project.audioTracks.map((a) => /* @__PURE__ */ React.createElement("div", { className: "studio-track-row " + (selection.kind === "audio" && selection.id === a.id ? "selected" : ""), key: a.id, onClick: () => setSelection({ kind: "audio", id: a.id }) }, /* @__PURE__ */ React.createElement("button", { className: "track-main" }, /* @__PURE__ */ React.createElement("b", null, a.name), /* @__PURE__ */ React.createElement("small", null, "audio \xB7 ", fmt(a.duration, 1), " s")), /* @__PURE__ */ React.createElement("button", { className: a.mute ? "tiny active" : "", onClick: (e3) => {
-      e3.stopPropagation();
-      toggle("audioTracks", a.id, "mute");
-    } }, "M"), /* @__PURE__ */ React.createElement("button", { className: a.solo ? "tiny active" : "", onClick: (e3) => {
-      e3.stopPropagation();
-      toggle("audioTracks", a.id, "solo");
-    } }, "S"))));
+      toggle(kind === "voice" ? "voices" : kind === "noise" ? "noiseTracks" : "audioTracks", key, "solo");
+    } }, "S"));
+    return /* @__PURE__ */ React.createElement("div", { className: "studio-track-list", role: "listbox", "aria-label": "Timeline tracks" }, /* @__PURE__ */ React.createElement("div", { className: "track-group-label" }, "SOUND"), project.voices.map((v) => row2("voice", v.id, v.name, `${v.type} \xB7 ${beatOf(v).toFixed(2)} Hz`, v.mute, v.solo)), project.audioTracks.length > 0 && /* @__PURE__ */ React.createElement("div", { className: "track-group-label" }, "BACKGROUND AUDIO"), project.audioTracks.map((a) => row2("audio", a.id, a.name, "imported audio", a.mute, a.solo)), project.noiseTracks.length > 0 && /* @__PURE__ */ React.createElement("div", { className: "track-group-label" }, "NOISE / BACKGROUND"), project.noiseTracks.map((a) => row2("noise", a.id, a.name, `${a.kind} noise`, a.mute, a.solo)));
   }
-  function Clip({ start, duration: duration2, total: total2, label, sub, onChange }) {
+  function Clip({ start, duration: duration2, total: total2, label, sub, onChange, color: color2 = "blue" }) {
     const drag = React.useRef(null);
     const down = (e3) => {
       if (e3.button !== 0) return;
@@ -69219,96 +69205,70 @@ r÷|ú
       addEventListener("pointermove", move);
       addEventListener("pointerup", up);
     };
-    return /* @__PURE__ */ React.createElement("div", { className: "timeline-clip", onPointerDown: down, style: { left: `${start / total2 * 100}%`, width: `${Math.max(0.5, duration2 / total2 * 100)}%` } }, /* @__PURE__ */ React.createElement("b", null, label), /* @__PURE__ */ React.createElement("small", null, sub));
+    return /* @__PURE__ */ React.createElement("div", { className: `timeline-clip ${color2}`, onPointerDown: down, style: { left: `${start / total2 * 100}%`, width: `${Math.max(1, duration2 / total2 * 100)}%` }, title: `${label}: starts at ${start.toFixed(2)} seconds, lasts ${duration2.toFixed(2)} seconds` }, /* @__PURE__ */ React.createElement("b", null, label), /* @__PURE__ */ React.createElement("small", null, sub));
   }
-  function AutomationEditor({ voice, setProject, project }) {
+  function TimeCurve({ voice, project, setProject }) {
     const [parameter, setParameter] = React.useState("beatHz");
-    const [clipboard, setClipboard] = React.useState(null);
     const lane = voice.automation.find((x) => x.parameter === parameter);
-    const fallback = parameter === "beatHz" ? beatOf(voice) : parameter === "carrierHz" ? carrierOf(voice) : parameter === "leftHz" ? voice.leftHz : parameter === "rightHz" ? voice.rightHz : parameter === "amplitude" ? voice.amplitude : parameter === "duty" ? voice.duty : 0;
-    const points = lane?.points?.length ? lane.points : [{ id: "virtual-a", time: 0, value: fallback, curve: "linear" }, { id: "virtual-b", time: voice.duration, value: fallback, curve: "linear" }];
-    const vals = points.map((p) => p.value), lo = Math.min(...vals, fallback), hi = Math.max(...vals, fallback), range = Math.max(1e-6, hi - lo), pad = range * 0.2;
-    const yMin = lo - pad, yMax = hi + pad;
-    const update = (next) => setProject((p) => touchProject({ ...p, voices: p.voices.map((v) => v.id === voice.id ? { ...v, automation: [...v.automation.filter((a) => a.parameter !== parameter), { parameter, points: next.sort((a, b) => a.time - b.time) }] } : v) }));
+    const fallback = parameter === "beatHz" ? beatOf(voice) : parameter === "carrierHz" ? carrierOf(voice) : parameter === "leftHz" ? voice.leftHz : parameter === "rightHz" ? voice.rightHz : parameter === "amplitude" ? voice.amplitude : voice.duty;
+    const points = lane?.points?.length ? lane.points : [{ id: "default-a", time: 0, value: fallback, curve: "linear" }, { id: "default-b", time: voice.duration, value: fallback, curve: "linear" }];
+    const vals = points.map((p) => p.value), lo = Math.min(...vals, fallback), hi = Math.max(...vals, fallback), pad = Math.max((hi - lo) * 0.2, 0.01), yMin = lo - pad, yMax = hi + pad;
+    const update = (ps) => setProject((p) => touchProject({ ...p, voices: p.voices.map((v) => v.id === voice.id ? { ...v, automation: [...v.automation.filter((a) => a.parameter !== parameter), { parameter, points: ps.sort((a, b) => a.time - b.time) }] } : v) }));
     const add = (e3) => {
-      const r = e3.currentTarget.getBoundingClientRect(), x = (e3.clientX - r.left) / r.width, y = (e3.clientY - r.top) / r.height, time = Math.max(0, Math.min(voice.duration, x * voice.duration)), value = yMax - y * (yMax - yMin);
+      const r = e3.currentTarget.getBoundingClientRect(), time = Math.max(0, Math.min(voice.duration, (e3.clientX - r.left) / r.width * voice.duration)), value = yMax - (e3.clientY - r.top) / r.height * (yMax - yMin);
       update([...lane?.points || [], { id: uid("point"), time, value, curve: "linear" }]);
     };
-    const drag = (e3, p) => {
-      e3.stopPropagation();
-      const svg = e3.currentTarget.ownerSVGElement, r = svg.getBoundingClientRect();
-      const move = (m) => {
-        const x = Math.max(0, Math.min(1, (m.clientX - r.left) / r.width)), y = Math.max(0, Math.min(1, (m.clientY - r.top) / r.height));
-        update(points.filter((x2) => !x2.id.startsWith("virtual")).map((q) => q.id === p.id ? { ...q, time: x * voice.duration, value: yMax - y * (yMax - yMin) } : q));
-      };
-      const up = () => {
-        removeEventListener("pointermove", move);
-        removeEventListener("pointerup", up);
-      };
-      addEventListener("pointermove", move);
-      addEventListener("pointerup", up);
-    };
     const real = lane?.points || [];
-    const path = points.map((p, i) => `${i ? "L" : "M"} ${p.time / voice.duration * 800} ${100 - (p.value - yMin) / (yMax - yMin) * 100}`).join(" ");
-    return /* @__PURE__ */ React.createElement("section", { className: "automation-editor" }, /* @__PURE__ */ React.createElement("div", { className: "automation-head" }, /* @__PURE__ */ React.createElement("b", null, "Automation"), /* @__PURE__ */ React.createElement("select", { value: parameter, onChange: (e3) => setParameter(e3.target.value) }, laneParams.map((x) => /* @__PURE__ */ React.createElement("option", { key: x }, x))), /* @__PURE__ */ React.createElement("button", { onClick: () => setClipboard(lane ? structuredClone(lane) : null), disabled: !lane }, "Copy"), /* @__PURE__ */ React.createElement("button", { onClick: () => clipboard && update(clipboard.points.map((p) => ({ ...p, id: uid("point") }))), disabled: !clipboard }, "Paste"), /* @__PURE__ */ React.createElement("button", { onClick: () => update([]), disabled: !lane }, "Clear")), /* @__PURE__ */ React.createElement("svg", { viewBox: "0 0 800 100", preserveAspectRatio: "none", onDoubleClick: add, "aria-label": `${parameter} automation graph` }, /* @__PURE__ */ React.createElement("path", { d: path, fill: "none", stroke: "currentColor", strokeWidth: "2" }), points.map((p) => /* @__PURE__ */ React.createElement("circle", { key: p.id, cx: p.time / voice.duration * 800, cy: 100 - (p.value - yMin) / (yMax - yMin) * 100, r: "6", onPointerDown: (e3) => !p.id.startsWith("virtual") && drag(e3, p) }))), /* @__PURE__ */ React.createElement("small", null, "Double-click graph to add a point; drag points to edit."), real.length > 0 && /* @__PURE__ */ React.createElement("div", { className: "automation-table" }, real.map((p) => /* @__PURE__ */ React.createElement("div", { key: p.id }, /* @__PURE__ */ React.createElement("input", { "aria-label": "Point time", type: "number", step: ".01", value: p.time, onChange: (e3) => update(real.map((q) => q.id === p.id ? { ...q, time: Math.max(0, Math.min(voice.duration, num(e3.target.value))) } : q)) }), /* @__PURE__ */ React.createElement("input", { "aria-label": "Point value", type: "number", step: ".01", value: p.value, onChange: (e3) => update(real.map((q) => q.id === p.id ? { ...q, value: num(e3.target.value) } : q)) }), /* @__PURE__ */ React.createElement("select", { value: p.curve, onChange: (e3) => update(real.map((q) => q.id === p.id ? { ...q, curve: e3.target.value } : q)) }, curves.map((c) => /* @__PURE__ */ React.createElement("option", { key: c }, c))), /* @__PURE__ */ React.createElement("button", { "aria-label": "Delete automation point", onClick: () => update(real.filter((q) => q.id !== p.id)) }, "\xD7")))));
+    const path = points.map((p, i) => `${i ? "L" : "M"} ${p.time / Math.max(1e-3, voice.duration) * 800} ${100 - (p.value - yMin) / (yMax - yMin) * 100}`).join(" ");
+    return /* @__PURE__ */ React.createElement("section", { className: "time-shaping" }, /* @__PURE__ */ React.createElement("div", { className: "section-head" }, /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("h3", null, "Time shaping ", /* @__PURE__ */ React.createElement(HelpTip, null, "Shape one parameter across this track\u2019s full duration. Points use track-local time, so playback behavior stays unchanged.")), /* @__PURE__ */ React.createElement("small", null, "Track-local timeline \xB7 0:00 to ", voice.duration.toFixed(2), " s")), /* @__PURE__ */ React.createElement("select", { "aria-label": "Time shaping parameter", value: parameter, onChange: (e3) => setParameter(e3.target.value) }, voiceParams.map((x) => /* @__PURE__ */ React.createElement("option", { key: x }, x)))), /* @__PURE__ */ React.createElement("div", { className: "curve-toolbar" }, /* @__PURE__ */ React.createElement("span", null, "Double-click to add"), /* @__PURE__ */ React.createElement("span", null, "Drag a point to move it"), /* @__PURE__ */ React.createElement("span", null, "Use the table for exact values"), /* @__PURE__ */ React.createElement("button", { onClick: () => update([]), disabled: !lane }, "Clear curve")), /* @__PURE__ */ React.createElement("svg", { className: "time-curve", viewBox: "0 0 800 120", preserveAspectRatio: "none", onDoubleClick: add, "aria-label": `${parameter} time shaping graph` }, /* @__PURE__ */ React.createElement("path", { d: path, fill: "none", stroke: "currentColor", strokeWidth: "3" }), points.map((p) => /* @__PURE__ */ React.createElement("circle", { key: p.id, cx: p.time / Math.max(1e-3, voice.duration) * 800, cy: 120 - (p.value - yMin) / (yMax - yMin) * 120, r: "7" }))), /* @__PURE__ */ React.createElement("div", { className: "time-axis" }, /* @__PURE__ */ React.createElement("span", null, "0:00"), /* @__PURE__ */ React.createElement("span", null, (voice.duration / 2).toFixed(1), "s"), /* @__PURE__ */ React.createElement("span", null, voice.duration.toFixed(1), "s")), real.length > 0 && /* @__PURE__ */ React.createElement("div", { className: "automation-table" }, real.map((p) => /* @__PURE__ */ React.createElement("div", { key: p.id }, /* @__PURE__ */ React.createElement("input", { "aria-label": "Time point seconds", title: "Time in seconds", type: "number", min: "0", max: voice.duration, step: ".01", value: p.time, onChange: (e3) => update(real.map((q) => q.id === p.id ? { ...q, time: Math.max(0, Math.min(voice.duration, n(e3.target.value))) } : q)) }), /* @__PURE__ */ React.createElement("input", { "aria-label": "Time point value", title: "Parameter value", type: "number", step: ".01", value: p.value, onChange: (e3) => update(real.map((q) => q.id === p.id ? { ...q, value: n(e3.target.value) } : q)) }), /* @__PURE__ */ React.createElement("select", { "aria-label": "Curve interpolation", value: p.curve, onChange: (e3) => update(real.map((q) => q.id === p.id ? { ...q, curve: e3.target.value } : q)) }, curves.map((c) => /* @__PURE__ */ React.createElement("option", { key: c }, c))), /* @__PURE__ */ React.createElement("button", { "aria-label": "Delete time point", onClick: () => update(real.filter((q) => q.id !== p.id)) }, "\xD7")))));
   }
-  function TrackAutomationControls({ track, patch, parameters }) {
-    const [parameter, setParameter] = React.useState(parameters[0]);
-    const lane = (track.automation || []).find((x) => x.parameter === parameter);
-    const fallback = Number(track[parameter] ?? 0);
-    const setLane = (points) => patch({ automation: [...(track.automation || []).filter((x) => x.parameter !== parameter), { parameter, points }] });
-    const addRamp = () => setLane([{ id: uid("point"), time: 0, value: fallback, curve: "linear" }, { id: uid("point"), time: track.duration || 1, value: fallback, curve: "linear" }]);
-    const addMod = () => patch({ modulation: [...track.modulation || [], { target: parameter, rateHz: 1, depth: 0.05, phase: 0, offset: 0 }] });
-    return /* @__PURE__ */ React.createElement("div", { className: "track-automation" }, /* @__PURE__ */ React.createElement("h4", null, "Automation / modulation"), /* @__PURE__ */ React.createElement("label", { className: "studio-field" }, /* @__PURE__ */ React.createElement("span", null, "Parameter"), /* @__PURE__ */ React.createElement("select", { value: parameter, onChange: (e3) => setParameter(e3.target.value) }, parameters.map((x) => /* @__PURE__ */ React.createElement("option", { key: x }, x)))), /* @__PURE__ */ React.createElement("div", { className: "actions" }, /* @__PURE__ */ React.createElement("button", { onClick: addRamp }, lane ? "Reset ramp" : "+ Ramp"), /* @__PURE__ */ React.createElement("button", { onClick: addMod }, "+ LFO")), lane && /* @__PURE__ */ React.createElement("div", { className: "automation-table" }, lane.points.map((pt) => /* @__PURE__ */ React.createElement("div", { key: pt.id }, /* @__PURE__ */ React.createElement("input", { "aria-label": "Automation time", type: "number", min: "0", max: track.duration, step: ".01", value: pt.time, onChange: (e3) => setLane(lane.points.map((q) => q.id === pt.id ? { ...q, time: num(e3.target.value) } : q)) }), /* @__PURE__ */ React.createElement("input", { "aria-label": "Automation value", type: "number", step: ".01", value: pt.value, onChange: (e3) => setLane(lane.points.map((q) => q.id === pt.id ? { ...q, value: num(e3.target.value) } : q)) }), /* @__PURE__ */ React.createElement("select", { value: pt.curve, onChange: (e3) => setLane(lane.points.map((q) => q.id === pt.id ? { ...q, curve: e3.target.value } : q)) }, curves.map((c) => /* @__PURE__ */ React.createElement("option", { key: c }, c))), /* @__PURE__ */ React.createElement("button", { onClick: () => setLane(lane.points.filter((q) => q.id !== pt.id)) }, "\xD7")))), (track.modulation || []).map((m, i) => /* @__PURE__ */ React.createElement("div", { className: "link-row", key: `${m.target}-${i}` }, /* @__PURE__ */ React.createElement("select", { value: m.target, onChange: (e3) => patch({ modulation: track.modulation.map((q, j) => j === i ? { ...q, target: e3.target.value } : q) }) }, parameters.map((x) => /* @__PURE__ */ React.createElement("option", { key: x }, x))), /* @__PURE__ */ React.createElement("input", { "aria-label": "LFO rate Hz", type: "number", min: "0", step: ".01", value: m.rateHz, onChange: (e3) => patch({ modulation: track.modulation.map((q, j) => j === i ? { ...q, rateHz: num(e3.target.value) } : q) }) }), /* @__PURE__ */ React.createElement("input", { "aria-label": "LFO depth", type: "number", step: ".01", value: m.depth, onChange: (e3) => patch({ modulation: track.modulation.map((q, j) => j === i ? { ...q, depth: num(e3.target.value) } : q) }) }), /* @__PURE__ */ React.createElement("button", { onClick: () => patch({ modulation: track.modulation.filter((_, j) => j !== i) }) }, "\xD7"))));
+  function Inspector({ project, selection, setProject }) {
+    const voice = selection.kind === "voice" ? project.voices.find((v) => v.id === selection.id) : void 0;
+    const noise = selection.kind === "noise" ? project.noiseTracks.find((v) => v.id === selection.id) : void 0;
+    const audio = selection.kind === "audio" ? project.audioTracks.find((v) => v.id === selection.id) : void 0;
+    const patch = (x) => setProject((p) => touchProject({ ...p, voices: p.voices.map((v) => v.id === voice?.id ? { ...v, ...x } : v), noiseTracks: p.noiseTracks.map((v) => v.id === noise?.id ? { ...v, ...x } : v), audioTracks: p.audioTracks.map((v) => v.id === audio?.id ? { ...v, ...x } : v) }));
+    if (voice) return /* @__PURE__ */ React.createElement("div", { className: "studio-inspector" }, /* @__PURE__ */ React.createElement("h3", null, voice.name), /* @__PURE__ */ React.createElement("p", { className: "inspector-lede" }, "The selected track\u2019s sound and timing."), /* @__PURE__ */ React.createElement("label", { className: "studio-field" }, /* @__PURE__ */ React.createElement("span", null, "Name"), /* @__PURE__ */ React.createElement("input", { value: voice.name, onChange: (e3) => patch({ name: e3.target.value }) })), /* @__PURE__ */ React.createElement(Field, { label: "Left ear", value: voice.leftHz, suffix: "Hz", min: 1e-3, onChange: (x) => patch({ leftHz: x }) }), /* @__PURE__ */ React.createElement(Field, { label: "Right ear", value: voice.rightHz, suffix: "Hz", min: 1e-3, onChange: (x) => patch({ rightHz: x }) }), /* @__PURE__ */ React.createElement(Field, { label: "Amplitude", value: voice.amplitude, min: 0, max: 2, onChange: (x) => patch({ amplitude: x }) }), /* @__PURE__ */ React.createElement(Field, { label: "Start", value: voice.start, suffix: "s", min: 0, onChange: (x) => patch({ start: x }) }), /* @__PURE__ */ React.createElement(Field, { label: "Tone length", value: voice.duration, suffix: "s", min: 0.01, onChange: (x) => patch({ duration: x }) }), /* @__PURE__ */ React.createElement("div", { className: "checks" }, /* @__PURE__ */ React.createElement("label", null, /* @__PURE__ */ React.createElement("input", { type: "checkbox", checked: voice.loop, onChange: (e3) => patch({ loop: e3.target.checked }) }), " Loop track"), /* @__PURE__ */ React.createElement("label", null, /* @__PURE__ */ React.createElement("input", { type: "checkbox", checked: voice.mute, onChange: (e3) => patch({ mute: e3.target.checked }) }), " Mute"), /* @__PURE__ */ React.createElement("label", null, /* @__PURE__ */ React.createElement("input", { type: "checkbox", checked: voice.solo, onChange: (e3) => patch({ solo: e3.target.checked }) }), " Solo")), /* @__PURE__ */ React.createElement("details", { className: "context-help" }, /* @__PURE__ */ React.createElement("summary", null, "How this works"), /* @__PURE__ */ React.createElement("p", null, "Left and right frequencies are explicit. The tone length controls the clip and the time-shaping editor below uses that same duration.")));
+    if (noise) return /* @__PURE__ */ React.createElement("div", { className: "studio-inspector" }, /* @__PURE__ */ React.createElement("h3", null, noise.name), /* @__PURE__ */ React.createElement("p", { className: "inspector-lede" }, "Procedural background layer."), /* @__PURE__ */ React.createElement("label", { className: "studio-field" }, /* @__PURE__ */ React.createElement("span", null, "Noise color"), /* @__PURE__ */ React.createElement("select", { value: noise.kind, onChange: (e3) => patch({ kind: e3.target.value }) }, ["white", "pink", "brown", "blue", "violet", "grey", "slope"].map((x) => /* @__PURE__ */ React.createElement("option", { key: x }, x)))), /* @__PURE__ */ React.createElement(Field, { label: "Level", value: noise.amplitude, min: 0, max: 1, onChange: (x) => patch({ amplitude: x }) }), /* @__PURE__ */ React.createElement(Field, { label: "Start", value: noise.start, suffix: "s", min: 0, onChange: (x) => patch({ start: x }) }), /* @__PURE__ */ React.createElement(Field, { label: "Layer length", value: noise.duration, suffix: "s", min: 0.01, onChange: (x) => patch({ duration: x }) }), /* @__PURE__ */ React.createElement("label", { className: "checks" }, /* @__PURE__ */ React.createElement("input", { type: "checkbox", checked: !!noise.invertRight, onChange: (e3) => patch({ invertRight: e3.target.checked }) }), " Invert right channel"), /* @__PURE__ */ React.createElement("details", { className: "context-help" }, /* @__PURE__ */ React.createElement("summary", null, "How this works"), /* @__PURE__ */ React.createElement("p", null, "Background layers stay on the protected background bus and never replace the binaural voice.")));
+    if (audio) return /* @__PURE__ */ React.createElement("div", { className: "studio-inspector" }, /* @__PURE__ */ React.createElement("h3", null, audio.name), /* @__PURE__ */ React.createElement("p", { className: "inspector-lede" }, "Imported background clip."), /* @__PURE__ */ React.createElement(Field, { label: "Start", value: audio.start, suffix: "s", min: 0, onChange: (x) => patch({ start: x }) }), /* @__PURE__ */ React.createElement(Field, { label: "Clip length", value: audio.duration, suffix: "s", min: 0.01, onChange: (x) => patch({ duration: x }) }), /* @__PURE__ */ React.createElement(Field, { label: "Level", value: audio.amplitude, min: 0, max: 2, onChange: (x) => patch({ amplitude: x }) }), /* @__PURE__ */ React.createElement(Field, { label: "Pan", value: audio.pan, min: -1, max: 1, onChange: (x) => patch({ pan: x }) }), /* @__PURE__ */ React.createElement("label", { className: "checks" }, /* @__PURE__ */ React.createElement("input", { type: "checkbox", checked: audio.loop, onChange: (e3) => patch({ loop: e3.target.checked }) }), " Loop clip"));
+    return /* @__PURE__ */ React.createElement("div", { className: "studio-inspector empty-inspector" }, /* @__PURE__ */ React.createElement("h3", null, "Select a track"), /* @__PURE__ */ React.createElement("p", null, "Choose a track on the left to edit its timing and sound."));
   }
-  function VoiceInspector({ project, voice, setProject }) {
-    const patch = (x) => setProject((p) => touchProject({ ...p, voices: p.voices.map((v) => v.id === voice.id ? { ...v, ...x } : v) }));
-    const addLink = () => patch({ links: [...voice.links, { id: uid("link"), source: "time", target: "beatHz", scale: 1, offset: 0 }] });
-    return /* @__PURE__ */ React.createElement("div", { className: "studio-inspector" }, /* @__PURE__ */ React.createElement("h3", null, "Voice"), /* @__PURE__ */ React.createElement("label", { className: "studio-field" }, /* @__PURE__ */ React.createElement("span", null, "Name"), /* @__PURE__ */ React.createElement("input", { value: voice.name, onChange: (e3) => patch({ name: e3.target.value }) })), /* @__PURE__ */ React.createElement("label", { className: "studio-field" }, /* @__PURE__ */ React.createElement("span", null, "Generator"), /* @__PURE__ */ React.createElement("select", { value: voice.type, onChange: (e3) => patch({ type: e3.target.value }) }, generators.map((x) => /* @__PURE__ */ React.createElement("option", { key: x }, x)))), /* @__PURE__ */ React.createElement("label", { className: "studio-field" }, /* @__PURE__ */ React.createElement("span", null, "Waveform"), /* @__PURE__ */ React.createElement("select", { value: voice.waveform, onChange: (e3) => patch({ waveform: e3.target.value }) }, waveforms.map((x) => /* @__PURE__ */ React.createElement("option", { key: x }, x)))), voice.waveform === "custom-harmonic" && /* @__PURE__ */ React.createElement("label", { className: "studio-field" }, /* @__PURE__ */ React.createElement("span", null, "Harmonics (comma amplitudes)"), /* @__PURE__ */ React.createElement("input", { value: (voice.harmonics || [1, 0.5, 0.25]).join(","), onChange: (e3) => patch({ harmonics: e3.target.value.split(",").map(Number).filter(Number.isFinite).slice(0, 64) }) })), voice.waveform === "imported-cycle" && /* @__PURE__ */ React.createElement("label", { className: "studio-field" }, /* @__PURE__ */ React.createElement("span", null, "Cycle source"), /* @__PURE__ */ React.createElement("select", { value: voice.cycleAssetId || "", onChange: (e3) => patch({ cycleAssetId: e3.target.value || void 0 }) }, /* @__PURE__ */ React.createElement("option", { value: "" }, "Choose imported audio\u2026"), project.assets.map((a) => /* @__PURE__ */ React.createElement("option", { key: a.id, value: a.id }, a.name))), /* @__PURE__ */ React.createElement("small", null, "The selected audio asset is treated as one periodic waveform cycle; use a clean single-cycle source for predictable spectra.")), /* @__PURE__ */ React.createElement("h4", null, "Waveform timeline"), (voice.waveformAutomation || []).map((wp) => /* @__PURE__ */ React.createElement("div", { className: "link-row", key: wp.id }, /* @__PURE__ */ React.createElement("input", { "aria-label": "Waveform change time", type: "number", min: "0", max: voice.duration, step: ".01", value: wp.time, onChange: (e3) => patch({ waveformAutomation: (voice.waveformAutomation || []).map((x) => x.id === wp.id ? { ...x, time: num(e3.target.value) } : x) }) }), /* @__PURE__ */ React.createElement("select", { value: wp.waveform, onChange: (e3) => patch({ waveformAutomation: (voice.waveformAutomation || []).map((x) => x.id === wp.id ? { ...x, waveform: e3.target.value } : x) }) }, waveforms.map((x) => /* @__PURE__ */ React.createElement("option", { key: x }, x))), /* @__PURE__ */ React.createElement("button", { onClick: () => patch({ waveformAutomation: (voice.waveformAutomation || []).filter((x) => x.id !== wp.id) }) }, "\xD7"))), /* @__PURE__ */ React.createElement("button", { onClick: () => patch({ waveformAutomation: [...voice.waveformAutomation || [], { id: uid("wavepoint"), time: voice.duration / 2, waveform: "triangle" }] }) }, "+ Waveform change"), /* @__PURE__ */ React.createElement(NumberInput, { label: "Left ear", value: voice.leftHz, suffix: "Hz", step: ".001", min: 1e-3, onChange: (x) => patch({ leftHz: x }) }), /* @__PURE__ */ React.createElement(NumberInput, { label: "Right ear", value: voice.rightHz, suffix: "Hz", step: ".001", min: 1e-3, onChange: (x) => patch({ rightHz: x }) }), /* @__PURE__ */ React.createElement(NumberInput, { label: "Amplitude", value: voice.amplitude, step: ".005", min: 0, max: 2, onChange: (x) => patch({ amplitude: x }) }), /* @__PURE__ */ React.createElement(NumberInput, { label: "Left level", value: voice.leftLevel, step: ".01", min: 0, max: 2, onChange: (x) => patch({ leftLevel: x }) }), /* @__PURE__ */ React.createElement(NumberInput, { label: "Right level", value: voice.rightLevel, step: ".01", min: 0, max: 2, onChange: (x) => patch({ rightLevel: x }) }), /* @__PURE__ */ React.createElement(NumberInput, { label: "Start", value: voice.start, suffix: "s", min: 0, onChange: (x) => patch({ start: x }) }), /* @__PURE__ */ React.createElement(NumberInput, { label: "Duration", value: voice.duration, suffix: "s", min: 0.01, onChange: (x) => patch({ duration: x }) }), /* @__PURE__ */ React.createElement("div", { className: "two-mini" }, /* @__PURE__ */ React.createElement(NumberInput, { label: "Fade in", value: voice.fadeIn, suffix: "s", min: 0, onChange: (x) => patch({ fadeIn: x }) }), /* @__PURE__ */ React.createElement(NumberInput, { label: "Fade out", value: voice.fadeOut, suffix: "s", min: 0, onChange: (x) => patch({ fadeOut: x }) })), /* @__PURE__ */ React.createElement(NumberInput, { label: "Duty / modulation depth", value: voice.duty, min: 0.01, max: 0.99, step: ".01", onChange: (x) => patch({ duty: x }) }), /* @__PURE__ */ React.createElement("div", { className: "checks" }, /* @__PURE__ */ React.createElement("label", null, /* @__PURE__ */ React.createElement("input", { type: "checkbox", checked: voice.loop, onChange: (e3) => patch({ loop: e3.target.checked }) }), " Loop"), /* @__PURE__ */ React.createElement("label", null, /* @__PURE__ */ React.createElement("input", { type: "checkbox", checked: voice.mute, onChange: (e3) => patch({ mute: e3.target.checked }) }), " Mute"), /* @__PURE__ */ React.createElement("label", null, /* @__PURE__ */ React.createElement("input", { type: "checkbox", checked: voice.solo, onChange: (e3) => patch({ solo: e3.target.checked }) }), " Solo")), /* @__PURE__ */ React.createElement("h4", null, "Parameter links"), voice.links.map((l) => /* @__PURE__ */ React.createElement("div", { className: "link-row", key: l.id }, /* @__PURE__ */ React.createElement("select", { value: l.source, onChange: (e3) => patch({ links: voice.links.map((x) => x.id === l.id ? { ...x, source: e3.target.value } : x) }) }, ["time", "beatHz", "carrierHz", "amplitude"].map((x) => /* @__PURE__ */ React.createElement("option", { key: x }, x))), /* @__PURE__ */ React.createElement("span", null, "\u2192"), /* @__PURE__ */ React.createElement("select", { value: l.target, onChange: (e3) => patch({ links: voice.links.map((x) => x.id === l.id ? { ...x, target: e3.target.value } : x) }) }, laneParams.map((x) => /* @__PURE__ */ React.createElement("option", { key: x }, x))), /* @__PURE__ */ React.createElement("input", { title: "Scale", type: "number", step: ".1", value: l.scale, onChange: (e3) => patch({ links: voice.links.map((x) => x.id === l.id ? { ...x, scale: num(e3.target.value) } : x) }) }), /* @__PURE__ */ React.createElement("input", { title: "Offset", type: "number", step: ".1", value: l.offset, onChange: (e3) => patch({ links: voice.links.map((x) => x.id === l.id ? { ...x, offset: num(e3.target.value) } : x) }) }), /* @__PURE__ */ React.createElement("button", { onClick: () => patch({ links: voice.links.filter((x) => x.id !== l.id) }) }, "\xD7"))), /* @__PURE__ */ React.createElement("button", { onClick: addLink }, "+ Parameter link"), /* @__PURE__ */ React.createElement("details", { className: "context-help" }, /* @__PURE__ */ React.createElement("summary", null, "Signal help"), /* @__PURE__ */ React.createElement("p", null, "Left/right frequencies are stored explicitly. Center carrier is ", carrierOf(voice).toFixed(3), " Hz and the current difference is ", beatOf(voice).toFixed(3), " Hz. A frequency label does not guarantee a psychological outcome.")));
-  }
-  function NoiseInspector({ project, track, setProject }) {
-    const patch = (x) => setProject((p) => touchProject({ ...p, noiseTracks: p.noiseTracks.map((n) => n.id === track.id ? { ...n, ...x } : n) }));
-    return /* @__PURE__ */ React.createElement("div", { className: "studio-inspector" }, /* @__PURE__ */ React.createElement("h3", null, "Noise"), /* @__PURE__ */ React.createElement("label", { className: "studio-field" }, /* @__PURE__ */ React.createElement("span", null, "Name"), /* @__PURE__ */ React.createElement("input", { value: track.name, onChange: (e3) => patch({ name: e3.target.value }) })), /* @__PURE__ */ React.createElement("label", { className: "studio-field" }, /* @__PURE__ */ React.createElement("span", null, "Color"), /* @__PURE__ */ React.createElement("select", { value: track.kind, onChange: (e3) => patch({ kind: e3.target.value }) }, ["white", "pink", "brown", "blue", "violet", "grey", "slope"].map((x) => /* @__PURE__ */ React.createElement("option", { key: x }, x)))), /* @__PURE__ */ React.createElement(NumberInput, { label: "Amplitude", value: track.amplitude, step: ".005", min: 0, max: 1, onChange: (x) => patch({ amplitude: x }) }), /* @__PURE__ */ React.createElement(NumberInput, { label: "Slope", value: track.slopeDbOct, suffix: "dB/oct", min: -6, max: 6, onChange: (x) => patch({ slopeDbOct: x }) }), /* @__PURE__ */ React.createElement(NumberInput, { label: "High-pass", value: track.highpass || 0, suffix: "Hz", onChange: (x) => patch({ highpass: x || void 0 }) }), /* @__PURE__ */ React.createElement(NumberInput, { label: "Low-pass", value: track.lowpass || 0, suffix: "Hz", onChange: (x) => patch({ lowpass: x || void 0 }) }), /* @__PURE__ */ React.createElement(NumberInput, { label: "Stereo correlation", value: track.stereoCorrelation, step: ".01", min: 0, max: 1, onChange: (x) => patch({ stereoCorrelation: x }) }), /* @__PURE__ */ React.createElement(TrackAutomationControls, { track, patch, parameters: ["amplitude", "slopeDbOct", "highpass", "lowpass", "stereoCorrelation"] }), /* @__PURE__ */ React.createElement("details", { className: "context-help" }, /* @__PURE__ */ React.createElement("summary", null, "Noise help"), /* @__PURE__ */ React.createElement("p", null, "Noise automation is evaluated in track-local time. Stereo correlation 0 uses independent channels; 1 shares the same stochastic component.")));
-  }
-  function AudioInspector({ project, track, setProject }) {
-    const patch = (x) => setProject((p) => touchProject({ ...p, audioTracks: p.audioTracks.map((a) => a.id === track.id ? { ...a, ...x } : a) }));
-    return /* @__PURE__ */ React.createElement("div", { className: "studio-inspector" }, /* @__PURE__ */ React.createElement("h3", null, "Audio clip"), /* @__PURE__ */ React.createElement("label", { className: "studio-field" }, /* @__PURE__ */ React.createElement("span", null, "Name"), /* @__PURE__ */ React.createElement("input", { value: track.name, onChange: (e3) => patch({ name: e3.target.value }) })), /* @__PURE__ */ React.createElement(NumberInput, { label: "Start", value: track.start, suffix: "s", min: 0, onChange: (x) => patch({ start: x }) }), /* @__PURE__ */ React.createElement(NumberInput, { label: "Duration", value: track.duration, suffix: "s", min: 0.01, onChange: (x) => patch({ duration: x }) }), /* @__PURE__ */ React.createElement(NumberInput, { label: "Source offset", value: track.offset, suffix: "s", min: 0, onChange: (x) => patch({ offset: x }) }), /* @__PURE__ */ React.createElement(NumberInput, { label: "Level", value: track.amplitude, min: 0, max: 2, step: ".01", onChange: (x) => patch({ amplitude: x }) }), /* @__PURE__ */ React.createElement(NumberInput, { label: "Pan", value: track.pan, min: -1, max: 1, step: ".01", onChange: (x) => patch({ pan: x }) }), /* @__PURE__ */ React.createElement(NumberInput, { label: "Stereo width", value: track.stereoWidth ?? 1, min: 0, max: 2, step: ".01", onChange: (x) => patch({ stereoWidth: x }) }), /* @__PURE__ */ React.createElement(NumberInput, { label: "Left delay", value: track.leftDelayMs || 0, suffix: "ms", min: 0, onChange: (x) => patch({ leftDelayMs: x }) }), /* @__PURE__ */ React.createElement(NumberInput, { label: "Right delay", value: track.rightDelayMs || 0, suffix: "ms", min: 0, onChange: (x) => patch({ rightDelayMs: x }) }), /* @__PURE__ */ React.createElement(NumberInput, { label: "High-pass", value: track.highpass || 0, suffix: "Hz", min: 0, onChange: (x) => patch({ highpass: x || void 0 }) }), /* @__PURE__ */ React.createElement(NumberInput, { label: "Low-pass", value: track.lowpass || 0, suffix: "Hz", min: 0, onChange: (x) => patch({ lowpass: x || void 0 }) }), /* @__PURE__ */ React.createElement(NumberInput, { label: "Interval", value: track.intervalSeconds || 0, suffix: "s", min: 0, onChange: (x) => patch({ intervalSeconds: x || void 0 }) }), /* @__PURE__ */ React.createElement(NumberInput, { label: "Interval on", value: track.intervalOnSeconds || 0, suffix: "s", min: 0, onChange: (x) => patch({ intervalOnSeconds: x || void 0 }) }), /* @__PURE__ */ React.createElement(TrackAutomationControls, { track, patch, parameters: ["amplitude", "pan", "stereoWidth", "leftDelayMs", "rightDelayMs", "highpass", "lowpass"] }), /* @__PURE__ */ React.createElement("details", { className: "context-help" }, /* @__PURE__ */ React.createElement("summary", null, "Background help"), /* @__PURE__ */ React.createElement("p", null, "Automation and modulation are evaluated in clip-local time. Delay and width controls affect only background tracks, never the protected binaural signal bus.")));
-  }
-  function StudioSurface({ project, setProject, onPlay, playing, onSave, onExport, onUndo, onRedo, canUndo, canRedo }) {
-    const [selection, setSelection] = React.useState({ kind: "voice", id: project.voices[0]?.id || "" });
+  function StudioTimelineSurface({ project, setProject, onPlay, playing, onSave, onExport, onUndo, onRedo, canUndo, canRedo }) {
+    const first = project.voices[0] ? { kind: "voice", id: project.voices[0].id } : project.audioTracks[0] ? { kind: "audio", id: project.audioTracks[0].id } : { kind: "noise", id: project.noiseTracks[0]?.id || "" };
+    const [selection, setSelection] = React.useState(first);
     const [zoom, setZoom] = React.useState(1);
-    const selectedVoice = selection.kind === "voice" ? project.voices.find((v) => v.id === selection.id) : void 0, selectedNoise = selection.kind === "noise" ? project.noiseTracks.find((v) => v.id === selection.id) : void 0, selectedAudio = selection.kind === "audio" ? project.audioTracks.find((v) => v.id === selection.id) : void 0;
+    const selectedVoice = selection.kind === "voice" ? project.voices.find((v) => v.id === selection.id) : void 0;
     React.useEffect(() => {
-      if (selection.kind === "voice" && !project.voices.some((v) => v.id === selection.id) && project.voices[0]) setSelection({ kind: "voice", id: project.voices[0].id });
-    }, [project.voices.length]);
+      const exists = (selection.kind === "voice" ? project.voices : selection.kind === "noise" ? project.noiseTracks : project.audioTracks).some((x) => x.id === selection.id);
+      if (!exists) setSelection(first);
+    }, [project.voices.length, project.noiseTracks.length, project.audioTracks.length]);
+    const total2 = Math.max(1, project.duration);
+    const width = Math.max(100, zoom * 100);
+    const addVoice = () => setProject((p) => {
+      const v = createVoice(`Voice ${p.voices.length + 1}`);
+      v.duration = p.duration;
+      return touchProject({ ...p, voices: [...p.voices, v] });
+    });
+    const addNoise = () => setProject((p) => touchProject({ ...p, noiseTracks: [...p.noiseTracks, { id: uid("noise"), name: `Noise ${p.noiseTracks.length + 1}`, kind: "pink", amplitude: 0.06, slopeDbOct: -3, stereoCorrelation: 0.2, invertRight: false, start: 0, duration: p.duration, loop: true, mute: false, solo: false }] }));
+    return /* @__PURE__ */ React.createElement("section", { className: "page studio-v3" }, /* @__PURE__ */ React.createElement("div", { className: "studio-v3-head" }, /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("div", { className: "eyebrow" }, "STUDIO"), /* @__PURE__ */ React.createElement("h1", null, "Build your sound over time"), /* @__PURE__ */ React.createElement("p", { className: "lede" }, "Arrange tones and background layers on a clear, zoomable timeline. Every curve is evaluated against the track\u2019s own duration.")), /* @__PURE__ */ React.createElement("div", { className: "actions" }, /* @__PURE__ */ React.createElement("button", { onClick: onUndo, disabled: !canUndo, title: "Undo last Studio edit" }, "\u21B6"), /* @__PURE__ */ React.createElement("button", { onClick: onRedo, disabled: !canRedo, title: "Redo last Studio edit" }, "\u21B7"), /* @__PURE__ */ React.createElement("button", { className: "primary", onClick: onPlay }, playing ? "\u25A0 Stop" : "\u25B6 Play"), /* @__PURE__ */ React.createElement("button", { onClick: onSave }, "Save"))), /* @__PURE__ */ React.createElement("div", { className: "studio-v3-toolbar" }, /* @__PURE__ */ React.createElement("button", { onClick: addVoice }, "\uFF0B Tone"), /* @__PURE__ */ React.createElement("button", { onClick: addNoise }, "\uFF0B Background"), /* @__PURE__ */ React.createElement("button", { onClick: () => setProject((p) => touchProject({ ...p, duration: Math.max(p.duration, project.duration + 60) })) }, "\uFF0B 1 min"), /* @__PURE__ */ React.createElement("label", { className: "zoom-control" }, /* @__PURE__ */ React.createElement("span", null, "Timeline zoom ", /* @__PURE__ */ React.createElement(HelpTip, null, "Zoom changes the visible working width, not the project duration or audio timing.")), /* @__PURE__ */ React.createElement("input", { type: "range", min: ".5", max: "6", step: ".25", value: zoom, onChange: (e3) => setZoom(Number(e3.target.value)) }), /* @__PURE__ */ React.createElement("b", null, zoom.toFixed(2), "\xD7")), /* @__PURE__ */ React.createElement("div", { className: "time-readout" }, "0:00 \u2014 ", Math.floor(total2 / 60), ":", String(Math.round(total2 % 60)).padStart(2, "0"))), /* @__PURE__ */ React.createElement("div", { className: "studio-v3-grid" }, /* @__PURE__ */ React.createElement(TrackList, { project, selection, setSelection, setProject }), /* @__PURE__ */ React.createElement("div", { className: "timeline-scroll" }, /* @__PURE__ */ React.createElement("div", { className: "timeline-v3", style: { width: `${width}%` } }, /* @__PURE__ */ React.createElement("div", { className: "timeline-ruler" }, Array.from({ length: Math.min(25, Math.max(5, Math.ceil(total2 / Math.max(1, 60 / zoom))) + 1) }, (_, i) => {
+      const t3 = total2 * i / Math.min(25, Math.max(5, Math.ceil(total2 / Math.max(1, 60 / zoom))));
+      return /* @__PURE__ */ React.createElement("span", { key: i, style: { left: `${i / Math.min(25, Math.max(5, Math.ceil(total2 / Math.max(1, 60 / zoom)))) * 100}%` } }, Math.floor(t3 / 60), ":", String(Math.round(t3 % 60)).padStart(2, "0"));
+    })), project.voices.map((v) => /* @__PURE__ */ React.createElement("div", { className: "lane-row", key: v.id }, /* @__PURE__ */ React.createElement(Clip, { start: v.start, duration: v.duration, total: total2, label: v.name, sub: `${v.leftHz.toFixed(1)} \u2194 ${v.rightHz.toFixed(1)} Hz`, onChange: (x) => setProject((p) => touchProject({ ...p, voices: p.voices.map((q) => q.id === v.id ? { ...q, start: x } : q) })) }))), project.audioTracks.map((a) => /* @__PURE__ */ React.createElement("div", { className: "lane-row", key: a.id }, /* @__PURE__ */ React.createElement(Clip, { start: a.start, duration: a.duration, total: total2, label: a.name, sub: "background audio", color: "green", onChange: (x) => setProject((p) => touchProject({ ...p, audioTracks: p.audioTracks.map((q) => q.id === a.id ? { ...q, start: x } : q) })) }))), project.noiseTracks.map((a) => /* @__PURE__ */ React.createElement("div", { className: "lane-row", key: a.id }, /* @__PURE__ */ React.createElement(Clip, { start: a.start, duration: a.duration, total: total2, label: a.name, sub: `${a.kind} background`, color: "purple", onChange: (x) => setProject((p) => touchProject({ ...p, noiseTracks: p.noiseTracks.map((q) => q.id === a.id ? { ...q, start: x } : q) })) }))))), /* @__PURE__ */ React.createElement(Inspector, { project, selection, setProject })), selectedVoice && /* @__PURE__ */ React.createElement(TimeCurve, { voice: selectedVoice, project, setProject }), /* @__PURE__ */ React.createElement("div", { className: "studio-guide" }, /* @__PURE__ */ React.createElement("span", { className: "guide-dot blue" }), /* @__PURE__ */ React.createElement("b", null, "Sound"), /* @__PURE__ */ React.createElement("span", { className: "guide-dot green" }), /* @__PURE__ */ React.createElement("b", null, "Background audio"), /* @__PURE__ */ React.createElement("span", { className: "guide-dot purple" }), /* @__PURE__ */ React.createElement("b", null, "Procedural noise"), /* @__PURE__ */ React.createElement("span", null, "Drag clips to move them \xB7 select a track for details \xB7 hover ? for help")));
+  }
+
+  // src/ui/StudioTimelineShell.tsx
+  function LegacyStructure({ project, setProject }) {
     const addVoice = () => setProject((p) => {
       const v = createVoice(`Voice ${p.voices.length + 1}`);
       v.duration = p.duration;
       return touchProject({ ...p, voices: [...p.voices, v] });
     });
     const addNoise = () => setProject((p) => touchProject({ ...p, noiseTracks: [...p.noiseTracks, { id: uid("noise"), name: `Noise ${p.noiseTracks.length + 1}`, kind: "pink", amplitude: 0.06, slopeDbOct: -3, stereoCorrelation: 0.2, start: 0, duration: p.duration, loop: true, mute: false, solo: false }] }));
-    const duplicateSelected = () => {
-      if (selectedVoice) setProject((p) => touchProject({ ...p, voices: [...p.voices, { ...structuredClone(selectedVoice), id: uid("voice"), name: selectedVoice.name + " copy" }] }));
-      else if (selectedNoise) setProject((p) => touchProject({ ...p, noiseTracks: [...p.noiseTracks, { ...structuredClone(selectedNoise), id: uid("noise"), name: selectedNoise.name + " copy" }] }));
-      else if (selectedAudio) setProject((p) => touchProject({ ...p, audioTracks: [...p.audioTracks, { ...structuredClone(selectedAudio), id: uid("audio"), name: selectedAudio.name + " copy" }] }));
-    };
-    const deleteSelected = () => setProject((p) => {
-      if (selection.kind === "voice" && p.voices.length > 1) return touchProject({ ...p, voices: p.voices.filter((v) => v.id !== selection.id) });
-      if (selection.kind === "noise") return touchProject({ ...p, noiseTracks: p.noiseTracks.filter((v) => v.id !== selection.id) });
-      if (selection.kind === "audio") return touchProject({ ...p, audioTracks: p.audioTracks.filter((v) => v.id !== selection.id) });
-      return p;
-    });
-    const addSegment = () => setProject((p) => {
-      const start = p.segments.reduce((m, s2) => Math.max(m, s2.start + s2.duration * s2.repeat), 0), duration2 = Math.min(60, Math.max(1, p.duration)), end = start + duration2, newDuration = Math.max(p.duration, end);
-      return touchProject({ ...p, duration: newDuration, voices: p.voices.map((v) => v.start + v.duration >= p.duration - 1e-3 ? { ...v, duration: Math.max(v.duration, newDuration - v.start) } : v), noiseTracks: p.noiseTracks.map((n) => n.start + n.duration >= p.duration - 1e-3 ? { ...n, duration: Math.max(n.duration, newDuration - n.start) } : n), segments: [...p.segments, { id: uid("segment"), name: `Segment ${p.segments.length + 1}`, start, duration: duration2, repeat: 1, crossfade: 0.05, phaseContinuous: true }] });
-    });
+    const addSegment = () => setProject((p) => touchProject({ ...p, segments: [...p.segments, { id: uid("segment"), name: `Segment ${p.segments.length + 1}`, start: 0, duration: Math.min(60, p.duration), repeat: 1, crossfade: 0.05, phaseContinuous: true }] }));
     const addMarker = () => setProject((p) => touchProject({ ...p, markers: [...p.markers, { id: uid("marker"), time: 0, label: `Marker ${p.markers.length + 1}` }] }));
-    const total2 = Math.max(1, project.duration);
-    return /* @__PURE__ */ React.createElement("section", { className: "page studio-v2" }, /* @__PURE__ */ React.createElement("div", { className: "studio-v2-head" }, /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("div", { className: "eyebrow" }, "STUDIO"), /* @__PURE__ */ React.createElement("input", { className: "title-edit", value: project.title, onChange: (e3) => setProject((p) => touchProject({ ...p, title: e3.target.value })) })), /* @__PURE__ */ React.createElement("div", { className: "actions" }, /* @__PURE__ */ React.createElement("button", { onClick: onUndo, disabled: !canUndo, "aria-label": "Undo" }, "\u21B6"), /* @__PURE__ */ React.createElement("button", { onClick: onRedo, disabled: !canRedo, "aria-label": "Redo" }, "\u21B7"), /* @__PURE__ */ React.createElement("button", { className: "primary small", onClick: onPlay }, playing ? "\u25A0 Stop" : "\u25B6 Play"), /* @__PURE__ */ React.createElement("button", { onClick: onSave }, "Save"), /* @__PURE__ */ React.createElement("div", { className: "menu" }, /* @__PURE__ */ React.createElement("button", null, "Export \u25BE"), /* @__PURE__ */ React.createElement("div", { className: "menu-pop" }, /* @__PURE__ */ React.createElement("button", { onClick: () => onExport("wav") }, "WAV 24-bit"), /* @__PURE__ */ React.createElement("button", { onClick: () => onExport("aiff") }, "AIFF 24-bit"), /* @__PURE__ */ React.createElement("button", { onClick: () => onExport("flac") }, "FLAC 24-bit"), /* @__PURE__ */ React.createElement("button", { onClick: () => onExport("mp3") }, "MP3"), /* @__PURE__ */ React.createElement("button", { onClick: () => onExport("ogg-vorbis") }, "Ogg Vorbis"), /* @__PURE__ */ React.createElement("button", { onClick: () => onExport("ogg-opus") }, "Ogg Opus"), /* @__PURE__ */ React.createElement("button", { onClick: () => onExport("webm-opus") }, "WebM Opus"), /* @__PURE__ */ React.createElement("button", { onClick: () => onExport("bbeat") }, ".bbeat project"), /* @__PURE__ */ React.createElement("button", { onClick: () => onExport("bbeat-signed") }, "Signed .bbeat"), /* @__PURE__ */ React.createElement("button", { onClick: () => onExport("bwg") }, "Legacy .bwg"), /* @__PURE__ */ React.createElement("button", { onClick: () => onExport("bwg-package") }, "Legacy BWG + WAV package"), /* @__PURE__ */ React.createElement("hr", null), /* @__PURE__ */ React.createElement("button", { onClick: () => onExport("recipe") }, "Recipe JSON"), /* @__PURE__ */ React.createElement("button", { onClick: () => onExport("manifest") }, "Stimulus manifest"), /* @__PURE__ */ React.createElement("button", { onClick: () => onExport("stems") }, "WAV stems ZIP"), /* @__PURE__ */ React.createElement("button", { onClick: () => onExport("diagnostic") }, "Diagnostic L/R WAVs"), /* @__PURE__ */ React.createElement("button", { onClick: () => onExport("wav-stimulus") }, "Stimulus-only WAV"), /* @__PURE__ */ React.createElement("button", { onClick: () => onExport("wav-background") }, "Background-only WAV"))))), /* @__PURE__ */ React.createElement("div", { className: "studio-toolbar" }, /* @__PURE__ */ React.createElement("button", { onClick: addVoice }, "+ Voice"), /* @__PURE__ */ React.createElement("button", { onClick: addNoise }, "+ Noise"), /* @__PURE__ */ React.createElement("button", { onClick: duplicateSelected }, "Duplicate"), /* @__PURE__ */ React.createElement("button", { onClick: deleteSelected }, "Delete"), /* @__PURE__ */ React.createElement("button", { onClick: addSegment }, "+ Segment"), /* @__PURE__ */ React.createElement("button", { onClick: addMarker }, "+ Marker"), /* @__PURE__ */ React.createElement("label", null, "Zoom ", /* @__PURE__ */ React.createElement("input", { type: "range", min: "1", max: "6", step: ".25", value: zoom, onChange: (e3) => setZoom(Number(e3.target.value)) })), /* @__PURE__ */ React.createElement("label", null, "Master ", /* @__PURE__ */ React.createElement("input", { type: "range", min: "0", max: "1.5", step: ".01", value: project.masterGain, onChange: (e3) => setProject((p) => touchProject({ ...p, masterGain: Number(e3.target.value) })) }))), /* @__PURE__ */ React.createElement("div", { className: "studio-grid" }, /* @__PURE__ */ React.createElement(TrackRows, { project, selection, setSelection, setProject }), /* @__PURE__ */ React.createElement("div", { className: "timeline-scroll" }, /* @__PURE__ */ React.createElement("div", { className: "timeline-v2", style: { width: `${Math.max(100, zoom * 100)}%` } }, /* @__PURE__ */ React.createElement("div", { className: "timeline-ruler" }, Array.from({ length: 11 }, (_, i) => /* @__PURE__ */ React.createElement("span", { key: i, style: { left: `${i * 10}%` } }, Math.round(total2 * i / 10), "s"))), project.markers.map((m) => /* @__PURE__ */ React.createElement("div", { className: "marker-line", key: m.id, style: { left: `${m.time / total2 * 100}%` }, title: m.label })), project.voices.map((v) => /* @__PURE__ */ React.createElement("div", { className: "lane-row", key: v.id }, /* @__PURE__ */ React.createElement(Clip, { start: v.start, duration: v.duration, total: total2, label: v.name, sub: `${v.type} \xB7 ${fmt(v.leftHz)}\u2194${fmt(v.rightHz)} Hz`, onChange: (x) => setProject((p) => touchProject({ ...p, voices: p.voices.map((q) => q.id === v.id ? { ...q, start: x } : q) })) }))), project.noiseTracks.map((n) => /* @__PURE__ */ React.createElement("div", { className: "lane-row", key: n.id }, /* @__PURE__ */ React.createElement(Clip, { start: n.start, duration: n.duration, total: total2, label: n.name, sub: `${n.kind} noise`, onChange: (x) => setProject((p) => touchProject({ ...p, noiseTracks: p.noiseTracks.map((q) => q.id === n.id ? { ...q, start: x } : q) })) }))), project.audioTracks.map((a) => /* @__PURE__ */ React.createElement("div", { className: "lane-row", key: a.id }, /* @__PURE__ */ React.createElement(Clip, { start: a.start, duration: a.duration, total: total2, label: a.name, sub: "imported audio", onChange: (x) => setProject((p) => touchProject({ ...p, audioTracks: p.audioTracks.map((q) => q.id === a.id ? { ...q, start: x } : q) })) }))), selectedVoice && /* @__PURE__ */ React.createElement(AutomationEditor, { voice: selectedVoice, project, setProject }), /* @__PURE__ */ React.createElement("section", { className: "segment-strip" }, /* @__PURE__ */ React.createElement("b", null, "Segments"), project.segments.map((s2, i) => /* @__PURE__ */ React.createElement("div", { className: "segment-row", key: s2.id }, /* @__PURE__ */ React.createElement("input", { value: s2.name, onChange: (e3) => setProject((p) => touchProject({ ...p, segments: p.segments.map((x) => x.id === s2.id ? { ...x, name: e3.target.value } : x) })) }), /* @__PURE__ */ React.createElement(NumberInput, { label: "Start", value: s2.start, min: 0, suffix: "s", onChange: (v) => setProject((p) => touchProject({ ...p, segments: p.segments.map((x) => x.id === s2.id ? { ...x, start: v } : x) })) }), /* @__PURE__ */ React.createElement(NumberInput, { label: "Duration", value: s2.duration, min: 0.01, suffix: "s", onChange: (v) => setProject((p) => touchProject({ ...p, segments: p.segments.map((x) => x.id === s2.id ? { ...x, duration: v } : x) })) }), /* @__PURE__ */ React.createElement(NumberInput, { label: "Repeat", value: s2.repeat, min: 1, step: 1, onChange: (v) => setProject((p) => touchProject({ ...p, segments: p.segments.map((x) => x.id === s2.id ? { ...x, repeat: Math.max(1, Math.round(v)) } : x) })) }), /* @__PURE__ */ React.createElement(NumberInput, { label: "Crossfade", value: s2.crossfade, min: 0, suffix: "s", onChange: (v) => setProject((p) => touchProject({ ...p, segments: p.segments.map((x) => x.id === s2.id ? { ...x, crossfade: v } : x) })) }), /* @__PURE__ */ React.createElement("label", { className: "compact-field" }, "Scope", /* @__PURE__ */ React.createElement("select", { value: s2.trackIds?.length === 1 ? s2.trackIds[0] : "all", onChange: (e3) => setProject((p) => touchProject({ ...p, segments: p.segments.map((x) => x.id === s2.id ? { ...x, trackIds: e3.target.value === "all" ? void 0 : [e3.target.value] } : x) })) }, /* @__PURE__ */ React.createElement("option", { value: "all" }, "All tracks"), project.voices.map((v) => /* @__PURE__ */ React.createElement("option", { value: v.id, key: v.id }, v.name)), project.noiseTracks.map((n) => /* @__PURE__ */ React.createElement("option", { value: n.id, key: n.id }, n.name)), project.audioTracks.map((a) => /* @__PURE__ */ React.createElement("option", { value: a.id, key: a.id }, a.name)))), /* @__PURE__ */ React.createElement("label", { className: "compact-field" }, "Beat override", /* @__PURE__ */ React.createElement("input", { type: "number", step: ".01", placeholder: "none", value: s2.overrides?.beatHz ?? "", onChange: (e3) => setProject((p) => touchProject({ ...p, segments: p.segments.map((x) => x.id === s2.id ? { ...x, overrides: e3.target.value === "" ? { ...x.overrides || {}, beatHz: void 0 } : { ...x.overrides || {}, beatHz: Number(e3.target.value) } } : x) })) })), /* @__PURE__ */ React.createElement("button", { disabled: i === 0, onClick: () => setProject((p) => {
-      const a = p.segments.slice(), j = a.findIndex((x) => x.id === s2.id);
-      [a[j - 1], a[j]] = [a[j], a[j - 1]];
-      return touchProject({ ...p, segments: a });
-    }) }, "\u2191"), /* @__PURE__ */ React.createElement("button", { onClick: () => setProject((p) => touchProject({ ...p, segments: [...p.segments, { ...structuredClone(s2), id: uid("segment"), name: s2.name + " copy" }] })) }, "\u29C9")))), /* @__PURE__ */ React.createElement("section", { className: "marker-strip" }, /* @__PURE__ */ React.createElement("b", null, "Markers"), project.markers.map((m) => /* @__PURE__ */ React.createElement("div", { key: m.id }, /* @__PURE__ */ React.createElement("input", { value: m.label, onChange: (e3) => setProject((p) => touchProject({ ...p, markers: p.markers.map((x) => x.id === m.id ? { ...x, label: e3.target.value } : x) })) }), /* @__PURE__ */ React.createElement("input", { type: "number", min: "0", max: total2, step: ".01", value: m.time, onChange: (e3) => setProject((p) => touchProject({ ...p, markers: p.markers.map((x) => x.id === m.id ? { ...x, time: num(e3.target.value) } : x) })) }), /* @__PURE__ */ React.createElement("button", { onClick: () => setProject((p) => touchProject({ ...p, markers: p.markers.filter((x) => x.id !== m.id) })) }, "\xD7")))))), selectedVoice ? /* @__PURE__ */ React.createElement(VoiceInspector, { project, voice: selectedVoice, setProject }) : selectedNoise ? /* @__PURE__ */ React.createElement(NoiseInspector, { project, track: selectedNoise, setProject }) : selectedAudio ? /* @__PURE__ */ React.createElement(AudioInspector, { project, track: selectedAudio, setProject }) : /* @__PURE__ */ React.createElement("div", { className: "studio-inspector" }, /* @__PURE__ */ React.createElement("p", null, "Select a track."))));
+    return /* @__PURE__ */ React.createElement("div", { className: "studio-structure" }, /* @__PURE__ */ React.createElement("div", { className: "actions" }, /* @__PURE__ */ React.createElement("button", { onClick: addVoice }, "+ Voice"), /* @__PURE__ */ React.createElement("button", { onClick: addNoise }, "+ Noise"), /* @__PURE__ */ React.createElement("button", { onClick: addSegment }, "+ Segment"), /* @__PURE__ */ React.createElement("button", { onClick: addMarker }, "+ Marker")), /* @__PURE__ */ React.createElement("div", { className: "studio-structure-rows" }, project.segments.map((s2) => /* @__PURE__ */ React.createElement("div", { className: "segment-row", key: s2.id }, /* @__PURE__ */ React.createElement("input", { "aria-label": "Segment name", value: s2.name, onChange: (e3) => setProject((p) => touchProject({ ...p, segments: p.segments.map((x) => x.id === s2.id ? { ...x, name: e3.target.value } : x) })) }), /* @__PURE__ */ React.createElement("span", null, s2.start.toFixed(1), "s \xB7 ", s2.duration.toFixed(1), "s"))), project.markers.map((m) => /* @__PURE__ */ React.createElement("div", { className: "marker-strip", key: m.id }, /* @__PURE__ */ React.createElement("input", { "aria-label": "Marker label", value: m.label, onChange: (e3) => setProject((p) => touchProject({ ...p, markers: p.markers.map((x) => x.id === m.id ? { ...x, label: e3.target.value } : x) })) }), /* @__PURE__ */ React.createElement("span", null, m.time.toFixed(1), "s")))));
+  }
+  function StudioTimelineShell(props) {
+    return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(LegacyStructure, { project: props.project, setProject: props.setProject }), /* @__PURE__ */ React.createElement(StudioTimelineSurface, { ...props }));
   }
 
   // src/audio/calibration.ts
@@ -69710,13 +69670,13 @@ r÷|ú
   }
   function renderLightControl(duration2, sampleRate2, spec = DEFAULT_LIGHT_CONTROL) {
     if (sampleRate2 < 44100) throw new Error("19.2 kHz light-control export requires at least 44.1 kHz sample rate");
-    const n = Math.max(1, Math.round(duration2 * sampleRate2)), left = new Float32Array(n), right = new Float32Array(n);
-    for (let i = 0; i < n; i++) {
+    const n2 = Math.max(1, Math.round(duration2 * sampleRate2)), left = new Float32Array(n2), right = new Float32Array(n2);
+    for (let i = 0; i < n2; i++) {
       const t3 = i / sampleRate2, carrier = Math.sin(TAU2 * CARRIER * t3);
       left[i] = carrier * spec.leftAmplitude * env(spec, t3, spec.leftPhase);
       right[i] = carrier * spec.rightAmplitude * env(spec, t3, spec.rightPhase);
     }
-    return { sampleRate: sampleRate2, left, right, duration: n / sampleRate2 };
+    return { sampleRate: sampleRate2, left, right, duration: n2 / sampleRate2 };
   }
   function analyzeLightControl(buf) {
     const l = goertzel(buf.left, buf.sampleRate, CARRIER), r = goertzel(buf.right, buf.sampleRate, CARRIER), present = Math.max(l, r) > 2e-3;
@@ -69878,7 +69838,7 @@ r÷|ú
     return /* @__PURE__ */ React.createElement("div", { className: "playlist-panel" }, /* @__PURE__ */ React.createElement("div", { className: "section-head" }, /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("h2", null, "Playlists"), /* @__PURE__ */ React.createElement("small", null, "Sequence complete session snapshots.")), /* @__PURE__ */ React.createElement("div", { className: "actions" }, /* @__PURE__ */ React.createElement("input", { placeholder: "Playlist name", value: title, onChange: (e3) => setTitle(e3.target.value) }), /* @__PURE__ */ React.createElement("button", { onClick: create }, "Create"))), lists.length === 0 ? /* @__PURE__ */ React.createElement("div", { className: "empty-state" }, /* @__PURE__ */ React.createElement("p", null, "No playlists yet.")) : lists.map((list) => /* @__PURE__ */ React.createElement("div", { className: "playlist-row", key: list.id }, /* @__PURE__ */ React.createElement("div", { className: "playlist-head" }, /* @__PURE__ */ React.createElement("input", { value: list.title, onChange: async (e3) => {
       await savePlaylist({ ...list, title: e3.target.value });
       await refresh();
-    } }), /* @__PURE__ */ React.createElement("span", null, list.items.length, " sessions \xB7 ", Math.round(list.items.reduce((n, x) => n + x.project.duration, 0) / 60), " min"), /* @__PURE__ */ React.createElement("div", { className: "actions" }, /* @__PURE__ */ React.createElement("button", { disabled: !list.items.length, onClick: () => onPlay(list.items.map((x) => x.project)) }, "\u25B6 Play"), /* @__PURE__ */ React.createElement("button", { onClick: async () => {
+    } }), /* @__PURE__ */ React.createElement("span", null, list.items.length, " sessions \xB7 ", Math.round(list.items.reduce((n2, x) => n2 + x.project.duration, 0) / 60), " min"), /* @__PURE__ */ React.createElement("div", { className: "actions" }, /* @__PURE__ */ React.createElement("button", { disabled: !list.items.length, onClick: () => onPlay(list.items.map((x) => x.project)) }, "\u25B6 Play"), /* @__PURE__ */ React.createElement("button", { onClick: async () => {
       await addProjectToPlaylist(list, current);
       await refresh();
       setMessage?.(`Added ${current.title} to ${list.title}.`);
@@ -69907,7 +69867,7 @@ r÷|ú
   var collections = ["all", "research", "curated", "community", "personal"];
   function row(p) {
     const v = p.project.voices[0];
-    return { type: v?.type || "\u2014", ears: v ? `${v.leftHz.toFixed(2)} / ${v.rightHz.toFixed(2)} Hz` : "\u2014", beat: v ? Math.abs(v.rightHz - v.leftHz).toFixed(2) + " Hz" : "\u2014", duration: Math.round(p.duration / 60) + " min", voices: p.project.voices.length, automation: p.project.voices.reduce((n, v3) => n + v3.automation.length, 0), evidence: p.evidence.state, source: p.project.provenance.source || p.project.provenance.author };
+    return { type: v?.type || "\u2014", ears: v ? `${v.leftHz.toFixed(2)} / ${v.rightHz.toFixed(2)} Hz` : "\u2014", beat: v ? Math.abs(v.rightHz - v.leftHz).toFixed(2) + " Hz" : "\u2014", duration: Math.round(p.duration / 60) + " min", voices: p.project.voices.length, automation: p.project.voices.reduce((n2, v3) => n2 + v3.automation.length, 0), evidence: p.evidence.state, source: p.project.provenance.source || p.project.provenance.author };
   }
   function LibrarySurface({ saved, project, setProject, setSurface, setMessage, onPlayPlaylist }) {
     const [q, setQ] = React.useState(""), [collection, setCollection] = React.useState("all"), [evidence, setEvidence] = React.useState("all"), [compare, setCompare] = React.useState([]), [cloud, setCloud] = React.useState([]), [loading, setLoading] = React.useState(false), [selectedCloud, setSelectedCloud] = React.useState(null), [rating, setRating] = React.useState(5), [review, setReview] = React.useState(""), [rights, setRights] = React.useState(false), [publishDesc, setPublishDesc] = React.useState(project.description || "");
@@ -69986,8 +69946,8 @@ r÷|ú
   }
 
   // src/ui/AnalyzerSurface.tsx
-  function fmt2(n, d = 2) {
-    return Number.isFinite(n) ? n.toFixed(d) : "\u2014";
+  function fmt(n2, d = 2) {
+    return Number.isFinite(n2) ? n2.toFixed(d) : "\u2014";
   }
   function Metric({ label, value, detail }) {
     return /* @__PURE__ */ React.createElement("div", { className: "metric" }, /* @__PURE__ */ React.createElement("span", null, label), /* @__PURE__ */ React.createElement("strong", null, value), detail && /* @__PURE__ */ React.createElement("small", null, detail));
@@ -70027,10 +69987,10 @@ r÷|ú
       ctx.clearRect(0, 0, c.width, c.height);
       ctx.drawImage(off2, 0, 0, c.width, c.height);
     }, [data3]);
-    return /* @__PURE__ */ React.createElement("div", { className: "viz-card" }, /* @__PURE__ */ React.createElement("div", { className: "viz-head" }, /* @__PURE__ */ React.createElement("b", null, "Spectrogram"), /* @__PURE__ */ React.createElement("span", null, data3.backend, " \xB7 ", data3.frames, " frames")), /* @__PURE__ */ React.createElement("canvas", { ref, width: "800", height: "240", "aria-label": "Spectrogram heatmap" }), /* @__PURE__ */ React.createElement("div", { className: "axis" }, /* @__PURE__ */ React.createElement("span", null, "0 s"), /* @__PURE__ */ React.createElement("span", null, fmt2(data3.times?.at(-1) || 0, 2), " s")));
+    return /* @__PURE__ */ React.createElement("div", { className: "viz-card" }, /* @__PURE__ */ React.createElement("div", { className: "viz-head" }, /* @__PURE__ */ React.createElement("b", null, "Spectrogram"), /* @__PURE__ */ React.createElement("span", null, data3.backend, " \xB7 ", data3.frames, " frames")), /* @__PURE__ */ React.createElement("canvas", { ref, width: "800", height: "240", "aria-label": "Spectrogram heatmap" }), /* @__PURE__ */ React.createElement("div", { className: "axis" }, /* @__PURE__ */ React.createElement("span", null, "0 s"), /* @__PURE__ */ React.createElement("span", null, fmt(data3.times?.at(-1) || 0, 2), " s")));
   }
   function AnalyzerSurface({ analysis, onAnalyze, gpuStatus }) {
-    return /* @__PURE__ */ React.createElement("section", { className: "page" }, /* @__PURE__ */ React.createElement("div", { className: "eyebrow" }, "ANALYZER"), /* @__PURE__ */ React.createElement("h1", null, "Verify the signal, not the label"), /* @__PURE__ */ React.createElement("p", { className: "lede" }, "Analyze the current project or drop a supported audio file anywhere while this page is open. Clean carrier pairs can be measured precisely; complex mixes are reported with candidates and confidence rather than false certainty."), /* @__PURE__ */ React.createElement("div", { className: "actions" }, /* @__PURE__ */ React.createElement("button", { className: "primary", onClick: onAnalyze }, "Analyze current session")), analysis && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("div", { className: "analysis-grid" }, /* @__PURE__ */ React.createElement(Metric, { label: "Left carrier", value: `${fmt2(analysis.dominantLeftHz)} Hz` }), /* @__PURE__ */ React.createElement(Metric, { label: "Right carrier", value: `${fmt2(analysis.dominantRightHz)} Hz` }), /* @__PURE__ */ React.createElement(Metric, { label: "Difference", value: `${fmt2(analysis.differenceHz)} Hz` }), /* @__PURE__ */ React.createElement(Metric, { label: "Stereo correlation", value: fmt2(analysis.correlation, 4) }), /* @__PURE__ */ React.createElement(Metric, { label: "Peak L / R", value: `${fmt2(analysis.peakLeft, 4)} / ${fmt2(analysis.peakRight, 4)}` }), /* @__PURE__ */ React.createElement(Metric, { label: "RMS L / R", value: `${fmt2(analysis.rmsLeft, 4)} / ${fmt2(analysis.rmsRight, 4)}` }), /* @__PURE__ */ React.createElement(Metric, { label: "DC L / R", value: `${fmt2(analysis.dcLeft, 5)} / ${fmt2(analysis.dcRight, 5)}` }), /* @__PURE__ */ React.createElement(Metric, { label: "Cross-channel leakage", value: `${fmt2(analysis.leakageDb, 1)} dB` }), /* @__PURE__ */ React.createElement(Metric, { label: "Sample rate", value: `${analysis.sampleRate} Hz` }), /* @__PURE__ */ React.createElement(Metric, { label: "Duration", value: `${fmt2(analysis.duration, 3)} s` }), /* @__PURE__ */ React.createElement(Metric, { label: "Compute", value: analysis.backend }), /* @__PURE__ */ React.createElement(Metric, { label: "Confidence", value: `${Math.round(analysis.confidence * 100)}%` })), /* @__PURE__ */ React.createElement("div", { className: `integrity-card ${analysis.integrity?.pass ? "pass-card" : analysis.integrity ? "fail-card" : ""}` }, /* @__PURE__ */ React.createElement("h3", null, analysis.classification), /* @__PURE__ */ React.createElement("p", null, analysis.integrity ? analysis.integrity.pass ? "Scientific integrity comparison passed for the current manifest." : "Manifest comparison found discrepancies." : "No source manifest comparison was available for this imported file."), analysis.integrity?.issues?.length > 0 && /* @__PURE__ */ React.createElement("ul", null, analysis.integrity.issues.map((x) => /* @__PURE__ */ React.createElement("li", { key: x }, x))), analysis.integrityIssues?.length > 0 && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("b", null, "Signal diagnostics"), /* @__PURE__ */ React.createElement("ul", null, analysis.integrityIssues.map((x) => /* @__PURE__ */ React.createElement("li", { key: x }, x))))), /* @__PURE__ */ React.createElement(Waveform2, { left: analysis.waveformLeft, right: analysis.waveformRight }), /* @__PURE__ */ React.createElement(Spectrum, { spectrum: analysis.spectrum }), /* @__PURE__ */ React.createElement(Spectrogram, { data: analysis.spectrogram }), analysis.candidates?.length > 0 && /* @__PURE__ */ React.createElement("div", { className: "candidate-card" }, /* @__PURE__ */ React.createElement("h3", null, "Carrier-pair candidates"), /* @__PURE__ */ React.createElement("table", null, /* @__PURE__ */ React.createElement("thead", null, /* @__PURE__ */ React.createElement("tr", null, /* @__PURE__ */ React.createElement("th", null, "Left"), /* @__PURE__ */ React.createElement("th", null, "Right"), /* @__PURE__ */ React.createElement("th", null, "Difference"), /* @__PURE__ */ React.createElement("th", null, "Relative score"))), /* @__PURE__ */ React.createElement("tbody", null, analysis.candidates.map((c, i) => /* @__PURE__ */ React.createElement("tr", { key: i }, /* @__PURE__ */ React.createElement("td", null, fmt2(c.leftHz), " Hz"), /* @__PURE__ */ React.createElement("td", null, fmt2(c.rightHz), " Hz"), /* @__PURE__ */ React.createElement("td", null, fmt2(c.differenceHz), " Hz"), /* @__PURE__ */ React.createElement("td", null, fmt2(c.score, 5)))))))), /* @__PURE__ */ React.createElement("div", { className: "technical" }, /* @__PURE__ */ React.createElement("b", null, "Compute status"), /* @__PURE__ */ React.createElement("span", null, gpuStatus.active ? "WebGPU active" : "CPU reference fallback", gpuStatus.adapterName ? ` \xB7 ${gpuStatus.adapterName}` : "", gpuStatus.reason ? ` \xB7 ${gpuStatus.reason}` : ""), gpuStatus.limits && /* @__PURE__ */ React.createElement("small", null, Object.entries(gpuStatus.limits).map(([k, v]) => `${k}=${v}`).join(" \xB7 "))));
+    return /* @__PURE__ */ React.createElement("section", { className: "page" }, /* @__PURE__ */ React.createElement("div", { className: "eyebrow" }, "ANALYZER"), /* @__PURE__ */ React.createElement("h1", null, "Verify the signal, not the label"), /* @__PURE__ */ React.createElement("p", { className: "lede" }, "Analyze the current project or drop a supported audio file anywhere while this page is open. Clean carrier pairs can be measured precisely; complex mixes are reported with candidates and confidence rather than false certainty."), /* @__PURE__ */ React.createElement("div", { className: "actions" }, /* @__PURE__ */ React.createElement("button", { className: "primary", onClick: onAnalyze }, "Analyze current session")), analysis && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("div", { className: "analysis-grid" }, /* @__PURE__ */ React.createElement(Metric, { label: "Left carrier", value: `${fmt(analysis.dominantLeftHz)} Hz` }), /* @__PURE__ */ React.createElement(Metric, { label: "Right carrier", value: `${fmt(analysis.dominantRightHz)} Hz` }), /* @__PURE__ */ React.createElement(Metric, { label: "Difference", value: `${fmt(analysis.differenceHz)} Hz` }), /* @__PURE__ */ React.createElement(Metric, { label: "Stereo correlation", value: fmt(analysis.correlation, 4) }), /* @__PURE__ */ React.createElement(Metric, { label: "Peak L / R", value: `${fmt(analysis.peakLeft, 4)} / ${fmt(analysis.peakRight, 4)}` }), /* @__PURE__ */ React.createElement(Metric, { label: "RMS L / R", value: `${fmt(analysis.rmsLeft, 4)} / ${fmt(analysis.rmsRight, 4)}` }), /* @__PURE__ */ React.createElement(Metric, { label: "DC L / R", value: `${fmt(analysis.dcLeft, 5)} / ${fmt(analysis.dcRight, 5)}` }), /* @__PURE__ */ React.createElement(Metric, { label: "Cross-channel leakage", value: `${fmt(analysis.leakageDb, 1)} dB` }), /* @__PURE__ */ React.createElement(Metric, { label: "Sample rate", value: `${analysis.sampleRate} Hz` }), /* @__PURE__ */ React.createElement(Metric, { label: "Duration", value: `${fmt(analysis.duration, 3)} s` }), /* @__PURE__ */ React.createElement(Metric, { label: "Compute", value: analysis.backend }), /* @__PURE__ */ React.createElement(Metric, { label: "Confidence", value: `${Math.round(analysis.confidence * 100)}%` })), /* @__PURE__ */ React.createElement("div", { className: `integrity-card ${analysis.integrity?.pass ? "pass-card" : analysis.integrity ? "fail-card" : ""}` }, /* @__PURE__ */ React.createElement("h3", null, analysis.classification), /* @__PURE__ */ React.createElement("p", null, analysis.integrity ? analysis.integrity.pass ? "Scientific integrity comparison passed for the current manifest." : "Manifest comparison found discrepancies." : "No source manifest comparison was available for this imported file."), analysis.integrity?.issues?.length > 0 && /* @__PURE__ */ React.createElement("ul", null, analysis.integrity.issues.map((x) => /* @__PURE__ */ React.createElement("li", { key: x }, x))), analysis.integrityIssues?.length > 0 && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("b", null, "Signal diagnostics"), /* @__PURE__ */ React.createElement("ul", null, analysis.integrityIssues.map((x) => /* @__PURE__ */ React.createElement("li", { key: x }, x))))), /* @__PURE__ */ React.createElement(Waveform2, { left: analysis.waveformLeft, right: analysis.waveformRight }), /* @__PURE__ */ React.createElement(Spectrum, { spectrum: analysis.spectrum }), /* @__PURE__ */ React.createElement(Spectrogram, { data: analysis.spectrogram }), analysis.candidates?.length > 0 && /* @__PURE__ */ React.createElement("div", { className: "candidate-card" }, /* @__PURE__ */ React.createElement("h3", null, "Carrier-pair candidates"), /* @__PURE__ */ React.createElement("table", null, /* @__PURE__ */ React.createElement("thead", null, /* @__PURE__ */ React.createElement("tr", null, /* @__PURE__ */ React.createElement("th", null, "Left"), /* @__PURE__ */ React.createElement("th", null, "Right"), /* @__PURE__ */ React.createElement("th", null, "Difference"), /* @__PURE__ */ React.createElement("th", null, "Relative score"))), /* @__PURE__ */ React.createElement("tbody", null, analysis.candidates.map((c, i) => /* @__PURE__ */ React.createElement("tr", { key: i }, /* @__PURE__ */ React.createElement("td", null, fmt(c.leftHz), " Hz"), /* @__PURE__ */ React.createElement("td", null, fmt(c.rightHz), " Hz"), /* @__PURE__ */ React.createElement("td", null, fmt(c.differenceHz), " Hz"), /* @__PURE__ */ React.createElement("td", null, fmt(c.score, 5)))))))), /* @__PURE__ */ React.createElement("div", { className: "technical" }, /* @__PURE__ */ React.createElement("b", null, "Compute status"), /* @__PURE__ */ React.createElement("span", null, gpuStatus.active ? "WebGPU active" : "CPU reference fallback", gpuStatus.adapterName ? ` \xB7 ${gpuStatus.adapterName}` : "", gpuStatus.reason ? ` \xB7 ${gpuStatus.reason}` : ""), gpuStatus.limits && /* @__PURE__ */ React.createElement("small", null, Object.entries(gpuStatus.limits).map(([k, v]) => `${k}=${v}`).join(" \xB7 "))));
   }
 
   // src/ui/appUtils.ts
@@ -70043,7 +70003,7 @@ r÷|ú
     anchor.click();
     setTimeout(() => URL.revokeObjectURL(url), 1e3);
   }
-  function fmt3(value, digits = 1) {
+  function fmt2(value, digits = 1) {
     return Number.isFinite(value) ? value.toFixed(digits) : "\u2014";
   }
   function evidenceClass(state) {
@@ -70408,10 +70368,10 @@ r÷|ú
       dragDepth.current = 0;
       setDragging(false);
       handleFiles(e3.dataTransfer.files);
-    } }, /* @__PURE__ */ React.createElement("a", { className: "skip-link", href: "#main-content" }, "Skip to editor"), dragging && /* @__PURE__ */ React.createElement("div", { className: "drop-overlay", role: "status", "aria-live": "polite" }, /* @__PURE__ */ React.createElement("div", { className: "drop-overlay-card" }, /* @__PURE__ */ React.createElement("span", { className: "drop-icon", "aria-hidden": "true" }, "\u2193"), /* @__PURE__ */ React.createElement("strong", null, "Drop to import"), /* @__PURE__ */ React.createElement("span", null, "Audio files, .bbeat projects, and .bwg presets"))), /* @__PURE__ */ React.createElement("header", null, /* @__PURE__ */ React.createElement("div", { className: "global-transport", "aria-label": "Playback controls" }, /* @__PURE__ */ React.createElement("button", { onClick: toggle, "aria-label": playing ? "Stop playback" : "Play current project" }, playing ? "\u25A0 Stop" : "\u25B6 Play"), /* @__PURE__ */ React.createElement("button", { onClick: pause, disabled: !playing, "aria-label": "Pause playback" }, "\u2161 Pause"), /* @__PURE__ */ React.createElement("button", { onClick: resume, disabled: !playing, "aria-label": "Resume playback" }, "\u25B6 Resume")), /* @__PURE__ */ React.createElement("div", { className: "brand" }, /* @__PURE__ */ React.createElement("div", { className: "mark" }, "\u223F"), /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("strong", null, "Mindaural"), /* @__PURE__ */ React.createElement("span", null, "Scientific audio workstation"))), /* @__PURE__ */ React.createElement("button", { className: "import", onClick: () => fileRef.current?.click() }, "Import"), /* @__PURE__ */ React.createElement("input", { ref: fileRef, hidden: true, type: "file", multiple: true, accept: ".bbeat,.bwg,.wav,.flac,.mp3,.aiff,.ogg,.opus,.webm", onChange: (e3) => e3.target.files && handleFiles(e3.target.files) })), /* @__PURE__ */ React.createElement("aside", null, nav.map((n) => /* @__PURE__ */ React.createElement("button", { key: n, className: surface === n ? "active" : "", onClick: () => setSurface(n) }, /* @__PURE__ */ React.createElement("span", null, icon(n)), n)), /* @__PURE__ */ React.createElement("div", { className: "status" }, /* @__PURE__ */ React.createElement("i", { className: gpuStatus.active ? "ok" : "" }), /* @__PURE__ */ React.createElement("span", null, gpuStatus.active ? "WebGPU active" : "CPU fallback"))), /* @__PURE__ */ React.createElement("main", { id: "main-content", tabIndex: -1 }, surface === "Create" && voice && /* @__PURE__ */ React.createElement(Create, { project, voice, setProject, changeCenter, changeBeat, updateVoice, onPlay: toggle, playing, onSave: save, onStudio: () => setSurface("Studio"), onSoundscape: addSoundscape }), " ", surface === "Create" && !voice && /* @__PURE__ */ React.createElement(AudioOnlyProject, { project, onPlay: toggle, playing, onStudio: () => setSurface("Studio") }), " ", surface === "Studio" && /* @__PURE__ */ React.createElement(Studio, { project, setProject, updateVoice, onPlay: toggle, playing, onSave: save, onExport: exportAudio, onUndo: undo, onRedo: redo, canUndo: historyRef.current.canUndo(), canRedo: historyRef.current.canRedo() }), " ", surface === "Listen" && /* @__PURE__ */ React.createElement(Listen, { setProject, setSurface }), " ", surface === "Library" && /* @__PURE__ */ React.createElement(LibrarySurface, { saved, project, setProject, setSurface, setMessage, onPlayPlaylist: playPlaylist }), " ", surface === "Analyzer" && /* @__PURE__ */ React.createElement(AnalyzerSurface, { analysis, onAnalyze: analyze, gpuStatus }), " ", surface === "Research" && /* @__PURE__ */ React.createElement(Research, { project, setMessage }), " ", surface === "Learn" && /* @__PURE__ */ React.createElement(Learn, null), " ", surface === "Labs" && /* @__PURE__ */ React.createElement(LabsSurface, { setMessage }), " ", surface === "Settings" && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(SettingsSurface, { setMessage }), /* @__PURE__ */ React.createElement(ImportScopeControl, { setMessage }), /* @__PURE__ */ React.createElement(StorageRecoveryControl, { setMessage }))), /* @__PURE__ */ React.createElement("footer", null, /* @__PURE__ */ React.createElement("span", null, message || "Drop .bbeat, .bwg, or audio files anywhere to import."), /* @__PURE__ */ React.createElement("span", null, voice ? `${fmt3(voice.leftHz)} / ${fmt3(voice.rightHz)} Hz \xB7 \u0394 ${fmt3(beatOf(voice))} Hz` : `Audio-only project \xB7 ${project.audioTracks.length} track${project.audioTracks.length === 1 ? "" : "s"}`)));
+    } }, /* @__PURE__ */ React.createElement("a", { className: "skip-link", href: "#main-content" }, "Skip to editor"), dragging && /* @__PURE__ */ React.createElement("div", { className: "drop-overlay", role: "status", "aria-live": "polite" }, /* @__PURE__ */ React.createElement("div", { className: "drop-overlay-card" }, /* @__PURE__ */ React.createElement("span", { className: "drop-icon", "aria-hidden": "true" }, "\u2193"), /* @__PURE__ */ React.createElement("strong", null, "Drop to import"), /* @__PURE__ */ React.createElement("span", null, "Audio files, .bbeat projects, and .bwg presets"))), /* @__PURE__ */ React.createElement("header", null, /* @__PURE__ */ React.createElement("div", { className: "global-transport", "aria-label": "Playback controls" }, /* @__PURE__ */ React.createElement("button", { onClick: toggle, "aria-label": playing ? "Stop playback" : "Play current project" }, playing ? "\u25A0 Stop" : "\u25B6 Play"), /* @__PURE__ */ React.createElement("button", { onClick: pause, disabled: !playing, "aria-label": "Pause playback" }, "\u2161 Pause"), /* @__PURE__ */ React.createElement("button", { onClick: resume, disabled: !playing, "aria-label": "Resume playback" }, "\u25B6 Resume")), /* @__PURE__ */ React.createElement("div", { className: "brand" }, /* @__PURE__ */ React.createElement("div", { className: "mark" }, "\u223F"), /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("strong", null, "Mindaural"), /* @__PURE__ */ React.createElement("span", null, "Scientific audio workstation"))), /* @__PURE__ */ React.createElement("button", { className: "import", onClick: () => fileRef.current?.click() }, "Import"), /* @__PURE__ */ React.createElement("input", { ref: fileRef, hidden: true, type: "file", multiple: true, accept: ".bbeat,.bwg,.wav,.flac,.mp3,.aiff,.ogg,.opus,.webm", onChange: (e3) => e3.target.files && handleFiles(e3.target.files) })), /* @__PURE__ */ React.createElement("aside", null, nav.map((n2) => /* @__PURE__ */ React.createElement("button", { key: n2, className: surface === n2 ? "active" : "", onClick: () => setSurface(n2) }, /* @__PURE__ */ React.createElement("span", null, icon(n2)), n2)), /* @__PURE__ */ React.createElement("div", { className: "status" }, /* @__PURE__ */ React.createElement("i", { className: gpuStatus.active ? "ok" : "" }), /* @__PURE__ */ React.createElement("span", null, gpuStatus.active ? "WebGPU active" : "CPU fallback"))), /* @__PURE__ */ React.createElement("main", { id: "main-content", tabIndex: -1 }, surface === "Create" && voice && /* @__PURE__ */ React.createElement(Create, { project, voice, setProject, changeCenter, changeBeat, updateVoice, onPlay: toggle, playing, onSave: save, onStudio: () => setSurface("Studio"), onSoundscape: addSoundscape }), " ", surface === "Create" && !voice && /* @__PURE__ */ React.createElement(AudioOnlyProject, { project, onPlay: toggle, playing, onStudio: () => setSurface("Studio") }), " ", surface === "Studio" && /* @__PURE__ */ React.createElement(Studio, { project, setProject, updateVoice, onPlay: toggle, playing, onSave: save, onExport: exportAudio, onUndo: undo, onRedo: redo, canUndo: historyRef.current.canUndo(), canRedo: historyRef.current.canRedo() }), " ", surface === "Listen" && /* @__PURE__ */ React.createElement(Listen, { setProject, setSurface }), " ", surface === "Library" && /* @__PURE__ */ React.createElement(LibrarySurface, { saved, project, setProject, setSurface, setMessage, onPlayPlaylist: playPlaylist }), " ", surface === "Analyzer" && /* @__PURE__ */ React.createElement(AnalyzerSurface, { analysis, onAnalyze: analyze, gpuStatus }), " ", surface === "Research" && /* @__PURE__ */ React.createElement(Research, { project, setMessage }), " ", surface === "Learn" && /* @__PURE__ */ React.createElement(Learn, null), " ", surface === "Labs" && /* @__PURE__ */ React.createElement(LabsSurface, { setMessage }), " ", surface === "Settings" && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(SettingsSurface, { setMessage }), /* @__PURE__ */ React.createElement(ImportScopeControl, { setMessage }), /* @__PURE__ */ React.createElement(StorageRecoveryControl, { setMessage }))), /* @__PURE__ */ React.createElement("footer", null, /* @__PURE__ */ React.createElement("span", null, message || "Drop .bbeat, .bwg, or audio files anywhere to import."), /* @__PURE__ */ React.createElement("span", null, voice ? `${fmt2(voice.leftHz)} / ${fmt2(voice.rightHz)} Hz \xB7 \u0394 ${fmt2(beatOf(voice))} Hz` : `Audio-only project \xB7 ${project.audioTracks.length} track${project.audioTracks.length === 1 ? "" : "s"}`)));
   }
-  function icon(n) {
-    return { Listen: "\u25B6", Create: "\uFF0B", Studio: "\u224B", Library: "\u25A6", Analyzer: "\u2301", Research: "\u2299", Learn: "?", Labs: "\u25C7", Settings: "\u2699" }[n];
+  function icon(n2) {
+    return { Listen: "\u25B6", Create: "\uFF0B", Studio: "\u224B", Library: "\u25A6", Analyzer: "\u2301", Research: "\u2299", Learn: "?", Labs: "\u25C7", Settings: "\u2699" }[n2];
   }
   function AudioOnlyProject({ project, onPlay, playing, onStudio }) {
     return /* @__PURE__ */ React.createElement("section", { className: "page" }, /* @__PURE__ */ React.createElement("div", { className: "eyebrow" }, "IMPORTED AUDIO"), /* @__PURE__ */ React.createElement("h1", null, project.title), /* @__PURE__ */ React.createElement("p", { className: "lede" }, "This project contains timeline audio without a generated voice. Open it in Studio to inspect the waveform, playback, and export options."), /* @__PURE__ */ React.createElement("div", { className: "card" }, /* @__PURE__ */ React.createElement("b", null, project.audioTracks.length, " audio track", project.audioTracks.length === 1 ? "" : "s"), /* @__PURE__ */ React.createElement("span", null, Math.round(project.duration), " seconds \xB7 ", project.assets.length, " embedded asset", project.assets.length === 1 ? "" : "s")), /* @__PURE__ */ React.createElement("div", { className: "actions" }, /* @__PURE__ */ React.createElement("button", { className: "primary", onClick: onPlay }, playing ? "\u25A0 Stop" : "\u25B6 Play"), /* @__PURE__ */ React.createElement("button", { onClick: onStudio }, "Open in Studio")));
@@ -70421,17 +70381,17 @@ r÷|ú
     const exact = (side, v) => updateVoice({ [side]: Math.max(1e-3, v) });
     return /* @__PURE__ */ React.createElement("section", { className: "page create" }, /* @__PURE__ */ React.createElement("div", { className: "eyebrow" }, "CREATE"), /* @__PURE__ */ React.createElement("h1", null, "Build a precise stereo session"), /* @__PURE__ */ React.createElement("p", { className: "lede" }, "Choose the acoustic stimulus you want. Goal labels describe intent, not guaranteed physiological outcomes."), /* @__PURE__ */ React.createElement("div", { className: "creator-card" }, /* @__PURE__ */ React.createElement("div", { className: "field" }, /* @__PURE__ */ React.createElement("label", null, "Stimulus"), /* @__PURE__ */ React.createElement("select", { value: voice.type, onChange: (e3) => updateVoice({ type: e3.target.value }) }, /* @__PURE__ */ React.createElement("option", { value: "binaural" }, "Binaural beat"), /* @__PURE__ */ React.createElement("option", { value: "monaural" }, "Monaural beat"), /* @__PURE__ */ React.createElement("option", { value: "isochronic" }, "Isochronic tone"), /* @__PURE__ */ React.createElement("option", { value: "am" }, "Amplitude modulated"), /* @__PURE__ */ React.createElement("option", { value: "stereo" }, "Independent stereo carriers"), /* @__PURE__ */ React.createElement("option", { value: "noise-modulated" }, "Noise-modulated carrier"), /* @__PURE__ */ React.createElement("option", { value: "sham" }, "Sham / control"))), /* @__PURE__ */ React.createElement("div", { className: "field" }, /* @__PURE__ */ React.createElement("label", null, "Duration ", /* @__PURE__ */ React.createElement("b", null, Math.round(project.duration / 60), " min")), /* @__PURE__ */ React.createElement("input", { type: "range", min: "1", max: "120", value: project.duration / 60, onChange: (e3) => {
       const d = Number(e3.target.value) * 60;
-      setProject((p) => touchProject({ ...p, duration: d, voices: p.voices.map((v, i) => i ? v : { ...v, duration: d }), noiseTracks: p.noiseTracks.map((n) => ({ ...n, duration: Math.max(n.duration, d) })), segments: p.segments.map((s2, i) => i ? s2 : { ...s2, duration: d }) }));
-    } })), /* @__PURE__ */ React.createElement("div", { className: "two" }, /* @__PURE__ */ React.createElement(NumberField, { label: "Center carrier", value: carrierOf(voice), suffix: "Hz", onChange: changeCenter }), /* @__PURE__ */ React.createElement(NumberField, { label: "Beat difference", value: beatOf(voice), suffix: "Hz", onChange: changeBeat })), /* @__PURE__ */ React.createElement("div", { className: "ears" }, /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("span", null, "LEFT EAR"), /* @__PURE__ */ React.createElement("strong", null, fmt3(voice.leftHz, 2), " Hz")), /* @__PURE__ */ React.createElement("div", { className: "delta" }, "\u0394 ", fmt3(beatOf(voice), 2), " Hz"), /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("span", null, "RIGHT EAR"), /* @__PURE__ */ React.createElement("strong", null, fmt3(voice.rightHz, 2), " Hz"))), /* @__PURE__ */ React.createElement("button", { className: "text-button", "aria-expanded": advanced, onClick: () => setAdvanced(!advanced) }, advanced ? "Hide advanced" : "Advanced exact controls"), advanced && /* @__PURE__ */ React.createElement("div", { className: "advanced-create" }, /* @__PURE__ */ React.createElement("div", { className: "two" }, /* @__PURE__ */ React.createElement(NumberField, { label: "Exact left ear", value: voice.leftHz, suffix: "Hz", onChange: (v) => exact("leftHz", v) }), /* @__PURE__ */ React.createElement(NumberField, { label: "Exact right ear", value: voice.rightHz, suffix: "Hz", onChange: (v) => exact("rightHz", v) })), /* @__PURE__ */ React.createElement("div", { className: "two" }, /* @__PURE__ */ React.createElement(NumberField, { label: "Fade in", value: voice.fadeIn, suffix: "s", onChange: (v) => updateVoice({ fadeIn: Math.max(0, v) }) }), /* @__PURE__ */ React.createElement(NumberField, { label: "Fade out", value: voice.fadeOut, suffix: "s", onChange: (v) => updateVoice({ fadeOut: Math.max(0, v) }) })), /* @__PURE__ */ React.createElement("div", { className: "field" }, /* @__PURE__ */ React.createElement("label", null, "Waveform"), /* @__PURE__ */ React.createElement("select", { value: voice.waveform, onChange: (e3) => updateVoice({ waveform: e3.target.value }) }, ["sine", "sine2", "triangle", "square", "smooth-square", "saw", "reverse-saw", "pulse", "bandlimited-square", "bandlimited-saw", "custom-harmonic"].map((x) => /* @__PURE__ */ React.createElement("option", { key: x, value: x }, x)))), /* @__PURE__ */ React.createElement("div", { className: "field" }, /* @__PURE__ */ React.createElement("label", null, "Duty / modulation depth ", /* @__PURE__ */ React.createElement("b", null, Math.round(voice.duty * 100), "%")), /* @__PURE__ */ React.createElement("input", { type: "range", min: "0.01", max: "0.99", step: "0.01", value: voice.duty, onChange: (e3) => updateVoice({ duty: Number(e3.target.value) }) }))), /* @__PURE__ */ React.createElement("div", { className: "field" }, /* @__PURE__ */ React.createElement("label", null, "Soundscape"), /* @__PURE__ */ React.createElement("select", { defaultValue: "", onChange: (e3) => {
+      setProject((p) => touchProject({ ...p, duration: d, voices: p.voices.map((v, i) => i ? v : { ...v, duration: d }), noiseTracks: p.noiseTracks.map((n2) => ({ ...n2, duration: Math.max(n2.duration, d) })), segments: p.segments.map((s2, i) => i ? s2 : { ...s2, duration: d }) }));
+    } })), /* @__PURE__ */ React.createElement("div", { className: "two" }, /* @__PURE__ */ React.createElement(NumberField, { label: "Center carrier", value: carrierOf(voice), suffix: "Hz", onChange: changeCenter }), /* @__PURE__ */ React.createElement(NumberField, { label: "Beat difference", value: beatOf(voice), suffix: "Hz", onChange: changeBeat })), /* @__PURE__ */ React.createElement("div", { className: "ears" }, /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("span", null, "LEFT EAR"), /* @__PURE__ */ React.createElement("strong", null, fmt2(voice.leftHz, 2), " Hz")), /* @__PURE__ */ React.createElement("div", { className: "delta" }, "\u0394 ", fmt2(beatOf(voice), 2), " Hz"), /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("span", null, "RIGHT EAR"), /* @__PURE__ */ React.createElement("strong", null, fmt2(voice.rightHz, 2), " Hz"))), /* @__PURE__ */ React.createElement("button", { className: "text-button", "aria-expanded": advanced, onClick: () => setAdvanced(!advanced) }, advanced ? "Hide advanced" : "Advanced exact controls"), advanced && /* @__PURE__ */ React.createElement("div", { className: "advanced-create" }, /* @__PURE__ */ React.createElement("div", { className: "two" }, /* @__PURE__ */ React.createElement(NumberField, { label: "Exact left ear", value: voice.leftHz, suffix: "Hz", onChange: (v) => exact("leftHz", v) }), /* @__PURE__ */ React.createElement(NumberField, { label: "Exact right ear", value: voice.rightHz, suffix: "Hz", onChange: (v) => exact("rightHz", v) })), /* @__PURE__ */ React.createElement("div", { className: "two" }, /* @__PURE__ */ React.createElement(NumberField, { label: "Fade in", value: voice.fadeIn, suffix: "s", onChange: (v) => updateVoice({ fadeIn: Math.max(0, v) }) }), /* @__PURE__ */ React.createElement(NumberField, { label: "Fade out", value: voice.fadeOut, suffix: "s", onChange: (v) => updateVoice({ fadeOut: Math.max(0, v) }) })), /* @__PURE__ */ React.createElement("div", { className: "field" }, /* @__PURE__ */ React.createElement("label", null, "Waveform"), /* @__PURE__ */ React.createElement("select", { value: voice.waveform, onChange: (e3) => updateVoice({ waveform: e3.target.value }) }, ["sine", "sine2", "triangle", "square", "smooth-square", "saw", "reverse-saw", "pulse", "bandlimited-square", "bandlimited-saw", "custom-harmonic"].map((x) => /* @__PURE__ */ React.createElement("option", { key: x, value: x }, x)))), /* @__PURE__ */ React.createElement("div", { className: "field" }, /* @__PURE__ */ React.createElement("label", null, "Duty / modulation depth ", /* @__PURE__ */ React.createElement("b", null, Math.round(voice.duty * 100), "%")), /* @__PURE__ */ React.createElement("input", { type: "range", min: "0.01", max: "0.99", step: "0.01", value: voice.duty, onChange: (e3) => updateVoice({ duty: Number(e3.target.value) }) }))), /* @__PURE__ */ React.createElement("div", { className: "field" }, /* @__PURE__ */ React.createElement("label", null, "Soundscape"), /* @__PURE__ */ React.createElement("select", { defaultValue: "", onChange: (e3) => {
       if (e3.target.value) onSoundscape(e3.target.value);
       e3.target.value = "";
     } }, /* @__PURE__ */ React.createElement("option", { value: "" }, "Add optional background\u2026"), SOUNDSCAPES.map((s2) => /* @__PURE__ */ React.createElement("option", { value: s2.id, key: s2.id }, s2.title)))), /* @__PURE__ */ React.createElement("div", { className: "field" }, /* @__PURE__ */ React.createElement("label", null, "Level ", /* @__PURE__ */ React.createElement("b", null, Math.round(voice.amplitude * 100), "%")), /* @__PURE__ */ React.createElement("input", { type: "range", min: "0", max: "0.4", step: "0.005", value: voice.amplitude, onChange: (e3) => updateVoice({ amplitude: Number(e3.target.value) }) })), /* @__PURE__ */ React.createElement("div", { className: "actions" }, /* @__PURE__ */ React.createElement("button", { className: "primary", onClick: onPlay }, playing ? "\u25A0 Stop" : "\u25B6 Play"), /* @__PURE__ */ React.createElement("button", { onClick: onSave }, "Save"), /* @__PURE__ */ React.createElement("button", { onClick: onStudio }, "Open in Studio"))), /* @__PURE__ */ React.createElement(EvidenceCard, { state: project.evidence.state, claim: project.evidence.claim }));
   }
   function Studio(props) {
-    return /* @__PURE__ */ React.createElement(StudioSurface, { ...props });
+    return /* @__PURE__ */ React.createElement(StudioTimelineShell, { ...props });
   }
   function Listen({ setProject, setSurface }) {
-    return /* @__PURE__ */ React.createElement("section", { className: "page" }, /* @__PURE__ */ React.createElement("div", { className: "eyebrow" }, "LISTEN"), /* @__PURE__ */ React.createElement("h1", null, "Start with a transparent preset"), /* @__PURE__ */ React.createElement("div", { className: "card-grid" }, PRESETS.slice(0, 12).map((p) => /* @__PURE__ */ React.createElement("article", { className: "preset", key: p.id }, /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("span", { className: `badge ${evidenceClass(p.evidence.state)}` }, p.evidence.state), /* @__PURE__ */ React.createElement("h3", null, p.title), /* @__PURE__ */ React.createElement("p", null, p.description)), /* @__PURE__ */ React.createElement("div", { className: "preset-foot" }, /* @__PURE__ */ React.createElement("span", null, Math.round(p.duration / 60), " min \xB7 ", fmt3(Math.abs(p.project.voices[0].rightHz - p.project.voices[0].leftHz)), " Hz"), /* @__PURE__ */ React.createElement("button", { onClick: () => {
+    return /* @__PURE__ */ React.createElement("section", { className: "page" }, /* @__PURE__ */ React.createElement("div", { className: "eyebrow" }, "LISTEN"), /* @__PURE__ */ React.createElement("h1", null, "Start with a transparent preset"), /* @__PURE__ */ React.createElement("div", { className: "card-grid" }, PRESETS.slice(0, 12).map((p) => /* @__PURE__ */ React.createElement("article", { className: "preset", key: p.id }, /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("span", { className: `badge ${evidenceClass(p.evidence.state)}` }, p.evidence.state), /* @__PURE__ */ React.createElement("h3", null, p.title), /* @__PURE__ */ React.createElement("p", null, p.description)), /* @__PURE__ */ React.createElement("div", { className: "preset-foot" }, /* @__PURE__ */ React.createElement("span", null, Math.round(p.duration / 60), " min \xB7 ", fmt2(Math.abs(p.project.voices[0].rightHz - p.project.voices[0].leftHz)), " Hz"), /* @__PURE__ */ React.createElement("button", { onClick: () => {
       setProject(structuredClone(p.project));
       setSurface("Create");
     } }, "Use"))))));
