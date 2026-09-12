@@ -6,7 +6,7 @@ import { decodeFlacBundled, decodeMp3Bundled, decodeOggOpusBundled, decodeOggVor
 import { decodeWebmOpusBundled } from '../formats/webmOpus.js';
 
 const banned = /\.(m4a|aac|mp4)$/i;
-const MAX_IMPORT_BYTES = 256 * 1024 * 1024;
+const MAX_IMPORT_BYTES = 512 * 1024 * 1024;
 const text = new TextDecoder('latin1');
 
 export function allowedAudioName(name: string) { return /\.(wav|wave|aif|aiff|flac|mp3|ogg|oga|opus|webm)$/i.test(name) && !banned.test(name); }
@@ -21,7 +21,7 @@ function oggCodec(bytes: Uint8Array) {
 
 export async function decodeAudioBytes(bytes: Uint8Array, name: string, mime = ''): Promise<StereoBuffer> {
   if (!(bytes instanceof Uint8Array) || !bytes.length) throw new Error('Audio import is empty');
-  if (bytes.length > MAX_IMPORT_BYTES) throw new Error('Audio import exceeds the 256 MiB safety limit');
+  if (bytes.length > MAX_IMPORT_BYTES) throw new Error('Audio import exceeds the 512 MiB safety limit');
   if (banned.test(name) || /aac|mp4/i.test(mime)) throw new Error('AAC/M4A is intentionally unsupported');
   if (/\.wav$|\.wave$/i.test(name) || /audio\/wav/i.test(mime) || starts(bytes, 'RIFF')) return decodeWav(bytes);
   if (/\.aif$|\.aiff$/i.test(name) || /audio\/(aiff|x-aiff)/i.test(mime) || starts(bytes, 'FORM')) return decodeAiff(bytes);

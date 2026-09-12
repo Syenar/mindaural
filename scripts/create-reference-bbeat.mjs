@@ -1,11 +1,13 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
+import { basename, extname } from 'node:path';
 import { exportProjectPackage } from '../dist/src/formats/projectPackage.js';
 import { decodeWav, encodeWav } from '../dist/src/formats/wav.js';
 
 const input = process.argv[2];
 const output = process.argv[3];
 if (!input || !output) throw new Error('Usage: node scripts/create-reference-bbeat.mjs INPUT.wav OUTPUT.bbeat');
+const sourceName = basename(input), sourceTitle = basename(input, extname(input));
 
 const sourceBytes = new Uint8Array(await readFile(input));
 function readTag(bytes, offset) { return String.fromCharCode(...bytes.slice(offset, offset + 4)); }
@@ -53,8 +55,8 @@ const now = new Date().toISOString();
 const project = {
   schemaVersion: '1.0.0',
   id: `reference-${hash.slice(0, 16)}`,
-  title: 'Quiet Stream with pretheta reference',
-  description: 'Reference WAV imported as an audio track; no procedural reconstruction claimed.',
+  title: `${sourceTitle} reference`,
+  description: `Reference WAV ${sourceName} imported as an audio track; no procedural reconstruction claimed.`,
   duration: decoded.duration,
   sampleRate: decoded.sampleRate,
   masterGain: 1,
@@ -62,7 +64,7 @@ const project = {
   noiseTracks: [],
   audioTracks: [{
     id: `audio-${hash.slice(0, 16)}`,
-    name: 'QuietStreamWith-pretheta.wav',
+    name: sourceName,
     assetId,
     start: 0,
     duration: decoded.duration,
@@ -75,12 +77,12 @@ const project = {
     mute: false,
     solo: false,
   }],
-  assets: [{ id: assetId, name: 'QuietStreamWith-pretheta.wav', mime: 'audio/wav', size: bytes.length, hash, license: 'user-owned', source: 'local reference import' }],
+  assets: [{ id: assetId, name: sourceName, mime: normalized ? 'audio/wav' : 'audio/wav', size: bytes.length, hash, license: 'user-owned', source: 'local reference import' }],
   segments: [{ id: `segment-${hash.slice(0, 16)}`, name: 'Reference', start: 0, duration: decoded.duration, repeat: 1, crossfade: 0 }],
   markers: [],
   evidence: { state: 'Experimental', claim: 'Reference audio asset; no outcome is guaranteed.' },
   provenance: { author: 'Local user', createdAt: now, updatedAt: now, appVersion: '1.0.2', engineVersion: '1.0.2-webgpu', source: input },
-  tags: ['reference', 'imported-audio', 'quiet-stream'],
+  tags: ['reference', 'imported-audio', sourceTitle.toLowerCase()],
   revision: 1,
 };
 

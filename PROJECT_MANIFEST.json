@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "generatedAt": "2026-09-12T07:07:14.368Z",
+  "generatedAt": "2026-09-12T07:34:26.452Z",
   "files": [
     {
       "path": ".github/workflows/pages.yml",
@@ -89,8 +89,8 @@
     },
     {
       "path": "docs/audits/PROGRESS_LOG.md",
-      "bytes": 4770,
-      "sha256": "83249bfffbe3a4b6674b6350c527092a374ad018ee2665a856f80a9984d33c80"
+      "bytes": 5280,
+      "sha256": "c87f5f24aeaef32a211c1f77f0f219a5e2aa58609445a2e67b3912b14c8c94f2"
     },
     {
       "path": "docs/audits/REQUIREMENT_MATRIX.md",
@@ -159,8 +159,8 @@
     },
     {
       "path": "public/app.bundle.js",
-      "bytes": 8086022,
-      "sha256": "6a1bd0d80657c0f5e4d6faf67f20da8960b7421fd2680d3e1f8f3f43043a0d1d"
+      "bytes": 8086645,
+      "sha256": "e2506dc0b65afd5f2f6d9e69b2fa77e1cf69a2471bcdd26df15aaa0a6210abd7"
     },
     {
       "path": "public/offline.html",
@@ -174,8 +174,8 @@
     },
     {
       "path": "public/standalone.js",
-      "bytes": 8228611,
-      "sha256": "da315c5050fcee435835b0db60b4446ccc429d6e2ddfb3079e92f88fa891ff44"
+      "bytes": 8229234,
+      "sha256": "0d55a6f68185ca6dcd528c3261913d35a5d2b12573a3ecee99ee1f7f49152b80"
     },
     {
       "path": "public/worklet.js",
@@ -224,8 +224,8 @@
     },
     {
       "path": "scripts/create-reference-bbeat.mjs",
-      "bytes": 4621,
-      "sha256": "8e54f7042af7f9a3783ee7162955e3809156e60df07a4d42a7dfe5388e48f265"
+      "bytes": 4751,
+      "sha256": "052aa370980c89743191b2bb937a09a46d593ef6b25366142cac2be2bd030233"
     },
     {
       "path": "scripts/gauntlet.mjs",
@@ -310,7 +310,7 @@
     {
       "path": "src/audio/import.ts",
       "bytes": 2776,
-      "sha256": "c212f5fb545b56261704706c6330b1bb1295ebdd6a4bc2aa31ba3f81f7ad43b3"
+      "sha256": "1c87e8163b79336061ea17d475111eb74e7d6f0517a76b9c38136e6e684e7c6d"
     },
     {
       "path": "src/audio/liveEngine.ts",
@@ -410,7 +410,7 @@
     {
       "path": "src/formats/projectPackage.ts",
       "bytes": 6445,
-      "sha256": "f26d8cf668478f604a754ac7d257ecffc136135d77c03ec1c2b3fb5bc2f30916"
+      "sha256": "76fa91f716be9a599ef01a91d85de2931ba374e127ed5519e87f3b134d5432cb"
     },
     {
       "path": "src/formats/streamPcm.ts",
@@ -429,8 +429,8 @@
     },
     {
       "path": "src/formats/zip.ts",
-      "bytes": 2462,
-      "sha256": "2943e8f6a65a3dca0c1a4abae21824866a65a19c01e9199149b1328263c4a688"
+      "bytes": 2992,
+      "sha256": "17c879ce749dda88950a6a4457d06d6a3df1f46de8e538a7463f992a36c4c589"
     },
     {
       "path": "src/gpu/webgpu.ts",

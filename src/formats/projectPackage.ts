@@ -5,7 +5,7 @@ import {signBytes,verifyBytes} from '../security/signing.js';
 import {createZip,readStoredZip} from './zip.js';
 
 const te=new TextEncoder(),td=new TextDecoder();
-const MAX_PACKAGE_BYTES=256*1024*1024,MAX_SESSION_BYTES=4*1024*1024;
+const MAX_PACKAGE_BYTES=512*1024*1024,MAX_SESSION_BYTES=4*1024*1024;
 export type PackageSignatureState='unsigned'|'valid-unbound'|'valid-account-bound'|'invalid'|'modified';
 export interface PackageSigner{publicKey:string;privateKey:string;accountId?:string;}
 export interface PackageSignature{version:1;algorithm:'Ed25519';signedPath:'manifest.json';publicKey:string;signature:string;accountId?:string;}
@@ -26,7 +26,7 @@ export async function exportProjectPackage(project:Project,assetBytes:Record<str
 }
 
 export async function importProjectPackageDetailed(bytes:Uint8Array,accountBindings:Record<string,string>={}):Promise<{project:Project;assets:Record<string,Uint8Array>;signature:{state:PackageSignatureState;publicKey?:string;accountId?:string;reason?:string}}> {
- if(bytes.length>MAX_PACKAGE_BYTES)throw new Error('Package exceeds the 256 MiB import limit');
+ if(bytes.length>MAX_PACKAGE_BYTES)throw new Error('Package exceeds the 512 MiB import limit');
  const e=readStoredZip(bytes);
  if(!e['manifest.json']||!e['session.json'])throw new Error('Invalid .bbeat package');
  if(e['session.json'].length>MAX_SESSION_BYTES)throw new Error('Session metadata exceeds the 4 MiB import limit');

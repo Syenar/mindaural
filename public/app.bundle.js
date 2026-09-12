@@ -62815,6 +62815,7 @@ W+üÇí¾Z[Ø Ê§×;E|ËJfü¿0âGõMp·ÇòúgD>Îñß¶â
 
   // src/formats/zip.ts
   var te2 = new TextEncoder();
+  var MAX_ZIP_BYTES = 512 * 1024 * 1024;
   function crc32(data3) {
     let c = 4294967295;
     for (const b of data3) {
@@ -62830,16 +62831,12 @@ W+üÇí¾Z[Ø Ê§×;E|ËJfü¿0âGõMp·ÇòúgD>Îñß¶â
     u16(a, v & 65535);
     u16(a, v >>> 16);
   }
-  function append(a, b) {
-    for (let i = 0; i < b.length; i++) a.push(b[i]);
-  }
   function createZip(entries) {
-    const out = [], central = [];
-    let offset = 0, count = 0;
+    const records = [], chunks = [];
+    let offset = 0, count = 0, centralLength = 0;
     for (const [name, val] of Object.entries(entries)) {
       if (name.includes("..") || name.startsWith("/") || name.includes("\\")) throw new Error("Unsafe ZIP path");
-      const n = te2.encode(name), d = typeof val === "string" ? te2.encode(val) : val, crc2 = crc32(d);
-      const local = [];
+      const n = te2.encode(name), d = typeof val === "string" ? te2.encode(val) : val, crc2 = crc32(d), local = [];
       u32(local, 67324752);
       u16(local, 20);
       u16(local, 0);
@@ -62851,47 +62848,55 @@ W+üÇí¾Z[Ø Ê§×;E|ËJfü¿0âGõMp·ÇòúgD>Îñß¶â
       u32(local, d.length);
       u16(local, n.length);
       u16(local, 0);
-      append(local, n);
-      append(local, d);
-      append(out, local);
-      const c = [];
-      u32(c, 33639248);
-      u16(c, 20);
-      u16(c, 20);
-      u16(c, 0);
-      u16(c, 0);
-      u16(c, 0);
-      u16(c, 0);
-      u32(c, crc2);
-      u32(c, d.length);
-      u32(c, d.length);
-      u16(c, n.length);
-      u16(c, 0);
-      u16(c, 0);
-      u16(c, 0);
-      u16(c, 0);
-      u32(c, 0);
-      u32(c, offset);
-      append(c, n);
-      append(central, c);
-      offset += local.length;
+      const header3 = Uint8Array.from(local), central = [];
+      u32(central, 33639248);
+      u16(central, 20);
+      u16(central, 20);
+      u16(central, 0);
+      u16(central, 0);
+      u16(central, 0);
+      u16(central, 0);
+      u32(central, crc2);
+      u32(central, d.length);
+      u32(central, d.length);
+      u16(central, n.length);
+      u16(central, 0);
+      u16(central, 0);
+      u16(central, 0);
+      u16(central, 0);
+      u32(central, 0);
+      u32(central, offset);
+      const record = { name: n, data: d, local: header3, central: Uint8Array.from(central) };
+      records.push(record);
+      chunks.push(header3, n, d);
+      offset += header3.length + n.length + d.length;
+      centralLength += record.central.length + n.length;
       count++;
     }
-    const start = out.length;
-    append(out, central);
+    const centralStart = offset;
+    for (const r of records) chunks.push(r.central, r.name);
     const end = [];
     u32(end, 101010256);
     u16(end, 0);
     u16(end, 0);
     u16(end, count);
     u16(end, count);
-    u32(end, central.length);
-    u32(end, start);
+    u32(end, centralLength);
+    u32(end, centralStart);
     u16(end, 0);
-    append(out, end);
-    return new Uint8Array(out);
+    const endBytes = Uint8Array.from(end);
+    chunks.push(endBytes);
+    const total2 = centralStart + centralLength + endBytes.length;
+    if (total2 > MAX_ZIP_BYTES || total2 > 4294967295) throw new Error("ZIP exceeds the 512 MiB safety limit");
+    const out = new Uint8Array(total2);
+    let p = 0;
+    for (const chunk of chunks) {
+      out.set(chunk, p);
+      p += chunk.length;
+    }
+    return out;
   }
-  function readStoredZip(bytes, maxEntries = 256, maxTotal = 256 * 1024 * 1024) {
+  function readStoredZip(bytes, maxEntries = 256, maxTotal = MAX_ZIP_BYTES) {
     const dv = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength), td3 = new TextDecoder(), res = {};
     let p = 0, total2 = 0, count = 0;
     while (p + 30 <= bytes.length && dv.getUint32(p, true) === 67324752) {
@@ -62912,7 +62917,7 @@ W+üÇí¾Z[Ø Ê§×;E|ËJfü¿0âGõMp·ÇòúgD>Îñß¶â
   // src/formats/projectPackage.ts
   var te3 = new TextEncoder();
   var td = new TextDecoder();
-  var MAX_PACKAGE_BYTES = 256 * 1024 * 1024;
+  var MAX_PACKAGE_BYTES = 512 * 1024 * 1024;
   var MAX_SESSION_BYTES = 4 * 1024 * 1024;
   var ModifiedPackageError = class extends Error {
     constructor(path) {
@@ -62954,7 +62959,7 @@ W+üÇí¾Z[Ø Ê§×;E|ËJfü¿0âGõMp·ÇòúgD>Îñß¶â
     return createZip(entries);
   }
   async function importProjectPackageDetailed(bytes, accountBindings = {}) {
-    if (bytes.length > MAX_PACKAGE_BYTES) throw new Error("Package exceeds the 256 MiB import limit");
+    if (bytes.length > MAX_PACKAGE_BYTES) throw new Error("Package exceeds the 512 MiB import limit");
     const e3 = readStoredZip(bytes);
     if (!e3["manifest.json"] || !e3["session.json"]) throw new Error("Invalid .bbeat package");
     if (e3["session.json"].length > MAX_SESSION_BYTES) throw new Error("Session metadata exceeds the 4 MiB import limit");
@@ -68951,7 +68956,7 @@ r÷|ú
 
   // src/audio/import.ts
   var banned = /\.(m4a|aac|mp4)$/i;
-  var MAX_IMPORT_BYTES = 256 * 1024 * 1024;
+  var MAX_IMPORT_BYTES = 512 * 1024 * 1024;
   var text2 = new TextDecoder("latin1");
   function allowedAudioName(name) {
     return /\.(wav|wave|aif|aiff|flac|mp3|ogg|oga|opus|webm)$/i.test(name) && !banned.test(name);
@@ -68968,7 +68973,7 @@ r÷|ú
   }
   async function decodeAudioBytes(bytes, name, mime = "") {
     if (!(bytes instanceof Uint8Array) || !bytes.length) throw new Error("Audio import is empty");
-    if (bytes.length > MAX_IMPORT_BYTES) throw new Error("Audio import exceeds the 256 MiB safety limit");
+    if (bytes.length > MAX_IMPORT_BYTES) throw new Error("Audio import exceeds the 512 MiB safety limit");
     if (banned.test(name) || /aac|mp4/i.test(mime)) throw new Error("AAC/M4A is intentionally unsupported");
     if (/\.wav$|\.wave$/i.test(name) || /audio\/wav/i.test(mime) || starts(bytes, "RIFF")) return decodeWav(bytes);
     if (/\.aif$|\.aiff$/i.test(name) || /audio\/(aiff|x-aiff)/i.test(mime) || starts(bytes, "FORM")) return decodeAiff(bytes);
