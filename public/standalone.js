@@ -63690,7 +63690,7 @@ W+üÇí¾Z[Ø Ê§×;E|ËJfü¿0âGõMp·ÇòúgD>Îñß¶â
       p = end + (len & 1);
     }
     if (!haveFmt || dataOff < 0) throw new Error("WAV requires fmt and data chunks");
-    if (ch !== 2 || ![1, 3].includes(fmt5) || ![16, 24, 32].includes(bits) || !sr) throw new Error("Unsupported WAV encoding");
+    if (![1, 2].includes(ch) || ![1, 3].includes(fmt5) || ![8, 16, 24, 32].includes(bits) || !sr || fmt5 === 3 && bits !== 32) throw new Error("Unsupported WAV encoding");
     const bytesPerSample = bits / 8, expectedAlign = ch * bytesPerSample;
     if (blockAlign !== expectedAlign || dataLen % blockAlign) throw new Error("Invalid WAV frame alignment");
     const frames = dataLen / blockAlign;
@@ -63720,7 +63720,7 @@ W+üÇí¾Z[Ø Ê§×;E|ËJfü¿0âGõMp·ÇòúgD>Îñß¶â
     };
     for (let i = 0; i < frames; i++) {
       l[i] = read();
-      r[i] = read();
+      r[i] = ch === 1 ? l[i] : read();
     }
     return { sampleRate: sr, left: l, right: r, duration: frames / sr };
   }

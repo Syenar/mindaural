@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "generatedAt": "2026-09-12T06:51:46.680Z",
+  "generatedAt": "2026-09-12T07:07:14.368Z",
   "files": [
     {
       "path": ".github/workflows/pages.yml",
@@ -89,8 +89,8 @@
     },
     {
       "path": "docs/audits/PROGRESS_LOG.md",
-      "bytes": 4143,
-      "sha256": "31cf81557d3c2ed413e03b254631453ba948b148a405e2edb9065c237fbe2d48"
+      "bytes": 4770,
+      "sha256": "83249bfffbe3a4b6674b6350c527092a374ad018ee2665a856f80a9984d33c80"
     },
     {
       "path": "docs/audits/REQUIREMENT_MATRIX.md",
@@ -159,8 +159,8 @@
     },
     {
       "path": "public/app.bundle.js",
-      "bytes": 8085960,
-      "sha256": "33f2817156ef25f1c05e52e13ab67608d3f81bfe20e613cce3db9b782bc86a4d"
+      "bytes": 8086022,
+      "sha256": "6a1bd0d80657c0f5e4d6faf67f20da8960b7421fd2680d3e1f8f3f43043a0d1d"
     },
     {
       "path": "public/offline.html",
@@ -174,8 +174,8 @@
     },
     {
       "path": "public/standalone.js",
-      "bytes": 8228549,
-      "sha256": "0f362cf2a99656efb1f799756d535dd757d066d0b33c46ffe3918f1623d963a6"
+      "bytes": 8228611,
+      "sha256": "da315c5050fcee435835b0db60b4446ccc429d6e2ddfb3079e92f88fa891ff44"
     },
     {
       "path": "public/worklet.js",
@@ -224,8 +224,8 @@
     },
     {
       "path": "scripts/create-reference-bbeat.mjs",
-      "bytes": 2295,
-      "sha256": "87329e6f66c104631e003fd51bf2722eecc4c0d79e04af9de89e35fa2c67dd6c"
+      "bytes": 4621,
+      "sha256": "8e54f7042af7f9a3783ee7162955e3809156e60df07a4d42a7dfe5388e48f265"
     },
     {
       "path": "scripts/gauntlet.mjs",
@@ -274,8 +274,8 @@
     },
     {
       "path": "scripts/test.mjs",
-      "bytes": 16837,
-      "sha256": "36addbef17d232c2270c512ff0e3c45df4bbbf054b8ed3d4e00cb02765cb91f8"
+      "bytes": 17640,
+      "sha256": "f04857a22ae28f8fd5e339defbe1dc94da3fc1d67409a30f230dd98eef51c424"
     },
     {
       "path": "scripts/update-manifest.mjs",
@@ -419,8 +419,8 @@
     },
     {
       "path": "src/formats/wav.ts",
-      "bytes": 4759,
-      "sha256": "3abdb5b4963bdee86a64d7f341f0875e92e1a603d1c4b3bd0ca2bf8e03ad1660"
+      "bytes": 4808,
+      "sha256": "71d7243817dccfc224f0f44571e9b63e9b14363e3a8ec4bb811873554f5931e2"
     },
     {
       "path": "src/formats/webmOpus.ts",

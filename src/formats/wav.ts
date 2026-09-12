@@ -21,12 +21,12 @@ export function decodeWav(bytes:Uint8Array):StereoBuffer{
  const limit=Math.min(bytes.length,riffSize+8);
  while(p+8<=limit){const id=tag(bytes,p),len=v.getUint32(p+4,true),body=p+8,end=body+len;if(end>limit)throw new Error(`Truncated WAV ${id} chunk`);if(id==='fmt '){if(len<16)throw new Error('Invalid WAV fmt chunk');fmt=v.getUint16(body,true);ch=v.getUint16(body+2,true);sr=v.getUint32(body+4,true);blockAlign=v.getUint16(body+12,true);bits=v.getUint16(body+14,true);haveFmt=true;}else if(id==='data'&&dataOff<0){dataOff=body;dataLen=len;}p=end+(len&1);}
  if(!haveFmt||dataOff<0)throw new Error('WAV requires fmt and data chunks');
- if(ch!==2||![1,3].includes(fmt)||![16,24,32].includes(bits)||!sr)throw new Error('Unsupported WAV encoding');
+ if(![1,2].includes(ch)||![1,3].includes(fmt)||![8,16,24,32].includes(bits)||!sr||(fmt===3&&bits!==32))throw new Error('Unsupported WAV encoding');
  const bytesPerSample=bits/8,expectedAlign=ch*bytesPerSample;if(blockAlign!==expectedAlign||dataLen%blockAlign)throw new Error('Invalid WAV frame alignment');
  const frames=dataLen/blockAlign;if(frames>MAX_WAV_FRAMES)throw new Error('WAV exceeds safe frame limit');
  const l=new Float32Array(frames),r=new Float32Array(frames);let o=dataOff;
  const read=()=>{if(fmt===3){const x=v.getFloat32(o,true);o+=4;return Number.isFinite(x)?x:0;}if(bits===16){const x=v.getInt16(o,true)/32768;o+=2;return x;}if(bits===24){let q=v.getUint8(o)|(v.getUint8(o+1)<<8)|(v.getUint8(o+2)<<16);if(q&0x800000)q|=0xff000000;o+=3;return q/8388608;}const x=v.getInt32(o,true)/2147483648;o+=4;return x;};
- for(let i=0;i<frames;i++){l[i]=read();r[i]=read();}return {sampleRate:sr,left:l,right:r,duration:frames/sr};
+ for(let i=0;i<frames;i++){l[i]=read();r[i]=ch===1?l[i]:read();}return {sampleRate:sr,left:l,right:r,duration:frames/sr};
 }
 
 export function encodeMonoWav(samples:Float32Array,sampleRate:number,bits:16|24|32|'f32'=24){
