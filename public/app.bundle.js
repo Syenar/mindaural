@@ -62830,6 +62830,9 @@ W+üÇí¾Z[Ø Ê§×;E|ËJfü¿0âGõMp·ÇòúgD>Îñß¶â
     u16(a, v & 65535);
     u16(a, v >>> 16);
   }
+  function append(a, b) {
+    for (let i = 0; i < b.length; i++) a.push(b[i]);
+  }
   function createZip(entries) {
     const out = [], central = [];
     let offset = 0, count = 0;
@@ -62848,8 +62851,9 @@ W+üÇí¾Z[Ø Ê§×;E|ËJfü¿0âGõMp·ÇòúgD>Îñß¶â
       u32(local, d.length);
       u16(local, n.length);
       u16(local, 0);
-      local.push(...n, ...d);
-      out.push(...local);
+      append(local, n);
+      append(local, d);
+      append(out, local);
       const c = [];
       u32(c, 33639248);
       u16(c, 20);
@@ -62868,13 +62872,13 @@ W+üÇí¾Z[Ø Ê§×;E|ËJfü¿0âGõMp·ÇòúgD>Îñß¶â
       u16(c, 0);
       u32(c, 0);
       u32(c, offset);
-      c.push(...n);
-      central.push(...c);
+      append(c, n);
+      append(central, c);
       offset += local.length;
       count++;
     }
     const start = out.length;
-    out.push(...central);
+    append(out, central);
     const end = [];
     u32(end, 101010256);
     u16(end, 0);
@@ -62884,7 +62888,7 @@ W+üÇí¾Z[Ø Ê§×;E|ËJfü¿0âGõMp·ÇòúgD>Îñß¶â
     u32(end, central.length);
     u32(end, start);
     u16(end, 0);
-    out.push(...end);
+    append(out, end);
     return new Uint8Array(out);
   }
   function readStoredZip(bytes, maxEntries = 256, maxTotal = 256 * 1024 * 1024) {
@@ -70409,10 +70413,13 @@ r÷|ú
       dragDepth.current = 0;
       setDragging(false);
       handleFiles(e3.dataTransfer.files);
-    } }, /* @__PURE__ */ React.createElement("a", { className: "skip-link", href: "#main-content" }, "Skip to editor"), dragging && /* @__PURE__ */ React.createElement("div", { className: "drop-overlay", role: "status", "aria-live": "polite" }, /* @__PURE__ */ React.createElement("div", { className: "drop-overlay-card" }, /* @__PURE__ */ React.createElement("span", { className: "drop-icon", "aria-hidden": "true" }, "\u2193"), /* @__PURE__ */ React.createElement("strong", null, "Drop to import"), /* @__PURE__ */ React.createElement("span", null, "Audio files, .bbeat projects, and .bwg presets"))), /* @__PURE__ */ React.createElement("header", null, /* @__PURE__ */ React.createElement("div", { className: "global-transport", "aria-label": "Playback controls" }, /* @__PURE__ */ React.createElement("button", { onClick: toggle, "aria-label": playing ? "Stop playback" : "Play current project" }, playing ? "\u25A0 Stop" : "\u25B6 Play"), /* @__PURE__ */ React.createElement("button", { onClick: pause, disabled: !playing, "aria-label": "Pause playback" }, "\u2161 Pause"), /* @__PURE__ */ React.createElement("button", { onClick: resume, disabled: !playing, "aria-label": "Resume playback" }, "\u25B6 Resume")), /* @__PURE__ */ React.createElement("div", { className: "brand" }, /* @__PURE__ */ React.createElement("div", { className: "mark" }, "\u223F"), /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("strong", null, "Mindaural"), /* @__PURE__ */ React.createElement("span", null, "Scientific audio workstation"))), /* @__PURE__ */ React.createElement("button", { className: "import", onClick: () => fileRef.current?.click() }, "Import"), /* @__PURE__ */ React.createElement("input", { ref: fileRef, hidden: true, type: "file", multiple: true, accept: ".bbeat,.bwg,.wav,.flac,.mp3,.aiff,.ogg,.opus,.webm", onChange: (e3) => e3.target.files && handleFiles(e3.target.files) })), /* @__PURE__ */ React.createElement("aside", null, nav.map((n) => /* @__PURE__ */ React.createElement("button", { key: n, className: surface === n ? "active" : "", onClick: () => setSurface(n) }, /* @__PURE__ */ React.createElement("span", null, icon(n)), n)), /* @__PURE__ */ React.createElement("div", { className: "status" }, /* @__PURE__ */ React.createElement("i", { className: gpuStatus.active ? "ok" : "" }), /* @__PURE__ */ React.createElement("span", null, gpuStatus.active ? "WebGPU active" : "CPU fallback"))), /* @__PURE__ */ React.createElement("main", { id: "main-content", tabIndex: -1 }, surface === "Create" && /* @__PURE__ */ React.createElement(Create, { project, voice, setProject, changeCenter, changeBeat, updateVoice, onPlay: toggle, playing, onSave: save, onStudio: () => setSurface("Studio"), onSoundscape: addSoundscape }), " ", surface === "Studio" && /* @__PURE__ */ React.createElement(Studio, { project, setProject, updateVoice, onPlay: toggle, playing, onSave: save, onExport: exportAudio, onUndo: undo, onRedo: redo, canUndo: historyRef.current.canUndo(), canRedo: historyRef.current.canRedo() }), " ", surface === "Listen" && /* @__PURE__ */ React.createElement(Listen, { setProject, setSurface }), " ", surface === "Library" && /* @__PURE__ */ React.createElement(LibrarySurface, { saved, project, setProject, setSurface, setMessage, onPlayPlaylist: playPlaylist }), " ", surface === "Analyzer" && /* @__PURE__ */ React.createElement(AnalyzerSurface, { analysis, onAnalyze: analyze, gpuStatus }), " ", surface === "Research" && /* @__PURE__ */ React.createElement(Research, { project, setMessage }), " ", surface === "Learn" && /* @__PURE__ */ React.createElement(Learn, null), " ", surface === "Labs" && /* @__PURE__ */ React.createElement(LabsSurface, { setMessage }), " ", surface === "Settings" && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(SettingsSurface, { setMessage }), /* @__PURE__ */ React.createElement(ImportScopeControl, { setMessage }), /* @__PURE__ */ React.createElement(StorageRecoveryControl, { setMessage }))), /* @__PURE__ */ React.createElement("footer", null, /* @__PURE__ */ React.createElement("span", null, message || "Drop .bbeat, .bwg, or audio files anywhere to import."), /* @__PURE__ */ React.createElement("span", null, fmt3(voice.leftHz), " / ", fmt3(voice.rightHz), " Hz \xB7 \u0394 ", fmt3(beatOf(voice)), " Hz")));
+    } }, /* @__PURE__ */ React.createElement("a", { className: "skip-link", href: "#main-content" }, "Skip to editor"), dragging && /* @__PURE__ */ React.createElement("div", { className: "drop-overlay", role: "status", "aria-live": "polite" }, /* @__PURE__ */ React.createElement("div", { className: "drop-overlay-card" }, /* @__PURE__ */ React.createElement("span", { className: "drop-icon", "aria-hidden": "true" }, "\u2193"), /* @__PURE__ */ React.createElement("strong", null, "Drop to import"), /* @__PURE__ */ React.createElement("span", null, "Audio files, .bbeat projects, and .bwg presets"))), /* @__PURE__ */ React.createElement("header", null, /* @__PURE__ */ React.createElement("div", { className: "global-transport", "aria-label": "Playback controls" }, /* @__PURE__ */ React.createElement("button", { onClick: toggle, "aria-label": playing ? "Stop playback" : "Play current project" }, playing ? "\u25A0 Stop" : "\u25B6 Play"), /* @__PURE__ */ React.createElement("button", { onClick: pause, disabled: !playing, "aria-label": "Pause playback" }, "\u2161 Pause"), /* @__PURE__ */ React.createElement("button", { onClick: resume, disabled: !playing, "aria-label": "Resume playback" }, "\u25B6 Resume")), /* @__PURE__ */ React.createElement("div", { className: "brand" }, /* @__PURE__ */ React.createElement("div", { className: "mark" }, "\u223F"), /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("strong", null, "Mindaural"), /* @__PURE__ */ React.createElement("span", null, "Scientific audio workstation"))), /* @__PURE__ */ React.createElement("button", { className: "import", onClick: () => fileRef.current?.click() }, "Import"), /* @__PURE__ */ React.createElement("input", { ref: fileRef, hidden: true, type: "file", multiple: true, accept: ".bbeat,.bwg,.wav,.flac,.mp3,.aiff,.ogg,.opus,.webm", onChange: (e3) => e3.target.files && handleFiles(e3.target.files) })), /* @__PURE__ */ React.createElement("aside", null, nav.map((n) => /* @__PURE__ */ React.createElement("button", { key: n, className: surface === n ? "active" : "", onClick: () => setSurface(n) }, /* @__PURE__ */ React.createElement("span", null, icon(n)), n)), /* @__PURE__ */ React.createElement("div", { className: "status" }, /* @__PURE__ */ React.createElement("i", { className: gpuStatus.active ? "ok" : "" }), /* @__PURE__ */ React.createElement("span", null, gpuStatus.active ? "WebGPU active" : "CPU fallback"))), /* @__PURE__ */ React.createElement("main", { id: "main-content", tabIndex: -1 }, surface === "Create" && voice && /* @__PURE__ */ React.createElement(Create, { project, voice, setProject, changeCenter, changeBeat, updateVoice, onPlay: toggle, playing, onSave: save, onStudio: () => setSurface("Studio"), onSoundscape: addSoundscape }), " ", surface === "Create" && !voice && /* @__PURE__ */ React.createElement(AudioOnlyProject, { project, onPlay: toggle, playing, onStudio: () => setSurface("Studio") }), " ", surface === "Studio" && /* @__PURE__ */ React.createElement(Studio, { project, setProject, updateVoice, onPlay: toggle, playing, onSave: save, onExport: exportAudio, onUndo: undo, onRedo: redo, canUndo: historyRef.current.canUndo(), canRedo: historyRef.current.canRedo() }), " ", surface === "Listen" && /* @__PURE__ */ React.createElement(Listen, { setProject, setSurface }), " ", surface === "Library" && /* @__PURE__ */ React.createElement(LibrarySurface, { saved, project, setProject, setSurface, setMessage, onPlayPlaylist: playPlaylist }), " ", surface === "Analyzer" && /* @__PURE__ */ React.createElement(AnalyzerSurface, { analysis, onAnalyze: analyze, gpuStatus }), " ", surface === "Research" && /* @__PURE__ */ React.createElement(Research, { project, setMessage }), " ", surface === "Learn" && /* @__PURE__ */ React.createElement(Learn, null), " ", surface === "Labs" && /* @__PURE__ */ React.createElement(LabsSurface, { setMessage }), " ", surface === "Settings" && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(SettingsSurface, { setMessage }), /* @__PURE__ */ React.createElement(ImportScopeControl, { setMessage }), /* @__PURE__ */ React.createElement(StorageRecoveryControl, { setMessage }))), /* @__PURE__ */ React.createElement("footer", null, /* @__PURE__ */ React.createElement("span", null, message || "Drop .bbeat, .bwg, or audio files anywhere to import."), /* @__PURE__ */ React.createElement("span", null, voice ? `${fmt3(voice.leftHz)} / ${fmt3(voice.rightHz)} Hz \xB7 \u0394 ${fmt3(beatOf(voice))} Hz` : `Audio-only project \xB7 ${project.audioTracks.length} track${project.audioTracks.length === 1 ? "" : "s"}`)));
   }
   function icon(n) {
     return { Listen: "\u25B6", Create: "\uFF0B", Studio: "\u224B", Library: "\u25A6", Analyzer: "\u2301", Research: "\u2299", Learn: "?", Labs: "\u25C7", Settings: "\u2699" }[n];
+  }
+  function AudioOnlyProject({ project, onPlay, playing, onStudio }) {
+    return /* @__PURE__ */ React.createElement("section", { className: "page" }, /* @__PURE__ */ React.createElement("div", { className: "eyebrow" }, "IMPORTED AUDIO"), /* @__PURE__ */ React.createElement("h1", null, project.title), /* @__PURE__ */ React.createElement("p", { className: "lede" }, "This project contains timeline audio without a generated voice. Open it in Studio to inspect the waveform, playback, and export options."), /* @__PURE__ */ React.createElement("div", { className: "card" }, /* @__PURE__ */ React.createElement("b", null, project.audioTracks.length, " audio track", project.audioTracks.length === 1 ? "" : "s"), /* @__PURE__ */ React.createElement("span", null, Math.round(project.duration), " seconds \xB7 ", project.assets.length, " embedded asset", project.assets.length === 1 ? "" : "s")), /* @__PURE__ */ React.createElement("div", { className: "actions" }, /* @__PURE__ */ React.createElement("button", { className: "primary", onClick: onPlay }, playing ? "\u25A0 Stop" : "\u25B6 Play"), /* @__PURE__ */ React.createElement("button", { onClick: onStudio }, "Open in Studio")));
   }
   function Create({ project, voice, setProject, changeCenter, changeBeat, updateVoice, onPlay, playing, onSave, onStudio, onSoundscape }) {
     const [advanced, setAdvanced] = React.useState(false);

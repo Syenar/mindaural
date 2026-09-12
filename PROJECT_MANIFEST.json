@@ -1,7 +1,12 @@
 {
   "schema": 1,
-  "generatedAt": "2026-09-11T21:18:25.363Z",
+  "generatedAt": "2026-09-12T06:51:46.680Z",
   "files": [
+    {
+      "path": ".github/workflows/pages.yml",
+      "bytes": 784,
+      "sha256": "cfc6f816cc9f18b251085b71d160188a350a638a363efb5107018a9df70a3e41"
+    },
     {
       "path": ".gitignore",
       "bytes": 36,
@@ -84,8 +89,8 @@
     },
     {
       "path": "docs/audits/PROGRESS_LOG.md",
-      "bytes": 3161,
-      "sha256": "d23c33f833e158287916d8a3a652b3c59b380079ebeb438e4cc81fda483fec5d"
+      "bytes": 4143,
+      "sha256": "31cf81557d3c2ed413e03b254631453ba948b148a405e2edb9065c237fbe2d48"
     },
     {
       "path": "docs/audits/REQUIREMENT_MATRIX.md",
@@ -154,8 +159,8 @@
     },
     {
       "path": "public/app.bundle.js",
-      "bytes": 8084380,
-      "sha256": "fe30f7399e6c5da86a7762d6cfacd51ce161ad5b7f052c268bdfe7d41f0b7870"
+      "bytes": 8085960,
+      "sha256": "33f2817156ef25f1c05e52e13ab67608d3f81bfe20e613cce3db9b782bc86a4d"
     },
     {
       "path": "public/offline.html",
@@ -169,8 +174,8 @@
     },
     {
       "path": "public/standalone.js",
-      "bytes": 8226969,
-      "sha256": "32094d24a6709c630482eb2de42ba857747363c56030310288f120fc7b21d99d"
+      "bytes": 8228549,
+      "sha256": "0f362cf2a99656efb1f799756d535dd757d066d0b33c46ffe3918f1623d963a6"
     },
     {
       "path": "public/worklet.js",
@@ -216,6 +221,11 @@
       "path": "scripts/codec-regression.mjs",
       "bytes": 4287,
       "sha256": "d01cf10e148aa14be6d277eebf50502e96e5139c4ec420bbc9e7025981a2f29e"
+    },
+    {
+      "path": "scripts/create-reference-bbeat.mjs",
+      "bytes": 2295,
+      "sha256": "87329e6f66c104631e003fd51bf2722eecc4c0d79e04af9de89e35fa2c67dd6c"
     },
     {
       "path": "scripts/gauntlet.mjs",
@@ -419,8 +429,8 @@
     },
     {
       "path": "src/formats/zip.ts",
-      "bytes": 2367,
-      "sha256": "cc4fe84d8cc6f0ae1bad22d3ca7252f6d9da402338fcb3b7c088bd591559d74d"
+      "bytes": 2462,
+      "sha256": "2943e8f6a65a3dca0c1a4abae21824866a65a19c01e9199149b1328263c4a688"
     },
     {
       "path": "src/gpu/webgpu.ts",
@@ -484,8 +494,8 @@
     },
     {
       "path": "src/ui/App.tsx",
-      "bytes": 31762,
-      "sha256": "82bb18a95fb9f4e283e57e00639da149cf73f4e50396eb9344c90a917931feb3"
+      "bytes": 32766,
+      "sha256": "c6703012626cd188e2a6fda8d645c140e4286387106eccb3cdab2a9951fb9d54"
     },
     {
       "path": "src/ui/AppPrimitives.tsx",
