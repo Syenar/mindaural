@@ -62100,7 +62100,7 @@ W+üÇí¾Z[Ø Ê§×;E|ËJfü¿0âGõMp·ÇòúgD>Îñß¶â
   function createDefaultProject(title = "Untitled session") {
     const now = (/* @__PURE__ */ new Date()).toISOString();
     const v = createVoice();
-    return { schemaVersion: "1.0.0", id: uid("project"), title, description: "A custom binaural session.", duration: 1200, sampleRate: 48e3, masterGain: 0.8, voices: [v], noiseTracks: [], audioTracks: [], assets: [], segments: [{ id: uid("segment"), name: "Main", start: 0, duration: 1200, repeat: 1, crossfade: 0.05 }], markers: [], evidence: { state: "Experimental", claim: "Custom stimulus; no outcome is guaranteed." }, provenance: { author: "Local user", createdAt: now, updatedAt: now, appVersion: APP_VERSION, engineVersion: ENGINE_VERSION }, tags: [], revision: 1 };
+    return { schemaVersion: "1.0.0", id: uid("project"), title, description: "A custom binaural session.", duration: 1200, sampleRate: 48e3, masterGain: 0.8, voices: [v], noiseTracks: [], audioTracks: [], assets: [], segments: [{ id: uid("segment"), name: "Main", start: 0, duration: 1200, repeat: 1, crossfade: 0.05 }], markers: [], visual: { frequencyHz: 10, duty: 0.5, waveform: "square", leftBrightness: 0.72, rightBrightness: 0.72, leftPhase: 0, rightPhase: 0 }, evidence: { state: "Experimental", claim: "Custom stimulus; no outcome is guaranteed." }, provenance: { author: "Local user", createdAt: now, updatedAt: now, appVersion: APP_VERSION, engineVersion: ENGINE_VERSION }, tags: [], revision: 1 };
   }
   function setCenterBeat(v, carrier, beat) {
     return { ...v, leftHz: carrier - beat / 2, rightHz: carrier + beat / 2 };
@@ -62489,7 +62489,7 @@ W+üÇí¾Z[Ø Ê§×;E|ËJfü¿0âGõMp·ÇòúgD>Îñß¶â
     const amp = trackParameterValue(track.automation, "amplitude", time, track.amplitude, track.modulation), slope = trackParameterValue(track.automation, "slopeDbOct", time, track.slopeDbOct, track.modulation), hp = trackParameterValue(track.automation, "highpass", time, track.highpass || 0, track.modulation), lp = trackParameterValue(track.automation, "lowpass", time, track.lowpass || 0, track.modulation), corr = trackParameterValue(track.automation, "stereoCorrelation", time, track.stereoCorrelation, track.modulation);
     const a = color(track, state.left, slope), b = color(track, state.right, slope), shared = color(track, state.shared, slope), c = clamp(corr, 0, 1), s2 = Math.sqrt(c), i = Math.sqrt(1 - c);
     out[0] = filter(track, state.left, a * i + shared * s2, sampleRate2, hp, lp) * amp;
-    out[1] = filter(track, state.right, b * i + shared * s2, sampleRate2, hp, lp) * amp;
+    out[1] = filter(track, state.right, b * i + shared * s2, sampleRate2, hp, lp) * amp * (track.invertRight ? -1 : 1);
   }
 
   // src/audio/audioTrackMath.ts
@@ -70025,7 +70025,8 @@ r÷|ú
 
   // src/ui/LabsSurface.tsx
   function download(name, bytes, type = "audio/wav") {
-    const u = URL.createObjectURL(new Blob([bytes], { type })), a = document.createElement("a");
+    const u = URL.createObjectURL(new Blob([bytes], { type }));
+    const a = document.createElement("a");
     a.href = u;
     a.download = name;
     a.click();
@@ -70034,87 +70035,76 @@ r÷|ú
   function N({ label, value, onChange, min = 0, max = 100, step = 0.01, suffix = "" }) {
     return /* @__PURE__ */ React.createElement("label", { className: "studio-field" }, /* @__PURE__ */ React.createElement("span", null, label), /* @__PURE__ */ React.createElement("input", { type: "number", min, max, step, value, onChange: (e3) => onChange(Number(e3.target.value)) }), /* @__PURE__ */ React.createElement("small", null, suffix));
   }
-  async function estimateRefresh(samples2 = 45) {
+  function Curve2({ left, right, onChange }) {
+    return /* @__PURE__ */ React.createElement("div", { className: "visual-curve", "aria-label": "Visual brightness curve" }, /* @__PURE__ */ React.createElement("svg", { viewBox: "0 0 300 80" }, /* @__PURE__ */ React.createElement("path", { d: "M0 60 C70 10 150 70 220 20 S280 30 300 10" }), /* @__PURE__ */ React.createElement("circle", { cx: left * 300, cy: 60 - left * 45, r: "5" }), /* @__PURE__ */ React.createElement("circle", { cx: right * 300, cy: 60 - right * 45, r: "5" })), /* @__PURE__ */ React.createElement("input", { "aria-label": "Left brightness", type: "range", min: "0", max: "1", step: ".01", value: left, onChange: (e3) => onChange({ left: Number(e3.target.value) }) }), /* @__PURE__ */ React.createElement("input", { "aria-label": "Right brightness", type: "range", min: "0", max: "1", step: ".01", value: right, onChange: (e3) => onChange({ right: Number(e3.target.value) }) }));
+  }
+  async function estimateRefresh() {
     return new Promise((resolve) => {
-      let last = 0, vals = [];
-      const tick = (t3) => {
-        if (last) vals.push(t3 - last);
+      let last = 0;
+      const xs = [];
+      const f = (t3) => {
+        if (last) xs.push(t3 - last);
         last = t3;
-        if (vals.length >= samples2) {
-          const avg = vals.reduce((a, b) => a + b, 0) / vals.length;
-          resolve(1e3 / avg);
-        } else requestAnimationFrame(tick);
+        if (xs.length === 30) resolve(1e3 / (xs.reduce((a, b) => a + b, 0) / xs.length));
+        else requestAnimationFrame(f);
       };
-      requestAnimationFrame(tick);
+      requestAnimationFrame(f);
     });
   }
-  function LabsSurface({ setMessage }) {
-    const [armed, setArmed] = React.useState(false), [visualHz, setVisualHz] = React.useState(10), [visualDuty, setVisualDuty] = React.useState(0.5), [visualWave, setVisualWave] = React.useState("square"), [visualOn, setVisualOn] = React.useState(false), [brightness, setBrightness] = React.useState(0.72), [refresh, setRefresh] = React.useState(null), [spec, setSpec] = React.useState({ ...DEFAULT_LIGHT_CONTROL }), [duration2, setDuration] = React.useState(60), [rate, setRate] = React.useState(48e3), [diag, setDiag] = React.useState(null);
-    const patch = (p) => setSpec((s2) => ({ ...s2, ...p }));
-    const effectiveHz = refresh && visualWave === "square" ? Math.max(0.5, Math.min(visualHz, refresh / 2)) : visualHz;
+  function LabsSurface({ setMessage, project, setProject }) {
+    const fallback = { frequencyHz: 10, duty: 0.5, waveform: "square", leftBrightness: 0.72, rightBrightness: 0.72, leftPhase: 0, rightPhase: 0 };
+    const [localVisual, setLocalVisual] = React.useState(() => ({ ...fallback, ...project?.visual || {} }));
+    const visual = { ...fallback, ...project?.visual || localVisual };
+    const [armed, setArmed] = React.useState(false), [on2, setOn] = React.useState(false), [refresh, setRefresh] = React.useState(null), [spec, setSpec] = React.useState({ ...DEFAULT_LIGHT_CONTROL }), [duration2, setDuration] = React.useState(60), [rate, setRate] = React.useState(48e3), [diag, setDiag] = React.useState(null);
+    const patchVisual = (x) => {
+      const next = { ...visual, ...x };
+      if (setProject) setProject((p) => touchProject({ ...p, visual: next }));
+      else setLocalVisual(next);
+    };
+    const patch = (x) => setSpec((s2) => ({ ...s2, ...x }));
+    const hz = Math.min(visual.frequencyHz, refresh ? refresh / 2 : visual.frequencyHz);
     React.useEffect(() => {
       estimateRefresh().then(setRefresh).catch(() => {
       });
     }, []);
     React.useEffect(() => {
-      if (!armed || visualWave !== "square") {
-        setVisualOn(false);
+      if (!armed || visual.waveform !== "square") {
+        setOn(false);
         return;
       }
-      let stopped = false, timer;
-      const cycle = () => {
-        if (stopped) return;
-        setVisualOn(true);
-        const period = 1e3 / Math.max(0.5, effectiveHz);
-        timer = setTimeout(() => {
-          setVisualOn(false);
-          timer = setTimeout(cycle, period * Math.max(0.01, 1 - visualDuty));
-        }, period * Math.max(0.01, visualDuty));
+      let stop = false, t3;
+      const loop = () => {
+        if (stop) return;
+        setOn(true);
+        t3 = setTimeout(() => {
+          setOn(false);
+          t3 = setTimeout(loop, 1e3 / hz * (1 - visual.duty));
+        }, 1e3 / hz * visual.duty);
       };
-      cycle();
+      loop();
       return () => {
-        stopped = true;
-        clearTimeout(timer);
+        stop = true;
+        clearTimeout(t3);
       };
-    }, [armed, visualWave, effectiveHz, visualDuty]);
+    }, [armed, visual.waveform, hz, visual.duty]);
     const render = () => {
       try {
         const b = renderLightControl(duration2, rate, spec);
         setDiag(analyzeLightControl(b));
         return b;
       } catch (e3) {
-        setMessage?.(e3 instanceof Error ? e3.message : String(e3));
+        setMessage?.(String(e3));
         return null;
       }
     };
     const exportWav = () => {
       const b = render();
-      if (!b) return;
-      download(`light-control-${spec.frequencyHz}hz.wav`, encodeWav(b, 24));
-      setMessage?.("Lossless 24-bit legacy light-control WAV exported. Do not use lossy encoding on the 19.2 kHz carrier.");
+      if (b) {
+        download(`light-control-${spec.frequencyHz}hz.wav`, encodeWav(b, 24));
+        setMessage?.("Lossless legacy light-control WAV exported.");
+      }
     };
-    return /* @__PURE__ */ React.createElement("section", { className: "page" }, /* @__PURE__ */ React.createElement("div", { className: "eyebrow" }, "LABS"), /* @__PURE__ */ React.createElement("h1", null, "Visual & legacy light-control laboratory"), /* @__PURE__ */ React.createElement("div", { className: "warning" }, /* @__PURE__ */ React.createElement("b", null, "Photosensitive seizure warning"), /* @__PURE__ */ React.createElement("p", null, "Flashing light can trigger seizures in susceptible people. Enable it only after acknowledging this warning; stop immediately if you feel unwell. Display timing is not laboratory calibrated."), /* @__PURE__ */ React.createElement("label", null, /* @__PURE__ */ React.createElement("input", { type: "checkbox", checked: armed, onChange: (e3) => setArmed(e3.target.checked) }), " I understand and want to enable visual flicker controls")), /* @__PURE__ */ React.createElement("div", { className: "labs-grid" }, /* @__PURE__ */ React.createElement("div", { className: "lab-card" }, /* @__PURE__ */ React.createElement("h3", null, "Visual stimulation"), /* @__PURE__ */ React.createElement("p", null, "Measured display refresh: ", /* @__PURE__ */ React.createElement("b", null, refresh ? `${refresh.toFixed(1)} Hz` : "measuring\u2026"), ". Requested patterns are bounded by observable refresh timing."), /* @__PURE__ */ React.createElement(N, { label: "Frequency", value: visualHz, min: 0.5, max: Math.max(1, (refresh || 60) / 2), step: 0.1, suffix: "Hz", onChange: setVisualHz }), /* @__PURE__ */ React.createElement(N, { label: "Duty cycle", value: visualDuty, min: 0.05, max: 0.95, step: 0.01, onChange: setVisualDuty }), /* @__PURE__ */ React.createElement(N, { label: "Brightness", value: brightness, min: 0.05, max: 1, step: 0.01, onChange: setBrightness }), /* @__PURE__ */ React.createElement("label", { className: "studio-field" }, /* @__PURE__ */ React.createElement("span", null, "Waveform"), /* @__PURE__ */ React.createElement("select", { value: visualWave, onChange: (e3) => setVisualWave(e3.target.value) }, /* @__PURE__ */ React.createElement("option", { value: "square" }, "Square"), /* @__PURE__ */ React.createElement("option", { value: "sine" }, "Sine"))), /* @__PURE__ */ React.createElement("div", { className: `visual-preview ${armed ? "armed" : ""} ${visualWave === "sine" ? "visual-sine" : ""}`, style: armed ? { ["--visual-period"]: `${1 / effectiveHz}s`, ["--visual-on-opacity"]: visualOn ? "1" : "0", opacity: brightness } : void 0 }, /* @__PURE__ */ React.createElement("span", null, armed ? `${effectiveHz.toFixed(2)} Hz \xB7 ${Math.round(visualDuty * 100)}% ${visualWave}` : "Safety interlock off")), /* @__PURE__ */ React.createElement("small", null, "Browser scheduling, display response, compositing and refresh rate prevent a laboratory-precision timing claim.")), /* @__PURE__ */ React.createElement("div", { className: "lab-card" }, /* @__PURE__ */ React.createElement("h3", null, "Legacy 19.2 kHz Light Control"), /* @__PURE__ */ React.createElement("p", null, "Creates one amplitude-gated 19.2 kHz control carrier per stereo channel for compatible legacy decoders. Keep this path lossless."), /* @__PURE__ */ React.createElement(N, { label: "Light modulation", value: spec.frequencyHz, min: 0.1, max: 40, step: 0.1, suffix: "Hz", onChange: (x) => patch({ frequencyHz: x }) }), /* @__PURE__ */ React.createElement(N, { label: "Left amplitude", value: spec.leftAmplitude, min: 0, max: 0.8, step: 0.01, onChange: (x) => patch({ leftAmplitude: x }) }), /* @__PURE__ */ React.createElement(N, { label: "Right amplitude", value: spec.rightAmplitude, min: 0, max: 0.8, step: 0.01, onChange: (x) => patch({ rightAmplitude: x }) }), /* @__PURE__ */ React.createElement(N, { label: "Left phase", value: spec.leftPhase, min: -6.283, max: 6.283, step: 0.01, suffix: "rad", onChange: (x) => patch({ leftPhase: x }) }), /* @__PURE__ */ React.createElement(N, { label: "Right phase", value: spec.rightPhase, min: -6.283, max: 6.283, step: 0.01, suffix: "rad", onChange: (x) => patch({ rightPhase: x }) }), /* @__PURE__ */ React.createElement(N, { label: "Duty cycle", value: spec.duty, min: 0.01, max: 0.99, step: 0.01, onChange: (x) => patch({ duty: x }) }), /* @__PURE__ */ React.createElement("label", { className: "studio-field" }, /* @__PURE__ */ React.createElement("span", null, "Waveform"), /* @__PURE__ */ React.createElement("select", { value: spec.waveform, onChange: (e3) => patch({ waveform: e3.target.value }) }, /* @__PURE__ */ React.createElement("option", { value: "square" }, "Square gate"), /* @__PURE__ */ React.createElement("option", { value: "sine" }, "Sine gate"))), /* @__PURE__ */ React.createElement(N, { label: "Duration", value: duration2, min: 0.1, max: 3600, step: 1, suffix: "s", onChange: setDuration }), /* @__PURE__ */ React.createElement("label", { className: "studio-field" }, /* @__PURE__ */ React.createElement("span", null, "Sample rate"), /* @__PURE__ */ React.createElement("select", { value: rate, onChange: (e3) => setRate(Number(e3.target.value)) }, /* @__PURE__ */ React.createElement("option", { value: "44100" }, "44.1 kHz"), /* @__PURE__ */ React.createElement("option", { value: "48000" }, "48 kHz"), /* @__PURE__ */ React.createElement("option", { value: "96000" }, "96 kHz"), /* @__PURE__ */ React.createElement("option", { value: "192000" }, "192 kHz"))), /* @__PURE__ */ React.createElement("div", { className: "actions" }, /* @__PURE__ */ React.createElement("button", { onClick: () => render() }, "Validate signal"), /* @__PURE__ */ React.createElement("button", { className: "primary small", onClick: exportWav }, "Export lossless WAV")), diag && /* @__PURE__ */ React.createElement("div", { className: "technical" }, /* @__PURE__ */ React.createElement("b", null, diag.present ? "19.2 kHz carrier detected" : "Carrier validation failed"), /* @__PURE__ */ React.createElement("span", null, "L ", diag.leftCarrierMagnitude.toFixed(4), " \xB7 R ", diag.rightCarrierMagnitude.toFixed(4), " \xB7 confidence ", Math.round(diag.confidence * 100), "%"))), /* @__PURE__ */ React.createElement("div", { className: "lab-card" }, /* @__PURE__ */ React.createElement("h3", null, "Hardware bridges"), /* @__PURE__ */ React.createElement("p", null, "These capabilities are optional transport bridges; the 19.2 kHz audio file remains the compatibility artifact."), /* @__PURE__ */ React.createElement("div", { className: "chips" }, /* @__PURE__ */ React.createElement("span", null, "Web MIDI: ", navigator.requestMIDIAccess ? "available" : "unavailable"), /* @__PURE__ */ React.createElement("span", null, "Web Serial: ", navigator.serial ? "available" : "unavailable"), /* @__PURE__ */ React.createElement("span", null, "Web Bluetooth: ", navigator.bluetooth ? "available" : "unavailable")), /* @__PURE__ */ React.createElement("button", { disabled: !navigator.requestMIDIAccess, onClick: async () => {
-      try {
-        const access = await navigator.requestMIDIAccess();
-        setMessage?.(`MIDI access granted \xB7 ${access.outputs.size} outputs.`);
-      } catch (e3) {
-        setMessage?.(String(e3));
-      }
-    } }, "Request MIDI access"), /* @__PURE__ */ React.createElement("button", { disabled: !navigator.serial, onClick: async () => {
-      try {
-        const port = await navigator.serial.requestPort();
-        setMessage?.(`Serial device selected: ${port.getInfo ? JSON.stringify(port.getInfo()) : "ready"}`);
-      } catch (e3) {
-        setMessage?.(String(e3));
-      }
-    } }, "Choose serial device"), /* @__PURE__ */ React.createElement("button", { disabled: !navigator.bluetooth, onClick: async () => {
-      try {
-        const d = await navigator.bluetooth.requestDevice({ acceptAllDevices: true });
-        setMessage?.(`Bluetooth device selected: ${d.name || d.id}`);
-      } catch (e3) {
-        setMessage?.(String(e3));
-      }
-    } }, "Choose Bluetooth device")), /* @__PURE__ */ React.createElement("div", { className: "lab-card" }, /* @__PURE__ */ React.createElement("h3", null, "Compatibility validation"), /* @__PURE__ */ React.createElement("p", null, "Legacy 19.2 kHz Light Control is validated in software for carrier frequency, envelope, duty cycle, phase, channel mapping and lossless export. Physical third-party decoder testing is not required for release."), /* @__PURE__ */ React.createElement("div", { className: "chips" }, /* @__PURE__ */ React.createElement("span", null, "Software signal validation"), /* @__PURE__ */ React.createElement("span", null, "Lossless reference export")))));
+    return /* @__PURE__ */ React.createElement("section", { className: "page" }, /* @__PURE__ */ React.createElement("div", { className: "eyebrow" }, "LABS"), /* @__PURE__ */ React.createElement("h1", null, "Visual & legacy light-control laboratory"), /* @__PURE__ */ React.createElement("div", { className: "warning" }, /* @__PURE__ */ React.createElement("b", null, "Photosensitive seizure warning"), /* @__PURE__ */ React.createElement("p", null, "Flashing light can trigger seizures. Enable it only after acknowledging this warning; browser timing is not laboratory calibrated."), /* @__PURE__ */ React.createElement("label", null, /* @__PURE__ */ React.createElement("input", { type: "checkbox", checked: armed, onChange: (e3) => setArmed(e3.target.checked) }), " I understand and want to enable visual flicker controls")), /* @__PURE__ */ React.createElement("div", { className: "labs-grid" }, /* @__PURE__ */ React.createElement("div", { className: "lab-card" }, /* @__PURE__ */ React.createElement("h3", null, "Visual stimulation"), /* @__PURE__ */ React.createElement("p", null, "Refresh: ", /* @__PURE__ */ React.createElement("b", null, refresh ? `${refresh.toFixed(1)} Hz` : "measuring\u2026"), ". Separate brightness and phase controls follow the reference workflow."), /* @__PURE__ */ React.createElement(N, { label: "Frequency", value: visual.frequencyHz, min: 0.5, max: Math.max(1, (refresh || 60) / 2), step: 0.1, suffix: "Hz", onChange: (x) => patchVisual({ frequencyHz: x }) }), /* @__PURE__ */ React.createElement(N, { label: "Duty cycle", value: visual.duty, min: 0.05, max: 0.95, onChange: (x) => patchVisual({ duty: x }) }), /* @__PURE__ */ React.createElement("label", { className: "studio-field" }, /* @__PURE__ */ React.createElement("span", null, "Waveform"), /* @__PURE__ */ React.createElement("select", { value: visual.waveform, onChange: (e3) => patchVisual({ waveform: e3.target.value }) }, /* @__PURE__ */ React.createElement("option", { value: "square" }, "Square"), /* @__PURE__ */ React.createElement("option", { value: "sine" }, "Sine"))), /* @__PURE__ */ React.createElement("h4", null, "Brightness curve"), /* @__PURE__ */ React.createElement(Curve2, { left: visual.leftBrightness, right: visual.rightBrightness, onChange: (x) => patchVisual({ leftBrightness: x.left ?? visual.leftBrightness, rightBrightness: x.right ?? visual.rightBrightness }) }), /* @__PURE__ */ React.createElement("div", { className: "two-mini" }, /* @__PURE__ */ React.createElement(N, { label: "Left brightness", value: visual.leftBrightness, max: 1, onChange: (x) => patchVisual({ leftBrightness: x }) }), /* @__PURE__ */ React.createElement(N, { label: "Right brightness", value: visual.rightBrightness, max: 1, onChange: (x) => patchVisual({ rightBrightness: x }) })), /* @__PURE__ */ React.createElement(N, { label: "Phase difference", value: visual.rightPhase - visual.leftPhase, min: -6.283, max: 6.283, suffix: "rad", onChange: (x) => patchVisual({ rightPhase: visual.leftPhase + x }) }), /* @__PURE__ */ React.createElement("label", { className: "studio-field" }, /* @__PURE__ */ React.createElement("span", null, "Phase mode"), /* @__PURE__ */ React.createElement("select", { value: visual.rightPhase === visual.leftPhase ? "in" : "custom", onChange: (e3) => e3.target.value === "in" && patchVisual({ rightPhase: visual.leftPhase }) }, /* @__PURE__ */ React.createElement("option", { value: "in" }, "In phase"), /* @__PURE__ */ React.createElement("option", { value: "custom" }, "Custom phase difference"))), /* @__PURE__ */ React.createElement("div", { className: "visual-preview", style: armed ? { opacity: Math.max(visual.leftBrightness, visual.rightBrightness), ["--visual-on-opacity"]: on2 ? "1" : "0" } : void 0 }, /* @__PURE__ */ React.createElement("span", null, armed ? `${hz.toFixed(2)} Hz \xB7 ${Math.round(visual.duty * 100)}% ${visual.waveform}` : "Safety interlock off")), /* @__PURE__ */ React.createElement("small", null, "Project visual settings persist in the current session; timing remains provisional.")), /* @__PURE__ */ React.createElement("div", { className: "lab-card" }, /* @__PURE__ */ React.createElement("h3", null, "Legacy 19.2 kHz Light Control"), /* @__PURE__ */ React.createElement("p", null, "Creates one amplitude-gated 19.2 kHz carrier per stereo channel. Keep it lossless."), /* @__PURE__ */ React.createElement(N, { label: "Light modulation", value: spec.frequencyHz, min: 0.1, max: 40, suffix: "Hz", onChange: (x) => patch({ frequencyHz: x }) }), /* @__PURE__ */ React.createElement(N, { label: "Left amplitude", value: spec.leftAmplitude, max: 0.8, onChange: (x) => patch({ leftAmplitude: x }) }), /* @__PURE__ */ React.createElement(N, { label: "Right amplitude", value: spec.rightAmplitude, max: 0.8, onChange: (x) => patch({ rightAmplitude: x }) }), /* @__PURE__ */ React.createElement(N, { label: "Left phase", value: spec.leftPhase, min: -6.283, max: 6.283, suffix: "rad", onChange: (x) => patch({ leftPhase: x }) }), /* @__PURE__ */ React.createElement(N, { label: "Right phase", value: spec.rightPhase, min: -6.283, max: 6.283, suffix: "rad", onChange: (x) => patch({ rightPhase: x }) }), /* @__PURE__ */ React.createElement(N, { label: "Duty cycle", value: spec.duty, min: 0.01, max: 0.99, onChange: (x) => patch({ duty: x }) }), /* @__PURE__ */ React.createElement("label", { className: "studio-field" }, /* @__PURE__ */ React.createElement("span", null, "Waveform"), /* @__PURE__ */ React.createElement("select", { value: spec.waveform, onChange: (e3) => patch({ waveform: e3.target.value }) }, /* @__PURE__ */ React.createElement("option", { value: "square" }, "Square gate"), /* @__PURE__ */ React.createElement("option", { value: "sine" }, "Sine gate"))), /* @__PURE__ */ React.createElement(N, { label: "Duration", value: duration2, min: 0.1, max: 3600, step: 1, suffix: "s", onChange: setDuration }), /* @__PURE__ */ React.createElement("label", { className: "studio-field" }, /* @__PURE__ */ React.createElement("span", null, "Sample rate"), /* @__PURE__ */ React.createElement("select", { value: rate, onChange: (e3) => setRate(Number(e3.target.value)) }, /* @__PURE__ */ React.createElement("option", { value: "44100" }, "44.1 kHz"), /* @__PURE__ */ React.createElement("option", { value: "48000" }, "48 kHz"), /* @__PURE__ */ React.createElement("option", { value: "96000" }, "96 kHz"), /* @__PURE__ */ React.createElement("option", { value: "192000" }, "192 kHz"))), /* @__PURE__ */ React.createElement("div", { className: "actions" }, /* @__PURE__ */ React.createElement("button", { onClick: render }, "Validate signal"), /* @__PURE__ */ React.createElement("button", { className: "primary small", onClick: exportWav }, "Export lossless WAV")), diag && /* @__PURE__ */ React.createElement("div", { className: "technical" }, /* @__PURE__ */ React.createElement("b", null, diag.present ? "19.2 kHz carrier detected" : "Carrier validation failed"))), /* @__PURE__ */ React.createElement("div", { className: "lab-card" }, /* @__PURE__ */ React.createElement("h3", null, "Compatibility validation"), /* @__PURE__ */ React.createElement("p", null, "Software validation covers carrier, envelope, duty, phase, channel mapping and lossless export. Physical decoder validation remains external."), /* @__PURE__ */ React.createElement("div", { className: "chips" }, /* @__PURE__ */ React.createElement("span", null, "Software signal validation"), /* @__PURE__ */ React.createElement("span", null, "Lossless reference export")))));
   }
 
   // src/storage/playlists.ts
@@ -70695,7 +70685,7 @@ r÷|ú
     function addSoundscape(id2) {
       const def = SOUNDSCAPES.find((x) => x.id === id2);
       if (!def) return;
-      setProject((p) => touchProject({ ...p, noiseTracks: [...p.noiseTracks, ...def.layers.map((l, i) => ({ id: uid("noise"), name: `${def.title} ${i + 1}`, kind: l.kind, amplitude: l.amplitude, slopeDbOct: l.slopeDbOct, lowpass: l.lowpass, highpass: l.highpass, stereoCorrelation: l.stereoCorrelation, start: 0, duration: p.duration, loop: true, mute: false, solo: false }))] }));
+      setProject((p) => touchProject({ ...p, noiseTracks: [...p.noiseTracks, ...def.layers.map((l, i) => ({ id: uid("noise"), name: `${def.title} ${i + 1}`, kind: l.kind, amplitude: l.amplitude, slopeDbOct: l.slopeDbOct, lowpass: l.lowpass, highpass: l.highpass, stereoCorrelation: l.stereoCorrelation, invertRight: false, start: 0, duration: p.duration, loop: true, mute: false, solo: false }))] }));
       setMessage(`${def.title} added as procedural background.`);
     }
     const nav = ["Listen", "Create", "Studio", "Library", "Analyzer", "Research", "Learn", "Labs", "Settings"];

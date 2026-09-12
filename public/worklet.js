@@ -274,7 +274,7 @@ function nextNoiseStereo(track, state, sampleRate2, out, time = 0) {
   const amp = trackParameterValue(track.automation, "amplitude", time, track.amplitude, track.modulation), slope = trackParameterValue(track.automation, "slopeDbOct", time, track.slopeDbOct, track.modulation), hp = trackParameterValue(track.automation, "highpass", time, track.highpass || 0, track.modulation), lp = trackParameterValue(track.automation, "lowpass", time, track.lowpass || 0, track.modulation), corr = trackParameterValue(track.automation, "stereoCorrelation", time, track.stereoCorrelation, track.modulation);
   const a = color(track, state.left, slope), b = color(track, state.right, slope), shared = color(track, state.shared, slope), c = clamp(corr, 0, 1), s = Math.sqrt(c), i = Math.sqrt(1 - c);
   out[0] = filter(track, state.left, a * i + shared * s, sampleRate2, hp, lp) * amp;
-  out[1] = filter(track, state.right, b * i + shared * s, sampleRate2, hp, lp) * amp;
+  out[1] = filter(track, state.right, b * i + shared * s, sampleRate2, hp, lp) * amp * (track.invertRight ? -1 : 1);
 }
 
 // src/audio/audioTrackMath.ts
