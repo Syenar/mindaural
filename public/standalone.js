@@ -69466,6 +69466,9 @@ r÷|ú
     return rows.map((r) => r.map(cell).join(",")).join("\n");
   }
 
+  // src/ui/StudioTimelineShell.tsx
+  var import_react = __toESM(require_react(), 1);
+
   // src/ui/StudioTimelineSurface.tsx
   var voiceParams = ["beatHz", "carrierHz", "leftHz", "rightHz", "amplitude", "duty"];
   var curves = ["hold", "linear", "smooth", "exponential", "logarithmic", "bezier"];
@@ -69558,17 +69561,57 @@ r÷|ú
   // src/ui/StudioTimelineShell.tsx
   function LegacyStructure({ project, setProject }) {
     const addVoice = () => setProject((p) => {
-      const v = createVoice(`Voice ${p.voices.length + 1}`);
-      v.duration = p.duration;
-      return touchProject({ ...p, voices: [...p.voices, v] });
+      const voice = createVoice(`Voice ${p.voices.length + 1}`);
+      voice.duration = p.duration;
+      return touchProject({ ...p, voices: [...p.voices, voice] });
     });
-    const addNoise = () => setProject((p) => touchProject({ ...p, noiseTracks: [...p.noiseTracks, { id: uid("noise"), name: `Noise ${p.noiseTracks.length + 1}`, kind: "pink", amplitude: 0.06, slopeDbOct: -3, stereoCorrelation: 0.2, start: 0, duration: p.duration, loop: true, mute: false, solo: false }] }));
-    const addSegment = () => setProject((p) => touchProject({ ...p, segments: [...p.segments, { id: uid("segment"), name: `Segment ${p.segments.length + 1}`, start: 0, duration: Math.min(60, p.duration), repeat: 1, crossfade: 0.05, phaseContinuous: true }] }));
-    const addMarker = () => setProject((p) => touchProject({ ...p, markers: [...p.markers, { id: uid("marker"), time: 0, label: `Marker ${p.markers.length + 1}` }] }));
-    return /* @__PURE__ */ React.createElement("div", { className: "studio-structure" }, /* @__PURE__ */ React.createElement("div", { className: "actions" }, /* @__PURE__ */ React.createElement("button", { onClick: addVoice }, "+ Voice"), /* @__PURE__ */ React.createElement("button", { onClick: addNoise }, "+ Noise"), /* @__PURE__ */ React.createElement("button", { onClick: addSegment }, "+ Segment"), /* @__PURE__ */ React.createElement("button", { onClick: addMarker }, "+ Marker")), /* @__PURE__ */ React.createElement("div", { className: "studio-structure-rows" }, project.segments.map((s2) => /* @__PURE__ */ React.createElement("div", { className: "segment-row", key: s2.id }, /* @__PURE__ */ React.createElement("input", { "aria-label": "Segment name", value: s2.name, onChange: (e3) => setProject((p) => touchProject({ ...p, segments: p.segments.map((x) => x.id === s2.id ? { ...x, name: e3.target.value } : x) })) }), /* @__PURE__ */ React.createElement("span", null, s2.start.toFixed(1), "s \xB7 ", s2.duration.toFixed(1), "s"))), project.markers.map((m) => /* @__PURE__ */ React.createElement("div", { className: "marker-strip", key: m.id }, /* @__PURE__ */ React.createElement("input", { "aria-label": "Marker label", value: m.label, onChange: (e3) => setProject((p) => touchProject({ ...p, markers: p.markers.map((x) => x.id === m.id ? { ...x, label: e3.target.value } : x) })) }), /* @__PURE__ */ React.createElement("span", null, m.time.toFixed(1), "s")))));
+    const addNoise = () => setProject((p) => touchProject({
+      ...p,
+      noiseTracks: [...p.noiseTracks, {
+        id: uid("noise"),
+        name: `Noise ${p.noiseTracks.length + 1}`,
+        kind: "pink",
+        amplitude: 0.06,
+        slopeDbOct: -3,
+        stereoCorrelation: 0.2,
+        start: 0,
+        duration: p.duration,
+        loop: true,
+        mute: false,
+        solo: false
+      }]
+    }));
+    const addSegment = () => setProject((p) => {
+      const start = p.segments.reduce((end, segment) => Math.max(end, segment.start + segment.duration * segment.repeat), 0);
+      const duration2 = Math.min(60, Math.max(1, p.duration));
+      return touchProject({
+        ...p,
+        duration: Math.max(p.duration, start + duration2),
+        segments: [...p.segments, {
+          id: uid("segment"),
+          name: `Segment ${p.segments.length + 1}`,
+          start,
+          duration: duration2,
+          repeat: 1,
+          crossfade: 0.05,
+          phaseContinuous: true
+        }]
+      });
+    });
+    const addMarker = () => setProject((p) => touchProject({
+      ...p,
+      markers: [...p.markers, { id: uid("marker"), time: 0, label: `Marker ${p.markers.length + 1}` }]
+    }));
+    return /* @__PURE__ */ import_react.default.createElement("div", { className: "studio-structure" }, /* @__PURE__ */ import_react.default.createElement("div", { className: "actions" }, /* @__PURE__ */ import_react.default.createElement("button", { onClick: addVoice, title: "Add a tone track" }, "+ Voice"), /* @__PURE__ */ import_react.default.createElement("button", { onClick: addNoise, title: "Add procedural background noise" }, "+ Noise"), /* @__PURE__ */ import_react.default.createElement("button", { onClick: addSegment, title: "Add a timed section after the existing sections" }, "+ Segment"), /* @__PURE__ */ import_react.default.createElement("button", { onClick: addMarker, title: "Add a timeline marker" }, "+ Marker")), /* @__PURE__ */ import_react.default.createElement("div", { className: "studio-structure-rows" }, project.segments.map((segment) => /* @__PURE__ */ import_react.default.createElement("div", { className: "segment-row", key: segment.id }, /* @__PURE__ */ import_react.default.createElement("input", { "aria-label": "Segment name", value: segment.name, onChange: (e3) => setProject((p) => touchProject({
+      ...p,
+      segments: p.segments.map((x) => x.id === segment.id ? { ...x, name: e3.target.value } : x)
+    })) }), /* @__PURE__ */ import_react.default.createElement("span", null, segment.start.toFixed(1), "s \xB7 ", segment.duration.toFixed(1), "s"))), project.markers.map((marker) => /* @__PURE__ */ import_react.default.createElement("div", { className: "marker-strip", key: marker.id }, /* @__PURE__ */ import_react.default.createElement("input", { "aria-label": "Marker label", value: marker.label, onChange: (e3) => setProject((p) => touchProject({
+      ...p,
+      markers: p.markers.map((x) => x.id === marker.id ? { ...x, label: e3.target.value } : x)
+    })) }), /* @__PURE__ */ import_react.default.createElement("span", null, marker.time.toFixed(1), "s")))));
   }
   function StudioTimelineShell(props) {
-    return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(LegacyStructure, { project: props.project, setProject: props.setProject }), /* @__PURE__ */ React.createElement(StudioTimelineSurface, { ...props }));
+    return /* @__PURE__ */ import_react.default.createElement(import_react.default.Fragment, null, /* @__PURE__ */ import_react.default.createElement(LegacyStructure, { project: props.project, setProject: props.setProject }), /* @__PURE__ */ import_react.default.createElement(StudioTimelineSurface, { ...props }));
   }
 
   // src/audio/calibration.ts
@@ -70311,12 +70354,12 @@ r÷|ú
   }
 
   // src/ui/AppPrimitives.tsx
-  var import_react = __toESM(require_react(), 1);
+  var import_react2 = __toESM(require_react(), 1);
   function NumberField({ label, value, suffix, onChange }) {
-    return /* @__PURE__ */ import_react.default.createElement("div", { className: "number-field" }, /* @__PURE__ */ import_react.default.createElement("label", null, label), /* @__PURE__ */ import_react.default.createElement("div", null, /* @__PURE__ */ import_react.default.createElement("input", { type: "number", min: "0", step: "0.01", value: Number(value.toFixed(3)), onChange: (e3) => onChange(Number(e3.target.value)) }), /* @__PURE__ */ import_react.default.createElement("span", null, suffix)));
+    return /* @__PURE__ */ import_react2.default.createElement("div", { className: "number-field" }, /* @__PURE__ */ import_react2.default.createElement("label", null, label), /* @__PURE__ */ import_react2.default.createElement("div", null, /* @__PURE__ */ import_react2.default.createElement("input", { type: "number", min: "0", step: "0.01", value: Number(value.toFixed(3)), onChange: (e3) => onChange(Number(e3.target.value)) }), /* @__PURE__ */ import_react2.default.createElement("span", null, suffix)));
   }
   function EvidenceCard({ state, claim }) {
-    return /* @__PURE__ */ import_react.default.createElement("div", { className: "evidence" }, /* @__PURE__ */ import_react.default.createElement("span", { className: `badge ${evidenceClass(state)}` }, state), /* @__PURE__ */ import_react.default.createElement("p", null, claim));
+    return /* @__PURE__ */ import_react2.default.createElement("div", { className: "evidence" }, /* @__PURE__ */ import_react2.default.createElement("span", { className: `badge ${evidenceClass(state)}` }, state), /* @__PURE__ */ import_react2.default.createElement("p", null, claim));
   }
 
   // src/ui/App.tsx
