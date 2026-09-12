@@ -1,4 +1,4 @@
-const CACHE='bbs-v2';
+const CACHE='bbs-v3-reference-controls';
 const SHELL=['./','./index.html','./styles.css','./app.webmanifest','./vendor/react.production.min.js','./vendor/react-dom.production.min.js','./src/main.js','./public/offline.html'];
 self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(SHELL)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',e=>e.waitUntil(Promise.all([self.clients.claim(),caches.keys().then(keys=>Promise.all(keys.filter(k=>k.startsWith('bbs-')&&k!==CACHE).map(k=>caches.delete(k))))])));
