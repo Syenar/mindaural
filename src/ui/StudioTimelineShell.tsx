@@ -4,6 +4,28 @@ import {createVoice, touchProject} from '../core/project.js';
 import {uid} from '../core/types.js';
 import {StudioTimelineSurface} from './StudioTimelineSurface.js';
 
+const beatPresets = [1, 2, 4, 6, 8, 10, 12, 20, 30];
+
+function EarLinkControl({project, setProject}: any) {
+  const [voiceId, setVoiceId] = React.useState(project.voices[0]?.id || '');
+  const [linked, setLinked] = React.useState(false);
+  const voice = project.voices.find((v: any) => v.id === voiceId) || project.voices[0];
+  React.useEffect(() => { if (!project.voices.some((v: any) => v.id === voiceId)) setVoiceId(project.voices[0]?.id || ''); }, [project.voices, voiceId]);
+  if (!voice) return null;
+  const signedBeat = voice.rightHz - voice.leftHz;
+  const beat = Math.abs(signedBeat);
+  const patchVoice = (next: any) => setProject((p: Project) => touchProject({...p, voices: p.voices.map(v => v.id === voice.id ? {...v, ...next} : v)}));
+  const setLeft = (left: number) => patchVoice(linked ? {leftHz: left, rightHz: left + signedBeat} : {leftHz: left});
+  const setRight = (right: number) => patchVoice(linked ? {rightHz: right, leftHz: right - signedBeat} : {rightHz: right});
+  const setBeat = (value: number) => patchVoice({rightHz: voice.leftHz + (signedBeat < 0 ? -value : value)});
+  return <section className={`ear-link-control ${linked ? 'linked' : ''}`} aria-label="Binaural ear linking">
+    <div className="ear-link-head"><div><b>Ear relationship</b><small>Keep the binaural beat difference stable while editing either ear.</small></div><label className="switch-label"><input type="checkbox" checked={linked} onChange={e => setLinked(e.target.checked)}/><span>{linked ? 'Linked' : 'Independent'}</span></label></div>
+    <div className="ear-link-row"><label>Track<select value={voice.id} onChange={e => setVoiceId(e.target.value)}>{project.voices.map((v: any) => <option key={v.id} value={v.id}>{v.name}</option>)}</select></label><div className="ear-readout"><span>Beat difference</span><strong>{beat.toFixed(2)} Hz</strong></div></div>
+    <div className="ear-link-row"><label>Left ear<input type="number" min=".001" step=".01" value={voice.leftHz} onChange={e => setLeft(Number(e.target.value))}/></label><label>Right ear<input type="number" min=".001" step=".01" value={voice.rightHz} onChange={e => setRight(Number(e.target.value))}/></label></div>
+    <div className="beat-control"><label><span>Preserved difference <b>{beat.toFixed(2)} Hz</b></span><input aria-label="Preserved beat difference" type="range" min="0" max="40" step=".01" value={beat} disabled={!linked} onChange={e => setBeat(Number(e.target.value))}/></label><label><span>Common values</span><select aria-label="Common beat difference" value={beatPresets.includes(Number(beat.toFixed(2))) ? Number(beat.toFixed(2)) : ''} disabled={!linked} onChange={e => setBeat(Number(e.target.value))}><option value="">Choose a value…</option>{beatPresets.map(x => <option key={x} value={x}>{x} Hz</option>)}</select></label></div>
+  </section>;
+}
+
 function LegacyStructure({project, setProject}: any) {
   const addVoice = () => setProject((p: Project) => {
     const voice = createVoice(`Voice ${p.voices.length + 1}`);
@@ -65,6 +87,7 @@ function LegacyStructure({project, setProject}: any) {
 export function StudioTimelineShell(props: any) {
   return <>
     <LegacyStructure project={props.project} setProject={props.setProject}/>
+    <EarLinkControl project={props.project} setProject={props.setProject}/>
     <StudioTimelineSurface {...props}/>
   </>;
 }
