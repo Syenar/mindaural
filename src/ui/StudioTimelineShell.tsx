@@ -8,21 +8,57 @@ const beatPresets = [1, 2, 4, 6, 8, 10, 12, 20, 30];
 function EarLinkControl({project, setProject}: any) {
   const [voiceId, setVoiceId] = React.useState(project.voices[0]?.id || '');
   const [linked, setLinked] = React.useState(false);
+  const [mode, setMode] = React.useState('custom');
+  const [target, setTarget] = React.useState<HTMLElement | null>(null);
   const voice = project.voices.find((v: any) => v.id === voiceId) || project.voices[0];
-  React.useEffect(() => { if (!project.voices.some((v: any) => v.id === voiceId)) setVoiceId(project.voices[0]?.id || ''); }, [project.voices, voiceId]);
-  if (!voice) return null;
+  React.useEffect(() => {
+    const main = document.querySelector('main') || document.body;
+    const sync = () => {
+      const inspector = Array.from(document.querySelectorAll<HTMLElement>('.studio-inspector')).find(x => x.querySelector('h3'));
+      if (!inspector) { setTarget(null); return; }
+      const heading = inspector.querySelector('h3')?.textContent || '';
+      const selected = project.voices.find((v: any) => v.name === heading);
+      if (!selected) { setTarget(null); return; }
+      setVoiceId(selected.id);
+      let slot = inspector.querySelector<HTMLElement>('.ear-link-inline-slot');
+      if (!slot) {
+        slot = document.createElement('div');
+        slot.className = 'ear-link-inline-slot';
+        const fields = Array.from(inspector.querySelectorAll<HTMLLabelElement>('.studio-field'));
+        const rightField = fields.find(x => x.textContent?.trim().startsWith('Right ear'));
+        rightField?.after(slot);
+      }
+      setTarget(slot);
+    };
+    sync();
+    const observer = new MutationObserver(sync);
+    observer.observe(main, {childList: true, subtree: true, characterData: true});
+    return () => observer.disconnect();
+  }, [project.voices]);
+  React.useEffect(() => {
+    if (!target || !voice || !linked) return;
+    const inspector = target.closest('.studio-inspector');
+    const fields = Array.from(inspector?.querySelectorAll<HTMLLabelElement>('.studio-field') || []);
+    const left = fields.find(x => x.textContent?.trim().startsWith('Left ear'))?.querySelector('input');
+    const right = fields.find(x => x.textContent?.trim().startsWith('Right ear'))?.querySelector('input');
+    const signedBeat = voice.rightHz - voice.leftHz;
+    const changeLeft = (event: Event) => { const value = Number((event.target as HTMLInputElement).value); if (Number.isFinite(value)) patchVoice({leftHz: value, rightHz: value + signedBeat}); };
+    const changeRight = (event: Event) => { const value = Number((event.target as HTMLInputElement).value); if (Number.isFinite(value)) patchVoice({rightHz: value, leftHz: value - signedBeat}); };
+    left?.addEventListener('input', changeLeft, true);
+    right?.addEventListener('input', changeRight, true);
+    return () => { left?.removeEventListener('input', changeLeft, true); right?.removeEventListener('input', changeRight, true); };
+  }, [target, voice?.id, voice?.leftHz, voice?.rightHz, linked]);
+  if (!voice || !target) return null;
   const signedBeat = voice.rightHz - voice.leftHz;
   const beat = Math.abs(signedBeat);
   const patchVoice = (next: any) => setProject((p: Project) => touchProject({...p, voices: p.voices.map(v => v.id === voice.id ? {...v, ...next} : v)}));
-  const setLeft = (left: number) => patchVoice(linked ? {leftHz: left, rightHz: left + signedBeat} : {leftHz: left});
-  const setRight = (right: number) => patchVoice(linked ? {rightHz: right, leftHz: right - signedBeat} : {rightHz: right});
   const setBeat = (value: number) => patchVoice({rightHz: voice.leftHz + (signedBeat < 0 ? -value : value)});
-  return <section className={`ear-link-control ${linked ? 'linked' : ''}`} aria-label="Binaural ear linking">
-    <div className="ear-link-head"><div><b>Ear relationship</b><small>Keep the binaural beat difference stable while editing either ear.</small></div><label className="switch-label"><input type="checkbox" checked={linked} onChange={e => setLinked(e.target.checked)}/><span>{linked ? 'Linked' : 'Independent'}</span></label></div>
-    <div className="ear-link-row"><label>Track<select value={voice.id} onChange={e => setVoiceId(e.target.value)}>{project.voices.map((v: any) => <option key={v.id} value={v.id}>{v.name}</option>)}</select></label><div className="ear-readout"><span>Beat difference</span><strong>{beat.toFixed(2)} Hz</strong></div></div>
-    <div className="ear-link-row"><label>Left ear<input type="number" min=".001" step=".01" value={voice.leftHz} onChange={e => setLeft(Number(e.target.value))}/></label><label>Right ear<input type="number" min=".001" step=".01" value={voice.rightHz} onChange={e => setRight(Number(e.target.value))}/></label></div>
-    <div className="beat-control"><label><span>Preserved difference <b>{beat.toFixed(2)} Hz</b></span><input aria-label="Preserved beat difference" type="range" min="0" max="40" step=".01" value={beat} disabled={!linked} onChange={e => setBeat(Number(e.target.value))}/></label><label><span>Common values</span><select aria-label="Common beat difference" value={beatPresets.includes(Number(beat.toFixed(2))) ? Number(beat.toFixed(2)) : ''} disabled={!linked} onChange={e => setBeat(Number(e.target.value))}><option value="">Choose a value…</option>{beatPresets.map(x => <option key={x} value={x}>{x} Hz</option>)}</select></label></div>
-  </section>;
+  const choose = (value: string) => { setMode(value); if (value !== 'custom') setBeat(Number(value)); };
+  const toggle = (checked: boolean) => { setLinked(checked); if (checked) setMode(beatPresets.includes(Number(beat.toFixed(2))) ? String(Number(beat.toFixed(2))) : 'custom'); };
+  return (ReactDOM as any).createPortal(<section className={`ear-link-inline ${linked ? 'linked' : ''}`} aria-label="Preserve binaural beat difference">
+    <div className="ear-link-inline-head"><div><b>Preserve beat difference</b><small>{beat.toFixed(2)} Hz between ears</small></div><label className="switch-label"><input type="checkbox" checked={linked} onChange={e => toggle(e.target.checked)}/><span>{linked ? 'On' : 'Off'}</span></label></div>
+    {linked && <><label className="ear-preset"><span>Beat difference</span><select aria-label="Beat difference preset" value={mode} onChange={e => choose(e.target.value)}>{beatPresets.map(x => <option key={x} value={x}>{x} Hz</option>)}<option value="custom">Custom…</option></select></label>{mode === 'custom' && <label className="ear-custom"><span>Custom difference <b>{beat.toFixed(2)} Hz</b></span><input aria-label="Custom beat difference" type="range" min="0" max="40" step=".01" value={beat} onChange={e => setBeat(Number(e.target.value))}/></label>}</>}
+  </section>, target);
 }
 
 function LegacyStructure({project, setProject}: any) {
@@ -86,7 +122,7 @@ function LegacyStructure({project, setProject}: any) {
 export function StudioTimelineShell(props: any) {
   return <>
     <LegacyStructure project={props.project} setProject={props.setProject}/>
-    <EarLinkControl project={props.project} setProject={props.setProject}/>
     <StudioTimelineSurface {...props}/>
+    <EarLinkControl project={props.project} setProject={props.setProject}/>
   </>;
 }

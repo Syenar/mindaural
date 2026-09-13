@@ -69260,18 +69260,75 @@ r÷|ú
   function EarLinkControl({ project, setProject }) {
     const [voiceId, setVoiceId] = React.useState(project.voices[0]?.id || "");
     const [linked, setLinked] = React.useState(false);
+    const [mode2, setMode] = React.useState("custom");
+    const [target, setTarget] = React.useState(null);
     const voice = project.voices.find((v) => v.id === voiceId) || project.voices[0];
     React.useEffect(() => {
-      if (!project.voices.some((v) => v.id === voiceId)) setVoiceId(project.voices[0]?.id || "");
-    }, [project.voices, voiceId]);
-    if (!voice) return null;
+      const main = document.querySelector("main") || document.body;
+      const sync = () => {
+        const inspector = Array.from(document.querySelectorAll(".studio-inspector")).find((x) => x.querySelector("h3"));
+        if (!inspector) {
+          setTarget(null);
+          return;
+        }
+        const heading = inspector.querySelector("h3")?.textContent || "";
+        const selected = project.voices.find((v) => v.name === heading);
+        if (!selected) {
+          setTarget(null);
+          return;
+        }
+        setVoiceId(selected.id);
+        let slot = inspector.querySelector(".ear-link-inline-slot");
+        if (!slot) {
+          slot = document.createElement("div");
+          slot.className = "ear-link-inline-slot";
+          const fields = Array.from(inspector.querySelectorAll(".studio-field"));
+          const rightField = fields.find((x) => x.textContent?.trim().startsWith("Right ear"));
+          rightField?.after(slot);
+        }
+        setTarget(slot);
+      };
+      sync();
+      const observer = new MutationObserver(sync);
+      observer.observe(main, { childList: true, subtree: true, characterData: true });
+      return () => observer.disconnect();
+    }, [project.voices]);
+    React.useEffect(() => {
+      if (!target || !voice || !linked) return;
+      const inspector = target.closest(".studio-inspector");
+      const fields = Array.from(inspector?.querySelectorAll(".studio-field") || []);
+      const left = fields.find((x) => x.textContent?.trim().startsWith("Left ear"))?.querySelector("input");
+      const right = fields.find((x) => x.textContent?.trim().startsWith("Right ear"))?.querySelector("input");
+      const signedBeat2 = voice.rightHz - voice.leftHz;
+      const changeLeft = (event) => {
+        const value = Number(event.target.value);
+        if (Number.isFinite(value)) patchVoice({ leftHz: value, rightHz: value + signedBeat2 });
+      };
+      const changeRight = (event) => {
+        const value = Number(event.target.value);
+        if (Number.isFinite(value)) patchVoice({ rightHz: value, leftHz: value - signedBeat2 });
+      };
+      left?.addEventListener("input", changeLeft, true);
+      right?.addEventListener("input", changeRight, true);
+      return () => {
+        left?.removeEventListener("input", changeLeft, true);
+        right?.removeEventListener("input", changeRight, true);
+      };
+    }, [target, voice?.id, voice?.leftHz, voice?.rightHz, linked]);
+    if (!voice || !target) return null;
     const signedBeat = voice.rightHz - voice.leftHz;
     const beat = Math.abs(signedBeat);
     const patchVoice = (next) => setProject((p) => touchProject({ ...p, voices: p.voices.map((v) => v.id === voice.id ? { ...v, ...next } : v) }));
-    const setLeft = (left) => patchVoice(linked ? { leftHz: left, rightHz: left + signedBeat } : { leftHz: left });
-    const setRight = (right) => patchVoice(linked ? { rightHz: right, leftHz: right - signedBeat } : { rightHz: right });
     const setBeat = (value) => patchVoice({ rightHz: voice.leftHz + (signedBeat < 0 ? -value : value) });
-    return /* @__PURE__ */ React.createElement("section", { className: `ear-link-control ${linked ? "linked" : ""}`, "aria-label": "Binaural ear linking" }, /* @__PURE__ */ React.createElement("div", { className: "ear-link-head" }, /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("b", null, "Ear relationship"), /* @__PURE__ */ React.createElement("small", null, "Keep the binaural beat difference stable while editing either ear.")), /* @__PURE__ */ React.createElement("label", { className: "switch-label" }, /* @__PURE__ */ React.createElement("input", { type: "checkbox", checked: linked, onChange: (e3) => setLinked(e3.target.checked) }), /* @__PURE__ */ React.createElement("span", null, linked ? "Linked" : "Independent"))), /* @__PURE__ */ React.createElement("div", { className: "ear-link-row" }, /* @__PURE__ */ React.createElement("label", null, "Track", /* @__PURE__ */ React.createElement("select", { value: voice.id, onChange: (e3) => setVoiceId(e3.target.value) }, project.voices.map((v) => /* @__PURE__ */ React.createElement("option", { key: v.id, value: v.id }, v.name)))), /* @__PURE__ */ React.createElement("div", { className: "ear-readout" }, /* @__PURE__ */ React.createElement("span", null, "Beat difference"), /* @__PURE__ */ React.createElement("strong", null, beat.toFixed(2), " Hz"))), /* @__PURE__ */ React.createElement("div", { className: "ear-link-row" }, /* @__PURE__ */ React.createElement("label", null, "Left ear", /* @__PURE__ */ React.createElement("input", { type: "number", min: ".001", step: ".01", value: voice.leftHz, onChange: (e3) => setLeft(Number(e3.target.value)) })), /* @__PURE__ */ React.createElement("label", null, "Right ear", /* @__PURE__ */ React.createElement("input", { type: "number", min: ".001", step: ".01", value: voice.rightHz, onChange: (e3) => setRight(Number(e3.target.value)) }))), /* @__PURE__ */ React.createElement("div", { className: "beat-control" }, /* @__PURE__ */ React.createElement("label", null, /* @__PURE__ */ React.createElement("span", null, "Preserved difference ", /* @__PURE__ */ React.createElement("b", null, beat.toFixed(2), " Hz")), /* @__PURE__ */ React.createElement("input", { "aria-label": "Preserved beat difference", type: "range", min: "0", max: "40", step: ".01", value: beat, disabled: !linked, onChange: (e3) => setBeat(Number(e3.target.value)) })), /* @__PURE__ */ React.createElement("label", null, /* @__PURE__ */ React.createElement("span", null, "Common values"), /* @__PURE__ */ React.createElement("select", { "aria-label": "Common beat difference", value: beatPresets.includes(Number(beat.toFixed(2))) ? Number(beat.toFixed(2)) : "", disabled: !linked, onChange: (e3) => setBeat(Number(e3.target.value)) }, /* @__PURE__ */ React.createElement("option", { value: "" }, "Choose a value\u2026"), beatPresets.map((x) => /* @__PURE__ */ React.createElement("option", { key: x, value: x }, x, " Hz"))))));
+    const choose = (value) => {
+      setMode(value);
+      if (value !== "custom") setBeat(Number(value));
+    };
+    const toggle = (checked) => {
+      setLinked(checked);
+      if (checked) setMode(beatPresets.includes(Number(beat.toFixed(2))) ? String(Number(beat.toFixed(2))) : "custom");
+    };
+    return ReactDOM.createPortal(/* @__PURE__ */ React.createElement("section", { className: `ear-link-inline ${linked ? "linked" : ""}`, "aria-label": "Preserve binaural beat difference" }, /* @__PURE__ */ React.createElement("div", { className: "ear-link-inline-head" }, /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("b", null, "Preserve beat difference"), /* @__PURE__ */ React.createElement("small", null, beat.toFixed(2), " Hz between ears")), /* @__PURE__ */ React.createElement("label", { className: "switch-label" }, /* @__PURE__ */ React.createElement("input", { type: "checkbox", checked: linked, onChange: (e3) => toggle(e3.target.checked) }), /* @__PURE__ */ React.createElement("span", null, linked ? "On" : "Off"))), linked && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("label", { className: "ear-preset" }, /* @__PURE__ */ React.createElement("span", null, "Beat difference"), /* @__PURE__ */ React.createElement("select", { "aria-label": "Beat difference preset", value: mode2, onChange: (e3) => choose(e3.target.value) }, beatPresets.map((x) => /* @__PURE__ */ React.createElement("option", { key: x, value: x }, x, " Hz")), /* @__PURE__ */ React.createElement("option", { value: "custom" }, "Custom\u2026"))), mode2 === "custom" && /* @__PURE__ */ React.createElement("label", { className: "ear-custom" }, /* @__PURE__ */ React.createElement("span", null, "Custom difference ", /* @__PURE__ */ React.createElement("b", null, beat.toFixed(2), " Hz")), /* @__PURE__ */ React.createElement("input", { "aria-label": "Custom beat difference", type: "range", min: "0", max: "40", step: ".01", value: beat, onChange: (e3) => setBeat(Number(e3.target.value)) })))), target);
   }
   function LegacyStructure({ project, setProject }) {
     const addVoice = () => setProject((p) => {
@@ -69325,7 +69382,7 @@ r÷|ú
     })) }), /* @__PURE__ */ React.createElement("span", null, marker.time.toFixed(1), "s")))));
   }
   function StudioTimelineShell(props) {
-    return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(LegacyStructure, { project: props.project, setProject: props.setProject }), /* @__PURE__ */ React.createElement(EarLinkControl, { project: props.project, setProject: props.setProject }), /* @__PURE__ */ React.createElement(StudioTimelineSurface, { ...props }));
+    return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(LegacyStructure, { project: props.project, setProject: props.setProject }), /* @__PURE__ */ React.createElement(StudioTimelineSurface, { ...props }), /* @__PURE__ */ React.createElement(EarLinkControl, { project: props.project, setProject: props.setProject }));
   }
 
   // src/audio/calibration.ts
