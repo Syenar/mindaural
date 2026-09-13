@@ -1,4 +1,3 @@
-import React from 'react';
 import type {Project} from '../core/types.js';
 import {createVoice, touchProject} from '../core/project.js';
 import {uid} from '../core/types.js';
