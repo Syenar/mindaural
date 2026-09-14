@@ -9,6 +9,7 @@
   "theme_color": "#f7f8fc",
   "description": "Local-first binaural beat creation and analysis workstation",
   "categories": ["music","productivity","education"],
+  "icons": [{"src":"./assets/logos/Mindaural_logo_final_4x.png","sizes":"10032x10032","type":"image/png","purpose":"any maskable"}],
   "file_handlers": [
     {"action":"./?open=file","accept":{
       "application/x-bbeat+zip":[".bbeat"],
