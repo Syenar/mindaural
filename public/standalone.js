@@ -70464,6 +70464,26 @@ r÷|ú
     history.replaceState(null, "", location.pathname);
   }
   function App() {
+    const demoMode = new URLSearchParams(location.search).get("mode") === "demo";
+    React.useEffect(() => {
+      if (!demoMode) return;
+      document.documentElement.classList.add("demo-mode");
+      const add = () => {
+        const actions = document.querySelector(".create .actions");
+        if (!actions || actions.querySelector("[data-demo-export]")) return;
+        const b = document.createElement("button");
+        b.textContent = "\u2193 Export WAV";
+        b.dataset.demoExport = "true";
+        b.className = "primary";
+        b.onclick = () => exportAudio("wav");
+        actions.appendChild(b);
+      };
+      const id2 = window.setTimeout(add, 0);
+      return () => {
+        window.clearTimeout(id2);
+        document.documentElement.classList.remove("demo-mode");
+      };
+    }, [demoMode]);
     const [surface, setSurface] = React.useState("Create");
     const [project, setProjectRaw] = React.useState(() => createDefaultProject("My binaural session"));
     const historyRef = React.useRef(null);

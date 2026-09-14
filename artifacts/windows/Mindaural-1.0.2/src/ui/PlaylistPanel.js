@@ -1,0 +1,35 @@
+import { addProjectToPlaylist, createPlaylist, deletePlaylist, loadPlaylists, savePlaylist } from '../storage/playlists.js';
+export function PlaylistPanel({ current, onPlay, setMessage }) { const [lists, setLists] = React.useState([]), [title, setTitle] = React.useState(''); const refresh = () => loadPlaylists().then(setLists); React.useEffect(() => { refresh(); }, []); const create = async () => { const p = await savePlaylist(createPlaylist(title.trim() || 'New playlist')); setTitle(''); await refresh(); setMessage?.(`Created playlist ${p.title}.`); }; return React.createElement("div", { className: "playlist-panel" },
+    React.createElement("div", { className: "section-head" },
+        React.createElement("div", null,
+            React.createElement("h2", null, "Playlists"),
+            React.createElement("small", null, "Sequence complete session snapshots.")),
+        React.createElement("div", { className: "actions" },
+            React.createElement("input", { placeholder: "Playlist name", value: title, onChange: e => setTitle(e.target.value) }),
+            React.createElement("button", { onClick: create }, "Create"))),
+    lists.length === 0 ? React.createElement("div", { className: "empty-state" },
+        React.createElement("p", null, "No playlists yet.")) : lists.map(list => React.createElement("div", { className: "playlist-row", key: list.id },
+        React.createElement("div", { className: "playlist-head" },
+            React.createElement("input", { value: list.title, onChange: async (e) => { await savePlaylist({ ...list, title: e.target.value }); await refresh(); } }),
+            React.createElement("span", null,
+                list.items.length,
+                " sessions \u00B7 ",
+                Math.round(list.items.reduce((n, x) => n + x.project.duration, 0) / 60),
+                " min"),
+            React.createElement("div", { className: "actions" },
+                React.createElement("button", { disabled: !list.items.length, onClick: () => onPlay(list.items.map(x => x.project)) }, "\u25B6 Play"),
+                React.createElement("button", { onClick: async () => { await addProjectToPlaylist(list, current); await refresh(); setMessage?.(`Added ${current.title} to ${list.title}.`); } }, "+ Current"),
+                React.createElement("button", { className: "danger", onClick: async () => { if (confirm(`Delete playlist ${list.title}?`)) {
+                        await deletePlaylist(list.id);
+                        await refresh();
+                    } } }, "Delete"))),
+        React.createElement("div", { className: "playlist-items" }, list.items.map((item, i) => React.createElement("div", { key: item.id },
+            React.createElement("span", null,
+                i + 1,
+                ". ",
+                item.title),
+            React.createElement("div", { className: "actions" },
+                React.createElement("button", { disabled: i === 0, onClick: async () => { const items = list.items.slice(); [items[i - 1], items[i]] = [items[i], items[i - 1]]; await savePlaylist({ ...list, items }); await refresh(); } }, "\u2191"),
+                React.createElement("button", { disabled: i === list.items.length - 1, onClick: async () => { const items = list.items.slice(); [items[i + 1], items[i]] = [items[i], items[i + 1]]; await savePlaylist({ ...list, items }); await refresh(); } }, "\u2193"),
+                React.createElement("button", { onClick: async () => { await savePlaylist({ ...list, items: list.items.filter(x => x.id !== item.id) }); await refresh(); } }, "\u00D7")))))))); }
+//# sourceMappingURL=PlaylistPanel.js.map

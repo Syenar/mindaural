@@ -10,7 +10,9 @@
     "serve": "node scripts/serve.mjs",
     "test": "node scripts/test.mjs",
     "test:bwg": "node scripts/bwg-regression.mjs",
-    "gauntlet": "node scripts/gauntlet.mjs"
+    "gauntlet": "node scripts/gauntlet.mjs",
+    "package:windows": "powershell -ExecutionPolicy Bypass -File .\\scripts\\package-windows.ps1",
+    "package:linux": "bash ./scripts/package-linux.sh"
   },
   "devDependencies": {
     "esbuild": "^0.28.2",

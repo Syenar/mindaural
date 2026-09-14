@@ -1,0 +1,25 @@
+{
+  "name": "Mindaural",
+  "short_name": "Mindaural",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f7f8fc",
+  "theme_color": "#f7f8fc",
+  "description": "Local-first binaural beat creation and analysis workstation",
+  "categories": ["music","productivity","education"],
+  "file_handlers": [
+    {"action":"./?open=file","accept":{
+      "application/x-bbeat+zip":[".bbeat"],
+      "application/octet-stream":[".bwg"],
+      "audio/wav":[".wav",".wave"],
+      "audio/aiff":[".aif",".aiff"],
+      "audio/flac":[".flac"],
+      "audio/mpeg":[".mp3"],
+      "audio/ogg":[".ogg",".oga",".opus"],
+      "audio/webm":[".webm"]
+    }}
+  ],
+  "share_target": {"action":"./?share=1","method":"POST","enctype":"multipart/form-data","params":{"title":"title","text":"text","url":"url","files":[{"name":"files","accept":["audio/*",".bbeat",".bwg"]}]}}
+}

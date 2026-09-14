@@ -1,0 +1,94 @@
+const te = new TextEncoder();
+const MAX_ZIP_BYTES = 512 * 1024 * 1024;
+function crc32(data) { let c = 0xffffffff; for (const b of data) {
+    c ^= b;
+    for (let k = 0; k < 8; k++)
+        c = (c >>> 1) ^ ((c & 1) ? 0xedb88320 : 0);
+} return (c ^ 0xffffffff) >>> 0; }
+function u16(a, v) { a.push(v & 255, (v >>> 8) & 255); }
+function u32(a, v) { u16(a, v & 65535); u16(a, v >>> 16); }
+export function createZip(entries) {
+    const records = [], chunks = [];
+    let offset = 0, count = 0, centralLength = 0;
+    for (const [name, val] of Object.entries(entries)) {
+        if (name.includes('..') || name.startsWith('/') || name.includes('\\'))
+            throw new Error('Unsafe ZIP path');
+        const n = te.encode(name), d = typeof val === 'string' ? te.encode(val) : val, crc = crc32(d), local = [];
+        u32(local, 0x04034b50);
+        u16(local, 20);
+        u16(local, 0);
+        u16(local, 0);
+        u16(local, 0);
+        u16(local, 0);
+        u32(local, crc);
+        u32(local, d.length);
+        u32(local, d.length);
+        u16(local, n.length);
+        u16(local, 0);
+        const header = Uint8Array.from(local), central = [];
+        u32(central, 0x02014b50);
+        u16(central, 20);
+        u16(central, 20);
+        u16(central, 0);
+        u16(central, 0);
+        u16(central, 0);
+        u16(central, 0);
+        u32(central, crc);
+        u32(central, d.length);
+        u32(central, d.length);
+        u16(central, n.length);
+        u16(central, 0);
+        u16(central, 0);
+        u16(central, 0);
+        u16(central, 0);
+        u32(central, 0);
+        u32(central, offset);
+        const record = { name: n, data: d, local: header, central: Uint8Array.from(central) };
+        records.push(record);
+        chunks.push(header, n, d);
+        offset += header.length + n.length + d.length;
+        centralLength += record.central.length + n.length;
+        count++;
+    }
+    const centralStart = offset;
+    for (const r of records)
+        chunks.push(r.central, r.name);
+    const end = [];
+    u32(end, 0x06054b50);
+    u16(end, 0);
+    u16(end, 0);
+    u16(end, count);
+    u16(end, count);
+    u32(end, centralLength);
+    u32(end, centralStart);
+    u16(end, 0);
+    const endBytes = Uint8Array.from(end);
+    chunks.push(endBytes);
+    const total = centralStart + centralLength + endBytes.length;
+    if (total > MAX_ZIP_BYTES || total > 0xffffffff)
+        throw new Error('ZIP exceeds the 512 MiB safety limit');
+    const out = new Uint8Array(total);
+    let p = 0;
+    for (const chunk of chunks) {
+        out.set(chunk, p);
+        p += chunk.length;
+    }
+    return out;
+}
+export function readStoredZip(bytes, maxEntries = 256, maxTotal = MAX_ZIP_BYTES) { const dv = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength), td = new TextDecoder(), res = {}; let p = 0, total = 0, count = 0; while (p + 30 <= bytes.length && dv.getUint32(p, true) === 0x04034b50) {
+    const method = dv.getUint16(p + 8, true), size = dv.getUint32(p + 18, true), nameLen = dv.getUint16(p + 26, true), extra = dv.getUint16(p + 28, true);
+    if (method !== 0)
+        throw new Error('Compressed ZIP entries are not supported by the safe project reader');
+    const name = td.decode(bytes.slice(p + 30, p + 30 + nameLen));
+    if (name.includes('..') || name.startsWith('/') || name.includes('\\') || res[name])
+        throw new Error('Unsafe or duplicate ZIP path');
+    const start = p + 30 + nameLen + extra, end = start + size;
+    if (end > bytes.length)
+        throw new Error('Truncated ZIP');
+    total += size;
+    if (++count > maxEntries || total > maxTotal)
+        throw new Error('ZIP safety limit exceeded');
+    res[name] = bytes.slice(start, end);
+    p = end;
+} return res; }
+//# sourceMappingURL=zip.js.map

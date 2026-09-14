@@ -1,0 +1,111 @@
+function fmt(n, d = 2) { return Number.isFinite(n) ? n.toFixed(d) : '—'; }
+function Metric({ label, value, detail }) { return React.createElement("div", { className: "metric" },
+    React.createElement("span", null, label),
+    React.createElement("strong", null, value),
+    detail && React.createElement("small", null, detail)); }
+function Spectrum({ spectrum }) { if (!spectrum)
+    return null; const m = Array.from(spectrum.magnitudes), max = Math.max(...m, 1e-9), pts = m.map((v, i) => `${i / Math.max(1, m.length - 1) * 800},${145 - v / max * 135}`).join(' '); return React.createElement("div", { className: "viz-card" },
+    React.createElement("div", { className: "viz-head" },
+        React.createElement("b", null, "Spectrum"),
+        React.createElement("span", null, spectrum.backend)),
+    React.createElement("svg", { viewBox: "0 0 800 150", preserveAspectRatio: "none", "aria-label": "Frequency spectrum" },
+        React.createElement("polyline", { points: pts, fill: "none", stroke: "currentColor", strokeWidth: "2" })),
+    React.createElement("div", { className: "axis" },
+        React.createElement("span", null, "0 Hz"),
+        React.createElement("span", null,
+            Math.round(spectrum.frequencies.at(-1) || 0),
+            " Hz"))); }
+function Waveform({ left, right }) { if (!left || !right)
+    return null; const path = (a, offset) => a.map((v, i) => `${i ? 'L' : 'M'} ${i / Math.max(1, a.length - 1) * 800} ${offset - v * 50}`).join(' '); return React.createElement("div", { className: "viz-card" },
+    React.createElement("div", { className: "viz-head" },
+        React.createElement("b", null, "Waveform preview"),
+        React.createElement("span", null, "Left / Right")),
+    React.createElement("svg", { viewBox: "0 0 800 160", preserveAspectRatio: "none", "aria-label": "Stereo waveform" },
+        React.createElement("line", { x1: "0", x2: "800", y1: "50", y2: "50", stroke: "currentColor", opacity: ".15" }),
+        React.createElement("line", { x1: "0", x2: "800", y1: "115", y2: "115", stroke: "currentColor", opacity: ".15" }),
+        React.createElement("path", { d: path(left, 50), fill: "none", stroke: "currentColor", strokeWidth: "1.5" }),
+        React.createElement("path", { d: path(right, 115), fill: "none", stroke: "currentColor", strokeWidth: "1.5", opacity: ".65" }))); }
+function Spectrogram({ data }) { const ref = React.useRef(null); React.useEffect(() => { const c = ref.current; if (!c || !data)
+    return; const ctx = c.getContext('2d'); if (!ctx)
+    return; const w = data.frames, h = data.bins, img = ctx.createImageData(w, h), m = data.magnitudes; let max = 1e-12; for (const x of m)
+    max = Math.max(max, x); for (let x = 0; x < w; x++)
+    for (let y = 0; y < h; y++) {
+        const v = Math.max(0, Math.min(1, Math.log1p(m[x * h + y] / max * 80) / Math.log(81))), i = ((h - 1 - y) * w + x) * 4;
+        img.data[i] = Math.round(40 + 210 * v);
+        img.data[i + 1] = Math.round(60 + 120 * v);
+        img.data[i + 2] = Math.round(120 + 90 * (1 - v));
+        img.data[i + 3] = 255;
+    } const off = document.createElement('canvas'); off.width = w; off.height = h; off.getContext('2d').putImageData(img, 0, 0); ctx.imageSmoothingEnabled = true; ctx.clearRect(0, 0, c.width, c.height); ctx.drawImage(off, 0, 0, c.width, c.height); }, [data]); return React.createElement("div", { className: "viz-card" },
+    React.createElement("div", { className: "viz-head" },
+        React.createElement("b", null, "Spectrogram"),
+        React.createElement("span", null,
+            data.backend,
+            " \u00B7 ",
+            data.frames,
+            " frames")),
+    React.createElement("canvas", { ref: ref, width: "800", height: "240", "aria-label": "Spectrogram heatmap" }),
+    React.createElement("div", { className: "axis" },
+        React.createElement("span", null, "0 s"),
+        React.createElement("span", null,
+            fmt(data.times?.at(-1) || 0, 2),
+            " s"))); }
+export function AnalyzerSurface({ analysis, onAnalyze, gpuStatus }) {
+    return React.createElement("section", { className: "page" },
+        React.createElement("div", { className: "eyebrow" }, "ANALYZER"),
+        React.createElement("h1", null, "Verify the signal, not the label"),
+        React.createElement("p", { className: "lede" }, "Analyze the current project or drop a supported audio file anywhere while this page is open. Clean carrier pairs can be measured precisely; complex mixes are reported with candidates and confidence rather than false certainty."),
+        React.createElement("div", { className: "actions" },
+            React.createElement("button", { className: "primary", onClick: onAnalyze }, "Analyze current session")),
+        analysis && React.createElement(React.Fragment, null,
+            React.createElement("div", { className: "analysis-grid" },
+                React.createElement(Metric, { label: "Left carrier", value: `${fmt(analysis.dominantLeftHz)} Hz` }),
+                React.createElement(Metric, { label: "Right carrier", value: `${fmt(analysis.dominantRightHz)} Hz` }),
+                React.createElement(Metric, { label: "Difference", value: `${fmt(analysis.differenceHz)} Hz` }),
+                React.createElement(Metric, { label: "Stereo correlation", value: fmt(analysis.correlation, 4) }),
+                React.createElement(Metric, { label: "Peak L / R", value: `${fmt(analysis.peakLeft, 4)} / ${fmt(analysis.peakRight, 4)}` }),
+                React.createElement(Metric, { label: "RMS L / R", value: `${fmt(analysis.rmsLeft, 4)} / ${fmt(analysis.rmsRight, 4)}` }),
+                React.createElement(Metric, { label: "DC L / R", value: `${fmt(analysis.dcLeft, 5)} / ${fmt(analysis.dcRight, 5)}` }),
+                React.createElement(Metric, { label: "Cross-channel leakage", value: `${fmt(analysis.leakageDb, 1)} dB` }),
+                React.createElement(Metric, { label: "Sample rate", value: `${analysis.sampleRate} Hz` }),
+                React.createElement(Metric, { label: "Duration", value: `${fmt(analysis.duration, 3)} s` }),
+                React.createElement(Metric, { label: "Compute", value: analysis.backend }),
+                React.createElement(Metric, { label: "Confidence", value: `${Math.round(analysis.confidence * 100)}%` })),
+            React.createElement("div", { className: `integrity-card ${analysis.integrity?.pass ? 'pass-card' : analysis.integrity ? 'fail-card' : ''}` },
+                React.createElement("h3", null, analysis.classification),
+                React.createElement("p", null, analysis.integrity ? analysis.integrity.pass ? 'Scientific integrity comparison passed for the current manifest.' : 'Manifest comparison found discrepancies.' : 'No source manifest comparison was available for this imported file.'),
+                analysis.integrity?.issues?.length > 0 && React.createElement("ul", null, analysis.integrity.issues.map((x) => React.createElement("li", { key: x }, x))),
+                analysis.integrityIssues?.length > 0 && React.createElement(React.Fragment, null,
+                    React.createElement("b", null, "Signal diagnostics"),
+                    React.createElement("ul", null, analysis.integrityIssues.map((x) => React.createElement("li", { key: x }, x))))),
+            React.createElement(Waveform, { left: analysis.waveformLeft, right: analysis.waveformRight }),
+            React.createElement(Spectrum, { spectrum: analysis.spectrum }),
+            React.createElement(Spectrogram, { data: analysis.spectrogram }),
+            analysis.candidates?.length > 0 && React.createElement("div", { className: "candidate-card" },
+                React.createElement("h3", null, "Carrier-pair candidates"),
+                React.createElement("table", null,
+                    React.createElement("thead", null,
+                        React.createElement("tr", null,
+                            React.createElement("th", null, "Left"),
+                            React.createElement("th", null, "Right"),
+                            React.createElement("th", null, "Difference"),
+                            React.createElement("th", null, "Relative score"))),
+                    React.createElement("tbody", null, analysis.candidates.map((c, i) => React.createElement("tr", { key: i },
+                        React.createElement("td", null,
+                            fmt(c.leftHz),
+                            " Hz"),
+                        React.createElement("td", null,
+                            fmt(c.rightHz),
+                            " Hz"),
+                        React.createElement("td", null,
+                            fmt(c.differenceHz),
+                            " Hz"),
+                        React.createElement("td", null, fmt(c.score, 5)))))))),
+        React.createElement("div", { className: "technical" },
+            React.createElement("b", null, "Compute status"),
+            React.createElement("span", null,
+                gpuStatus.active ? 'WebGPU active' : 'CPU reference fallback',
+                gpuStatus.adapterName ? ` · ${gpuStatus.adapterName}` : '',
+                gpuStatus.reason ? ` · ${gpuStatus.reason}` : ''),
+            gpuStatus.limits && React.createElement("small", null, Object.entries(gpuStatus.limits).map(([k, v]) => `${k}=${v}`).join(' · '))));
+}
+//# sourceMappingURL=AnalyzerSurface.js.map

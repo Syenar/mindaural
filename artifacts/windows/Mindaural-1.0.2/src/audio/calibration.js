@@ -1,0 +1,23 @@
+const KEY = 'bbs.calibration.v1';
+export function loadCalibration() { try {
+    return { ...emptyCalibration(), ...JSON.parse(localStorage.getItem(KEY) || '{}') };
+}
+catch {
+    return emptyCalibration();
+} }
+export function emptyCalibration() { return { version: 1, leftConfirmed: false, rightConfirmed: false, alternatingConfirmed: false, centerConfirmed: false, headphonesConfirmed: false, spatialAudioWarningAcknowledged: false }; }
+export function saveCalibration(x) { const done = x.leftConfirmed && x.rightConfirmed && x.alternatingConfirmed && x.centerConfirmed && x.headphonesConfirmed && x.spatialAudioWarningAcknowledged; const y = { ...x, completedAt: done ? (x.completedAt || new Date().toISOString()) : undefined }; localStorage.setItem(KEY, JSON.stringify(y)); return y; }
+export function calibrationComplete(x = loadCalibration()) { return !!x.completedAt; }
+export async function playCalibrationCue(mode, frequency = 440) { const C = (globalThis.AudioContext || globalThis.webkitAudioContext); if (!C)
+    throw new Error('Web Audio is unavailable.'); const c = new C(); await c.resume(); const master = c.createGain(); master.gain.value = .035; master.connect(c.destination); const play = (panValue, at, duration = .28) => { const o = c.createOscillator(), p = c.createStereoPanner(), g = c.createGain(); o.frequency.value = frequency; p.pan.value = panValue; g.gain.setValueAtTime(0, at); g.gain.linearRampToValueAtTime(1, at + .02); g.gain.setValueAtTime(1, at + duration - .03); g.gain.linearRampToValueAtTime(0, at + duration); o.connect(g).connect(p).connect(master); o.start(at); o.stop(at + duration + .01); }; const t = c.currentTime + .03; if (mode === 'alternating') {
+    play(-1, t);
+    play(1, t + .38);
+    play(-1, t + .76);
+    play(1, t + 1.14);
+    setTimeout(() => c.close(), 1700);
+}
+else {
+    play(mode === 'left' ? -1 : mode === 'right' ? 1 : 0, t, .55);
+    setTimeout(() => c.close(), 800);
+} }
+//# sourceMappingURL=calibration.js.map
