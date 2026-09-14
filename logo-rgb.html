@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Mindaural RGB Logo Studio</title>
+  <link rel="stylesheet" href="./logo-rgb.css">
+  <style>.drop-zone{border:1px dashed #607080;border-radius:14px;padding:12px 14px;margin-bottom:18px;color:#9eabb8;font-size:12px;text-align:center}.drop-zone.dragging{border-color:#8fb5d5;background:#243a4c;color:#f4f6f7}.drop-zone label{color:#8fb5d5;cursor:pointer;text-decoration:underline}.drop-zone input{display:none}</style>
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar"><a href="./index.html" class="back">← Mindaural</a><span class="eyebrow">LOGO RGB STUDIO</span></header>
+    <section class="intro"><p class="eyebrow">LIVE COLOR CONTROL</p><h1>Light the mark your way.</h1><p>Preview the supplied Mindaural logo with transparent, static, or animated RGB lighting. Changes are live and local to this page.</p></section>
+    <section class="workspace" aria-label="RGB logo preview and controls">
+      <div class="preview-panel"><div id="drop-zone" class="drop-zone">Drop an SVG or PNG here · <label for="logo-file">choose a file</label><input id="logo-file" type="file" accept=".svg,.png,.jpg,.jpeg,image/svg+xml,image/png,image/jpeg"></div><div id="logo-stage" class="logo-stage rgb-background"><img id="logo" src="./assets/logos/no_bg/Mindaural_logo_final_no_bg_4x.png" alt="Mindaural logo preview"></div><p id="readout" class="readout" aria-live="polite">RGB lighting on · RGB background · Rainbow · Built-in logo</p></div>
+      <form id="controls" class="controls">
+        <div class="control-head"><div><p class="eyebrow">CONTROLS</p><h2>RGB behavior</h2></div><button id="power" type="button" class="toggle active" aria-pressed="true">On</button></div>
+        <label>Mode<select id="mode"><option value="rainbow">Rainbow</option><option value="aurora">Aurora</option><option value="pulse">Pulse</option></select></label>
+        <label>Speed <output id="speed-value">42%</output><input id="speed" type="range" min="0" max="100" value="42"></label>
+        <label>Color intensity <output id="intensity-value">165%</output><input id="intensity" type="range" min="100" max="220" value="165"></label>
+        <label>Logo zoom <output id="zoom-value">100%</output><input id="zoom" type="range" min="50" max="160" value="100"></label>
+        <div class="row"><button id="background" type="button" class="option active" aria-pressed="true">RGB background</button><button id="transparent" type="button" class="option" aria-pressed="false">No background</button></div>
+        <p class="hint">The no-background option reveals the page surface behind the mark. RGB background adds a separate animated light layer behind it.</p>
+      </form>
+    </section>
+  </main>
+  <script src="./logo-rgb.js"></script>
+</body>
+</html>

@@ -19,14 +19,16 @@ const bundle = spawnSync(esbuild,['src/main.tsx','--bundle','--format=iife','--o
 if(bundle.error || bundle.status!==0) console.warn('Bundler unavailable; reusing the checked-in public/app.bundle.js.');
 const worklet = spawnSync(esbuild,['src/audio/worklet.ts','--bundle','--format=esm','--outfile=public/worklet.js','--target=es2022','--log-level=warning'],{stdio:'inherit',cwd:projectRoot});
 if(worklet.error || worklet.status!==0) console.warn('Worklet bundler unavailable; reusing the checked-in public/worklet.js.');
-await mkdir('dist/vendor',{recursive:true}); await mkdir('dist/public',{recursive:true}); await mkdir('dist/legal',{recursive:true}); await mkdir('dist/assets/logos',{recursive:true});
+await mkdir('dist/vendor',{recursive:true}); await mkdir('dist/public',{recursive:true}); await mkdir('dist/legal',{recursive:true}); await mkdir('dist/assets/logos',{recursive:true}); await mkdir('dist/assets/logos/name_logo',{recursive:true}); await mkdir('dist/assets/logos/no_bg',{recursive:true});
 const reactRuntime=await readFile('node_modules/react/umd/react.production.min.js','utf8');
 const reactDomRuntime=await readFile('node_modules/react-dom/umd/react-dom.production.min.js','utf8');
 const appRuntime=await readFile('public/app.bundle.js','utf8');
 await writeFile('public/standalone.js',`${reactRuntime}\n${reactDomRuntime}\n${appRuntime}\n`);
-for (const f of ['index.html','app.html','demo.html','login.html','styles.css','landing.css','landing.js','demo.css','demo.js','login.css','login.js','theme.css','theme.js','app.webmanifest']) await copyFile(f,`dist/${f}`);
+for (const f of ['index.html','app.html','demo.html','login.html','logo-rgb.html','logo-rgb-portable.html','styles.css','landing.css','landing.js','demo.css','demo.js','login.css','login.js','logo-rgb.css','logo-rgb.js','theme.css','theme.js','logo-lighting.js','app.webmanifest']) await copyFile(f,`dist/${f}`);
 for (const f of ['privacy.html','terms.html','safety.html','licenses.html','legal.css']) await copyFile(`legal/${f}`,`dist/legal/${f}`);
 await copyFile('assets/logos/Mindaural_logo_final_4x.png','dist/assets/logos/Mindaural_logo_final_4x.png');
+await copyFile('assets/logos/no_bg/Mindaural_logo_final_no_bg_4x.png','dist/assets/logos/no_bg/Mindaural_logo_final_no_bg_4x.png');
+await copyFile('assets/logos/name_logo/Mindaural_name_logo_final.svg','dist/assets/logos/name_logo/Mindaural_name_logo_final.svg');
 await cp('vendor','dist/vendor',{recursive:true}); await cp('public','dist/public',{recursive:true});
 await copyFile('public/app.bundle.js','dist/app.bundle.js');
 // Keep the standalone browser shell aligned with the hook-based source UI.
