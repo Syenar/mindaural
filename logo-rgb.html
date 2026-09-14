@@ -5,22 +5,26 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Mindaural RGB Logo Studio</title>
   <link rel="stylesheet" href="./logo-rgb.css">
-  <style>.drop-zone{border:1px dashed #607080;border-radius:14px;padding:12px 14px;margin-bottom:18px;color:#9eabb8;font-size:12px;text-align:center}.drop-zone.dragging{border-color:#8fb5d5;background:#243a4c;color:#f4f6f7}.drop-zone label{color:#8fb5d5;cursor:pointer;text-decoration:underline}.drop-zone input{display:none}</style>
+  <style>.drop-zone{border:1px dashed #607080;border-radius:14px;padding:12px 14px;margin-bottom:18px;color:#9eabb8;font-size:12px;text-align:center}.drop-zone.dragging{border-color:#8fb5d5;background:#243a4c;color:#f4f6f7}.drop-zone label{color:#8fb5d5;cursor:pointer;text-decoration:underline}.drop-zone input{display:none}.logo-stage.rgb-background::before{opacity:var(--bg-opacity,.82)}</style>
 </head>
 <body>
   <main class="shell">
     <header class="topbar"><a href="./index.html" class="back">← Mindaural</a><span class="eyebrow">LOGO RGB STUDIO</span></header>
     <section class="intro"><p class="eyebrow">LIVE COLOR CONTROL</p><h1>Light the mark your way.</h1><p>Preview the supplied Mindaural logo with transparent, static, or animated RGB lighting. Changes are live and local to this page.</p></section>
     <section class="workspace" aria-label="RGB logo preview and controls">
-      <div class="preview-panel"><div id="drop-zone" class="drop-zone">Drop an SVG or PNG here · <label for="logo-file">choose a file</label><input id="logo-file" type="file" accept=".svg,.png,.jpg,.jpeg,image/svg+xml,image/png,image/jpeg"></div><div id="logo-stage" class="logo-stage rgb-background"><img id="logo" src="./assets/logos/no_bg/Mindaural_logo_final_no_bg_4x.png" alt="Mindaural logo preview"></div><p id="readout" class="readout" aria-live="polite">RGB lighting on · RGB background · Rainbow · Built-in logo</p></div>
+      <div class="preview-panel"><div id="drop-zone" class="drop-zone">Drop an SVG or PNG here · <label for="logo-file">choose a file</label><input id="logo-file" type="file" accept=".svg,.png,.jpg,.jpeg,image/svg+xml,image/png,image/jpeg"></div><div id="logo-stage" class="logo-stage no-background"><img id="logo" src="./assets/logos/with_bg/Mindaural_logo_final_1x.svg" alt="Mindaural icon logo preview"></div><p id="readout" class="readout" aria-live="polite">RGB lighting on · Logo background preserved · Rainbow · Built-in icon logo</p></div>
       <form id="controls" class="controls">
         <div class="control-head"><div><p class="eyebrow">CONTROLS</p><h2>RGB behavior</h2></div><button id="power" type="button" class="toggle active" aria-pressed="true">On</button></div>
+        <label>Built-in logo<select id="logo-choice"><option value="icon">Icon SVG</option><option value="name">Name SVG</option></select></label>
         <label>Mode<select id="mode"><option value="rainbow">Rainbow</option><option value="aurora">Aurora</option><option value="pulse">Pulse</option></select></label>
         <label>Speed <output id="speed-value">42%</output><input id="speed" type="range" min="0" max="100" value="42"></label>
         <label>Color intensity <output id="intensity-value">165%</output><input id="intensity" type="range" min="100" max="220" value="165"></label>
+        <label>Hue offset <output id="hue-value">0°</output><input id="hue-offset" type="range" min="-180" max="180" value="0"></label>
+        <label>Background intensity <output id="bg-value">82%</output><input id="bg-intensity" type="range" min="0" max="100" value="82"></label>
         <label>Logo zoom <output id="zoom-value">100%</output><input id="zoom" type="range" min="50" max="160" value="100"></label>
-        <div class="row"><button id="background" type="button" class="option active" aria-pressed="true">RGB background</button><button id="transparent" type="button" class="option" aria-pressed="false">No background</button></div>
-        <p class="hint">The no-background option reveals the page surface behind the mark. RGB background adds a separate animated light layer behind it.</p>
+        <div class="row"><button id="background" type="button" class="option" aria-pressed="false">Add RGB glow</button><button id="transparent" type="button" class="option active" aria-pressed="true">Use logo background</button></div>
+        <button id="direction" type="button" class="option" aria-pressed="false">Reverse direction</button>
+        <p class="hint">Use logo background to preserve the supplied SVG background. Add RGB glow adds a separate animated light layer behind it without replacing the logo’s own background.</p>
       </form>
     </section>
   </main>

@@ -1,7 +1,12 @@
 {
   "schema": 1,
-  "generatedAt": "2026-09-12T07:34:26.452Z",
+  "generatedAt": "2026-09-14T13:39:09.629Z",
   "files": [
+    {
+      "path": ".github/workflows/deploy.yml",
+      "bytes": 410,
+      "sha256": "88a6254da7ad6c382e42bd89aab77f1462472704b054ecac25495809785b0e73"
+    },
     {
       "path": ".github/workflows/pages.yml",
       "bytes": 784,
@@ -14,13 +19,13 @@
     },
     {
       "path": ".mcp.json",
-      "bytes": 191,
-      "sha256": "60f0f1c282452b5050f91e6c63a89442942d3af74852e3d99861fbab55546d51"
+      "bytes": 203,
+      "sha256": "4905a6472bcb0f4b5cc3ed0798e71461ef651c2040af1e959a4e5f04c067b643"
     },
     {
       "path": "AGENTS.md",
-      "bytes": 745,
-      "sha256": "f7cfbfbde8305e605b2b9ed3c138f38ec983b0e2589c231916059e903b8c9560"
+      "bytes": 754,
+      "sha256": "2ba6ac2d8df503580f6aabb6e0a76bd48d357472bb2480e5813405aae2d3ac50"
     },
     {
       "path": "PROJECT_STATE.md",
@@ -38,9 +43,634 @@
       "sha256": "a98ba7b6ca4898cba73bc81e366cbe4cd56d90f9f06ef921de77e7a9c096feee"
     },
     {
+      "path": "app.html",
+      "bytes": 566,
+      "sha256": "ea53a24e9a393620d0ffdaf17862aa1e984f87c82c73f7df99c06e94d9779e89"
+    },
+    {
       "path": "app.webmanifest",
+      "bytes": 1060,
+      "sha256": "4ba71dc4b20f75c88d8d08b7a124a0459517bde6ac1345f6bf904989750f5e2e"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/Mindaural.cmd",
+      "bytes": 39,
+      "sha256": "6408c3654aa88f20dba8943ea262642293107977cfc094565f9b9a03b08ef5b5"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/app.bundle.js",
+      "bytes": 8080942,
+      "sha256": "046f7854655d0f353999e75ed34e95ab4ffc5969636e2cb5665fe7cf4e880360"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/app.html",
+      "bytes": 455,
+      "sha256": "2d435797c64b39d4f9209876f0123a40923b509c57cfced2a06237ce907a9599"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/app.webmanifest",
+      "bytes": 926,
+      "sha256": "249395ef67441aaab7da1aaeb8066b4e0a1a60174820d4e64f67770b3ca36f97"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/index.html",
+      "bytes": 6556,
+      "sha256": "bde004d3641b34450dd0a12b36bbdc35919bd69e18ec4b0a4cce1ea53bbaf15b"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/landing.css",
+      "bytes": 6437,
+      "sha256": "e87bc5a855f04750b2c9e21d8b5f1afe9c515a4d828ad1ddd0fcd0b1a6438ba9"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/landing.js",
+      "bytes": 1411,
+      "sha256": "508c92423cdbb9d30ea13dda56207d7d4fb88971d039547ed1b1363cb664613b"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/legal/legal.css",
+      "bytes": 1541,
+      "sha256": "d7503ac5d6423826067004157a5f0f86201277aa2f4092abd25147c3dcedbce5"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/legal/licenses.html",
+      "bytes": 1830,
+      "sha256": "86669a9af8e631de9cb9034a6508baa01d3cfedcea5972caa67ddc392eae3866"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/legal/privacy.html",
+      "bytes": 2818,
+      "sha256": "3339db5ee8c8744f2a0f159661d91a4b3e1608b4374440a6e0e8fedb09891b04"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/legal/safety.html",
+      "bytes": 2120,
+      "sha256": "a31b3c5ee4ce0af6bfd1dd12c72bad4789bd4e0e04b8a52b97c380a74928311c"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/legal/terms.html",
+      "bytes": 2998,
+      "sha256": "6186e6198a32098d131e446c09a9356efe2adf33d54dfd93fab00471e9aba78c"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/public/app.bundle.js",
+      "bytes": 8080942,
+      "sha256": "046f7854655d0f353999e75ed34e95ab4ffc5969636e2cb5665fe7cf4e880360"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/public/offline.html",
+      "bytes": 138,
+      "sha256": "653bc0ae26ba344ff7f4fc943a611d67522d45d6a90aeb051fa706f4ae56740a"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/public/service-worker.js",
+      "bytes": 1722,
+      "sha256": "d28f3ea47707885dc233d03a3dfb7750c335f696bb72fc66d2ac0d01e0323fe6"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/public/standalone.js",
+      "bytes": 8223531,
+      "sha256": "7a106f1cf2d9a5d4060ac181cf94b54dfd528702e943786ce2584d355e905bfd"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/public/worklet.js",
+      "bytes": 22889,
+      "sha256": "5fa3e33a7b922540c8304349674e2ad8a0e816e399a01eb71228f3842ce20c13"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/audio/analyze.js",
+      "bytes": 6636,
+      "sha256": "9ab653a931957db9854f77cac0d1a36196b2b4c7732d341b1c37783cd762ddfd"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/audio/analyze.js.map",
+      "bytes": 10547,
+      "sha256": "0ce4ba7926b48ce9c0ea12966940ad719b2a23e76ec02b78a38b8b5eb4c0a00b"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/audio/audioTrackMath.js",
+      "bytes": 3457,
+      "sha256": "6714639418cefaaa08f731ee2e54949426c391dbdc07987bdb0783788b02d7d4"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/audio/audioTrackMath.js.map",
+      "bytes": 5092,
+      "sha256": "6c14468e97b02047f8f94c1c7196a935d7879848cc64d5b9b596ac7fc507e26d"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/audio/calibration.js",
+      "bytes": 2000,
+      "sha256": "4d24ee0e4e747de3e0473fe44221ebda6edece6aac3bb734bd228213717f7711"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/audio/calibration.js.map",
+      "bytes": 2927,
+      "sha256": "9272fee5845d5f0e3ee4d0d06963cf3a656b59cae0f696cf7e4ea16ee69aeb83"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/audio/import.js",
+      "bytes": 2900,
+      "sha256": "337fa81a43aaf7a6305280d2ad3cc3566e8ce35b6ba6ca1af82fe77870441d36"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/audio/import.js.map",
+      "bytes": 3023,
+      "sha256": "106864d1b8b8c827101de04673e9dbce544eb479ba4f4e8d1bbd1109948bf434"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/audio/liveEngine.js",
+      "bytes": 3262,
+      "sha256": "1023f5570fb4851fe849a39100f34662e90ba9d2351f8eccc8cc04373f13c323"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/audio/liveEngine.js.map",
+      "bytes": 3976,
+      "sha256": "7bef4d5f6f9ae831645b5f3d5392e7f8f65246d6b872d838376b3304bd6f8f84"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/audio/noise.js",
+      "bytes": 3301,
+      "sha256": "c8e42c4e627485195dd517aee40552b724f63d350a8bab5586bbe604a1cbf41a"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/audio/noise.js.map",
+      "bytes": 5699,
+      "sha256": "e42c64f11966f81c3f97fbdf98292397c52f1e342639481a2bfbe6f149c6b4e6"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/audio/render.js",
+      "bytes": 9357,
+      "sha256": "dd3c9672b7748fa5938a51278e5635a8b388d6c81ae9a366ef1d8e92aa01775b"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/audio/render.js.map",
+      "bytes": 11810,
+      "sha256": "db2f4c4d219087bf69da6994e7e5941fda84e500e973ff634bed3a4d1a532e0a"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/audio/signalMath.js",
+      "bytes": 10130,
+      "sha256": "f13bfa4bc26c6f2a2acb4eedb91eb53869500a3a1ae8f89f2c2dee77e025d0d4"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/audio/signalMath.js.map",
+      "bytes": 15218,
+      "sha256": "0aae9fae8d6c3ab6e831b90216ab968cb5278750bbdd617459f091dcec94fa24"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/audio/worklet.js",
+      "bytes": 8603,
+      "sha256": "c07b259ea191586e5c3fc8a1709854ebfe81fb1590955f1455e9cc8e59334f3b"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/audio/worklet.js.map",
+      "bytes": 11131,
+      "sha256": "db16bc88d611e84620311e2b9531098527b8056312bc324bdc5eada0292f8eea"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/cloud/supabase.js",
+      "bytes": 7700,
+      "sha256": "4422cb50cec7efb8eafb76766c3dc20e1d76c23085089489b0481c868d798cbf"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/cloud/supabase.js.map",
+      "bytes": 8555,
+      "sha256": "492b96e000134729e1c951cbea0ce6fc655db23f6ca4faf3423587423afe98b1"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/core/history.js",
+      "bytes": 1033,
+      "sha256": "7426eee3d7b8e2c3b0dcf131f6ae3e75f436e2d509155bd6f09267c539f519cc"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/core/history.js.map",
+      "bytes": 1470,
+      "sha256": "4f80b8f68fc20abc5635a0c2cfdc09b4dd4ba2fec10b73415c920cac13703650"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/core/migrations.js",
+      "bytes": 2364,
+      "sha256": "c20dcdebd0c54cc46af881d9690535be3a4f7ddd84d6412213f63f4f7babe9b8"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/core/migrations.js.map",
+      "bytes": 3303,
+      "sha256": "2562da989f21788761188b870169fea170e09888159b4858d707392325dfbafc"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/core/project.js",
+      "bytes": 1852,
+      "sha256": "615080e70bedf9dfe075d490de8aeb9f38e13766d8b46957239537c75b06548c"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/core/project.js.map",
+      "bytes": 2399,
+      "sha256": "8afad5ab7c8159edffb84df23f9aac117c57d1ce4c83abe6a82eaaf362478191"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/core/sessionSchema.js",
+      "bytes": 9353,
+      "sha256": "79bf7205313626c7faffa0b31fce37467c81fa9e9a10de8e7800a9fa45eccc30"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/core/sessionSchema.js.map",
+      "bytes": 13194,
+      "sha256": "e50195c752446c8da9e749de51e6872ecf1f30c5d1c94809eb9b1e84131b757e"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/core/types.js",
+      "bytes": 311,
+      "sha256": "870a7da0eeeb8bfec5e46686944cb99c76d645a6dbda6686928d1710ab114f50"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/core/types.js.map",
+      "bytes": 397,
+      "sha256": "c0982a1cc50c71d28f366a311ea4203c03d46527f63104226decd84769697d75"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/data/presets.js",
+      "bytes": 6098,
+      "sha256": "66c769d31021711a80a722060af29aaea9112e302c27d45783dd2542303466f9"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/data/presets.js.map",
+      "bytes": 6553,
+      "sha256": "ca9cf0372ac530de2116edfc504677079cf5d6d3b2ee586131c748cf7bca1179"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/data/soundscapes.js",
+      "bytes": 5032,
+      "sha256": "d2f4e38bda0950c8a3eb8d1eb227f4d8603945b61cc0699f259ac60472bbf9b5"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/data/soundscapes.js.map",
+      "bytes": 5734,
+      "sha256": "68d73d3a60405950af8ec2ae1229c6954ae472790620b2c2c69f6c5b753a6374"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/formats/aiff.js",
+      "bytes": 5543,
+      "sha256": "49cf6c515db30f521aab56c57949eb54639f09610aa163a3ae6066ba9fa737df"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/formats/aiff.js.map",
+      "bytes": 8047,
+      "sha256": "9d27331096a049d05ab1815b0dedbd94eed1d669e294cba9ef42329911f9a148"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/formats/codecAdapters.js",
+      "bytes": 5222,
+      "sha256": "7faf0b94d2fb532b2c538c54a692ef701d8176689b29e4f194091d86ece21855"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/formats/codecAdapters.js.map",
+      "bytes": 5763,
+      "sha256": "18b43874afbf8c15c0f0d6ac70b0f075843b203b8a299fe775318ede997ce345"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/formats/exportBundle.js",
+      "bytes": 3444,
+      "sha256": "c8732303d3334cfa245f7f3960afa50f577a2d9b467481b20bdcd7b1cf9fe531"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/formats/exportBundle.js.map",
+      "bytes": 4765,
+      "sha256": "16264c7cc72044b60c45201cce28d45b16bd0c97addaae4c38486f97b9469690"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/formats/flac.js",
+      "bytes": 7757,
+      "sha256": "a593038d8d277310f9ed9c9a3551556661ed6c0cbcc6c71b7e4321680e41e35d"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/formats/flac.js.map",
+      "bytes": 12533,
+      "sha256": "ba08ea38fbb2a321d33a0510abd1f57cd141a3e9516f8c8e5a948045ff235018"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/formats/opus.js",
+      "bytes": 6181,
+      "sha256": "957f5670bed6fd9a5fb7f643658b7f2df25579e2afc4db9532b333165d3ec066"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/formats/opus.js.map",
+      "bytes": 10708,
+      "sha256": "7864a257dfffe6ef76e670bbd0ceeb61664b2fe271fd004efdd45e4b215d64df"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/formats/opusBundled.js",
+      "bytes": 2169,
+      "sha256": "9f82dcfde849b2b710507ded0a3c72e75b748d0dd384424b74576c2d09543f9d"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/formats/opusBundled.js.map",
+      "bytes": 2766,
+      "sha256": "7369640803e7e75ef87dd1573eb829b805b1a92024fbddc5ab38fa18dc11c96e"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/formats/projectPackage.js",
+      "bytes": 6939,
+      "sha256": "efb571b3c452d0a50b6b1046d53656161a5dcb68ea6d5d50c53c486f45b8e663"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/formats/projectPackage.js.map",
+      "bytes": 7638,
+      "sha256": "c31e418382b184f4a6a3eb11a4fe47d9b0fcfefa7de45fff5fc2674fed94b9e1"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/formats/streamPcm.js",
+      "bytes": 4518,
+      "sha256": "bd08568ea9cd1b35e3a657f828e7b9aab11829d2783d405523e0ac9199db6258"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/formats/streamPcm.js.map",
+      "bytes": 7666,
+      "sha256": "d1a58e88e914a03c0fd6695e168bb1b03d4e4dcd1e2597035c680071dfac0b6d"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/formats/wav.js",
+      "bytes": 6702,
+      "sha256": "56ecf280c7c073d60c63a3d52379af1220de7536451ffa5a93e220633637ad0a"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/formats/wav.js.map",
+      "bytes": 9652,
+      "sha256": "bff00a0b73e9a3524aedcebdf558996ba663224f2559eefd40b123ee8770e365"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/formats/webmOpus.js",
+      "bytes": 5168,
+      "sha256": "735c591cd843bada2645d5c75f7e34258d3d413d1638078ba426889f6775d9f6"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/formats/webmOpus.js.map",
+      "bytes": 6641,
+      "sha256": "f4d8a3aa0e4a6688bb5143ded7a9874641d88a5529e7712fd8b1475d407721ed"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/formats/zip.js",
+      "bytes": 3871,
+      "sha256": "5ff685ee07a0e4a7301dcf367c776e19dd1649bb41909ec0cc8808a8a6f609bf"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/formats/zip.js.map",
+      "bytes": 5554,
+      "sha256": "21f48bb2650d1f2b7e0ed834665d3192b35ec2a5eb4f30addcd397039021da0b"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/gpu/webgpu.js",
+      "bytes": 6158,
+      "sha256": "b4c0061b5675479e6d661793e699eb32d1755be74f097c078ccd29c5e5843d51"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/gpu/webgpu.js.map",
+      "bytes": 7240,
+      "sha256": "9d0979e02f09a94032c773314b6ceec83847948d01cdd696e772b2e88c78ae93"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/labs/lightControl.js",
+      "bytes": 1483,
+      "sha256": "8d6dea1075e465fbe6d982b53a19e846363f4880b121f7956a760181887d67d3"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/labs/lightControl.js.map",
+      "bytes": 2148,
+      "sha256": "8353a856efdcecd7328f0af378c2f5cc0422f10c12f63c2717928b2707222a93"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/legacy/bwg.js",
+      "bytes": 6192,
+      "sha256": "0e5eeb9e1fb3b0cf6f90aa7d5da3d31fa67138da7f3c3130efaf4d981e6a9f94"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/legacy/bwg.js.map",
+      "bytes": 6421,
+      "sha256": "c42e94c2ef116fa2072197d8c58ab7cb658ee139079837fb7147bc13f3b8d582"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/main.js",
+      "bytes": 527,
+      "sha256": "3f872328e2a0306880c4c1e2882616db1d11b60c1c65f156130c0b7b50343e1f"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/main.js.map",
+      "bytes": 516,
+      "sha256": "e1f7bfd4b844bd4882da96775392b9070e1fe10da3ef1b19962a7a4bcb5b1c50"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/research/session.js",
+      "bytes": 2127,
+      "sha256": "18e87cbda60addc13a2c6d78c4c111923a806320ec0aa88be0c6ee2e475e1499"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/research/session.js.map",
+      "bytes": 3313,
+      "sha256": "a8b4a9650408a93de3b53b36a755248a25d64d85223c803ed3c43f0cfa1631e9"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/security/keyStore.js",
+      "bytes": 1840,
+      "sha256": "ab66473ac88c1e8689d2a508aae96b1c3da9aa5f72a53b77283fbb14dbb1328a"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/security/keyStore.js.map",
+      "bytes": 2156,
+      "sha256": "3cd4cdf606a449eb0a92f50ca58fa14754798b3cb9f1644e06e19a1559bb5c3f"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/security/signing.js",
+      "bytes": 3113,
+      "sha256": "858ceb9df5990cdc0d5ae000992ea333223a666d429315fb517ea32a77a07b66"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/security/signing.js.map",
+      "bytes": 4161,
+      "sha256": "bf4161d0d2353a21150d0877b8f13ad70fb371723aa4eb54366078fabf9f6841"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/storage/assets.js",
+      "bytes": 1661,
+      "sha256": "ed1435120ae3d1c6129ab3d3a34c5fae228423f7409d325f71fe857cc9f0f466"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/storage/assets.js.map",
+      "bytes": 2667,
+      "sha256": "27ec555bf2119eec463ab6611279766c06b152d147b2c73b356b5127be3f953f"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/storage/errors.js",
+      "bytes": 713,
+      "sha256": "737a464b4c384de6a75f56fac4e3be3aa2614ec59968310c1cdf405a2762e79e"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/storage/errors.js.map",
+      "bytes": 547,
+      "sha256": "33f70f10373de9c58ef41190b65fafb82b88d9690ea813c0a59a159525614b63"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/storage/playlists.js",
+      "bytes": 2036,
+      "sha256": "c9700e665f2c5d14ef01f4d779d394de89ef42a9c10d31fd8bc3a900d7cd68bf"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/storage/playlists.js.map",
+      "bytes": 3125,
+      "sha256": "2715045c80538df5c3004cb7d1b0b8040185f350d591b5baa789dc9bc31ef5e8"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/storage/projects.js",
+      "bytes": 1555,
+      "sha256": "93e6536aa85d126780d8d434dafa9745eabb7938b66ccef5974a5702bd128a82"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/storage/projects.js.map",
+      "bytes": 2509,
+      "sha256": "75e3844ca01817cf9adb5c9f2bc1e3023fceb6501e03ae2458dfb566bee622b5"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/ui/AnalyzerSurface.js",
+      "bytes": 9493,
+      "sha256": "b47c81bd0d1a749c212f16b33da548d2773cc4aee354c00784b421ad3e92d53d"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/ui/AnalyzerSurface.js.map",
+      "bytes": 8158,
+      "sha256": "4b338961dafef342666d56cd58b9ad560796030c634fdac61b80f901ba5817e8"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/ui/App.js",
+      "bytes": 45323,
+      "sha256": "fb10361d4e5d7506d13fec98bd829fb5551a0e1261ba4bfbabeb37f0812a288d"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/ui/App.js.map",
+      "bytes": 42499,
+      "sha256": "1fd54b6127268eed9afe7604ddf9c4c94a285871466ebf147655fa2529b96b05"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/ui/AppPrimitives.js",
+      "bytes": 1587,
+      "sha256": "ba1d3e6661b700c16803de01c8284c42d8e91cb16298a62b010640afa566893f"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/ui/AppPrimitives.js.map",
+      "bytes": 1565,
+      "sha256": "e390a78b9908db03c9e8d59c99dd5154a32234801cff33935aee11a001d6bfee"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/ui/LabsSurface.js",
+      "bytes": 14552,
+      "sha256": "cacac1b0412b3580355e8636d02227879bd2a101c1abb4c68e4ab10319840e84"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/ui/LabsSurface.js.map",
+      "bytes": 12117,
+      "sha256": "2c785a61f1a67bc03a1119048371ffed924e17751b2b148196e3139fb45b9819"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/ui/LibrarySurface.js",
+      "bytes": 14182,
+      "sha256": "2c09222ee7fee64057c2345eaf8c0af084f99264b82c10ce94563223b9edb42c"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/ui/LibrarySurface.js.map",
+      "bytes": 12054,
+      "sha256": "4814343bdc06ded52894b89ee8b5bb084d70337632c9a0c3e0cc82b744b270aa"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/ui/PlaylistPanel.js",
+      "bytes": 3662,
+      "sha256": "7dac6ff794daf23ef43073f3c8696f9a1ee642d61d33128d3d80940a013e9d68"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/ui/PlaylistPanel.js.map",
+      "bytes": 3614,
+      "sha256": "5586cfdae4bd2c038c9fe5c78088a75d15cbe265ee7c6e8b8faf35342b546e63"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/ui/SettingsSurface.js",
+      "bytes": 14222,
+      "sha256": "35f278ceffaf9a3b6db9ba3add42a0597f1ecb6ff8deb28f9810cea95cf1d32a"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/ui/SettingsSurface.js.map",
+      "bytes": 9661,
+      "sha256": "81c4e81488abcedc1bb3a88b7bbbc0b844cb773841999078d637f38d52f38965"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/ui/StorageRecoveryControl.js",
+      "bytes": 2504,
+      "sha256": "bf599c3f4a8d73e0ef64365ab9c1819e754ebeb26c6dd77fc61e6c1c0b6c1ad0"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/ui/StorageRecoveryControl.js.map",
+      "bytes": 2326,
+      "sha256": "4c3ebd8b593af5433fb0ba4420eac6ba42fa06f934d94c8843550de9e213b234"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/ui/StudioSurface.js",
+      "bytes": 40822,
+      "sha256": "55ac37c70a0d5b0240af18acca38191418d1cb23c7e9e596f078529c28c0e2d5"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/ui/StudioSurface.js.map",
+      "bytes": 47943,
+      "sha256": "ef4a0efc40b426ea1ccae8bafe0611458c010abc109eda8c22b6e55ec73627a1"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/ui/StudioTimelineShell.js",
+      "bytes": 9606,
+      "sha256": "1a8efbf61e7f2347c6bb1965a90777572fb077f6584fb198d8ffad7e82c0c1a5"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/ui/StudioTimelineShell.js.map",
+      "bytes": 9765,
+      "sha256": "3d19c569251d0e46dc5890bd295f5b5597f605122e5420bf0806ba6fd6b55642"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/ui/StudioTimelineSurface.js",
+      "bytes": 21513,
+      "sha256": "39553fb6b97f8edc2cb075e919394d13b2f3e74fe27854aec5e61d2f0c9652dd"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/ui/StudioTimelineSurface.js.map",
+      "bytes": 23286,
+      "sha256": "cdf988e6672518a4326932727995d057fc8cbef9fe7f546fa7d6ed25f9d2aa33"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/ui/appUtils.js",
+      "bytes": 622,
+      "sha256": "a51dbb6d77d2b4f30a5f13823670e1b9c38eaf3019fe5bd6720ee726f3b5511b"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/src/ui/appUtils.js.map",
       "bytes": 901,
-      "sha256": "2b88a1d35d1833174d3b3dea3b3a233a4e064818cd11064e8c9aafa690907786"
+      "sha256": "35dfabb2bf2f5f90b9cf19bc40385d991ea84fd29f39f7609b23237e5e9db240"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/styles.css",
+      "bytes": 48847,
+      "sha256": "0887dcbdb07129e5958b6203dbc4c723eba2a57593497dd3795bd4f329d93a49"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/vendor/REACT_NOTICE.txt",
+      "bytes": 228,
+      "sha256": "98736cb4d010a07abac700b16e1eff062609050fa3de0fc375ab7855c59587ab"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/vendor/react-dom.production.min.js",
+      "bytes": 132102,
+      "sha256": "13b1c0705b9fa93346936ed98bd4a858fea4cdacdb09e564f897c5ba6bd0943a"
+    },
+    {
+      "path": "artifacts/windows/Mindaural-1.0.2/vendor/react.production.min.js",
+      "bytes": 10782,
+      "sha256": "d72610e728466bf70f27ecc9a1a14580fd8f1e75b977aa0612146cab0e80a3fe"
+    },
+    {
+      "path": "assets/ChatGPT Image Sep 13, 2026, 10_06_34 PM-gigapixel-high fidelity v2-2x-2.psd",
+      "bytes": 2482788,
+      "sha256": "0524b1b1880ba60582e1c0ddee2bef4213f4c4862f889b177c261e479446dd4d"
     },
     {
       "path": "assets/licenses/README.md",
@@ -48,14 +678,184 @@
       "sha256": "7f708d3bee7df06c849742760fc2f3708091b6b0afeacf579c7565be6adbbe3d"
     },
     {
+      "path": "assets/logos/Mindaural_logo_final_4x.png",
+      "bytes": 55811184,
+      "sha256": "a87e5d16f501337cb75f27852f3dd3a85d53ca5309533b36e5d3564e563b0269"
+    },
+    {
+      "path": "assets/logos/name_logo/Mindaural_name_logo_final.png",
+      "bytes": 841877,
+      "sha256": "c71e0e7d3f0a2f9d334138910acad72ba2d8701a265723a7b8ceee0d2c04191a"
+    },
+    {
+      "path": "assets/logos/name_logo/Mindaural_name_logo_final.svg",
+      "bytes": 2660580,
+      "sha256": "7d524bc607a0074166dba67ffc86c150b4501bc7de031628e630b8104fd2e281"
+    },
+    {
+      "path": "assets/logos/name_logo/Mindaural_name_logo_final_2x.png",
+      "bytes": 59760039,
+      "sha256": "51caf1cce28b1baae37f311d4d0ed4c553d01f9c9e869ec43fee049150ff335e"
+    },
+    {
+      "path": "assets/logos/name_logo/Mindaural_name_logo_final_4x.png",
+      "bytes": 59759855,
+      "sha256": "5a8925183ad12f574247c2df7440318935e1102264052535f88d79530630972b"
+    },
+    {
+      "path": "assets/logos/name_logo/name_logo_final.svg",
+      "bytes": 2662350,
+      "sha256": "a73ac335192203a71a2f6b34198a96137a69acf16a85a2249f2d4839100c00d3"
+    },
+    {
+      "path": "assets/logos/no_bg/Mindaural_logo_final__no_bg_1x_small.png",
+      "bytes": 257424,
+      "sha256": "8cd39e574bb7775b4f69dce0d5aecb05f544a9ae83d585fbb6f55a674c3aea8e"
+    },
+    {
+      "path": "assets/logos/no_bg/Mindaural_logo_final__no_bg_2x.png",
+      "bytes": 710182,
+      "sha256": "1e8ff3cda970ce5303df1579f5b5a26831798db8adf169291b7d07e76d5de765"
+    },
+    {
+      "path": "assets/logos/no_bg/Mindaural_logo_final_no_bg_1x.png",
+      "bytes": 523902,
+      "sha256": "9bbc8a5f449f0be461531efebc0b21f38410a723c680ba26bd16fcf8e9a56bae"
+    },
+    {
+      "path": "assets/logos/no_bg/Mindaural_logo_final_no_bg_1x.svg",
+      "bytes": 682986,
+      "sha256": "d30f9ee9fd7c6e42a32071f6ef2cf6333a382723889c4e9f89b64cf36b40c53d"
+    },
+    {
+      "path": "assets/logos/no_bg/Mindaural_logo_final_no_bg_1x_small.png",
+      "bytes": 107682,
+      "sha256": "81dff050b3f26fd44847df7f336b14da148bf1974816a195352b35e1e852b087"
+    },
+    {
+      "path": "assets/logos/no_bg/Mindaural_logo_final_no_bg_2x.svg",
+      "bytes": 903754,
+      "sha256": "170769754d850852af24efb2c06cf0d1f1f710d3289ab2df69ef0c044e1e6735"
+    },
+    {
+      "path": "assets/logos/no_bg/Mindaural_logo_final_no_bg_2x_small.png",
+      "bytes": 112717,
+      "sha256": "cf0c099295df41e04d9cb3cfc045dd09dbe40fda6f74d27dbce16139b49c0317"
+    },
+    {
+      "path": "assets/logos/no_bg/Mindaural_logo_final_no_bg_4x.png",
+      "bytes": 120479860,
+      "sha256": "d54e749d48d120f9d10af98a35ae4c78125f8ebbc156e6d07b2acc31c378c50f"
+    },
+    {
+      "path": "assets/logos/with_bg/Mindaural_logo_final.png",
+      "bytes": 374310,
+      "sha256": "a8e14ba72607fb062530536c5d5ee10ba90a89919b032127d1a7c7431ec85736"
+    },
+    {
+      "path": "assets/logos/with_bg/Mindaural_logo_final_1x.svg",
+      "bytes": 422620,
+      "sha256": "db51c4b3bd63533ea4b74239e404aaca6467ac6cc4bf244e2c51a85ce92de117"
+    },
+    {
+      "path": "assets/logos/with_bg/Mindaural_logo_final_1x_charcoal_bg.svg",
+      "bytes": 683186,
+      "sha256": "3d6410ad4eeddbd65f4214445d6dd490e9d3ae81a71255895cea209b3cd645f6"
+    },
+    {
+      "path": "assets/logos/with_bg/Mindaural_logo_final_1x_lime_theme.svg",
+      "bytes": 683490,
+      "sha256": "5a344f832d22c280f0a6885f35192b5dedc82c5eaa681bf8a7c738f13357efcb"
+    },
+    {
+      "path": "assets/logos/with_bg/Mindaural_logo_final_1x_ocean_theme.svg",
+      "bytes": 683489,
+      "sha256": "38476bbf5dc5f91aa6f422bb1d18c34e5a2f510517c607a043a26d6fb2094b16"
+    },
+    {
+      "path": "assets/logos/with_bg/Mindaural_logo_final_1x_pink_bg.svg",
+      "bytes": 683186,
+      "sha256": "247d129a69dbfacf1ac2363ccea10716f217fab47502cebf1e3028fc6fe995b0"
+    },
+    {
+      "path": "assets/logos/with_bg/Mindaural_logo_final_1x_pink_bg_harmonized.svg",
+      "bytes": 683466,
+      "sha256": "ee2987f91f6eddbc286428125e561d6a27c58c33ca522678a064dafe1924f53b"
+    },
+    {
+      "path": "assets/logos/with_bg/Mindaural_logo_final_1x_sunset_theme.svg",
+      "bytes": 683490,
+      "sha256": "d29ed13970dcf558d6b48f1aa16e85842b984f5ffe5038bb7200f506da5a734c"
+    },
+    {
+      "path": "assets/logos/with_bg/Mindaural_logo_final_1x_violet_theme.svg",
+      "bytes": 683489,
+      "sha256": "6755952847b21b1cd1e9a231e61e96d052955602ec3bc7cd69513b4096cdfbde"
+    },
+    {
+      "path": "assets/logos/with_bg/Mindaural_logo_final_2.png",
+      "bytes": 395142,
+      "sha256": "b33647416170622dbaac51be472d4e44e091e680e31f8b60f58ee15ce068b29b"
+    },
+    {
+      "path": "assets/logos/with_bg/Mindaural_logo_final_2x.png",
+      "bytes": 557799,
+      "sha256": "f3156d92da71af882d6fce7e760ed9c551401f282c8488d6a7d7ab620b97165d"
+    },
+    {
+      "path": "assets/logos/with_bg/Mindaural_logo_final_2x.svg",
+      "bytes": 482376,
+      "sha256": "da10e42660bddbed384e31884f248eb82b5eaff135dc57edff101b128450ab44"
+    },
+    {
+      "path": "assets/logos/with_bg/Mindaural_logo_final_4x.png",
+      "bytes": 55811184,
+      "sha256": "a87e5d16f501337cb75f27852f3dd3a85d53ca5309533b36e5d3564e563b0269"
+    },
+    {
+      "path": "assets/logos/with_bg/Mindaural_logo_final_x0.33.png",
+      "bytes": 20858,
+      "sha256": "61ad343c537260796f9933145c984392178857467eef97db92cd9dfe1e802c77"
+    },
+    {
+      "path": "assets/logos/with_bg/Mindaural_logo_final_x0.5.png",
+      "bytes": 38095,
+      "sha256": "9df594a7aaa5d2b188f8ccb906028903c48b8f3dcf393374e23b586f6686ec39"
+    },
+    {
+      "path": "assets/logos.zip",
+      "bytes": 22218579,
+      "sha256": "186f4123d7cc92805a769801b77da401b0173c2ca33c67ebe4eeb920ed766fd3"
+    },
+    {
       "path": "assets/reference/README.md",
       "bytes": 646,
       "sha256": "64db3bf63fd902a808ac8143918d37c0054d0044cf547cf7bf840246a3e9c3fb"
     },
     {
+      "path": "demo.css",
+      "bytes": 2921,
+      "sha256": "ee61c721df09c708e5728104a6b29281ed6434abb6c6f3a5412dfe273b403c58"
+    },
+    {
+      "path": "demo.html",
+      "bytes": 2053,
+      "sha256": "b944dc8b408ab0df76f520c65704643549eb84695d866e968b56e4d0a9301c56"
+    },
+    {
+      "path": "demo.js",
+      "bytes": 2481,
+      "sha256": "01fb29cdb4cef3da0ab89901a0d73fc299d067cd4d91cf17107bbbcf275b12e3"
+    },
+    {
       "path": "docs/00_MASTER_PLAN.md",
       "bytes": 28358,
       "sha256": "4fbacd6754bb665547e132492028fa665d1df56cae5abed447a1bca8cc6d4905"
+    },
+    {
+      "path": "docs/INSTALLER_BUILD.md",
+      "bytes": 1659,
+      "sha256": "e96aa79775dca05d29f65e3cb0c13eb7d3ce30024eb839a8c10096b103f4dc04"
     },
     {
       "path": "docs/architecture/AUDIO_ENGINE_SPEC.md",
@@ -89,8 +889,8 @@
     },
     {
       "path": "docs/audits/PROGRESS_LOG.md",
-      "bytes": 5280,
-      "sha256": "c87f5f24aeaef32a211c1f77f0f219a5e2aa58609445a2e67b3912b14c8c94f2"
+      "bytes": 9711,
+      "sha256": "716e70bd7fd364e015dbbccaddd60970cd2f04c4bf1155a8e306a45d7109a0a3"
     },
     {
       "path": "docs/audits/REQUIREMENT_MATRIX.md",
@@ -144,8 +944,83 @@
     },
     {
       "path": "index.html",
-      "bytes": 2140,
-      "sha256": "367fe80e91585c6ff56a1f01a7f18d56823fe71553484e0e98e901cfa69ad0e3"
+      "bytes": 6644,
+      "sha256": "8d81b969f0d35864c339454019c34b8c599d375cb3886c61a1001d9778c26b4f"
+    },
+    {
+      "path": "landing.css",
+      "bytes": 6023,
+      "sha256": "bd748ac39b3906c5b69f38cae8196381c3e915bd4af8288a6c724becca3f84c3"
+    },
+    {
+      "path": "landing.js",
+      "bytes": 1411,
+      "sha256": "508c92423cdbb9d30ea13dda56207d7d4fb88971d039547ed1b1363cb664613b"
+    },
+    {
+      "path": "legal/legal.css",
+      "bytes": 1805,
+      "sha256": "0fee37ff66c763b42b9c17bb8405e6986b80684f84490288d639b8fc66242330"
+    },
+    {
+      "path": "legal/licenses.html",
+      "bytes": 1830,
+      "sha256": "86669a9af8e631de9cb9034a6508baa01d3cfedcea5972caa67ddc392eae3866"
+    },
+    {
+      "path": "legal/privacy.html",
+      "bytes": 2818,
+      "sha256": "3339db5ee8c8744f2a0f159661d91a4b3e1608b4374440a6e0e8fedb09891b04"
+    },
+    {
+      "path": "legal/safety.html",
+      "bytes": 2120,
+      "sha256": "a31b3c5ee4ce0af6bfd1dd12c72bad4789bd4e0e04b8a52b97c380a74928311c"
+    },
+    {
+      "path": "legal/terms.html",
+      "bytes": 2998,
+      "sha256": "6186e6198a32098d131e446c09a9356efe2adf33d54dfd93fab00471e9aba78c"
+    },
+    {
+      "path": "login.css",
+      "bytes": 3319,
+      "sha256": "e1feba2f7cc3911efe5ecef2813d6ac8fc00a53b8ec74ee5f59c1dcf83a7e141"
+    },
+    {
+      "path": "login.html",
+      "bytes": 1942,
+      "sha256": "eb3e1f15f8e2ae14354b26dbdfa9095ec6241ae500f4fd0fcb066b45d9b377e2"
+    },
+    {
+      "path": "login.js",
+      "bytes": 1653,
+      "sha256": "96435a33bb8edbb36fa2048ee10147c459ccd343944cfb1569fa643cc660f4c8"
+    },
+    {
+      "path": "logo-lighting.js",
+      "bytes": 550,
+      "sha256": "aedfe447fae03aa38ac4477ae3987bb8ccc3b86413bfa6ec220fd29aea13b45c"
+    },
+    {
+      "path": "logo-rgb-portable.html",
+      "bytes": 5989,
+      "sha256": "f8f99c2b5c2ff1a5b80d1cde407301cdb50c521c6fa6946de13f19450c751219"
+    },
+    {
+      "path": "logo-rgb.css",
+      "bytes": 3460,
+      "sha256": "aca73cb8d1d83a005a57b3c65edf81e089937443937cadd2b29782062ddf87fc"
+    },
+    {
+      "path": "logo-rgb.html",
+      "bytes": 3547,
+      "sha256": "b3e244635c9445928b0993bac791513bac4f4a9062effbf1c2931e3e835a21a8"
+    },
+    {
+      "path": "logo-rgb.js",
+      "bytes": 6096,
+      "sha256": "9c6d062bd85654956f5db888697e8f25aa98d07114cb34282225c8cdfa7bc868"
     },
     {
       "path": "package-lock.json",
@@ -154,13 +1029,13 @@
     },
     {
       "path": "package.json",
-      "bytes": 880,
-      "sha256": "e9398296cfe7b1b1bc522451cbdc95d5bfa2e0ac8dd83e2bb599db10e4d75f78"
+      "bytes": 1067,
+      "sha256": "cfd6a841f00914bfe572d032d2bb8b8c1a7a0ff0e9962477008ca3473d293a09"
     },
     {
       "path": "public/app.bundle.js",
-      "bytes": 8086645,
-      "sha256": "e2506dc0b65afd5f2f6d9e69b2fa77e1cf69a2471bcdd26df15aaa0a6210abd7"
+      "bytes": 8084134,
+      "sha256": "f48b610124416a797919a31d43770729d218a6c7e17b6242d340cca2689e3d27"
     },
     {
       "path": "public/offline.html",
@@ -169,18 +1044,18 @@
     },
     {
       "path": "public/service-worker.js",
-      "bytes": 1692,
-      "sha256": "6396bb84263c6e708712eefe825edfe29aa811efc3073adb07a97d8b716bf548"
+      "bytes": 1704,
+      "sha256": "e1150b13c1771b07244ce4ba2df43dfa188ac96645077b6367216c6ee4aa9299"
     },
     {
       "path": "public/standalone.js",
-      "bytes": 8229234,
-      "sha256": "0d55a6f68185ca6dcd528c3261913d35a5d2b12573a3ecee99ee1f7f49152b80"
+      "bytes": 8226723,
+      "sha256": "778e4fe0cbc1abe5261ce93f587808e61c75788f39be97e74ffcbb7456361c7c"
     },
     {
       "path": "public/worklet.js",
-      "bytes": 22363,
-      "sha256": "b8b95f8063972a8c8606bb4445944ca30c1b2260329e6f3a83f5e2568fcf7153"
+      "bytes": 22394,
+      "sha256": "c0afdd4a89207e4829a6e8d9628582b83d19b48db5f584b0b2f09b18b97c316c"
     },
     {
       "path": "research/README.md",
@@ -191,6 +1066,11 @@
       "path": "research/source_index.json",
       "bytes": 4641,
       "sha256": "e46b27dc5da73de1217776c6a36d1133cb51e45438ccec34b4f185d8f8620971"
+    },
+    {
+      "path": "run-logo-rgb.cmd",
+      "bytes": 285,
+      "sha256": "d5f319eb681263427d552bf37a08708ad396ddbd2f22d96336dc3f25ff785369"
     },
     {
       "path": "run-mindaural.sh",
@@ -204,13 +1084,13 @@
     },
     {
       "path": "scripts/browser-smoke.mjs",
-      "bytes": 9125,
-      "sha256": "3f659daf9d794f5cb6eb0e814b3c1429027b1a6def98a98b27d6b29ce61f3b11"
+      "bytes": 9153,
+      "sha256": "4a93c460a18833e09746ca5687c579a7e39e14bf05da6b4dd767547b16562668"
     },
     {
       "path": "scripts/build.mjs",
-      "bytes": 2694,
-      "sha256": "022be4d0c9ab649f5e30b0d6e7f545ba0248b30433bf2ad1b1ab0b3d8ea94819"
+      "bytes": 3850,
+      "sha256": "b769a98712cb0ac21a799910af5d3600edf37db63a251d0e17cd78851291f454"
     },
     {
       "path": "scripts/bwg-regression.mjs",
@@ -229,8 +1109,8 @@
     },
     {
       "path": "scripts/gauntlet.mjs",
-      "bytes": 2082,
-      "sha256": "e2aabfef7426bc70808bcaae0072fc896adc4c04ea63aa2c8ef3e9f68961050b"
+      "bytes": 2094,
+      "sha256": "23b35eab6acb16d98215075e676c47d57f03c621a7f3c4cdae65de28f6cf2e51"
     },
     {
       "path": "scripts/license-audit.mjs",
@@ -243,9 +1123,19 @@
       "sha256": "b9f7c26337b905a8e4183bec018a18a192a8af4b764d8e6ab45e1dffbd90c1e0"
     },
     {
+      "path": "scripts/package-linux.sh",
+      "bytes": 892,
+      "sha256": "5a42dfce083ecf7e8aac98a7cc5f894f6343b814be1e5542b4d4842612777399"
+    },
+    {
       "path": "scripts/package-recovery.mjs",
       "bytes": 1355,
       "sha256": "23aa34c3b65c9c2fff2e3e9b1a84c6e3f70a7df73f4b20e18855dc342a8687a7"
+    },
+    {
+      "path": "scripts/package-windows.ps1",
+      "bytes": 1012,
+      "sha256": "9d28bdd743cf38148ee68acc352cbcd26df769106fdb2ebbf9f8d6c2ce84615c"
     },
     {
       "path": "scripts/parser-fuzz.mjs",
@@ -276,6 +1166,11 @@
       "path": "scripts/test.mjs",
       "bytes": 17640,
       "sha256": "f04857a22ae28f8fd5e339defbe1dc94da3fc1d67409a30f230dd98eef51c424"
+    },
+    {
+      "path": "scripts/theme-handoff-smoke.mjs",
+      "bytes": 2832,
+      "sha256": "8bbad5a0a3eb300c3a1c6a1a959a5f892dd87480530720f8ee6c938af5410763"
     },
     {
       "path": "scripts/update-manifest.mjs",
@@ -319,8 +1214,8 @@
     },
     {
       "path": "src/audio/noise.ts",
-      "bytes": 3093,
-      "sha256": "e8c287d2bbec0f0a9d4cc6e083172599a5ac34673fab9d641715bbede49cf0de"
+      "bytes": 3118,
+      "sha256": "8ee4a23b11a9a48b53b050a63f04e90fc6895d246612c15f191511d8a6b4eabe"
     },
     {
       "path": "src/audio/render.ts",
@@ -354,8 +1249,8 @@
     },
     {
       "path": "src/core/project.ts",
-      "bytes": 1599,
-      "sha256": "3f53c9b18a466c6c98c3e47e461dd4499ebe5c80f67719be5f5ccd72a8642079"
+      "bytes": 1713,
+      "sha256": "26db433d41a60b9f029105658526ef8d0928b44f2a6fbf2a526f1a0d0e74cb0b"
     },
     {
       "path": "src/core/sessionSchema.ts",
@@ -364,8 +1259,8 @@
     },
     {
       "path": "src/core/types.ts",
-      "bytes": 5930,
-      "sha256": "9c86d5d116a3926b169ac8de72aa67c3e780e988fac12dd8a31f4d3a55726707"
+      "bytes": 6167,
+      "sha256": "024663810e77051b087cd6fd842ea8c144a69ffab4b0488fb96589e1649b4761"
     },
     {
       "path": "src/data/presets.ts",
@@ -449,8 +1344,8 @@
     },
     {
       "path": "src/main.tsx",
-      "bytes": 461,
-      "sha256": "c340fccc9047b510a688cb79755492d6479b2934ed552f1dadb8344750e97a59"
+      "bytes": 1344,
+      "sha256": "fc6b48b3c679d8eb8e52805a591f117ea654e6816187e9abc9c68a63b32107ee"
     },
     {
       "path": "src/research/session.ts",
@@ -494,8 +1389,8 @@
     },
     {
       "path": "src/ui/App.tsx",
-      "bytes": 32766,
-      "sha256": "c6703012626cd188e2a6fda8d645c140e4286387106eccb3cdab2a9951fb9d54"
+      "bytes": 34307,
+      "sha256": "3109e63efec963aec076d71dacc262a2c1e5a985e233f79d8db7a388f2b57ba4"
     },
     {
       "path": "src/ui/AppPrimitives.tsx",
@@ -504,8 +1399,8 @@
     },
     {
       "path": "src/ui/LabsSurface.tsx",
-      "bytes": 8327,
-      "sha256": "b2d530fa1a206270f1e13023256211adb9207f370647abe1932f9b85a253342c"
+      "bytes": 9463,
+      "sha256": "69b9805a899edfd021f71516d8220832ecedc3526485cbcb97a62ead549bff60"
     },
     {
       "path": "src/ui/LibrarySurface.tsx",
@@ -519,8 +1414,8 @@
     },
     {
       "path": "src/ui/SettingsSurface.tsx",
-      "bytes": 8575,
-      "sha256": "c63ea53aa2d8420070c1b3c77ab9322523e1a302d65508717afd47ce75e4efcb"
+      "bytes": 8761,
+      "sha256": "032396fbafbc750dbdd27f5f580f33ddf4682c2c28a1280c87fedd8a8ec7619d"
     },
     {
       "path": "src/ui/StorageRecoveryControl.tsx",
@@ -533,14 +1428,29 @@
       "sha256": "882fd9d1d65634942bed1cc3e7c10088e31c95aa9ce697e2b72e3b6d6bbd6c57"
     },
     {
+      "path": "src/ui/StudioTimelineShell.tsx",
+      "bytes": 7705,
+      "sha256": "7c907ba63d62a0084b4bc6c47e7da73ec00b2c9654b7e17519d172fd6e390e6b"
+    },
+    {
+      "path": "src/ui/StudioTimelineSurface.tsx",
+      "bytes": 16001,
+      "sha256": "ac00bae3d1a2015611325a768793dd1f2397cc0bcd3ff1b6cbd12f2ee86f36bc"
+    },
+    {
       "path": "src/ui/appUtils.ts",
       "bytes": 610,
       "sha256": "682d4ee501eddcdbd5c687c77a378d159bab5966d8acd85b89dc378e54efb41e"
     },
     {
+      "path": "src/ui/logoLighting.ts",
+      "bytes": 921,
+      "sha256": "c2140c1a15ea29609dcab7ba1af67c05192f20976e3bc3bcaed9e393feb02928"
+    },
+    {
       "path": "styles.css",
-      "bytes": 27588,
-      "sha256": "9f14e79f07ed5eb7f29af6585b1f4a7c21412860df2441356b0a1ce6975bc82b"
+      "bytes": 48917,
+      "sha256": "ba65f8afebfad80ac2d0ea4ed3236dfd5b2d5fdfba436633ed56b186e24d401c"
     },
     {
       "path": "supabase/schema.sql",
@@ -561,6 +1471,16 @@
       "path": "tests/validate_planning_baseline.py",
       "bytes": 11127,
       "sha256": "b7d6fec328398eb11f81170fcaa5ffaab079effd4bfb383e6ef033079b45b7eb"
+    },
+    {
+      "path": "theme.css",
+      "bytes": 1416,
+      "sha256": "fed63cb7dd9a8d3ac4b0bab14ef4effe6d4d43166f501f2c1630947919b7dff1"
+    },
+    {
+      "path": "theme.js",
+      "bytes": 965,
+      "sha256": "50c4963af15a22d864a6c8a1424b1135748158e2969ffedbbe36de5f0cd0ecd2"
     },
     {
       "path": "tsconfig.json",
