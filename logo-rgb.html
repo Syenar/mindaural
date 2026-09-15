@@ -21,7 +21,8 @@
       <form id="controls" class="controls">
         <div class="control-head"><div><p class="eyebrow">CONTROLS</p><h2>RGB behavior</h2></div><div class="header-actions"><label class="switch-control" for="contrast"><input id="contrast" type="checkbox" checked><span class="switch-track" aria-hidden="true"><span class="switch-thumb"></span></span><span class="switch-label">Preserve contrast</span></label><button id="power" type="button" class="toggle active" aria-pressed="true">On</button></div></div>
         <label>Built-in logo<select id="logo-choice"><option value="icon">Icon SVG</option><option value="name">Name SVG</option></select></label>
-        <label>Mode<select id="mode"><option value="rainbow">Rainbow</option><option value="aurora">Aurora</option><option value="pulse">Pulse</option></select></label>
+        <label>Mode<select id="mode"><option value="rainbow">Rainbow</option><option value="aurora">Aurora</option><option value="pulse">Pulse</option><option value="ocean">Ocean</option><option value="sunset">Sunset</option><option value="fire">Fire</option><option value="ice">Ice</option><option value="wave">Wave</option><option value="static">Static color</option><option value="custom">Custom palette</option></select></label>
+        <div id="custom-colors" class="custom-colors" hidden><label>Custom color A<input id="custom-a" type="color" value="#37d6c4"></label><label>Custom color B<input id="custom-b" type="color" value="#8c5cff"></label></div>
         <label>Speed <output id="speed-value">42%</output><input id="speed" type="range" min="0" max="100" value="42"></label>
         <label>Color intensity <output id="intensity-value">165%</output><input id="intensity" type="range" min="100" max="220" value="165"></label>
         <label>Hue offset <output id="hue-value">0°</output><input id="hue-offset" type="range" min="-180" max="180" value="0"></label>

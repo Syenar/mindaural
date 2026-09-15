@@ -2,6 +2,7 @@
   const $ = (s) => document.querySelector(s), stage = $('#logo-stage'), logo = $('#logo'), readout = $('#readout');
   const power = $('#power'), logoChoice = $('#logo-choice'), mode = $('#mode'), speed = $('#speed'), intensity = $('#intensity');
   const hueOffset = $('#hue-offset'), bgIntensity = $('#bg-intensity'), zoom = $('#zoom'), direction = $('#direction'), contrast = $('#contrast');
+  const customColors = $('#custom-colors'), customA = $('#custom-a'), customB = $('#custom-b');
   const dropZone = $('#drop-zone'), fileInput = $('#logo-file');
   const builtIn = { icon: './assets/logos/with_bg/Mindaural_logo_final_1x.svg', name: './assets/logos/name_logo/Mindaural_name_logo_final.svg' };
   let logoUrl = '', logoLabel = 'Built-in icon logo', backgroundLayer = null, detectedBackground = false, reverse = false, contrastProtected = true, frame = 0;
@@ -72,12 +73,23 @@
   async function loadBuiltIn(source, label) { try { const response = await fetch(source); if (!response.ok) throw new Error('asset unavailable'); setSvg(await cleanSvg(await response.text()), label); } catch { readout.textContent = `Unable to load ${label}.`; } }
   async function loadFile(file) { if (!file || !/^(image\/(svg\+xml|png|jpeg)|\.svg$|\.png$|\.jpe?g$)/i.test(file.type || file.name)) return; if (file.type === 'image/svg+xml' || file.name.toLowerCase().endsWith('.svg')) { try { setSvg(await cleanSvg(await file.text()), `Imported ${file.name}`); } catch { readout.textContent = 'Unable to read that SVG.'; } } else setImage(URL.createObjectURL(file), `Imported ${file.name}`); }
   function tick(now) {
-    if (running) { const elapsed = (now - start) / 1000, hue = elapsed * (Number(speed.value) / 100 * 42) * (reverse ? -1 : 1) + Number(hueOffset.value), wave = mode.value === 'aurora' ? Math.sin(elapsed * 1.2) * 42 : 0; const color = `hsl(${hue + wave} 68% ${18 + Number(bgIntensity.value) * .18}%)`; backgroundLayer?.style.setProperty('fill', color); backgroundLayer?.style.setProperty('stroke', color); logo.style.setProperty('--logo-hue', `${hue + wave}deg`); }
+    if (running) {
+      const elapsed = (now - start) / 1000, base = elapsed * (Number(speed.value) / 100 * 42) * (reverse ? -1 : 1) + Number(hueOffset.value);
+      const palettes = { ocean: [185, 205, 225], sunset: [8, 28, 318], fire: [4, 24, 45], ice: [190, 210, 235] };
+      const palette = palettes[mode.value];
+      const phase = elapsed * (Number(speed.value) / 100 * 1.2) * (reverse ? -1 : 1);
+      const paletteHue = palette ? palette[Math.floor(Math.abs(phase) % palette.length)] + Math.sin(phase) * 10 : base;
+      const wave = mode.value === 'aurora' ? Math.sin(elapsed * 1.2) * 42 : mode.value === 'wave' ? Math.sin(phase) * 120 : 0;
+      const hue = mode.value === 'static' ? Number(hueOffset.value) + 210 : paletteHue + wave;
+      const lightness = mode.value === 'fire' ? 20 + (Math.sin(elapsed * 4) + 1) * 5 : 18 + Number(bgIntensity.value) * .18;
+      const custom = mode.value === 'custom' ? (Math.sin(phase) > 0 ? customA.value : customB.value) : `hsl(${hue} 68% ${lightness}%)`;
+      backgroundLayer?.style.setProperty('fill', custom); backgroundLayer?.style.setProperty('stroke', custom); logo.style.setProperty('--logo-hue', `${hue}deg`);
+    }
     frame = requestAnimationFrame(tick);
   }
   power.addEventListener('click', () => { running = !running; power.classList.toggle('active', running); power.setAttribute('aria-pressed', String(running)); power.textContent = running ? 'On' : 'Off'; stage.classList.toggle('paused', !running); say(); });
   logoChoice.addEventListener('change', () => void loadBuiltIn(builtIn[logoChoice.value], logoChoice.value === 'name' ? 'Built-in name logo' : 'Built-in icon logo'));
-  mode.addEventListener('change', () => { stage.classList.toggle('pulse', mode.value === 'pulse'); say(); }); speed.addEventListener('input', () => { $('#speed-value').textContent = `${speed.value}%`; });
+  mode.addEventListener('change', () => { stage.classList.toggle('pulse', mode.value === 'pulse'); customColors.hidden = mode.value !== 'custom'; say(); }); customA.addEventListener('input', () => {}); customB.addEventListener('input', () => {}); speed.addEventListener('input', () => { $('#speed-value').textContent = `${speed.value}%`; });
   intensity.addEventListener('input', () => { logo.style.setProperty('--logo-saturation', Number(intensity.value) / 100); $('#intensity-value').textContent = `${intensity.value}%`; });
   hueOffset.addEventListener('input', () => { $('#hue-value').textContent = `${hueOffset.value}°`; }); bgIntensity.addEventListener('input', () => { $('#bg-value').textContent = `${bgIntensity.value}%`; });
   zoom.addEventListener('input', () => { logo.style.setProperty('--logo-zoom', `${zoom.value}%`); $('#zoom-value').textContent = `${zoom.value}%`; }); direction.addEventListener('click', () => { reverse = !reverse; direction.classList.toggle('active', reverse); direction.setAttribute('aria-pressed', String(reverse)); direction.textContent = reverse ? 'Forward direction' : 'Reverse direction'; });
