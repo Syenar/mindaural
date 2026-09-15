@@ -1,4 +1,4 @@
-import { rm, mkdir, cp, copyFile, readFile, writeFile } from 'node:fs/promises';
+import { rm, mkdir, cp, copyFile, readFile, writeFile, stat } from 'node:fs/promises';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
@@ -27,7 +27,7 @@ await writeFile('public/standalone.js',`${reactRuntime}\n${reactDomRuntime}\n${a
 for (const f of ['index.html','app.html','demo.html','login.html','logo-rgb.html','logo-rgb-portable.html','styles.css','landing.css','landing.js','demo.css','demo.js','login.css','login.js','logo-rgb.css','logo-rgb.js','theme.css','theme.js','logo-lighting.js','app.webmanifest']) await copyFile(f,`dist/${f}`);
 for (const f of ['privacy.html','terms.html','safety.html','licenses.html','legal.css']) await copyFile(`legal/${f}`,`dist/legal/${f}`);
 await copyFile('assets/logos/Mindaural_logo_final_4x.png','dist/assets/logos/Mindaural_logo_final_4x.png');
-await copyFile('assets/logos/no_bg/Mindaural_logo_final_no_bg_4x.png','dist/assets/logos/no_bg/Mindaural_logo_final_no_bg_4x.png');
+if ((await stat('assets/logos/no_bg/Mindaural_logo_final_no_bg_4x.png').catch(() => null))?.isFile()) await copyFile('assets/logos/no_bg/Mindaural_logo_final_no_bg_4x.png','dist/assets/logos/no_bg/Mindaural_logo_final_no_bg_4x.png');
 await copyFile('assets/logos/name_logo/Mindaural_name_logo_final.svg','dist/assets/logos/name_logo/Mindaural_name_logo_final.svg');
 await copyFile('assets/logos/with_bg/Mindaural_logo_final_1x.svg','dist/assets/logos/with_bg/Mindaural_logo_final_1x.svg');
 await cp('vendor','dist/vendor',{recursive:true}); await cp('public','dist/public',{recursive:true});
