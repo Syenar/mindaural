@@ -9,6 +9,8 @@
   let running = !window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
   const start = performance.now();
   const say = () => { readout.textContent = `RGB lighting ${running ? 'on' : 'off'} · ${detectedBackground ? 'SVG background RGB' : 'No detected SVG background'} · ${mode.value[0].toUpperCase() + mode.value.slice(1)} · ${logoLabel}${detectedBackground ? ' · Background layer detected' : ''} · Contrast ${contrastProtected ? 'protected' : 'unrestricted'}`; };
+  const mixHex = (first, second, amount) => { const a = first.match(/[\da-f]{2}/gi).map(v => parseInt(v, 16)), b = second.match(/[\da-f]{2}/gi).map(v => parseInt(v, 16)); return `rgb(${a.map((v, i) => Math.round(v + (b[i] - v) * amount)).join(',')})`; };
+  const mixHue = (first, second, amount) => { const delta = ((second - first + 540) % 360) - 180; return first + delta * amount; };
   async function removeConnectedBlack(dataUrl) {
     const image = new Image();
     image.src = dataUrl.replace(/^data:img\/png/i, 'data:image/png');
@@ -78,11 +80,13 @@
       const palettes = { ocean: [185, 205, 225], sunset: [8, 28, 318], fire: [4, 24, 45], ice: [190, 210, 235] };
       const palette = palettes[mode.value];
       const phase = elapsed * (Number(speed.value) / 100 * 1.2) * (reverse ? -1 : 1);
-      const paletteHue = palette ? palette[Math.floor(Math.abs(phase) % palette.length)] + Math.sin(phase) * 10 : base;
+      const palettePosition = palette ? Math.abs(phase) % palette.length : 0;
+      const paletteIndex = Math.floor(palettePosition), paletteAmount = palettePosition - paletteIndex;
+      const paletteHue = palette ? mixHue(palette[paletteIndex], palette[(paletteIndex + 1) % palette.length], paletteAmount) + Math.sin(phase) * 10 : base;
       const wave = mode.value === 'aurora' ? Math.sin(elapsed * 1.2) * 42 : mode.value === 'wave' ? Math.sin(phase) * 120 : 0;
       const hue = mode.value === 'static' ? Number(hueOffset.value) + 210 : paletteHue + wave;
       const lightness = mode.value === 'fire' ? 20 + (Math.sin(elapsed * 4) + 1) * 5 : 18 + Number(bgIntensity.value) * .18;
-      const custom = mode.value === 'custom' ? (Math.sin(phase) > 0 ? customA.value : customB.value) : `hsl(${hue} 68% ${lightness}%)`;
+      const custom = mode.value === 'custom' ? mixHex(customA.value, customB.value, (Math.sin(phase) + 1) / 2) : `hsl(${hue} 68% ${lightness}%)`;
       backgroundLayer?.style.setProperty('fill', custom); backgroundLayer?.style.setProperty('stroke', custom); logo.style.setProperty('--logo-hue', `${hue}deg`);
     }
     frame = requestAnimationFrame(tick);
