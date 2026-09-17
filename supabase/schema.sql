@@ -1,5 +1,6 @@
 -- Mindaural v1 Supabase schema. Idempotent where practical.
-create extension if not exists pgcrypto;
+-- On Supabase, pgcrypto lives in the `extensions` schema (not public).
+create extension if not exists pgcrypto with schema extensions;
 
 create table if not exists public.profiles(
   id uuid primary key references auth.users(id) on delete cascade,
@@ -102,7 +103,7 @@ end $$;
 revoke all on function public.record_rate(text,int,int) from public;
 
 create or replace function public.create_share_link(p_project_version_id uuid,p_expires_at timestamptz default null)
-returns jsonb language plpgsql security definer set search_path=public as $$
+returns jsonb language plpgsql security definer set search_path=public,extensions as $$
 declare raw_token text; link_id uuid;
 begin
  perform public.record_rate('share',30,3600);
@@ -114,7 +115,7 @@ end $$;
 grant execute on function public.create_share_link(uuid,timestamptz) to authenticated;
 
 create or replace function public.resolve_share_link(p_token text)
-returns table(id uuid,project_id text,version integer,session jsonb,owner_public_signing_key text) language sql security definer set search_path=public as $$
+returns table(id uuid,project_id text,version integer,session jsonb,owner_public_signing_key text) language sql security definer set search_path=public,extensions as $$
  select v.id,v.project_id,v.version,v.session,p.public_signing_key from public.share_links l join public.project_versions v on v.id=l.project_version_id left join public.profiles p on p.id=v.owner_id
  where l.token_hash=digest(p_token,'sha256') and l.revoked_at is null and (l.expires_at is null or l.expires_at>now()) limit 1
 $$;
