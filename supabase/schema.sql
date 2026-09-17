@@ -1,5 +1,4 @@
--- Mindaural v1 Supabase schema. Idempotent where practical.
--- On Supabase, pgcrypto lives in the `extensions` schema (not public).
+-- Mindaural v1 Supabase schema. 
 create extension if not exists pgcrypto with schema extensions;
 
 create table if not exists public.profiles(
